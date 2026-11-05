@@ -1,0 +1,33 @@
+{
+	"version": 1,
+	"attributes": ["intelligence", "spirit", "cell_vitality", "nerve_reaction", "muscle", "immunity"],
+	"attribute_names": {
+		"intelligence": "智力",
+		"spirit": "精神力",
+		"cell_vitality": "细胞活力",
+		"nerve_reaction": "神经反应速度",
+		"muscle": "肌肉组织强度",
+		"immunity": "免疫力强度"
+	},
+	"human_baseline": 100,
+	"points_per_attribute": 10,
+	"derived": {
+		"hp_base": 40,
+		"hp_per_cell_vitality": 0.6,
+		"hp_per_muscle": 0.4
+	},
+	"gene_lock_effectiveness": [0.5, 0.7, 0.85, 0.95, 1.0, 1.0],
+	"settlement": {
+		"survival": 1000,
+		"explain_rules": 100,
+		"kill_newbie": -1000,
+		"leak_per_sentence": -10
+	},
+	"kill_reward": {
+		"zero_below_ratio": 0.05
+	},
+	"plot_tickets": {
+		"grades": ["D", "C", "B", "A", "S"],
+		"ratio": 3
+	}
+}
