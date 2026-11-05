@@ -1,0 +1,6 @@
+# 统一用 LF：bash 脚本遇到 CRLF 会报错，Godot 也推荐 LF
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ogg binary
+*.wav binary

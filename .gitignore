@@ -1,0 +1,16 @@
+# Godot
+game/.godot/
+game/export/
+game/build/
+*.tmp
+
+# 阅读材料里含原著片段，不进版本控制
+_work/chunks/
+_work/excerpts/
+_work/godot_probe/
+_work/plan_check/
+_work/*_raw.txt
+
+# 系统
+.DS_Store
+Thumbs.db

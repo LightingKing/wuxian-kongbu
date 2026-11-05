@@ -1,0 +1,41 @@
+# AGENTS.md：给 Codex 的项目约定
+
+本项目是以小说《无限恐怖》为蓝本的 2D 回合制同人游戏（个人项目，不公开发行）。引擎 Godot 4.7.2，语言 GDScript。
+
+## 先读这些
+- 设计规格：`docs/superpowers/specs/2026-11-05-wuxian-kongbu-game-design.md`
+- 核心机制分析：`docs/core-mechanics-analysis.md`
+- 全书摘要：`docs/novel-summary.md`
+
+## 你的任务从哪里来
+- 任务卡在 `docs/codex-tasks/NNN-*.md`，由用户交给你。**只修改任务卡"允许修改"一栏列出的文件和目录。**
+- 完成后，在任务卡末尾追加一节 `## 完成汇报`，写明：做了什么、改了哪些文件、怎么验证的、还有哪些问题。
+
+## 目录与所有权
+| 目录 | 维护者 | 说明 |
+|---|---|---|
+| `game/core/` | Claude | 纯规则层。不要修改，除非任务卡明确允许 |
+| `game/data/` | Claude | 规则与内容数据（JSON）。不要改格式 |
+| `game/tests/` | Claude | 无界面测试 |
+| `game/ui/` | Codex | 场景与界面 |
+| `game/art/`、`game/audio/` | Codex | 美术与音频资源 |
+| `game/tools/` | 双方 | 工具脚本，按任务卡分配 |
+| `_work/` | — | 阅读材料，含原著片段，**不要提交** |
+
+## 代码约定
+- Tab 缩进，snake_case 命名，尽量写静态类型。
+- `game/core/` 里不使用 `class_name`，一律用 `const X = preload("res://...")`。原因：无界面测试在不导入工程时，`class_name` 不会注册。`game/ui/` 里可以用 `class_name`。
+- 界面只订阅 core 返回的事件来播放表现，并把玩家的选择交回 core；不要在界面里写规则判断。
+- 文本用中文，通过 `tr()` 包装，为以后的翻译留口。
+
+## 界面约定
+- 基准分辨率 1920×1080，横屏，`canvas_items` 拉伸，保持宽高比。
+- PC（键鼠）和安卓（触屏）都要能操作；可点元素的触控尺寸不小于 48dp；没有悬停时用长按显示详情。
+
+## 美术约定
+- 日系动漫立绘风，场景偏暗，具体规范以 `docs/art/` 为准（风格试验通过后建立）。
+- 资源一律 PNG；角色、敌人、图标用透明背景。
+- 路径：`game/art/<类别>/<id>_<姿势或用途>.png`，例如 `game/art/characters/zheng_zha_idle.png`。
+
+## 验证
+- 任何改动完成后都要在仓库根目录运行 `bash game/tools/run_tests.sh`，全部通过才算完成。

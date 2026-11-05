@@ -1,0 +1,17 @@
+; Engine configuration file.
+; 由计划 1 创建。界面相关设置在后续计划中补充。
+config_version=5
+
+[application]
+config/name="无限恐怖"
+config/features=PackedStringArray("4.7")
+
+[display]
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
