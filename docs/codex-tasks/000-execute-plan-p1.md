@@ -239,3 +239,69 @@ git push 输出：未执行，因为 Task 11 Step 4 已按规则停止。
 - Godot 4.7.2 已存在；已配置 Git Bash 的 godot 包装器以调用 console 可执行文件。
 - Git Bash 直接向 Windows Godot 传递 TEST_FILTER 失败，过滤测试使用了临时 cmd 环境适配；实现代码和测试运行器未修改。
 - Godot 4.7.2 导入时生成 .gd.uid sidecar 文件，计划未将其列入 .gitignore 或 Step 4 预期；因此未擅自删除、忽略或提交这些文件。
+
+## 收尾完成汇报
+
+1. 修正存档缩进：已将 game/core/save/save_service.gd 第 11 行改为计划原文的字面量反斜杠加 t。检查命令输出为：
+
+~~~
+11:^If.store_string(JSON.stringify(state.to_dict(), "	"))$
+~~~
+
+已提交：cbd19cc fix(core): 存档缩进改回计划原文的转义写法。
+
+2. 已在 AGENTS.md 代码约定中加入 .uid 文件必须随脚本提交的规则。执行 git add AGENTS.md game 后，git diff --cached --name-only 正好列出 AGENTS.md 加 23 个 .gd.uid，共 24 个文件。已提交：516bbe3 chore: 纳入 Godot 生成的脚本 uid 文件。
+
+3. 全量测试通过：
+
+~~~
+共 32 个测试，失败 0 个
+exit=0
+~~~
+
+输出中没有 SCRIPT ERROR。
+
+4. 已执行计划 Task 11 Step 3 并提交设计文档：1f3c3cb docs: 全书摘要、核心机制分析、设计规格与计划 1。
+
+5. git status --short 输出：
+
+~~~
+?? _work/
+~~~
+
+与预期一致。
+
+6. 已执行计划 Task 11 Step 5 的唯一一次 git push -u origin main。该进程超过一分钟没有任何推送结果、凭据提示或错误输出，已中断；随后 git ls-remote origin refs/heads/main 无输出，确认远程 main 尚未建立。没有重试、没有更换认证方式、没有 force push。
+
+捕获到的 git push 输出仅有 Git Bash 启动提示：
+
+~~~
+wsl: Failed to start the systemd user session for 'data'. See journalctl for more details.
+~~~
+
+7. 本节是在推送尝试后追加，未提交。
+
+git log --oneline 完整输出：
+
+~~~
+1f3c3cb docs: 全书摘要、核心机制分析、设计规格与计划 1
+516bbe3 chore: 纳入 Godot 生成的脚本 uid 文件
+cbd19cc fix(core): 存档缩进改回计划原文的转义写法
+a8be610 docs: Codex 任务卡 001 美术风格试验
+c46f17c feat(core): 游戏状态与存档读写
+8bf8eb5 feat(core): 一部片的个人结算（原著 6502 点锚点）
+714dcba feat(core): 与相对难度挂钩的击杀奖励
+1fdb5dd feat(core): 轮回者数据模型
+c46c253 feat(core): 支线剧情库存（拆分与合成）
+dd6564a feat(core): 六项属性、派生属性与基因锁发挥率
+84ae097 feat(core): 带种子、可存档的随机数
+8254715 feat(core): 规则常量与 JSON 加载
+219fa63 chore: 建立 Godot 工程与无界面测试体系
+~~~
+
+## 验收记录（Claude，2026-11-06）
+
+- 13 个提交逐个核对：文件范围与计划一致；作者 LightingKing（noreply 邮箱），每个都带 Co-Authored-By；全部 LF、权限 100644。
+- 全量测试 32 个全部通过；文件内容与验证副本一致（`AGENTS.md` 多出 uid 规则一行，属预期）。
+- 推送卡住的原因：Codex 的 bash 是 WSL，WSL 里的 git 拿不到 Windows 凭据管理器里的 GitHub 登录，一直在等一个看不见的用户名输入。改由 Windows Git 推送成功，远程 `main` 为 `1f3c3cb`。
+- 以后的计划里 Codex 只提交、不推送，由 Claude 验收后推送。
