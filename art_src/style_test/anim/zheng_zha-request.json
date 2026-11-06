@@ -1,0 +1,42 @@
+{
+  "style": "Match the attached reference exactly: high-resolution hand-drawn Japanese anime illustration, clean outlines and cel shading. Preserve the same head-to-body ratio, palette, detail and clothing. This is painted illustration, not pixel art. Do not simplify into a mascot or change the face.",
+  "cell": {
+    "width": 512,
+    "height": 768,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24
+  },
+  "fit": {
+    "resample": "lanczos",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": false
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 4,
+      "loop": true,
+      "action": "A subtle low-ready idle breathing cycle: relaxed stance, chest rises slightly, gentle exhale, return to the initial low-ready stance. Feet and head position stable. Both hands keep holding ONE pistol lowered diagonally forward. Match the first and final breathing phase for a smooth loop. No leg steps, arm swings or aiming."
+    },
+    "attack": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "One clear pistol firing action: start from the supplied low-ready pose, bend elbows to lift the SAME pistol to aim, a brief shot indicated by slide recoil and arms recoiling slightly, then lower toward low-ready. Both hands hold ONE pistol throughout; right hand on grip and left hand supporting. No projectile, detached muzzle flash, smoke, speed lines or extra weapon. Feet remain planted, body height stays stable."
+    },
+    "hit": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "A readable single impact reaction: low-ready guard, torso recoils slightly backward with shoulders flinching, peak backward lean with knees flexed, then partial recovery to guarded balance. Both hands retain ONE pistol; no dropped weapon, no wounds or detached effects, feet stay grounded."
+    },
+    "down": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "One terminal collapse, not a recovery: begin in low-ready guard, knees buckle and body crouches, body tilts sideways and lowers toward the ground, final pose lies fully on the ground on his side with bent knees. Head and face still point toward the same side as in the reference. Keep one pistol attached to the right hand near the torso, no detached prop. Preserve anatomy, camera distance and body scale across poses; the fallen body may bend its knees to fit entirely within the frame. End lying down, do not stand back up."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "qa_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\qa",
+  "states": [
+    {
+      "state": "idle",
+      "ok": true,
+      "frames": 4,
+      "fps": 4,
+      "delay_ticks": 25,
+      "loop": true
+    },
+    {
+      "state": "attack",
+      "ok": true,
+      "frames": 4,
+      "fps": 8,
+      "delay_ticks": 12,
+      "loop": false
+    },
+    {
+      "state": "hit",
+      "ok": true,
+      "frames": 4,
+      "fps": 8,
+      "delay_ticks": 12,
+      "loop": false
+    },
+    {
+      "state": "death",
+      "ok": true,
+      "frames": 4,
+      "fps": 6,
+      "delay_ticks": 17,
+      "loop": false
+    }
+  ]
+}

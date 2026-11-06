@@ -1,0 +1,2503 @@
+{
+  "tool": "sprite-gen 3.15.0",
+  "characters": {
+    "zheng_zha": {
+      "files": [
+        {
+          "path": "game/art/style_test/anim/zheng_zha/sprite-sheet-alpha.png",
+          "bytes": 3012425,
+          "sha256": "494c1d58cbbe8077c3ebb11acf6bbb2ef5558cb9c94e56b5ae1f08fba3fc4fe5",
+          "size": [
+            3072,
+            3072
+          ],
+          "mode": "RGBA",
+          "frames": 1,
+          "alpha": {
+            "transparent": 8086968,
+            "partial": 92153,
+            "opaque": 1258063,
+            "bbox": [
+              250,
+              24,
+              3030,
+              3048
+            ]
+          }
+        },
+        {
+          "path": "game/art/style_test/anim/zheng_zha/manifest.json",
+          "bytes": 3491,
+          "sha256": "555aae4be755b58781e2c3e821c320faf9141778184ce363b8a780325782a5e1"
+        },
+        {
+          "path": "game/art/style_test/anim/zheng_zha/sprite_frames.tres",
+          "bytes": 3822,
+          "sha256": "6e8050cec580774b032eed5dee43b59aa05bea9279d0c3a5cf06eccf356a0413"
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/qa/attack.gif",
+          "bytes": 346844,
+          "sha256": "a02f70cd6cdac8c38dbdbb56f0a749fc662277e7f16ef6189602b256a70c6e8d",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": 1
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/qa/down.gif",
+          "bytes": 306407,
+          "sha256": "ee5bcefc8c9d27bef5dae50f12cae7192c6fda90450113d33341998b71799fb8",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": 1
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/qa/hit.gif",
+          "bytes": 344379,
+          "sha256": "bb97af90a7ecf838cd40b9d74dddbb024a5dfcd46319f80c26a4faa0b06b92ea",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": 1
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/qa/idle.gif",
+          "bytes": 332699,
+          "sha256": "130ae1bfec9bdcf8b8b49acc406aa3a2d0f2294819860924463c14b0bbbb883e",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            250,
+            250,
+            250,
+            250
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/previews/attack.gif",
+          "bytes": 346844,
+          "sha256": "a66eb85e9830dd61c295c226f85ffcc3f3b1c94468933a56124ca1e7365ec338",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/previews/down.gif",
+          "bytes": 306407,
+          "sha256": "7812482c1b173c7dd91a947c3826de3041dda0b5504b2bfeebc4dacadf1edd05",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/previews/hit.gif",
+          "bytes": 344379,
+          "sha256": "a1c92895c1a1bb47cceb309939a6f09028ef4bf9c9e1a35366f3cf373da2ce04",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/previews/idle.gif",
+          "bytes": 332699,
+          "sha256": "130ae1bfec9bdcf8b8b49acc406aa3a2d0f2294819860924463c14b0bbbb883e",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            250,
+            250,
+            250,
+            250
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/attack.png",
+          "bytes": 1621053,
+          "sha256": "469343c5293f6606685dc41f888fb897040c39dd324eab7a953193dedde285c4",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/attack.png.raw.png",
+          "bytes": 1621053,
+          "sha256": "469343c5293f6606685dc41f888fb897040c39dd324eab7a953193dedde285c4",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/down.png",
+          "bytes": 1540144,
+          "sha256": "8b1d0f120e4628ad9914729f525e3e8569f00db9312478f04224390ad22f940d",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/down.png.raw.png",
+          "bytes": 1540144,
+          "sha256": "8b1d0f120e4628ad9914729f525e3e8569f00db9312478f04224390ad22f940d",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/hit.png",
+          "bytes": 1564112,
+          "sha256": "4bcafd73a9c2b1a32314e6233455783f9f3f35ee65ec19284ea715a257d4e582",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/hit.png.raw.png",
+          "bytes": 1564112,
+          "sha256": "4bcafd73a9c2b1a32314e6233455783f9f3f35ee65ec19284ea715a257d4e582",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/idle.png",
+          "bytes": 1612415,
+          "sha256": "6d035ee0186c02124d0bc7ac91d4816ad3eaf0ccbbba5435e769f62776b5827a",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zheng_zha/raw/idle.png.raw.png",
+          "bytes": 1612415,
+          "sha256": "6d035ee0186c02124d0bc7ac91d4816ad3eaf0ccbbba5435e769f62776b5827a",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        }
+      ],
+      "states": {
+        "idle": {
+          "timing": {
+            "row": 0,
+            "frames": 4,
+            "fps": 4,
+            "durations_ms": [
+              250,
+              250,
+              250,
+              250
+            ],
+            "loop": true,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "idle",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/idle/frame-0.png",
+              "frames/idle/frame-1.png",
+              "frames/idle/frame-2.png",
+              "frames/idle/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 83607,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 83789,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 83210,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 83258,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/idle/frame-0.png",
+              "bytes": 188973,
+              "sha256": "15af705fc4ac268e9f125fa6f2ca98a9ee59faad4f1343a16d0ee5375064c57a",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 506217,
+                "partial": 6245,
+                "opaque": 77362,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/idle/frame-1.png",
+              "bytes": 189376,
+              "sha256": "1713a03e03dc2afead6eef9becebe7ca3f771c21332e8aa5f1ae776743664bfc",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 506035,
+                "partial": 6254,
+                "opaque": 77535,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/idle/frame-2.png",
+              "bytes": 188426,
+              "sha256": "6d2ffa83793126aff42c6ae3edf3319870039c7edde22a058a47078094195a9e",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 506614,
+                "partial": 6174,
+                "opaque": 77036,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/idle/frame-3.png",
+              "bytes": 188639,
+              "sha256": "adbf01305c988eee00853e780074783d577b8ab2e70bab71456bb2eed2047ad6",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 506566,
+                "partial": 6197,
+                "opaque": 77061,
+                "bbox": [
+                  260,
+                  24,
+                  538,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        "attack": {
+          "timing": {
+            "row": 1,
+            "frames": 4,
+            "fps": 8,
+            "durations_ms": [
+              125,
+              125,
+              125,
+              125
+            ],
+            "loop": false,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "attack",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/attack/frame-0.png",
+              "frames/attack/frame-1.png",
+              "frames/attack/frame-2.png",
+              "frames/attack/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 86016,
+                "bbox": [
+                  257,
+                  24,
+                  544,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 90297,
+                "bbox": [
+                  257,
+                  25,
+                  590,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 89237,
+                "bbox": [
+                  259,
+                  33,
+                  599,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 86243,
+                "bbox": [
+                  258,
+                  24,
+                  546,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/attack/frame-0.png",
+              "bytes": 194080,
+              "sha256": "8e795b6c7c6ce42ed483aca1555c38a2081a38b46a22638b93ecb2c8023c2243",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 503808,
+                "partial": 6153,
+                "opaque": 79863,
+                "bbox": [
+                  257,
+                  24,
+                  544,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/attack/frame-1.png",
+              "bytes": 203181,
+              "sha256": "2c3a2b2ef5a3cf5eede0d908caac1bebad8d1463e911ae8c5ba9ea326c3ef6c1",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 499527,
+                "partial": 6628,
+                "opaque": 83669,
+                "bbox": [
+                  257,
+                  25,
+                  590,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/attack/frame-2.png",
+              "bytes": 198208,
+              "sha256": "bd1d0645f9d6c5c2f01d246a31ccb3658d8cda56d0afbdf5d1408f6c0cd74c60",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 500587,
+                "partial": 6747,
+                "opaque": 82490,
+                "bbox": [
+                  259,
+                  33,
+                  599,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/attack/frame-3.png",
+              "bytes": 194420,
+              "sha256": "5cc90baa3a7578ebb2f7ee916876a4936b11fb2bf1e46984a40402e94d5971e8",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 503581,
+                "partial": 6231,
+                "opaque": 80012,
+                "bbox": [
+                  258,
+                  24,
+                  546,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        "hit": {
+          "timing": {
+            "row": 2,
+            "frames": 4,
+            "fps": 6,
+            "durations_ms": [
+              167,
+              167,
+              167,
+              167
+            ],
+            "loop": false,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "hit",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/hit/frame-0.png",
+              "frames/hit/frame-1.png",
+              "frames/hit/frame-2.png",
+              "frames/hit/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 86169,
+                "bbox": [
+                  256,
+                  30,
+                  543,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 87974,
+                "bbox": [
+                  255,
+                  33,
+                  538,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 93433,
+                "bbox": [
+                  219,
+                  67,
+                  545,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 86170,
+                "bbox": [
+                  256,
+                  37,
+                  545,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/hit/frame-0.png",
+              "bytes": 191445,
+              "sha256": "70d5c5fab5b0420f7e67c0e4c720738b7c2d8a0e1a6ce7bc4c224ee8af2fc2db",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 503655,
+                "partial": 5533,
+                "opaque": 80636,
+                "bbox": [
+                  256,
+                  30,
+                  543,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/hit/frame-1.png",
+              "bytes": 193469,
+              "sha256": "02353199036b1959173df4e9aae0cebcbba2b97bfe03f3526d17fffcffc00a26",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 501850,
+                "partial": 5602,
+                "opaque": 82372,
+                "bbox": [
+                  255,
+                  33,
+                  538,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/hit/frame-2.png",
+              "bytes": 204097,
+              "sha256": "0596777a6b991596527f2686bfc6c8263c542df4ede25cbd0a5938897ec1f363",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 496391,
+                "partial": 5904,
+                "opaque": 87529,
+                "bbox": [
+                  219,
+                  67,
+                  545,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/hit/frame-3.png",
+              "bytes": 191555,
+              "sha256": "d256f633452a72f3bd6fbe5990dc6ab4bdeb8141012cb9d2cb79f8f4821378f5",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 503654,
+                "partial": 5498,
+                "opaque": 80672,
+                "bbox": [
+                  256,
+                  37,
+                  545,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        "down": {
+          "timing": {
+            "row": 3,
+            "frames": 4,
+            "fps": 6,
+            "durations_ms": [
+              167,
+              167,
+              167,
+              167
+            ],
+            "loop": false,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "down",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/down/frame-0.png",
+              "frames/down/frame-1.png",
+              "frames/down/frame-2.png",
+              "frames/down/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 83899,
+                "bbox": [
+                  250,
+                  45,
+                  548,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 85331,
+                "bbox": [
+                  265,
+                  134,
+                  550,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 79689,
+                "bbox": [
+                  241,
+                  304,
+                  622,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 61894,
+                "bbox": [
+                  251,
+                  540,
+                  726,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/down/frame-0.png",
+              "bytes": 189616,
+              "sha256": "beac47fae8896d42b9624b093a33d0dff4b837c71fd39b89758f578266d87ce1",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 505925,
+                "partial": 5605,
+                "opaque": 78294,
+                "bbox": [
+                  250,
+                  45,
+                  548,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/down/frame-1.png",
+              "bytes": 197031,
+              "sha256": "507526ee852d688da83d8b5573ee4164317398f11c1bc33870c95d762ef03f3c",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 504493,
+                "partial": 5603,
+                "opaque": 79728,
+                "bbox": [
+                  265,
+                  134,
+                  550,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/down/frame-2.png",
+              "bytes": 177389,
+              "sha256": "d5428699b2fc75203ff9394b3e65f41da08489dbd44509b8079573fa9adfebec",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 510135,
+                "partial": 4344,
+                "opaque": 75345,
+                "bbox": [
+                  241,
+                  304,
+                  622,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zheng_zha/frames/down/frame-3.png",
+              "bytes": 135082,
+              "sha256": "f826672a8e25fa5de93e471578a3c1bc558bfca006f4ea2b426966e7c2b7a9db",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 527930,
+                "partial": 3435,
+                "opaque": 58459,
+                "bbox": [
+                  251,
+                  540,
+                  726,
+                  744
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "generation": [
+        {
+          "report": "art_src/style_test/anim/zheng_zha/reports/gen-set/attack.json",
+          "seconds": 139.868,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "right",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "right",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "right",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        },
+        {
+          "report": "art_src/style_test/anim/zheng_zha/reports/gen-set/down.json",
+          "seconds": 163.433,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "right",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "right",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "right",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        },
+        {
+          "report": "art_src/style_test/anim/zheng_zha/reports/gen-set/hit.json",
+          "seconds": 162.83,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "right",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "right",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "right",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        },
+        {
+          "report": "art_src/style_test/anim/zheng_zha/reports/gen-set/idle.json",
+          "seconds": 120.705,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "right",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "right",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "right",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        }
+      ],
+      "batch_clock": {
+        "method": "Fresh log creation to native batch report modification, filesystem observed",
+        "start_utc": "2026-11-06T07:23:21.509328+00:00",
+        "end_utc": "2026-11-06T07:33:38.730807+00:00",
+        "seconds": 617.221
+      }
+    },
+    "zombie_scientist": {
+      "files": [
+        {
+          "path": "game/art/style_test/anim/zombie_scientist/sprite-sheet-alpha.png",
+          "bytes": 4964382,
+          "sha256": "c58ef054c8d6c9252164475ab18e469b94f4d7caff043a5ad69ca7135586554e",
+          "size": [
+            3072,
+            3072
+          ],
+          "mode": "RGBA",
+          "frames": 1,
+          "alpha": {
+            "transparent": 7537730,
+            "partial": 95085,
+            "opaque": 1804369,
+            "bbox": [
+              117,
+              33,
+              2921,
+              3048
+            ]
+          }
+        },
+        {
+          "path": "game/art/style_test/anim/zombie_scientist/manifest.json",
+          "bytes": 3498,
+          "sha256": "8fdd90ab2eee5ada2c3f0faea0bea756c1ead58408295aa7f38b71788bcd9bfb"
+        },
+        {
+          "path": "game/art/style_test/anim/zombie_scientist/sprite_frames.tres",
+          "bytes": 3822,
+          "sha256": "a79012ead4e5c409b0363b0acdb812e0fb6da501dc734a1d1640a5a4d4d624ad"
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/qa/attack.gif",
+          "bytes": 479595,
+          "sha256": "02fc61b2dcbd5bc76035952f78e726cf275711e780cd355588d78185926e6625",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": 1
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/qa/death.gif",
+          "bytes": 413444,
+          "sha256": "48d5e66dc8473f49ff60d0e5dc9439f15f197d1a8dbd9e02657f7c75ce97f197",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": 1
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/qa/hit.gif",
+          "bytes": 558002,
+          "sha256": "ee4a8486a0ab46e31ff1590993c73b4764121727e96d5b9534b9b64b6c3554c0",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": 1
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/qa/idle.gif",
+          "bytes": 562419,
+          "sha256": "0697de3eaa0835c03b74416abfc854b34f3a245d451311d48429ce2bba6bb28e",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            250,
+            250,
+            250,
+            250
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/gifs/attack.gif",
+          "bytes": 479595,
+          "sha256": "2fb5414c23658b9d77a1f590c1ddf75740343625d783a2e23747c10eaa8befd4",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/gifs/death.gif",
+          "bytes": 413444,
+          "sha256": "0fb2a65f50cc8384e9c414618c302b382eb4379d1fd7d426ea54838161995304",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            160,
+            160,
+            160,
+            160
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/gifs/hit.gif",
+          "bytes": 558002,
+          "sha256": "8eecc8f927fdcda1bbc93cd7fa817b8c23bfe57ac26d8074caf5194f18f41566",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            120,
+            120,
+            120,
+            120
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/gifs/idle.gif",
+          "bytes": 562419,
+          "sha256": "0697de3eaa0835c03b74416abfc854b34f3a245d451311d48429ce2bba6bb28e",
+          "size": [
+            768,
+            768
+          ],
+          "mode": "P",
+          "frames": 4,
+          "durations_ms": [
+            250,
+            250,
+            250,
+            250
+          ],
+          "loop": 0
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/attack.png",
+          "bytes": 1919581,
+          "sha256": "fd370ba55f112ddefd6d185029ee54a442d19af7082cf7ef983cf02b640f2dd3",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/attack.png.raw.png",
+          "bytes": 1919581,
+          "sha256": "fd370ba55f112ddefd6d185029ee54a442d19af7082cf7ef983cf02b640f2dd3",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/death.png",
+          "bytes": 1804559,
+          "sha256": "70e53ee3feeca0533fc2a9c8296c3f0caa9d9e041a1bb75932c7e0bd3e79c519",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/death.png.raw.png",
+          "bytes": 1804559,
+          "sha256": "70e53ee3feeca0533fc2a9c8296c3f0caa9d9e041a1bb75932c7e0bd3e79c519",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/hit.png",
+          "bytes": 1963025,
+          "sha256": "191de8a1b0a8bcd9958998ff405b167aa05e99360e81e61f9d337d95a9dbda29",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/hit.png.raw.png",
+          "bytes": 1963025,
+          "sha256": "191de8a1b0a8bcd9958998ff405b167aa05e99360e81e61f9d337d95a9dbda29",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/idle.png",
+          "bytes": 1961992,
+          "sha256": "8d2b64911ac0192d20439a9a4b68488a42a7eab4afdd0d93a0fc11229c0fa99d",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/raw/idle.png.raw.png",
+          "bytes": 1961992,
+          "sha256": "8d2b64911ac0192d20439a9a4b68488a42a7eab4afdd0d93a0fc11229c0fa99d",
+          "size": [
+            2048,
+            768
+          ],
+          "mode": "RGB",
+          "frames": 1,
+          "alpha": {
+            "transparent": 0,
+            "partial": 0,
+            "opaque": 1572864,
+            "bbox": [
+              0,
+              0,
+              2048,
+              768
+            ]
+          }
+        }
+      ],
+      "states": {
+        "idle": {
+          "timing": {
+            "row": 0,
+            "frames": 4,
+            "fps": 4,
+            "durations_ms": [
+              250,
+              250,
+              250,
+              250
+            ],
+            "loop": true,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 0,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "idle",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/idle/frame-0.png",
+              "frames/idle/frame-1.png",
+              "frames/idle/frame-2.png",
+              "frames/idle/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 134922,
+                "bbox": [
+                  155,
+                  60,
+                  577,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 131033,
+                "bbox": [
+                  166,
+                  33,
+                  578,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 135479,
+                "bbox": [
+                  145,
+                  74,
+                  576,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 134690,
+                "bbox": [
+                  156,
+                  63,
+                  577,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-0.png",
+              "bytes": 338778,
+              "sha256": "9bb4c26caf155d5d5dfb48a8282c1767040b24281ee82844fe100f07db002837",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 454902,
+                "partial": 6524,
+                "opaque": 128398,
+                "bbox": [
+                  155,
+                  60,
+                  577,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-1.png",
+              "bytes": 333779,
+              "sha256": "f179311058f6f06adc61c2bddd318ea1b4fcb7b482a6881b911b7500f5f434fa",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 458791,
+                "partial": 6412,
+                "opaque": 124621,
+                "bbox": [
+                  166,
+                  33,
+                  578,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-2.png",
+              "bytes": 342417,
+              "sha256": "02cd0b20a94f33e0c2d175036beaca85f532b310e692ce393215113736eab05d",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 454345,
+                "partial": 6482,
+                "opaque": 128997,
+                "bbox": [
+                  145,
+                  74,
+                  576,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-3.png",
+              "bytes": 338163,
+              "sha256": "2e6c50b5e6fefa44c32ced471d4073974da966ea94337045159c10eedbbe694b",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 455134,
+                "partial": 6398,
+                "opaque": 128292,
+                "bbox": [
+                  156,
+                  63,
+                  577,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        "attack": {
+          "timing": {
+            "row": 1,
+            "frames": 4,
+            "fps": 8,
+            "durations_ms": [
+              125,
+              125,
+              125,
+              125
+            ],
+            "loop": false,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 768,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "attack",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/attack/frame-0.png",
+              "frames/attack/frame-1.png",
+              "frames/attack/frame-2.png",
+              "frames/attack/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 108596,
+                "bbox": [
+                  206,
+                  214,
+                  547,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 112535,
+                "bbox": [
+                  135,
+                  139,
+                  595,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 123032,
+                "bbox": [
+                  57,
+                  219,
+                  647,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 108748,
+                "bbox": [
+                  198,
+                  170,
+                  551,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-0.png",
+              "bytes": 293873,
+              "sha256": "629c6248cab62e33503fbf6a8f6cfa617707f964320fa2b841156a25915e5edf",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 481228,
+                "partial": 5536,
+                "opaque": 103060,
+                "bbox": [
+                  206,
+                  214,
+                  547,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-1.png",
+              "bytes": 306894,
+              "sha256": "0d685479e0072dbd58f5b65663fff5013f45c89eca73ac3afa41c04aabbc18f0",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 477289,
+                "partial": 6606,
+                "opaque": 105929,
+                "bbox": [
+                  135,
+                  139,
+                  595,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-2.png",
+              "bytes": 324263,
+              "sha256": "84e48e843e2fdfebd467529ea8cac7564ecbf7149940fff519197517f6a811e9",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 466792,
+                "partial": 6667,
+                "opaque": 116365,
+                "bbox": [
+                  57,
+                  219,
+                  647,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-3.png",
+              "bytes": 294105,
+              "sha256": "1cc4d09466618a0b74807877c8a31ba25ffaab5d93420be5a8abd6f7668a4ca3",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 481076,
+                "partial": 5709,
+                "opaque": 103039,
+                "bbox": [
+                  198,
+                  170,
+                  551,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        "hit": {
+          "timing": {
+            "row": 2,
+            "frames": 4,
+            "fps": 8,
+            "durations_ms": [
+              125,
+              125,
+              125,
+              125
+            ],
+            "loop": false,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 1536,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "hit",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/hit/frame-0.png",
+              "frames/hit/frame-1.png",
+              "frames/hit/frame-2.png",
+              "frames/hit/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 129712,
+                "bbox": [
+                  117,
+                  95,
+                  578,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 132064,
+                "bbox": [
+                  172,
+                  45,
+                  566,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 138749,
+                "bbox": [
+                  150,
+                  138,
+                  558,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 130282,
+                "bbox": [
+                  167,
+                  156,
+                  560,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-0.png",
+              "bytes": 331431,
+              "sha256": "9f6c1738ef06031a3e8223f07e335d963c27e6bc199a032de14b0f049088f491",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 460112,
+                "partial": 7121,
+                "opaque": 122591,
+                "bbox": [
+                  117,
+                  95,
+                  578,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-1.png",
+              "bytes": 346955,
+              "sha256": "82415da90c4d5fab24bba51a393e08fc5073dc3f795165c6c095da82311d2afb",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 457760,
+                "partial": 7026,
+                "opaque": 125038,
+                "bbox": [
+                  172,
+                  45,
+                  566,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-2.png",
+              "bytes": 349175,
+              "sha256": "bbdb8b6075920891b14e75aa971afcdfbf32767668e54e533b22e348a6233014",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 451075,
+                "partial": 6071,
+                "opaque": 132678,
+                "bbox": [
+                  150,
+                  138,
+                  558,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-3.png",
+              "bytes": 328598,
+              "sha256": "0bfec8fbd4b833a947cce1e9eb8508d82113cd21f41c54b489e24ebb3be92c2b",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 459542,
+                "partial": 6382,
+                "opaque": 123900,
+                "bbox": [
+                  167,
+                  156,
+                  560,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        "death": {
+          "timing": {
+            "row": 3,
+            "frames": 4,
+            "fps": 6,
+            "durations_ms": [
+              167,
+              167,
+              167,
+              167
+            ],
+            "loop": false,
+            "frame_variant": "pixel"
+          },
+          "rectangles": [
+            {
+              "x": 0,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 768,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 1536,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            },
+            {
+              "x": 2304,
+              "y": 2304,
+              "w": 768,
+              "h": 768
+            }
+          ],
+          "extraction": {
+            "state": "death",
+            "frames": 4,
+            "method": "components",
+            "files": [
+              "frames/death/frame-0.png",
+              "frames/death/frame-1.png",
+              "frames/death/frame-2.png",
+              "frames/death/frame-3.png"
+            ],
+            "frame_records": [
+              {
+                "index": 0,
+                "nontransparent_pixels": 113940,
+                "bbox": [
+                  127,
+                  152,
+                  569,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 1,
+                "nontransparent_pixels": 109063,
+                "bbox": [
+                  132,
+                  250,
+                  576,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 2,
+                "nontransparent_pixels": 94352,
+                "bbox": [
+                  111,
+                  404,
+                  584,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              },
+              {
+                "index": 3,
+                "nontransparent_pixels": 62257,
+                "bbox": [
+                  130,
+                  561,
+                  617,
+                  744
+                ],
+                "edge_pixels": 0,
+                "chroma_adjacent_pixels": 0
+              }
+            ],
+            "ok": true,
+            "engine_revision": "db8ab1c245df"
+          },
+          "frames": [
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-0.png",
+              "bytes": 307107,
+              "sha256": "073f7bb434115b7f60090c509c379091d8e33e0ddfabe9da29f8bb069bb8ee69",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 475884,
+                "partial": 6166,
+                "opaque": 107774,
+                "bbox": [
+                  127,
+                  152,
+                  569,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-1.png",
+              "bytes": 292884,
+              "sha256": "ce014f8ca8f418ba792da7b92c642eff1e425c189dcd16b5d7516e0af8ef5271",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 480761,
+                "partial": 5657,
+                "opaque": 103406,
+                "bbox": [
+                  132,
+                  250,
+                  576,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-2.png",
+              "bytes": 253129,
+              "sha256": "a18a5f2c7217b15162abbfd3b3f6f91f9b53127e209446f11fdd2aa152ca38ed",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 495472,
+                "partial": 3852,
+                "opaque": 90500,
+                "bbox": [
+                  111,
+                  404,
+                  584,
+                  744
+                ]
+              }
+            },
+            {
+              "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-3.png",
+              "bytes": 167499,
+              "sha256": "68e4110085747600157f6dba2172e3e2250d63110b6f450641561b39405ff0da",
+              "size": [
+                768,
+                768
+              ],
+              "mode": "RGBA",
+              "frames": 1,
+              "alpha": {
+                "transparent": 527567,
+                "partial": 2476,
+                "opaque": 59781,
+                "bbox": [
+                  130,
+                  561,
+                  617,
+                  744
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "generation": [
+        {
+          "report": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/attack.json",
+          "seconds": 164.653,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "left",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "left",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "left",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        },
+        {
+          "report": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/death.json",
+          "seconds": 173.747,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "left",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "left",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "left",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        },
+        {
+          "report": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/hit.json",
+          "seconds": 148.769,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "left",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "requested": "left",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "left",
+            "final_direction_source": "observation",
+            "reason": "already-matched"
+          }
+        },
+        {
+          "report": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/idle.json",
+          "seconds": 152.974,
+          "facing": {
+            "transport": "codex-exec",
+            "auth_source": "codex-login",
+            "direction": "unknown",
+            "confidence": 0.99,
+            "confidence_source": "model-self-report",
+            "model": null,
+            "reason": "vision-uncertain",
+            "requested": "left",
+            "fix": "regen",
+            "action": "none",
+            "final_direction": "unknown",
+            "final_direction_source": "observation"
+          }
+        }
+      ],
+      "batch_clock": {
+        "method": "Fresh log creation to native batch report modification, filesystem observed",
+        "start_utc": "2026-11-06T07:26:23.172364+00:00",
+        "end_utc": "2026-11-06T07:36:20.139045+00:00",
+        "seconds": 596.967
+      }
+    }
+  },
+  "references": [
+    {
+      "path": "game/art/style_test/zheng_zha_battle_idle.png",
+      "bytes": 193242,
+      "sha256": "442669997ae5f46aa2660c37c82aaf06eca51d0ef82913585b6fc6ede9fbc1b2",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "frames": 1,
+      "alpha": {
+        "transparent": 299100,
+        "partial": 10048,
+        "opaque": 84068,
+        "bbox": [
+          112,
+          2,
+          399,
+          766
+        ]
+      }
+    },
+    {
+      "path": "game/art/style_test/zombie_scientist_attack.png",
+      "bytes": 377426,
+      "sha256": "5152d846182aae3303a3df0330d402a309fc93fb7215da033681e8f336741088",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "frames": 1,
+      "alpha": {
+        "transparent": 230875,
+        "partial": 16845,
+        "opaque": 145496,
+        "bbox": [
+          2,
+          47,
+          510,
+          766
+        ]
+      }
+    }
+  ],
+  "godot_captures": [
+    {
+      "path": "art_src/style_test/anim/godot-preview.png",
+      "bytes": 484161,
+      "sha256": "e174d3303e0c1e1c25bc18e8581f97b9fe086ae49048de68579d58f81d2bae3c",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGBA",
+      "frames": 1,
+      "alpha": {
+        "transparent": 0,
+        "partial": 0,
+        "opaque": 2073600,
+        "bbox": [
+          0,
+          0,
+          1920,
+          1080
+        ]
+      }
+    }
+  ]
+}

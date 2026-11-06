@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "death"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "errors": [],
+  "warnings": []
+}

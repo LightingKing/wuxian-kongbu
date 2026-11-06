@@ -1,0 +1,71 @@
+{
+  "kind": "sprite-gen-gen-set-report",
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "death"
+  ],
+  "ok": 4,
+  "failed": [],
+  "not_started": [],
+  "items": [
+    {
+      "state": "idle",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\raw\\idle.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\reports\\gen-set\\idle.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\references\\layout-guides\\idle.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 407.9,
+      "ok": true
+    },
+    {
+      "state": "attack",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\raw\\attack.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\reports\\gen-set\\attack.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\references\\layout-guides\\attack.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 201.0,
+      "ok": true
+    },
+    {
+      "state": "hit",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\raw\\hit.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\reports\\gen-set\\hit.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\references\\layout-guides\\hit.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 184.6,
+      "ok": true
+    },
+    {
+      "state": "death",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\raw\\death.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\reports\\gen-set\\death.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\references\\layout-guides\\death.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 211.1,
+      "ok": true
+    }
+  ]
+}

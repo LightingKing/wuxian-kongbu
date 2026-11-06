@@ -1,0 +1,199 @@
+{
+  "characterId": "zheng_zha",
+  "engine": "component-row",
+  "game_input": "sprite-sheet-alpha.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sprite-sheet-alpha.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": "base-source.png",
+  "cell": {
+    "shape": "rect",
+    "width": 768,
+    "height": 768,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 768,
+    "cellHeight": 768,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "attack": {
+        "row": 1,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "hit": {
+        "row": 2,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "down": {
+        "row": 3,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 3072,
+    "sheetHeight": 3072,
+    "cellWidth": 768,
+    "cellHeight": 768,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 1536,
+          "y": 0,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 2304,
+          "y": 0,
+          "w": 768,
+          "h": 768
+        }
+      ],
+      "attack": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 768,
+          "y": 768,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 1536,
+          "y": 768,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 2304,
+          "y": 768,
+          "w": 768,
+          "h": 768
+        }
+      ],
+      "hit": [
+        {
+          "x": 0,
+          "y": 1536,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 768,
+          "y": 1536,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 1536,
+          "y": 1536,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 2304,
+          "y": 1536,
+          "w": 768,
+          "h": 768
+        }
+      ],
+      "down": [
+        {
+          "x": 0,
+          "y": 2304,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 768,
+          "y": 2304,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 1536,
+          "y": 2304,
+          "w": 768,
+          "h": 768
+        },
+        {
+          "x": 2304,
+          "y": 2304,
+          "w": 768,
+          "h": 768
+        }
+      ]
+    }
+  }
+}

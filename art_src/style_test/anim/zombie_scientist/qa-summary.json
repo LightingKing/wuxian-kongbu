@@ -1,0 +1,825 @@
+{
+  "kind": "zombie-scientist-animation-qa",
+  "automated_checks_passed": true,
+  "row_generation_calls": 4,
+  "generation_batches": 1,
+  "concurrency": 2,
+  "row_regenerations": 0,
+  "extract_runs": 2,
+  "generation_cell": {
+    "width": 512,
+    "height": 768,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24
+  },
+  "final_cell": {
+    "shape": "square",
+    "width": 768,
+    "height": 768,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24
+  },
+  "pixel_unfake": false,
+  "batch_clock": {
+    "method": "Fresh generation-log creation to native set-report modification; filesystem observed wall time, not sum of parallel rows.",
+    "start_utc": "2026-11-06T07:26:23.172364+00:00",
+    "end_utc": "2026-11-06T07:36:20.139045+00:00",
+    "elapsed_seconds": 596.967
+  },
+  "native_inspect_thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "native_inspect_errors": [],
+  "native_inspect_warnings": [],
+  "native_score": 100.0,
+  "source": {
+    "path": "art_src/style_test/anim/zombie_scientist/run/base-source.png",
+    "sha256": "5152d846182aae3303a3df0330d402a309fc93fb7215da033681e8f336741088",
+    "bytes": 377426
+  },
+  "finals": [
+    {
+      "path": "game/art/style_test/anim/zombie_scientist/sprite-sheet-alpha.png",
+      "sha256": "c58ef054c8d6c9252164475ab18e469b94f4d7caff043a5ad69ca7135586554e",
+      "bytes": 4964382
+    },
+    {
+      "path": "game/art/style_test/anim/zombie_scientist/manifest.json",
+      "sha256": "8fdd90ab2eee5ada2c3f0faea0bea756c1ead58408295aa7f38b71788bcd9bfb",
+      "bytes": 3498
+    }
+  ],
+  "states": [
+    {
+      "state": "idle",
+      "row_generation_calls": 1,
+      "gen_set_elapsed_seconds": 407.9,
+      "image_report_elapsed_seconds": 152.974,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "unknown",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "reason": "vision-uncertain",
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "unknown",
+        "final_direction_source": "observation"
+      },
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/raw/idle.png",
+        "sha256": "8d2b64911ac0192d20439a9a4b68488a42a7eab4afdd0d93a0fc11229c0fa99d",
+        "bytes": 1961992
+      },
+      "generation_report": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/idle.json",
+        "sha256": "be8eb30b84198c2650258fc72abdca7c376e29ed35e2a6b964ae6c0e87813ca5",
+        "bytes": 8925
+      },
+      "prompt": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/prompts/idle.txt",
+        "sha256": "87328454144d1f19e380141477f1c6cbd09323300e90c4f6ca54eb12aa10192a",
+        "bytes": 6225
+      },
+      "runtime": {
+        "row": 0,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 134922,
+          "bbox": [
+            155,
+            60,
+            577,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 131033,
+          "bbox": [
+            166,
+            33,
+            578,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 135479,
+          "bbox": [
+            145,
+            74,
+            576,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 134690,
+          "bbox": [
+            156,
+            63,
+            577,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "frames": [
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-0.png",
+          "sha256": "9bb4c26caf155d5d5dfb48a8282c1767040b24281ee82844fe100f07db002837",
+          "bytes": 338778,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            155,
+            60,
+            577,
+            744
+          ],
+          "transparent_pixels": 454902,
+          "partial_alpha_pixels": 6524,
+          "opaque_pixels": 128398
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-1.png",
+          "sha256": "f179311058f6f06adc61c2bddd318ea1b4fcb7b482a6881b911b7500f5f434fa",
+          "bytes": 333779,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            166,
+            33,
+            578,
+            744
+          ],
+          "transparent_pixels": 458791,
+          "partial_alpha_pixels": 6412,
+          "opaque_pixels": 124621
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-2.png",
+          "sha256": "02cd0b20a94f33e0c2d175036beaca85f532b310e692ce393215113736eab05d",
+          "bytes": 342417,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            145,
+            74,
+            576,
+            744
+          ],
+          "transparent_pixels": 454345,
+          "partial_alpha_pixels": 6482,
+          "opaque_pixels": 128997
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/idle/frame-3.png",
+          "sha256": "2e6c50b5e6fefa44c32ced471d4073974da966ea94337045159c10eedbbe694b",
+          "bytes": 338163,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            156,
+            63,
+            577,
+            744
+          ],
+          "transparent_pixels": 455134,
+          "partial_alpha_pixels": 6398,
+          "opaque_pixels": 128292
+        }
+      ],
+      "qa_gif": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/qa/idle.gif",
+        "sha256": "0697de3eaa0835c03b74416abfc854b34f3a245d451311d48429ce2bba6bb28e",
+        "bytes": 562419,
+        "size": [
+          768,
+          768
+        ],
+        "frames": 4
+      }
+    },
+    {
+      "state": "attack",
+      "row_generation_calls": 1,
+      "gen_set_elapsed_seconds": 201.0,
+      "image_report_elapsed_seconds": 164.653,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/raw/attack.png",
+        "sha256": "fd370ba55f112ddefd6d185029ee54a442d19af7082cf7ef983cf02b640f2dd3",
+        "bytes": 1919581
+      },
+      "generation_report": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/attack.json",
+        "sha256": "59374a6a889118c244c288a180f0de4723b910e0f451f2be9ed709cb7257842f",
+        "bytes": 8898
+      },
+      "prompt": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/prompts/attack.txt",
+        "sha256": "f04de87c14caeb0e0a79d16714b923ef0c598accf10ab49e880481bf71713934",
+        "bytes": 6199
+      },
+      "runtime": {
+        "row": 1,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 108596,
+          "bbox": [
+            206,
+            214,
+            547,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 112535,
+          "bbox": [
+            135,
+            139,
+            595,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 123032,
+          "bbox": [
+            57,
+            219,
+            647,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 108748,
+          "bbox": [
+            198,
+            170,
+            551,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "frames": [
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-0.png",
+          "sha256": "629c6248cab62e33503fbf6a8f6cfa617707f964320fa2b841156a25915e5edf",
+          "bytes": 293873,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            206,
+            214,
+            547,
+            744
+          ],
+          "transparent_pixels": 481228,
+          "partial_alpha_pixels": 5536,
+          "opaque_pixels": 103060
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-1.png",
+          "sha256": "0d685479e0072dbd58f5b65663fff5013f45c89eca73ac3afa41c04aabbc18f0",
+          "bytes": 306894,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            135,
+            139,
+            595,
+            744
+          ],
+          "transparent_pixels": 477289,
+          "partial_alpha_pixels": 6606,
+          "opaque_pixels": 105929
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-2.png",
+          "sha256": "84e48e843e2fdfebd467529ea8cac7564ecbf7149940fff519197517f6a811e9",
+          "bytes": 324263,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            57,
+            219,
+            647,
+            744
+          ],
+          "transparent_pixels": 466792,
+          "partial_alpha_pixels": 6667,
+          "opaque_pixels": 116365
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/attack/frame-3.png",
+          "sha256": "1cc4d09466618a0b74807877c8a31ba25ffaab5d93420be5a8abd6f7668a4ca3",
+          "bytes": 294105,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            198,
+            170,
+            551,
+            744
+          ],
+          "transparent_pixels": 481076,
+          "partial_alpha_pixels": 5709,
+          "opaque_pixels": 103039
+        }
+      ],
+      "qa_gif": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/qa/attack.gif",
+        "sha256": "02fc61b2dcbd5bc76035952f78e726cf275711e780cd355588d78185926e6625",
+        "bytes": 479595,
+        "size": [
+          768,
+          768
+        ],
+        "frames": 4
+      }
+    },
+    {
+      "state": "hit",
+      "row_generation_calls": 1,
+      "gen_set_elapsed_seconds": 184.6,
+      "image_report_elapsed_seconds": 148.769,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/raw/hit.png",
+        "sha256": "191de8a1b0a8bcd9958998ff405b167aa05e99360e81e61f9d337d95a9dbda29",
+        "bytes": 1963025
+      },
+      "generation_report": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/hit.json",
+        "sha256": "d0d9f6a8ffda8550ff16d7dbe7e355f3715f0c77d9ced273071192f8e46fbcc9",
+        "bytes": 8816
+      },
+      "prompt": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/prompts/hit.txt",
+        "sha256": "afdfb5b8cef086f626f980dc5e99ae6afa11f462a38e115199f1773aace0c255",
+        "bytes": 6126
+      },
+      "runtime": {
+        "row": 2,
+        "frames": 4,
+        "fps": 8,
+        "durations_ms": [
+          125,
+          125,
+          125,
+          125
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 129712,
+          "bbox": [
+            117,
+            95,
+            578,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 132064,
+          "bbox": [
+            172,
+            45,
+            566,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 138749,
+          "bbox": [
+            150,
+            138,
+            558,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 130282,
+          "bbox": [
+            167,
+            156,
+            560,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "frames": [
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-0.png",
+          "sha256": "9f6c1738ef06031a3e8223f07e335d963c27e6bc199a032de14b0f049088f491",
+          "bytes": 331431,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            117,
+            95,
+            578,
+            744
+          ],
+          "transparent_pixels": 460112,
+          "partial_alpha_pixels": 7121,
+          "opaque_pixels": 122591
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-1.png",
+          "sha256": "82415da90c4d5fab24bba51a393e08fc5073dc3f795165c6c095da82311d2afb",
+          "bytes": 346955,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            172,
+            45,
+            566,
+            744
+          ],
+          "transparent_pixels": 457760,
+          "partial_alpha_pixels": 7026,
+          "opaque_pixels": 125038
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-2.png",
+          "sha256": "bbdb8b6075920891b14e75aa971afcdfbf32767668e54e533b22e348a6233014",
+          "bytes": 349175,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            150,
+            138,
+            558,
+            744
+          ],
+          "transparent_pixels": 451075,
+          "partial_alpha_pixels": 6071,
+          "opaque_pixels": 132678
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/hit/frame-3.png",
+          "sha256": "0bfec8fbd4b833a947cce1e9eb8508d82113cd21f41c54b489e24ebb3be92c2b",
+          "bytes": 328598,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            167,
+            156,
+            560,
+            744
+          ],
+          "transparent_pixels": 459542,
+          "partial_alpha_pixels": 6382,
+          "opaque_pixels": 123900
+        }
+      ],
+      "qa_gif": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/qa/hit.gif",
+        "sha256": "ee4a8486a0ab46e31ff1590993c73b4764121727e96d5b9534b9b64b6c3554c0",
+        "bytes": 558002,
+        "size": [
+          768,
+          768
+        ],
+        "frames": 4
+      }
+    },
+    {
+      "state": "death",
+      "row_generation_calls": 1,
+      "gen_set_elapsed_seconds": 211.1,
+      "image_report_elapsed_seconds": 173.747,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/raw/death.png",
+        "sha256": "70e53ee3feeca0533fc2a9c8296c3f0caa9d9e041a1bb75932c7e0bd3e79c519",
+        "bytes": 1804559
+      },
+      "generation_report": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/reports/gen-set/death.json",
+        "sha256": "e404913288cad0b6309842cd7f141d1c873e6ca558cdcaa5a73e7d73a5aedd0c",
+        "bytes": 9017
+      },
+      "prompt": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/prompts/death.txt",
+        "sha256": "9ff027311ff633944bed6cbe1d84c12f0fac82e0076350c01f1a5775c72a5f33",
+        "bytes": 6321
+      },
+      "runtime": {
+        "row": 3,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "frame_records": [
+        {
+          "index": 0,
+          "nontransparent_pixels": 113940,
+          "bbox": [
+            127,
+            152,
+            569,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 1,
+          "nontransparent_pixels": 109063,
+          "bbox": [
+            132,
+            250,
+            576,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 2,
+          "nontransparent_pixels": 94352,
+          "bbox": [
+            111,
+            404,
+            584,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        },
+        {
+          "index": 3,
+          "nontransparent_pixels": 62257,
+          "bbox": [
+            130,
+            561,
+            617,
+            744
+          ],
+          "edge_pixels": 0,
+          "chroma_adjacent_pixels": 0
+        }
+      ],
+      "frames": [
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-0.png",
+          "sha256": "073f7bb434115b7f60090c509c379091d8e33e0ddfabe9da29f8bb069bb8ee69",
+          "bytes": 307107,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            127,
+            152,
+            569,
+            744
+          ],
+          "transparent_pixels": 475884,
+          "partial_alpha_pixels": 6166,
+          "opaque_pixels": 107774
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-1.png",
+          "sha256": "ce014f8ca8f418ba792da7b92c642eff1e425c189dcd16b5d7516e0af8ef5271",
+          "bytes": 292884,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            132,
+            250,
+            576,
+            744
+          ],
+          "transparent_pixels": 480761,
+          "partial_alpha_pixels": 5657,
+          "opaque_pixels": 103406
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-2.png",
+          "sha256": "a18a5f2c7217b15162abbfd3b3f6f91f9b53127e209446f11fdd2aa152ca38ed",
+          "bytes": 253129,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            111,
+            404,
+            584,
+            744
+          ],
+          "transparent_pixels": 495472,
+          "partial_alpha_pixels": 3852,
+          "opaque_pixels": 90500
+        },
+        {
+          "path": "art_src/style_test/anim/zombie_scientist/run/frames/death/frame-3.png",
+          "sha256": "68e4110085747600157f6dba2172e3e2250d63110b6f450641561b39405ff0da",
+          "bytes": 167499,
+          "size": [
+            768,
+            768
+          ],
+          "mode": "RGBA",
+          "alpha_bbox": [
+            130,
+            561,
+            617,
+            744
+          ],
+          "transparent_pixels": 527567,
+          "partial_alpha_pixels": 2476,
+          "opaque_pixels": 59781
+        }
+      ],
+      "qa_gif": {
+        "path": "art_src/style_test/anim/zombie_scientist/run/qa/death.gif",
+        "sha256": "48d5e66dc8473f49ff60d0e5dc9439f15f197d1a8dbd9e02657f7c75ce97f197",
+        "bytes": 413444,
+        "size": [
+          768,
+          768
+        ],
+        "frames": 4
+      }
+    }
+  ],
+  "visual_review": {
+    "scope": "All generated rows and extracted contact sheet, plus independent per-frame static review.",
+    "idle": "pass-static; animated seam not certified here",
+    "attack": "best-effort; readable preparation/lunge/recovery, detail and transition variation",
+    "hit": "pass-static; readable recoil/recovery, animated flicker not certified here",
+    "death": "best-effort; readable collapse to curled side-lying pose, four-pose transition needs playback review",
+    "gif_playback_review_by_this_agent": false,
+    "dynamic_review_owner": "Root agent's Godot preview and main report."
+  }
+}

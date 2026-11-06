@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "db8ab1c245df",
+  "extract_args": {
+    "decontam": "auto"
+  },
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run",
+  "cell": {
+    "shape": "square",
+    "width": 768,
+    "height": 768,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24
+  },
+  "chroma_key": {
+    "name": "green",
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "selection": "manual"
+  },
+  "errors": [],
+  "warnings": []
+}

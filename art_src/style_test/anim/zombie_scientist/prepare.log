@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "death"
+  ],
+  "generation_plan": false
+}

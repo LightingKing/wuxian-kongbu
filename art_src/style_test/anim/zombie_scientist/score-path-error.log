@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "I:\workspace\mobilegame\tools\sprite-gen\.venv\Scripts\sprite-gen.exe\__main__.py", line 5, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "I:\workspace\mobilegame\tools\sprite-gen\sprite_gen\cli.py", line 523, in main
+    return run_fn(**kwargs)
+  File "I:\workspace\mobilegame\tools\sprite-gen\sprite_gen\qa\score.py", line 146, in run
+    return _run(namespace_from_kwargs(_build_parser(), kwargs))
+  File "I:\workspace\mobilegame\tools\sprite-gen\sprite_gen\qa\score.py", line 140, in _run
+    atomic_write_text(output, json.dumps(scored, ensure_ascii=False, indent=2) + "\n")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "I:\workspace\mobilegame\tools\sprite-gen\sprite_gen\spec\runio.py", line 856, in atomic_write_text
+    _atomic_replace(target, payload)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "I:\workspace\mobilegame\tools\sprite-gen\sprite_gen\spec\runio.py", line 839, in _atomic_replace
+    fd, tmp_name = tempfile.mkstemp(dir=str(target.parent), prefix=f".{target.name}.", suffix=".tmp")
+                   ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Python\pythoncore-3.14-64\Lib\tempfile.py", line 354, in mkstemp
+    return _mkstemp_inner(dir, prefix, suffix, flags, output_type)
+  File "C:\Users\Administrator\AppData\Local\Python\pythoncore-3.14-64\Lib\tempfile.py", line 255, in _mkstemp_inner
+    fd = _os.open(file, flags, 0o600)
+FileNotFoundError: [Errno 2] No such file or directory: 'I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run\\art_src\\style_test\\anim\\zombie_scientist\\run\\.sprite-score.report.json.sxn6jd41.tmp'

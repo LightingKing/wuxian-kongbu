@@ -1,0 +1,149 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "down"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "rows": [
+    {
+      "state": "idle",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/idle/frame-0.png",
+        "frames/idle/frame-1.png",
+        "frames/idle/frame-2.png",
+        "frames/idle/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9281299213497163,
+          "mean": 0.9476239301009
+        },
+        "dhash_similarity": {
+          "min": 1.0,
+          "mean": 1.0
+        },
+        "motion_presence": 0.005315803079044118,
+        "centroid_sigma": {
+          "x": 0.6168895215465696,
+          "y": 1.1582604950260855
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "idle: motion presence is too low (0.0053 < 0.0100)"
+      ]
+    },
+    {
+      "state": "attack",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/attack/frame-0.png",
+        "frames/attack/frame-1.png",
+        "frames/attack/frame-2.png",
+        "frames/attack/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9490026402201954,
+          "mean": 0.9635415088596209
+        },
+        "dhash_similarity": {
+          "min": 0.921875,
+          "mean": 0.953125
+        },
+        "motion_presence": 0.029678564133986927,
+        "centroid_sigma": {
+          "x": 3.311015901981017,
+          "y": 8.677059014665831
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "hit",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/hit/frame-0.png",
+        "frames/hit/frame-1.png",
+        "frames/hit/frame-2.png",
+        "frames/hit/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.8879697184203879,
+          "mean": 0.923070620886262
+        },
+        "dhash_similarity": {
+          "min": 0.84375,
+          "mean": 0.8932291666666666
+        },
+        "motion_presence": 0.05463851230596405,
+        "centroid_sigma": {
+          "x": 6.0515544197649085,
+          "y": 4.003230996868082
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "down",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/down/frame-0.png",
+        "frames/down/frame-1.png",
+        "frames/down/frame-2.png",
+        "frames/down/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.845933697944866,
+          "mean": 0.8921004579612863
+        },
+        "dhash_similarity": {
+          "min": 0.78125,
+          "mean": 0.8177083333333334
+        },
+        "motion_presence": 0.07940889246323529,
+        "centroid_sigma": {
+          "x": 39.03147619659319,
+          "y": 89.58107445686781
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "idle: motion presence is too low (0.0053 < 0.0100)"
+  ]
+}

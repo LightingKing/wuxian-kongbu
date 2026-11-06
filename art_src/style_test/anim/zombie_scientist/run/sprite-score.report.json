@@ -1,0 +1,50 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-score-report",
+  "source_report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run",
+  "overall_score": 100.0,
+  "candidate_rank": 1600,
+  "rows": [
+    {
+      "state": "idle",
+      "score": 100.0,
+      "candidate_rank": 400,
+      "expected_frames": 4,
+      "found_frames": 4,
+      "errors": [],
+      "warnings": [],
+      "hints": []
+    },
+    {
+      "state": "attack",
+      "score": 100.0,
+      "candidate_rank": 400,
+      "expected_frames": 4,
+      "found_frames": 4,
+      "errors": [],
+      "warnings": [],
+      "hints": []
+    },
+    {
+      "state": "hit",
+      "score": 100.0,
+      "candidate_rank": 400,
+      "expected_frames": 4,
+      "found_frames": 4,
+      "errors": [],
+      "warnings": [],
+      "hints": []
+    },
+    {
+      "state": "death",
+      "score": 100.0,
+      "candidate_rank": 400,
+      "expected_frames": 4,
+      "found_frames": 4,
+      "errors": [],
+      "warnings": [],
+      "hints": []
+    }
+  ],
+  "hints": []
+}

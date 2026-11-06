@@ -1,0 +1,145 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zombie_scientist\\run",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "death"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "rows": [
+    {
+      "state": "idle",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/idle/frame-0.png",
+        "frames/idle/frame-1.png",
+        "frames/idle/frame-2.png",
+        "frames/idle/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9614781991917911,
+          "mean": 0.9764966732167799
+        },
+        "dhash_similarity": {
+          "min": 0.9375,
+          "mean": 0.96875
+        },
+        "motion_presence": 0.039826277190563725,
+        "centroid_sigma": {
+          "x": 3.6774037123141494,
+          "y": 0.8754533910565795
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "attack",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/attack/frame-0.png",
+        "frames/attack/frame-1.png",
+        "frames/attack/frame-2.png",
+        "frames/attack/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9453133430631595,
+          "mean": 0.9655294073119927
+        },
+        "dhash_similarity": {
+          "min": 0.765625,
+          "mean": 0.859375
+        },
+        "motion_presence": 0.09181171492034314,
+        "centroid_sigma": {
+          "x": 11.565729254240159,
+          "y": 13.156330542120866
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "hit",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/hit/frame-0.png",
+        "frames/hit/frame-1.png",
+        "frames/hit/frame-2.png",
+        "frames/hit/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9353312711803591,
+          "mean": 0.9578923216848534
+        },
+        "dhash_similarity": {
+          "min": 0.703125,
+          "mean": 0.8151041666666666
+        },
+        "motion_presence": 0.0739987042994281,
+        "centroid_sigma": {
+          "x": 12.040797303897664,
+          "y": 18.79996910932708
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "death",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/death/frame-0.png",
+        "frames/death/frame-1.png",
+        "frames/death/frame-2.png",
+        "frames/death/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9084997472717592,
+          "mean": 0.9333734929363722
+        },
+        "dhash_similarity": {
+          "min": 0.703125,
+          "mean": 0.8177083333333334
+        },
+        "motion_presence": 0.08083137063419117,
+        "centroid_sigma": {
+          "x": 8.739283253855433,
+          "y": 84.49368831458749
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

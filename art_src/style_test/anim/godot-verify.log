@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+已验证 manifest 边界、重复矩形及非等时帧。
+已验证结束后暂停/继续、暂停中切换和循环恢复。
+已播放 zheng_zha/idle：4 帧，4.0 fps，loop=true
+已播放 zheng_zha/attack：4 帧，8.0 fps，loop=false
+已播放 zheng_zha/hit：4 帧，6.0 fps，loop=false
+已播放 zheng_zha/down：4 帧，6.0 fps，loop=false
+已播放 zombie_scientist/idle：4 帧，4.0 fps，loop=true
+已播放 zombie_scientist/attack：4 帧，8.0 fps，loop=false
+已播放 zombie_scientist/hit：4 帧，8.0 fps，loop=false
+已播放 zombie_scientist/death：4 帧，6.0 fps，loop=false
+动画导入与预览验证：失败 0 项

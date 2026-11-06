@@ -1,0 +1,42 @@
+{
+  "cell": {
+    "width": 512,
+    "height": 768,
+    "safe_margin_x": 24,
+    "safe_margin_y": 24
+  },
+  "style": "Match the attached accepted zombie scientist reference exactly: the same hand-drawn Japanese animation illustration style, smooth high-resolution line art, cel-shaded painted colour, face, messy short hair, torn lab coat, grey trousers, shoes, blood-stain placement, identity badge and body proportions. This is not pixel art. Keep the reference's detail density and colours without restyling. Preserve the existing asymmetric badge on the left chest. All poses face left, including the fallen pose; never mirror the character. Do not add scenery, ground shadows, detached blood, motion streaks or extra objects.",
+  "fit": {
+    "resample": "lanczos",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": false
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 4,
+      "loop": true,
+      "action": "A restrained swaying idle of the same hunched zombie: both shoes stay planted at unchanged positions, the torso and head lean a little backward, sway forward and return close to the starting silhouette; forearms hang forward and move slightly with the shoulders. Keep the same body scale and proportions in every pose. Make the small pose changes readable and ensure the final pose flows back into the first without a jump. Remain facing left."
+    },
+    "attack": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "One compact leftward lunging bite: recoil into a bent-knee preparation, thrust the chest and open mouth forward with both hands reaching left, reach the biting contact pose, then withdraw toward the guarded hunched stance. Keep both complete hands and shoes inside each cell, keep limbs anatomically connected, and keep the original body scale through the sequence. No victim, blood spray, blur or detached effects."
+    },
+    "hit": {
+      "frames": 4,
+      "fps": 8,
+      "loop": false,
+      "action": "One visible hit reaction while facing left: begin in the hunched stance, chest and head recoil to the right away from an unseen blow from the left, knees bend and arms loosen, then settle into a shaken guarded crouch. The gaze and profile stay left. Preserve body scale, limb lengths and both shoes; no impact flashes, attacker or extra effects."
+    },
+    "death": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "One irreversible collapse: the hunched zombie loses support, knees buckle and torso sinks, one hand reaches the ground, then the body lies motionless on its side with knees naturally bent and the head at the left end. End fully down on the ground, not in a crouch, with the profile still facing left and both legs and shoes visible. Use a compact curled fallen silhouette to stay inside the cell, without shortening limbs or scaling the body between poses. Do not return to standing, draw a ground patch, detach body parts or add effects."
+    }
+  }
+}

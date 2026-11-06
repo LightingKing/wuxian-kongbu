@@ -1,0 +1,71 @@
+{
+  "kind": "sprite-gen-gen-set-report",
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "down"
+  ],
+  "ok": 4,
+  "failed": [],
+  "not_started": [],
+  "items": [
+    {
+      "state": "idle",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\raw\\idle.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\reports\\gen-set\\idle.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\references\\layout-guides\\idle.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 412.0,
+      "ok": true
+    },
+    {
+      "state": "attack",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\raw\\attack.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\reports\\gen-set\\attack.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\references\\layout-guides\\attack.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 192.5,
+      "ok": true
+    },
+    {
+      "state": "hit",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\raw\\hit.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\reports\\gen-set\\hit.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\references\\layout-guides\\hit.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 424.7,
+      "ok": true
+    },
+    {
+      "state": "down",
+      "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\raw\\down.png",
+      "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\reports\\gen-set\\down.json",
+      "refs": [
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\base-source.png",
+        "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\anim\\zheng_zha\\references\\layout-guides\\down.png"
+      ],
+      "provider": "codex",
+      "provider_resolved_from": "explicit",
+      "auth_source": "codex-login",
+      "elapsed_seconds": 199.0,
+      "ok": true
+    }
+  ]
+}
