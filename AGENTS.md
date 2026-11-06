@@ -36,6 +36,7 @@
 ## 美术约定
 - 日系动漫立绘风，场景偏暗，具体规范以 `docs/art/` 为准（风格试验通过后建立）。
 - 资源一律 PNG；角色、敌人、图标用透明背景。
+- 生图、动画图集、抠图一律用本机的 sprite-gen 技能（本机说明见 `~/.codex/AGENTS.md`），不要另写同类脚本。
 - 路径：`game/art/<类别>/<id>_<姿势或用途>.png`，例如 `game/art/characters/zheng_zha_idle.png`。
 
 ## 验证

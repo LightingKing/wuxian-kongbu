@@ -10,7 +10,7 @@
 
 ## 允许修改
 - `game/art/style_test/`（新建，放全部产出）
-- `game/tools/chroma_key.py`（新建，仅在生图不能直接给出透明背景时需要）
+- `game/tools/fit_canvas.py`（新建，把生成的图放进规格画布）
 - `docs/art/style-test-report.md`（新建）
 - 本任务卡末尾的"完成汇报"一节
 
@@ -24,11 +24,14 @@
 4. **丧尸**：地下生化研究所里穿白大褂的研究员丧尸，皮肤灰白，眼睛浑浊，**面朝画面左侧**，向前扑咬，**512×768，透明背景**。文件 `zombie_scientist_attack.png`。
 5. **激光通道背景**：地下研究所里纯白金属墙面的长走廊，冷白顶灯，尽头一张红色激光网正逼近，压抑。**1920×1080**，不透明。文件 `bg_laser_corridor.png`。
 
-## 透明背景的做法
-如果生图不能直接输出透明通道：
-1. 在纯绿色（#00FF00）背景上生成；
-2. 写 `game/tools/chroma_key.py`（Python 3 + Pillow，本机已装 Pillow 12），命令行用法：`python game/tools/chroma_key.py 输入.png 输出.png`，把接近 #00FF00 的像素变透明，并对边缘做 1~2 像素的去绿边处理；
-3. 用它处理第 2~4 张图。
+## 用什么工具
+用本机已装好的 **sprite-gen** 技能生图（用法见它的 `SKILL.md`，本机说明见 `~/.codex/AGENTS.md`）：
+- 角色和敌人：`sprite-gen gen --provider codex --prompt-file <提示词文件> --out <输出> --transparent --report <报告>`。codex 能直接给透明背景，已实测。
+- 第 2、3 张以设定图为参考：加 `--ref game/art/style_test/zheng_zha_reference.png`，保持是同一个人。
+- 战斗形象和敌人要指定朝向：郑吒 `--facing right --direction side`，丧尸 `--facing left --direction side`；朝向不对时用 `--facing-fix regen` 重画，**不要镜像**（手枪会换手）。
+- 背景图不加 `--transparent`。
+- 生成的尺寸不是规格尺寸：写一个小脚本 `game/tools/fit_canvas.py`（Python 3 + Pillow），把图等比缩放、放进规格画布（透明补边；战斗形象脚底贴近画布下沿），命令行用法 `python game/tools/fit_canvas.py 输入.png 输出.png 宽 高 [--bottom]`。
+- 如果某张透明边缘不干净，用 `sprite-gen cutout` 处理，不要自己写抠图脚本。
 
 ## 验收
 - 上面 6 个文件都在 `game/art/style_test/` 下，尺寸符合要求；第 2~4 张有真正的透明通道（四角像素 alpha = 0）。
