@@ -36,6 +36,8 @@
 ## 美术约定
 - 日系动漫立绘风，场景偏暗，具体规范以 `docs/art/` 为准（风格试验通过后建立）。
 - 资源一律 PNG；角色、敌人、图标用透明背景。
+- **图片不进仓库**：png/jpg/webp/gif 已在 `.gitignore` 里忽略，只在本机保留，不要 `git add -f`。生成图片用的提示词、生成报告、QA 校验和（含 SHA-256）照常提交，别人可以照着重新生成。
+- 只有最终成品放在 `game/art/`；原图、中间文件、提示词、报告放在仓库根目录的 `art_src/`（不在 Godot 工程里，不会被导入和打包）。
 - 生图、动画图集、抠图一律用本机的 sprite-gen 技能（本机说明见 `~/.codex/AGENTS.md`），不要另写同类脚本。
 - 路径：`game/art/<类别>/<id>_<姿势或用途>.png`，例如 `game/art/characters/zheng_zha_idle.png`。
 

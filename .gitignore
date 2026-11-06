@@ -14,3 +14,14 @@ _work/*_raw.txt
 # 系统
 .DS_Store
 Thumbs.db
+
+# 图片不上传：只在本机保留（要定期备份）；提示词、生成报告、校验和照常提交
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.png.import
+*.jpg.import
+*.jpeg.import
+*.webp.import
