@@ -1,0 +1,1888 @@
+{
+  "shared_palette": "game/art/pixel_test/palette.hex",
+  "palette_colors": 32,
+  "atlas": {
+    "size": [
+      192,
+      192
+    ],
+    "bbox": [
+      13,
+      8,
+      178,
+      184
+    ],
+    "visible_height": 176,
+    "bottom_visible_row": 183,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "nonzero_alpha_pixels": 5125,
+    "opaque_color_count": 23,
+    "outside_palette_color_count": 0,
+    "outside_palette_colors_sample": []
+  },
+  "states": {
+    "idle": [
+      {
+        "index": 0,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          14,
+          10,
+          31,
+          40
+        ],
+        "visible_height": 30,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 310,
+        "opaque_color_count": 15,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 1,
+        "rect": {
+          "x": 48,
+          "y": 0,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          14,
+          8,
+          30,
+          40
+        ],
+        "visible_height": 32,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 320,
+        "opaque_color_count": 15,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 2,
+        "rect": {
+          "x": 96,
+          "y": 0,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          13,
+          10,
+          32,
+          40
+        ],
+        "visible_height": 30,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 322,
+        "opaque_color_count": 15,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 3,
+        "rect": {
+          "x": 144,
+          "y": 0,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          14,
+          10,
+          31,
+          40
+        ],
+        "visible_height": 30,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 313,
+        "opaque_color_count": 15,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      }
+    ],
+    "attack": [
+      {
+        "index": 0,
+        "rect": {
+          "x": 0,
+          "y": 48,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          13,
+          8,
+          31,
+          40
+        ],
+        "visible_height": 32,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 351,
+        "opaque_color_count": 18,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 1,
+        "rect": {
+          "x": 48,
+          "y": 48,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          12,
+          8,
+          31,
+          40
+        ],
+        "visible_height": 32,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 370,
+        "opaque_color_count": 18,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 2,
+        "rect": {
+          "x": 96,
+          "y": 48,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          10,
+          9,
+          33,
+          40
+        ],
+        "visible_height": 31,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 371,
+        "opaque_color_count": 17,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 3,
+        "rect": {
+          "x": 144,
+          "y": 48,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          13,
+          8,
+          32,
+          40
+        ],
+        "visible_height": 32,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 364,
+        "opaque_color_count": 17,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      }
+    ],
+    "hit": [
+      {
+        "index": 0,
+        "rect": {
+          "x": 0,
+          "y": 96,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          16,
+          10,
+          34,
+          40
+        ],
+        "visible_height": 30,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 305,
+        "opaque_color_count": 17,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 1,
+        "rect": {
+          "x": 48,
+          "y": 96,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          14,
+          8,
+          30,
+          40
+        ],
+        "visible_height": 32,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 311,
+        "opaque_color_count": 17,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 2,
+        "rect": {
+          "x": 96,
+          "y": 96,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          16,
+          11,
+          34,
+          40
+        ],
+        "visible_height": 29,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 296,
+        "opaque_color_count": 15,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 3,
+        "rect": {
+          "x": 144,
+          "y": 96,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          16,
+          10,
+          34,
+          40
+        ],
+        "visible_height": 30,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 304,
+        "opaque_color_count": 18,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      }
+    ],
+    "death": [
+      {
+        "index": 0,
+        "rect": {
+          "x": 0,
+          "y": 144,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          15,
+          8,
+          34,
+          40
+        ],
+        "visible_height": 32,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 355,
+        "opaque_color_count": 15,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 1,
+        "rect": {
+          "x": 48,
+          "y": 144,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          15,
+          13,
+          36,
+          40
+        ],
+        "visible_height": 27,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 335,
+        "opaque_color_count": 17,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 2,
+        "rect": {
+          "x": 96,
+          "y": 144,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          17,
+          19,
+          41,
+          40
+        ],
+        "visible_height": 21,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 288,
+        "opaque_color_count": 19,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      },
+      {
+        "index": 3,
+        "rect": {
+          "x": 144,
+          "y": 144,
+          "w": 48,
+          "h": 48
+        },
+        "size": [
+          48,
+          48
+        ],
+        "bbox": [
+          5,
+          29,
+          32,
+          40
+        ],
+        "visible_height": 11,
+        "bottom_visible_row": 39,
+        "alpha_values": [
+          0,
+          255
+        ],
+        "nonzero_alpha_pixels": 210,
+        "opaque_color_count": 17,
+        "outside_palette_color_count": 0,
+        "outside_palette_colors_sample": []
+      }
+    ]
+  },
+  "animation": {
+    "cellWidth": 48,
+    "cellHeight": 48,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "attack": {
+        "row": 1,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "hit": {
+        "row": 2,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "death": {
+        "row": 3,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "base_published_chroma_error": {
+    "size": [
+      1263,
+      1246
+    ],
+    "bbox": [
+      367,
+      200,
+      887,
+      976
+    ],
+    "visible_height": 776,
+    "bottom_visible_row": 975,
+    "alpha_values": [
+      0,
+      1
+    ],
+    "nonzero_alpha_pixels": 93,
+    "opaque_color_count": 6,
+    "outside_palette_color_count": 6,
+    "outside_palette_colors_sample": [
+      [
+        0,
+        0,
+        255
+      ],
+      [
+        0,
+        255,
+        0
+      ],
+      [
+        0,
+        255,
+        255
+      ],
+      [
+        255,
+        0,
+        0
+      ],
+      [
+        255,
+        0,
+        255
+      ],
+      [
+        255,
+        255,
+        0
+      ]
+    ]
+  },
+  "base_accepted_native_raw": {
+    "size": [
+      1263,
+      1246
+    ],
+    "bbox": [
+      41,
+      23,
+      1229,
+      1246
+    ],
+    "visible_height": 1223,
+    "bottom_visible_row": 1245,
+    "alpha_values": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224,
+      225,
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      232,
+      233,
+      234,
+      235,
+      236,
+      237,
+      238,
+      239,
+      240,
+      241,
+      242,
+      243,
+      244,
+      245,
+      246,
+      247,
+      248,
+      249,
+      250,
+      251,
+      252,
+      253,
+      254,
+      255
+    ],
+    "nonzero_alpha_pixels": 304726,
+    "opaque_color_count": 27525,
+    "outside_palette_color_count": 27525,
+    "outside_palette_colors_sample": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        5
+      ],
+      [
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        7
+      ],
+      [
+        0,
+        0,
+        8
+      ],
+      [
+        0,
+        0,
+        9
+      ],
+      [
+        0,
+        0,
+        10
+      ],
+      [
+        0,
+        0,
+        11
+      ],
+      [
+        0,
+        0,
+        12
+      ],
+      [
+        0,
+        0,
+        13
+      ],
+      [
+        0,
+        0,
+        14
+      ],
+      [
+        0,
+        0,
+        15
+      ],
+      [
+        0,
+        0,
+        16
+      ],
+      [
+        0,
+        0,
+        17
+      ],
+      [
+        0,
+        0,
+        18
+      ],
+      [
+        0,
+        0,
+        19
+      ],
+      [
+        0,
+        0,
+        20
+      ],
+      [
+        0,
+        0,
+        21
+      ],
+      [
+        0,
+        0,
+        22
+      ],
+      [
+        0,
+        0,
+        23
+      ],
+      [
+        0,
+        0,
+        24
+      ],
+      [
+        0,
+        0,
+        25
+      ],
+      [
+        0,
+        0,
+        26
+      ],
+      [
+        0,
+        0,
+        27
+      ],
+      [
+        0,
+        0,
+        28
+      ],
+      [
+        0,
+        0,
+        29
+      ],
+      [
+        0,
+        0,
+        30
+      ],
+      [
+        0,
+        0,
+        31
+      ]
+    ]
+  },
+  "generation_reports": [
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base.gen-report.json",
+      "provider": "codex",
+      "elapsed_seconds": 119.469,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      }
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/attack.json",
+      "provider": "codex",
+      "elapsed_seconds": 161.731,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      }
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/death.json",
+      "provider": "codex",
+      "elapsed_seconds": 160.193,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      }
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/hit.json",
+      "provider": "codex",
+      "elapsed_seconds": 167.456,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      }
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/idle.json",
+      "provider": "codex",
+      "elapsed_seconds": 122.081,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "unknown",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "reason": "vision-uncertain",
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "unknown",
+        "final_direction_source": "observation"
+      }
+    }
+  ],
+  "image_report_count": 5,
+  "reported_generation_seconds": 730.93,
+  "interrupted_run": {
+    "path": "art_src/pixel_test/zombie_scientist/run",
+    "submitted_state_jobs": [
+      "idle",
+      "attack"
+    ],
+    "completed_image_reports": 0,
+    "raw_images": 0,
+    "provider_completion_unknown": true,
+    "reason": "Stopped after discovering the incorrectly chroma-keyed base reference."
+  },
+  "native_score": {
+    "ok": false,
+    "kind": "sprite-gen-score-report",
+    "source_report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\run-native",
+    "overall_score": 94.75,
+    "candidate_rank": 1593,
+    "rows": [
+      {
+        "state": "idle",
+        "score": 100.0,
+        "candidate_rank": 400,
+        "expected_frames": 4,
+        "found_frames": 4,
+        "errors": [],
+        "warnings": [],
+        "hints": []
+      },
+      {
+        "state": "attack",
+        "score": 100.0,
+        "candidate_rank": 400,
+        "expected_frames": 4,
+        "found_frames": 4,
+        "errors": [],
+        "warnings": [],
+        "hints": []
+      },
+      {
+        "state": "hit",
+        "score": 100.0,
+        "candidate_rank": 400,
+        "expected_frames": 4,
+        "found_frames": 4,
+        "errors": [],
+        "warnings": [],
+        "hints": []
+      },
+      {
+        "state": "death",
+        "score": 79.0,
+        "candidate_rank": 393,
+        "expected_frames": 4,
+        "found_frames": 4,
+        "errors": [],
+        "warnings": [
+          "death: dropped 1 collapsed per-frame pitch(es) below 6.52",
+          "death: pitch disagreement — detect 10.86x10.86 (uniformity 91.6) vs runlen 6.98x6.96 (64.9); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+          "death: frame 0 pitch detection inconclusive — consensus fallback 10.86x10.86",
+          "death: frame 1 pitch detection inconclusive — consensus fallback 10.86x10.86",
+          "death: frame 2 own pitch 5.00x5.00 is outside the consensus pitch family 10.86x10.86 — harmonic/collapsed misdetection; snapped at consensus",
+          "death: native logical exceeds the physical cap 48x40 — capped frames (reroll candidates): 0:29x50, 1:32x43",
+          "death: frames exceed the safe area 32x32 but fit within the margin zone (informational, no action): 2:38x32, 3:42x18"
+        ],
+        "hints": [
+          "death: Pixel-grid pitch instability was detected. Regenerate with a clearer true low-resolution pixel grid, or rerun extraction with the runlen crosscheck visible and review the before/after grid proof."
+        ]
+      }
+    ],
+    "hints": [
+      "death: Pixel-grid pitch instability was detected. Regenerate with a clearer true low-resolution pixel grid, or rerun extraction with the runlen crosscheck visible and review the before/after grid proof."
+    ]
+  },
+  "final_artifacts": [
+    {
+      "path": "game/art/pixel_test/zombie_scientist/sprite-sheet-alpha.png",
+      "sha256": "0e87901ab727e8e982d50d1af4afe365fbc141e38bbbfe1069f360732a3abe26"
+    },
+    {
+      "path": "game/art/pixel_test/zombie_scientist/manifest.json",
+      "sha256": "a8776f6d51ca1d4b70fa0b3b12f22615d91059e6654f5c39e62b6d8ae9906000"
+    }
+  ],
+  "files": [
+    {
+      "path": "art_src/pixel_test/zombie_scientist/apply_uniform_scale.py",
+      "bytes": 982,
+      "sha256": "df8170b09e6cdb11ff952578dd91a03123a3b8d978948e3866098ebea0b7a24c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base-generation.log",
+      "bytes": 5140,
+      "sha256": "3773bfd8b0db44966b0ae5518334690d1463d3967de83a35c1b8080c86e10f9b"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base-work/raw.png",
+      "bytes": 420362,
+      "sha256": "93236264d10a296ae427d7d74f999f0ca4353bdf3d9d1ac377c74b0b8c1ec5c7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base.gen-report.json",
+      "bytes": 5023,
+      "sha256": "c04136ccce4837e7f5bc7a2e263749b752a9e0f70ea29b364cccc88275c17ae3"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base.png",
+      "bytes": 6507,
+      "sha256": "5954edcdd3095bd464d39858e64514f0dac7d978c6fb64b51eb774c79b1e8de2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base.png.raw.png",
+      "bytes": 420362,
+      "sha256": "93236264d10a296ae427d7d74f999f0ca4353bdf3d9d1ac377c74b0b8c1ec5c7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base.prompt.txt",
+      "bytes": 1865,
+      "sha256": "b5c3b21db1286d877df63435acbf2d8cce4d94d78e42b185528967ea08a5bb39"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/compose.log",
+      "bytes": 271,
+      "sha256": "321c7c9c8e98df714294bad26ecafe278deeabf5cbb6d671a0ba4e76a74780cd"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/death-generation.log",
+      "bytes": 151,
+      "sha256": "7ef51b3751e4fec896d7d81c7531a8fdd3263b72893a17e9e62e3622c52fb1d8"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/extract-death.log",
+      "bytes": 1614,
+      "sha256": "2c3fd0bf25a99dbf1be2577349517f8cf24e57ffc7e1f7dd7f6398ca8e895ba4"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/extract-hit.log",
+      "bytes": 1772,
+      "sha256": "b8f2bda0d4ffa11e809e5966544c0274bedcf5acc68cd136605c4e8fa204f115"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/extract-idle-attack.log",
+      "bytes": 1427,
+      "sha256": "0f55b7da2572205c19bd6824026827527441b85cd0061221773d57e2370104c2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/gif.log",
+      "bytes": 2641,
+      "sha256": "257c84d4879b87f2a325fbe12451afa2c61f965a7b01b77ae033dafbec13177d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/inspect.log",
+      "bytes": 1240,
+      "sha256": "d10b180d69ab957fc8ab39d93c4268ccc1bc06d77f27bd3120d7ab01cb721d10"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/preview.log",
+      "bytes": 683,
+      "sha256": "ce00f6cb78e6c5378b6764febbfd8bf1ee510d630339447138afd6be8c52f28d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/previews-4x/attack.gif",
+      "bytes": 8015,
+      "sha256": "6f23bb37afcb617d5be0f0e64d770c293ae374ed358833805ad750837d6554ac"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/previews-4x/death.gif",
+      "bytes": 6587,
+      "sha256": "1eb7da01e287e98d6afeade4c9a7a203dabd0f260c3c6a0891e235fe21ab66eb"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/previews-4x/gif-manifest.json",
+      "bytes": 2627,
+      "sha256": "fc37b70ed4d73d107bef19dc6ee5512f71f1b9c760926772c98e9e0f16dfdb75"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/previews-4x/hit.gif",
+      "bytes": 6659,
+      "sha256": "c47fac1296ac1b95756561b434161a5443b6bd6bc30688912e4211cd686a9c53"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/previews-4x/idle.gif",
+      "bytes": 6919,
+      "sha256": "8588b7eaf69a3980d4c84dd8ccc02389e510292e8f3fe0f0399d152af799a3b2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/qa-notes.md",
+      "bytes": 5167,
+      "sha256": "3559ea3d20c3efbdd7f734948fcddb14a458f490f430d6517af1c071ae3f06a3"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/README.md",
+      "bytes": 5116,
+      "sha256": "2f660c7a9700d4f67aab8b02d28b91edb30246ae2c97676432dcf44f70803a70"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/record_qa.py",
+      "bytes": 4005,
+      "sha256": "4a9c0c03554b05372181239b869a89eb31a8508434f422924ab391aee03a6fa8"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/request.json",
+      "bytes": 3548,
+      "sha256": "4f11dae21bb959537b9f66ee38ebd8ad56743cf8196c1662ceb026a6c4fe5f6f"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/rows-generation.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/rows-native-generation.log",
+      "bytes": 293,
+      "sha256": "05ed78e5177e1e29d53f5687b5c91e0905745deb98cba44fab3c036ca2f36f5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/base-source.png",
+      "bytes": 6507,
+      "sha256": "5954edcdd3095bd464d39858e64514f0dac7d978c6fb64b51eb774c79b1e8de2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/palette.lock.json",
+      "bytes": 1504,
+      "sha256": "b28c571f7e8a74639d7e7bb5193e02cc113f26cc2f4a3bfd7f9690d10cd6f947"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/prompts/attack.txt",
+      "bytes": 6406,
+      "sha256": "13b0540139feac03f2d840aced52db76aefbfda960ef90d5318a2f22eea6d4af"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/prompts/hit.txt",
+      "bytes": 6363,
+      "sha256": "7150c4ec33f9a6f7949d8341da668dee122289559141e488806cba7067bb00c7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/prompts/idle.txt",
+      "bytes": 6365,
+      "sha256": "0ad6263ee5102f03fc59e36e0f29194b97306414d7a2ae37a4b0794d8643bc23"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/references/layout-guides/attack.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/references/layout-guides/hit.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/references/layout-guides/idle.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/reports/gen-set/attack.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/reports/gen-set/idle.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run/sprite-request.json",
+      "bytes": 3197,
+      "sha256": "b06180e41424fbd1c26c8083a24529e885285e7915f03b752ffa23435a34d77d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/base-source.png",
+      "bytes": 420362,
+      "sha256": "93236264d10a296ae427d7d74f999f0ca4353bdf3d9d1ac377c74b0b8c1ec5c7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/curation.json",
+      "bytes": 2606,
+      "sha256": "57a39c56cdf7d476f9c76a5a28ed472828bb8bf2ecb767afae283a67455b212d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-0.plain.png",
+      "bytes": 2578,
+      "sha256": "ba96f445518561b9996fab8a2e59c29c0a42c996c2768864184c392976a973f2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-0.png",
+      "bytes": 1285,
+      "sha256": "4cb5d6acecba53e8d5afbb397708940c4f2d94dcb54047801bbaf6f88043a6d2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-1.plain.png",
+      "bytes": 2698,
+      "sha256": "4f07bd481447f7d937d7c945fb58e19d9e26eff9b1816647aab0c196f57b5f71"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-1.png",
+      "bytes": 1312,
+      "sha256": "c5aec7a570c11a1bebaa617541e5b9ac76bcfe2e86cc1dcb7408ebe67aa3e01c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-2.plain.png",
+      "bytes": 2703,
+      "sha256": "f91ef8699fa79544bba80c37db9afda31e37c1fc95fa39aa321120ead5f5aa24"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-2.png",
+      "bytes": 1334,
+      "sha256": "4aaca7f52839c088c1087b2d69e25881ca02b146635223bfdcda3dc03a6e96ef"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-3.plain.png",
+      "bytes": 2719,
+      "sha256": "28422ff70c12ba5a6b3e6bcb78c73ed7e645a179fbba5d8b368d2a6f73df8482"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-3.png",
+      "bytes": 1232,
+      "sha256": "f691e9006fc0daea57cf76eec0bbec596cbbbde86cfc7c4fe43f4109fb6ef412"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-0.png",
+      "bytes": 214380,
+      "sha256": "52edbb611ffa65efec3c324255d03cc7d81c3fc3aaaff3a9bb969b136a40fe17"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-1.png",
+      "bytes": 221105,
+      "sha256": "ba19f80f55dc7359aac9364a67e5ca55b611f862f4cbc94c1b8549ed5feb991e"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-2.png",
+      "bytes": 223550,
+      "sha256": "296c6cb1a497f3b5f2f53bfddbbc9ce4b9f549f4d3fe4dcad7ee1af1d21b8dba"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-3.png",
+      "bytes": 220200,
+      "sha256": "18b7e04adf24c43670de883a3aabde7c04ed278ffe90c94088f8832cfb9c5ad4"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-0.plain.png",
+      "bytes": 2650,
+      "sha256": "09fa356b2a39e73b7a37cc2071f23e6199b335fe74cb2e2ad276180e1989ca8c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-0.png",
+      "bytes": 1244,
+      "sha256": "a572695463b071bbaadea2aef579318dc36d10c9e41dfaee3a1902941ec3086c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-1.plain.png",
+      "bytes": 2351,
+      "sha256": "e10f0069cd178df3a1775b3a7459b1602ba2dd5711134a1fae097515b6dab40a"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-1.png",
+      "bytes": 1159,
+      "sha256": "dc0ba99a8e5f423c738951f7224d659d6ad1c3e2f669f503366e89e1edb88e60"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-2.plain.png",
+      "bytes": 2012,
+      "sha256": "499fd2b7a686ce522b0fe40f2b7697e3ac644bba6cac87e46ee3b2396f0e15ac"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-2.png",
+      "bytes": 1051,
+      "sha256": "8d87bf45e990c5c62a9256b8f0c289103fa07a0f2bf0ac1061dd09a753b02444"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-3.plain.png",
+      "bytes": 1476,
+      "sha256": "08a52dd3ecea4d6a9efe0cc21701ee956c2867c1932352d554fc6725e260fbc7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-3.png",
+      "bytes": 773,
+      "sha256": "7dcb0911fde28a769a992b39a8f738d33bf76f6e61546c1bc24d2f41eb07e918"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-0.png",
+      "bytes": 194569,
+      "sha256": "89761d8a5398663d7a445127efda2acf9dd1077552585b011a77b8df6b2400d9"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-1.png",
+      "bytes": 184608,
+      "sha256": "708796fc8cc63aad182c4a5dbb11144008d6c6f24699ba3383b3c1175e80a49d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-2.png",
+      "bytes": 168699,
+      "sha256": "06b1500e30444e811648080c95c27fac87331476ad59bea4ccb20aa2c4026931"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-3.png",
+      "bytes": 122885,
+      "sha256": "7911aae5a215fe0e1684e8357b37630d0ee5e5d6ab4f482e6e6d4c00f9221abc"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/frames-manifest.json",
+      "bytes": 36648,
+      "sha256": "79335e2ebdacb4c5da02ac0126d93f38a8fb4a051e272d2e670e5c15f8aa1f68"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-0.plain.png",
+      "bytes": 2390,
+      "sha256": "7bbf0e02b31e19a2734c71108662bb2aa77ddf9a816d253e9efa3430850954b2"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-0.png",
+      "bytes": 1032,
+      "sha256": "a15a22cbbc69d3b4ead03ae263cbe8350d0924ab4b4a68f3850cf4c7f691742a"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-1.plain.png",
+      "bytes": 2337,
+      "sha256": "c5cd90dd56f2fbaae6d3ccc78279a491a323d5ecf6b59cd5e00b0f8b5e119faf"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-1.png",
+      "bytes": 1098,
+      "sha256": "3a7ee243bd42f6da27283f143b423f32c37b4286f516f7b9580ba5b0c33aa865"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-2.plain.png",
+      "bytes": 2231,
+      "sha256": "30ee6ce6dc0d6223fd6cb4b57ed575b7534c5941441cd0217c0f55aa148f2a52"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-2.png",
+      "bytes": 1029,
+      "sha256": "0ac089651803327f3d1dc23bd5ae607875fed013f84859c615b1493d377df26f"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-3.plain.png",
+      "bytes": 2375,
+      "sha256": "1335b80bba9d41591681b155ebca66d7e6188752295e618b393726b2236a3786"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-3.png",
+      "bytes": 1044,
+      "sha256": "d015a51bf90846577d6cb5eee19438fb3acdae65809cc4d1995c7a4c5f7de8b0"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-0.png",
+      "bytes": 211562,
+      "sha256": "dc723ff3846dfa1c3a86e6c7c63b4d9e799422f14b37f93bea82e071c50acf06"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-1.png",
+      "bytes": 251239,
+      "sha256": "43c65e47d89f40595cea85281b9b894819606339f261beb909e758519a8c114d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-2.png",
+      "bytes": 209791,
+      "sha256": "9df14185eba67a92667946d102d52d9ea08c5b9c8bfce4a041c3108aa9dad829"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-3.png",
+      "bytes": 211973,
+      "sha256": "53663d27bcd39bf45742c4e80427ee167546de50d15566bd30d0333f9c7c8f7a"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-0.plain.png",
+      "bytes": 2406,
+      "sha256": "06669b41b8e972b16cb7988721bf175d0dd6aff1e494e03c5ae6c1d0ebe2eff5"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-0.png",
+      "bytes": 1109,
+      "sha256": "58d6b748c7ec482db45bb18622bbb832c4578158d6bca83d53afef44e5b5c345"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-1.plain.png",
+      "bytes": 2433,
+      "sha256": "a8aac9aabd0b2206b7432af234c7b88bee06887a3a34fb64d379e4da8b87b73c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-1.png",
+      "bytes": 1126,
+      "sha256": "912c154b78048bdc99259da2ea0d77ace853fbf1a91eb8647357f9df18761c77"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-2.plain.png",
+      "bytes": 2475,
+      "sha256": "eed6de73cae8f6c3fb673a144fa4a078ae78fffbebec395fb0b1c12fd8bbda46"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-2.png",
+      "bytes": 1174,
+      "sha256": "1c26d4597cebae5cf5a138658b4d864a0811dd6c2ca0015712b67b5e2fc64bfe"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-3.plain.png",
+      "bytes": 2403,
+      "sha256": "ef6c8bf58f2cf0b998afaff651e235d7d4ea6949289a41f9a7d19e256ecca031"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-3.png",
+      "bytes": 1145,
+      "sha256": "3cb1c6c44f184c97a4201c402556d564ee41d82998f68d4b5aa8b84aa3f5855a"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-0.png",
+      "bytes": 202893,
+      "sha256": "f44f397893361dbc0e6cc2a5331d498646fbae8acf28acc7384b254e7e1e6a84"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-1.png",
+      "bytes": 218725,
+      "sha256": "fb3f8664089bd1f27016981f04cb98cacaca27e48cfa955411abc4c6471c612d"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-2.png",
+      "bytes": 212433,
+      "sha256": "5c8b18bdf014555a36236fdabebb61f7a3ba2eb36bd134e490d1037e21c2ce09"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-3.png",
+      "bytes": 201233,
+      "sha256": "d23ede3b1f7d3984455b3da0fdba3cc76efad8366d52abbb07adb36cb23d3ca1"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/manifest.json",
+      "bytes": 3465,
+      "sha256": "a8776f6d51ca1d4b70fa0b3b12f22615d91059e6654f5c39e62b6d8ae9906000"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/palette.lock.json",
+      "bytes": 1504,
+      "sha256": "b28c571f7e8a74639d7e7bb5193e02cc113f26cc2f4a3bfd7f9690d10cd6f947"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/prompts/attack.txt",
+      "bytes": 6406,
+      "sha256": "13b0540139feac03f2d840aced52db76aefbfda960ef90d5318a2f22eea6d4af"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/prompts/death.txt",
+      "bytes": 6942,
+      "sha256": "7d9daccee5491364891387740d4136d5826e4e7ea33309f57f7534e4402a5073"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/prompts/hit.txt",
+      "bytes": 6363,
+      "sha256": "7150c4ec33f9a6f7949d8341da668dee122289559141e488806cba7067bb00c7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/prompts/idle.txt",
+      "bytes": 6365,
+      "sha256": "0ad6263ee5102f03fc59e36e0f29194b97306414d7a2ae37a4b0794d8643bc23"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/all-contact.png",
+      "bytes": 15334,
+      "sha256": "d4e20e3fbcae1b1e0ffde703cdc760a6f465cf6ff705c54c307667697714502a"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/attack-contact.png",
+      "bytes": 4436,
+      "sha256": "4357b5ec93b48c8099ca75fd6ee854a01c93b1cad87ec4768f410d11d5ed4843"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/attack.gif",
+      "bytes": 2406,
+      "sha256": "0b0c5dd8d628c0d8b0a61d677b533995a9204ea748820fe3b2e87dd91307164a"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/death-contact.png",
+      "bytes": 3866,
+      "sha256": "960696ccf881dff2ceb5dd276e542e2dfed77e95fda6da412a3721152e9a7623"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/death.gif",
+      "bytes": 2036,
+      "sha256": "f9728b1b04c2cd82a100feb53e98fbcc178edb7c094789129e180ee4d9c3f002"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/hit-contact.png",
+      "bytes": 3627,
+      "sha256": "29a4b59a58771053c6109522d86a03b41c94bc110585d9805a813308d7a6dfe7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/hit.gif",
+      "bytes": 2103,
+      "sha256": "c5bb7e85193982b0f48b6da9dec43ad762ab6ea9cf888c7213f2a91a298b532f"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/idle-contact.png",
+      "bytes": 3801,
+      "sha256": "870b657ccbd5020e72a7f291c91a47c43c3d65e66f31a44d2e0511caba04bd66"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/qa/idle.gif",
+      "bytes": 2212,
+      "sha256": "bc1de8bc6697ba9102f5c78f766d175cb9fd71a945ccdaff7ddfdbd3a443a299"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/attack.png",
+      "bytes": 1475716,
+      "sha256": "556f1739deb77aaafdd84543baaa8d6a2e161545cafceec0d99e2bdd10f1c118"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/attack.png.raw.png",
+      "bytes": 1475716,
+      "sha256": "556f1739deb77aaafdd84543baaa8d6a2e161545cafceec0d99e2bdd10f1c118"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/death.png",
+      "bytes": 1435966,
+      "sha256": "b2b24c75133f71c85e501a76ac9cd2311a6e6e426150c06b2853ee3224836691"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/death.png.raw.png",
+      "bytes": 1435966,
+      "sha256": "b2b24c75133f71c85e501a76ac9cd2311a6e6e426150c06b2853ee3224836691"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/hit.png",
+      "bytes": 1525233,
+      "sha256": "4eeee02a586f7894172207082f4902804ae9e96e3e8b13f8d785c2d2ab1f4f51"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/hit.png.raw.png",
+      "bytes": 1525233,
+      "sha256": "4eeee02a586f7894172207082f4902804ae9e96e3e8b13f8d785c2d2ab1f4f51"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/idle.png",
+      "bytes": 1492814,
+      "sha256": "71a56af0a0bb3650b9369d57d5428132b89c06009d7791a02fa071f6106b6ca8"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/raw/idle.png.raw.png",
+      "bytes": 1492814,
+      "sha256": "71a56af0a0bb3650b9369d57d5428132b89c06009d7791a02fa071f6106b6ca8"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/attack.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/death.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/hit.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/idle.png",
+      "bytes": 333,
+      "sha256": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/attack.json",
+      "bytes": 8585,
+      "sha256": "a88d2af0e5213fbc8b261d0bb21d51d724a24e0d35e4eec0af36a142284b426c"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/attack.log",
+      "bytes": 8723,
+      "sha256": "d84a6f496fc676d1a084a7c64450c14bd4cfd8b5e48e44cf6f4c4bb1e55a36dd"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/death.json",
+      "bytes": 9118,
+      "sha256": "aa84e206eb79643fd2a97c7b876e135a12e30b2e1ab8f937ce2e0e3e0b5a7de4"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/death.log",
+      "bytes": 9255,
+      "sha256": "b7e42ee7079690e0cac7d4ab557f4f6ed2e7e5d404c8b799a1d53f6a8368b2c7"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/hit.json",
+      "bytes": 8533,
+      "sha256": "765a4639d52dd790fff4276372701ca34f042c80435177c19c03c35b56a8c785"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/hit.log",
+      "bytes": 8668,
+      "sha256": "4c7df7f4c0da4dbb833d4f8eccf1352619796a5c5758466d3a42baaaf49535ba"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/idle.json",
+      "bytes": 8545,
+      "sha256": "f0a4c5279f84bb57cd0206ea63457b5c30100378724fe28e249caf7b471f0941"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/idle.log",
+      "bytes": 8735,
+      "sha256": "2dc4cf40150df97219f6bd0a656c7827fc31f62d0e441fa032b80bbcc1f3e6d0"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/set.report.json",
+      "bytes": 989,
+      "sha256": "5c586ad4dc46cb3869031891224a660cd3a0a71e1e5daac36bda834d27762379"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/table.md",
+      "bytes": 120,
+      "sha256": "9b35a76f3ca96c4bc955c79310063243b3fc45cdee8e4b643980b69844937ad6"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/sprite-inspect.report.json",
+      "bytes": 5280,
+      "sha256": "7f0f6c461889b72346afdd2e460b5d6b7b51e3f8cacdaf737700e380fa66b183"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/sprite-request.json",
+      "bytes": 4384,
+      "sha256": "7f485f48631e50355ceff664d219b229180907a4177e4547b63ea80d1f8e96bd"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/sprite-score.report.json",
+      "bytes": 2367,
+      "sha256": "315dd7e9d15da2ac2f12b53f24effa02a5c43c7e4411cd7ddd2c86a115faea83"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/sprite-sheet-alpha.png",
+      "bytes": 8755,
+      "sha256": "0e87901ab727e8e982d50d1af4afe365fbc141e38bbbfe1069f360732a3abe26"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/sprite-sheet-alpha.report.json",
+      "bytes": 4591,
+      "sha256": "50396857656319395d80dacd82c67b2a9098ac090cdd8f1c1f03c4e0c4bf7c2f"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/score.log",
+      "bytes": 448,
+      "sha256": "eb416a6473334f3c7d871a687d7b471dec7d5e1bc9d88f1b1a342ae343da6f9e"
+    }
+  ]
+}

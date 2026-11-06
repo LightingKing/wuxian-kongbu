@@ -1,0 +1,39 @@
+[pitch-crosscheck] hit: pitch crosscheck: axis ratio y/x disagrees — run-length 1.005 vs grid 1.177 (14.6%); one axis may have collapsed to the other
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "db8ab1c245df",
+  "extract_args": {},
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run",
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "errors": [],
+  "warnings": [
+    "hit: dropped 1 collapsed per-frame pitch(es) below 6.00",
+    "hit: dropped 1 collapsed per-frame pitch(es) below 5.65",
+    "hit: pitch crosscheck: axis ratio y/x disagrees — run-length 1.005 vs grid 1.177 (14.6%); one axis may have collapsed to the other",
+    "hit: frame 1 own pitch 4.00x4.00 is outside the consensus pitch family 8.00x9.42 — harmonic/collapsed misdetection; snapped at consensus",
+    "hit: frame 2 own pitch 6.00x6.00 is outside the consensus pitch family 8.00x9.42 — harmonic/collapsed misdetection; snapped at consensus",
+    "hit: frame 3 own pitch 10.00x9.42 is outside the consensus pitch family 8.00x9.42 — harmonic/collapsed misdetection; snapped at consensus",
+    "hit: native logical exceeds the physical cap 48x40 — capped frames (reroll candidates): 0:30x53, 1:35x53, 2:39x50, 3:30x53",
+    "palette: pinned (32 colors, palette.lock.json)",
+    "pixel unfake: pitch=(8.0, 9.42) scale=1x logical<=48x48 palette=32"
+  ]
+}

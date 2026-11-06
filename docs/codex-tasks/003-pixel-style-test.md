@@ -61,4 +61,17 @@
 - `git ls-files '*.png' '*.gif'` 输出为空；一个提交：`art: 像素风格试验（郑吒、丧尸、走廊背景、演示场景）`；**只提交，不推送**。
 
 ## 完成汇报
-（Codex 在这里追加）
+
+2026-11-06：已完成像素风格试验，以一个提交交付，未推送。仅使用 codex 生图，没有使用 pixel-draw、其他 provider、镜像或 RIFE；图片/GIF 均留在本机。
+
+- 完成 32 色调色板、郑吒/研究员丧尸各四动作四帧图集、manifest、SpriteFrames，以及 480×270 走廊背景。成品在 `game/art/pixel_test/`；原图、中间文件、GIF、提示词、原生报告和 SHA-256 在 `art_src/pixel_test/`。
+- 新增 `game/ui/dev/pixel_preview.tscn`、`pixel_preview.gd`、`verify_pixel_preview.gd` 及 UID，实现 480×270 SubViewport、Nearest 四倍、双方各三人轮播、D 键/触屏按钮切对话、原生立绘与中文台词。生成战斗、对话、四倍逐帧及身份对照四张真实 Godot 截图。
+- 原生工具没有整场景 kcentroid 缩小命令，按授权新增 `game/tools/pixelize_scene.py`。未修改 002 文件、导入器、core/data/tests 或 project.godot。
+- 落盘审计：32 帧均 48×48；站立动作高 28～32px；用户已确认倒地自然变矮，郑吒 down 为 31/28/24/17px，丧尸 death 为 32/27/21/11px；所有帧底边为 y=40。角色 alpha 仅 0/255，背景全不透明。角色和背景合计 30 色，全部来自共享调色板。战斗截图 115680 个四倍像素块无插值差异。
+- Godot 两套导入、八个实际动画、轮播及对话验证均通过，失败 0 项、无 SCRIPT ERROR。仓库根目录 `bash game/tools/run_tests.sh` 得到“共 32 个测试，失败 0 个”，退出 0；`git ls-files '*.png' '*.gif'` 输出为空。
+- 郑吒成功生成 5 张，图片阶段累计 582.924 秒；丧尸成功 5 张、730.930 秒，另有 2 个中断行请求，provider 完成状态及耗时未知；背景 1 张、121.024 秒。
+- 保留问题：丧尸 native alpha 基图曾被额外 chroma 误抠，已改用未损坏原生 raw 并保留证据；丧尸 death 网格检测不稳定，原生 score 79、总分 94.75，score 命令退出 1，未伪报通过。四倍视觉复核发现郑吒跨状态裤子颜色、头形变化，以及枪/工牌细节不稳定。浏览器电脑操作被工具停止，最终使用 Godot 渲染验收。
+
+详细报告：`docs/art/pixel-test-report.md`。建议继续像素方向，先固定像素参考、材质色阶与轮廓，再批量生产；当前结果作为流程试验基线。
+
+提交信息：`art: 像素风格试验（郑吒、丧尸、走廊背景、演示场景）`。

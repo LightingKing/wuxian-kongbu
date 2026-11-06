@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "zombie_scientist",
+    "description": "Q-style pixel zombie scientist with messy black hair, pale gray skin, torn bloody off-white coat, ID badge and dark trousers",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 4,
+      "loop": true,
+      "action": "A small four-frame zombie sway. Begin in the reference's relaxed hunched stance; shoulders and head shift one logical pixel backward, then one logical pixel forward, then return to the starting silhouette. Both shoes remain planted, arms hang loosely forward. Keep the visible standing height 30 to 32 logical pixels and the same head size in all four frames. The last pose joins the first cleanly."
+    },
+    "attack": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "A compact four-frame grasping attack. Start in the same idle stance, draw the elbows slightly back, reach both short empty hands forward with a two-logical-pixel forward lean, then recover to idle. This is a small clear reach rather than a jump. Shoes remain on the ground, head size and torso proportions remain identical, and standing visible height stays about 30 to 32 logical pixels. No victim, weapon, motion effect or blood spray."
+    },
+    "hit": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "A compact four-frame hurt reaction. Start in the same idle stance, recoil the head and shoulders backward by two logical pixels with arms slightly lifted, hold a one-logical-pixel lower shocked hunch, then return to idle. Both shoes remain on the ground. Preserve the same head dimensions and body scale, with a standing visible height about 29 to 32 logical pixels. No attacker or impact effects."
+    },
+    "death": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "One compact four-frame irreversible collapse. Frame 1 is exactly the standing idle silhouette. Frame 2 bends the knees into a low crouch, head and shoulders sinking while both hands reach toward the floor. Frame 3 the zombie rests on one knee and one hand as its torso tips toward the floor. Frame 4 it lies completely motionless on its side, head at the left end, knees gently bent and both shoes visible at the right. Keep head size, head shape, torso dimensions and limb lengths unchanged across all four poses: only rotate and bend the body. The fallen pose must naturally be much shorter in vertical height than the 32-pixel standing pose; do not enlarge a fallen figure to standing height. Keep the whole curled fallen body compact enough to fit its square cell without reducing its anatomical scale, keep the lowest touching body part on the same ground line, and keep every limb connected. No return to standing, no text, no floor mark, no detached blood or effects."
+    }
+  },
+  "style": "Authentic coarse Q-style pixel art. Reproduce the attached fixed pixel reference on the same logical grid with the same 2.5-head proportions and about 32-pixel standing height. Keep its large messy black-haired head, gray-white face, off-white torn lab coat, compact crimson blood clusters, tiny chest badge, charcoal trousers and shoes. A one-pixel near-black outline and two or three flat colour values per material. Every source logical pixel is one large consistent square; no anti-aliasing, gradients, dithering, high-resolution detailing, blur or smear. Maintain identical head dimensions, limb lengths, coat length and stable identity across all frames; use small readable pose changes, not redraws of the design. No detached effects, lettering, floor or cast shadow.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 48,
+    "palette_size": 32,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005,
+    "decontam": "auto"
+  }
+}

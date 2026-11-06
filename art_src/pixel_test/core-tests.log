@@ -1,0 +1,36 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ok    test_attributes.gd::test_default_is_human_baseline
+ok    test_attributes.gd::test_enhanced_adds_to_total
+ok    test_attributes.gd::test_derived_for_ordinary_human
+ok    test_attributes.gd::test_derived_for_zheng_zha_after_first_rest
+ok    test_attributes.gd::test_gene_lock_effectiveness_table
+ok    test_attributes.gd::test_round_trip
+ok    test_character.gd::test_new_character_full_hp_and_newbie
+ok    test_character.gd::test_round_trip_through_json
+ok    test_data_loader.gd::test_missing_file_reports_error
+ok    test_data_loader.gd::test_core_rules_load
+ok    test_data_loader.gd::test_rules_values
+ok    test_kill_reward.gd::test_licker_curve_from_novel
+ok    test_kill_reward.gd::test_trivial_kill_gives_nothing
+ok    test_kill_reward.gd::test_ratio_exactly_at_cutoff_still_counts
+ok    test_kill_reward.gd::test_zombie_tenth_point_each
+ok    test_plot_tickets.gd::test_split_b_into_three_c
+ok    test_plot_tickets.gd::test_zheng_zha_first_split
+ok    test_plot_tickets.gd::test_merge_three_b_into_a
+ok    test_plot_tickets.gd::test_cannot_split_d_or_merge_s
+ok    test_plot_tickets.gd::test_spend_insufficient_changes_nothing
+ok    test_rng.gd::test_same_seed_same_sequence
+ok    test_rng.gd::test_save_and_restore_continues_sequence
+ok    test_rng.gd::test_chance_extremes
+ok    test_save_service.gd::test_save_and_load_round_trip
+ok    test_save_service.gd::test_rng_sequence_survives_save
+ok    test_save_service.gd::test_missing_save_returns_null
+ok    test_save_service.gd::test_living_characters
+ok    test_settlement.gd::test_zheng_zha_first_film_is_6502
+ok    test_settlement.gd::test_fractional_kills_round_down
+ok    test_settlement.gd::test_negative_result_is_erased
+ok    test_settlement.gd::test_leak_penalty_absorbed_by_survival
+ok    test_smoke.gd::test_runner_works
+
+共 32 个测试，失败 0 个

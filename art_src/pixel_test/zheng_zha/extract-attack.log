@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "db8ab1c245df",
+  "extract_args": {},
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run",
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "errors": [],
+  "warnings": [
+    "attack: dropped 1 collapsed per-frame pitch(es) below 6.60",
+    "attack: dropped 1 collapsed per-frame pitch(es) below 6.60",
+    "attack: frame 2 own pitch 5.00x5.00 is outside the consensus pitch family 10.50x10.50 — harmonic/collapsed misdetection; snapped at consensus",
+    "attack: native logical exceeds the physical cap 48x40 — capped frames (reroll candidates): 0:24x48, 1:28x46, 2:34x48, 3:24x53",
+    "palette: pinned (32 colors, palette.lock.json)",
+    "pixel unfake: pitch=[10.5, 11.0, 10.5, (10.5, 9.66)] scale=1x logical<=48x48 palette=32"
+  ]
+}

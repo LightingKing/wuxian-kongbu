@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "zheng_zha_pixel",
+    "description": "",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 4,
+      "loop": true,
+      "action": "Four small breathing poses at the exact reference scale. Keep both feet planted and the single pistol held low. Shoulders rise by one logical pixel, return, settle one logical pixel, then return to the initial stance. Keep the head the same size and standing height 31 to 32 logical pixels. The last pose joins the first naturally."
+    },
+    "attack": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "Four clear compact pistol shooting poses: low ready; extend the gun arm horizontally at chest height with the second hand supporting; fire with a tiny warm-yellow muzzle flash touching the barrel and one logical pixel recoil; return to low ready. Keep both shoes grounded, the same head dimensions and 31 to 32 logical pixel standing height in every pose. Exactly one pistol throughout. No bullet trail, smoke cloud, projectile or detached effect."
+    },
+    "hit": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "Four compact hurt-reaction poses: reference low ready stance; head and upper torso recoil backward two logical pixels while still gripping the same pistol; a brief shocked backward lean with knees flexed one logical pixel; return to low ready. Both shoes remain on the ground. Preserve head size and body scale, with visible standing height 29 to 32 logical pixels. No attacker, blood spray or detached impact effect."
+    },
+    "down": {
+      "frames": 4,
+      "fps": 6,
+      "loop": false,
+      "action": "A four-pose collapse that ends lying on the ground: start at the exact reference standing scale with knees beginning to buckle; sink to one knee; brace a free hand on the ground while the torso tilts down; finish in a compact side-lying defeated pose with the head toward the target direction and bent legs behind. Keep the same head dimensions, torso length, short limbs and single pistol throughout. The pistol remains gripped in the same hand, never becomes a second object. The standing pose is about 32 logical pixels high; kneeling and lying naturally have a shorter visible bounding box, do not enlarge them to fill the canvas. Feet, then knees and finally the side of the body meet one common ground baseline. Keep the entire fallen body comfortably inside the 48-pixel cell. No death effect, blood pool, shadow or detached pixels."
+    }
+  },
+  "style": "Authentic coarse Q-style pixel art. Reproduce the attached fixed pixel reference on the same logical grid, with identical 2.5-head proportions and about 32-pixel standing height. Large short black-haired head, warm pale face, gray-white collared shirt, black belt, charcoal trousers, black shoes and exactly one black pistol. One-pixel near-black outline and two or three flat colors per material. Every logical source pixel is one large square. No anti-aliasing, gradients, dithering, blur or high-resolution detail. Preserve head dimensions, limb lengths, clothing and identity across all poses. No detached effects, lettering, floor or cast shadow.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "resample": "nearest",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "pixel_unfake": true,
+    "logical_height": 48,
+    "palette_size": 32,
+    "outline": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

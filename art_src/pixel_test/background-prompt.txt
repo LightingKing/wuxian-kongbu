@@ -1,0 +1,9 @@
+Create a wide 16:9 pixel-art game background, a side-view research laboratory corridor, adapting the layout and setting of the reference. It is the background for a small chibi pixel-art turn-based RPG. Target logical resolution is 480 by 270 pixels, shown as a crisp large nearest-neighbour enlargement. Use deliberate square pixel clusters and stepped edges, 1-logical-pixel outlines, flat bands of shading, and sparse details. No soft painting, no anti-aliasing, no gradient, no blur, no random noise or dithering. Large readable shapes and restrained contrast so 32-pixel-tall chibi characters remain readable.
+
+Keep the reference's horizontal wall, heavy steel door on the left, inset window, a small control panel, vents, exposed ceiling pipes, overhead rectangular lights, worn cold metal and a few dark rust marks. The scene is dark and cool, with blue-grey and muted green-grey surfaces. A few dull ivory light strips and desaturated ochre safety markings are allowed.
+
+Composition is a straight side-view wide battle stage, not a tunnel vanishing-point view. The upper 58 percent contains the wall and ceiling. The bottom 42 percent must be a wide, open, unobstructed, nearly level floor for six combatants. Floor begins near logical y=156 and continues to y=269. Sparse horizontal joints only, low contrast, no objects or obstacles on the floor. No people, no zombies, no figures, no shadows of characters, no laser beams, no beam emitters, no text, no readable signs, no interface, no logos.
+
+The canvas is completely opaque, with pixels extending to every edge. Use only these 32 RGB colors throughout: #0B0F1A #141B2B #20283B #30384A #465064 #626D7B #89939B #AFB8BB #D3D9D6 #ECEBDD #483843 #76545B #A77A77 #D5A397 #E8C4AD #37494B #556869 #7D8D88 #ABB8A6 #D0D5BC #3D182B #652438 #943C4B #C15A60 #263C54 #3F5B73 #60859A #8FB1BC #B78B57 #DEC17D #F1DEA6 #3E7477.
+
+Deliver one entire background only.

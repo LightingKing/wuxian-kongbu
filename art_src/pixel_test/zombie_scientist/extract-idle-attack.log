@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "db8ab1c245df",
+  "extract_args": {
+    "decontam": "auto"
+  },
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\run-native",
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "errors": [],
+  "warnings": [
+    "idle: pitch disagreement — detect 1.00x1.00 (uniformity 175.3) vs runlen 7.07x7.14 (63.5); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "idle: native logical exceeds the physical cap 48x40 — capped frames (reroll candidates): 0:322x556, 1:290x580, 2:353x540, 3:320x556",
+    "attack: pitch disagreement — detect 1.00x1.00 (uniformity 181.0) vs runlen 7.79x7.06 (61.6); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "attack: native logical exceeds the physical cap 48x40 — capped frames (reroll candidates): 0:327x559, 1:336x555, 2:398x543, 3:329x559",
+    "palette: pinned (32 colors, palette.lock.json)",
+    "pixel unfake: pitch=1.0,1.0 scale=1x logical<=48x48 palette=32"
+  ]
+}

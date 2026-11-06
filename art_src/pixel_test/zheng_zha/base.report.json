@@ -1,0 +1,49 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "Create ONE new game character sprite based on the attached character design reference. Convert Zheng Zha into a very small chibi pixel-art RPG character, 2.5 heads tall. Preserve his recognisable short tousled black hair with bangs, pale warm skin, serious dark eyes, white collared long-sleeve shirt tucked into dark charcoal trousers, black belt and black leather shoes. Add ONE compact black pistol in his right hand, held low and forward, with his left hand supporting it. Both feet planted, full body, neutral combat-ready idle pose.\n\nThis is a 48 by 48 LOGICAL-PIXEL square sprite canvas, shown as a large nearest-neighbour enlargement. The character itself is exactly about 32 logical pixels tall, and roughly 17 pixels wide; head about 12 logical pixels high, torso plus legs about 20. Position the feet at logical row 39, leaving 8 rows of empty space beneath and roughly 7 rows above the head. Leave generous empty room around him. Use visibly chunky, perfectly square grid-aligned pixel clusters: one logical pixel is one large uniform square. Every contour is stepped, not smooth. Use a single dark logical-pixel outline, simple face with only a few pixels, only two or three shades per material, no tiny painted detail, no anti-aliasing, no gradients, no dither, no glossy anime rendering.\n\nThe supplied image is only for character identity and outfit. It must NOT dictate realistic adult proportions or smooth painting. The result must clearly be a 2.5-head chibi 32-pixel-tall game sprite.\n\nUse the following restricted palette for the character: #0B0F1A #141B2B #20283B #30384A #465064 #626D7B #89939B #AFB8BB #D3D9D6 #ECEBDD #483843 #76545B #A77A77 #D5A397 #E8C4AD #263C54 #3F5B73 #60859A #8FB1BC. No other subject colors.\n\nFlat pure magenta #FF00FF background, which is not used anywhere on the character. No ground shadow, no floor, no scenery, no text, no grid lines, no labels, no extra views, no multiple characters. Output one entire square sprite canvas only.\n\nSeen from the exact side, facing right. The single black pistol is on the character's own right hand only; the left hand has none, and it never moves to the other side. Facing right, the character's own right side is toward the viewer: its right hand is the near one, nearer the viewer, and the single black pistol on it shows clearly. These sentences decide which side each item is on, whatever an attached picture shows.\n\nThe subject must be facing right (toward the right edge of the image), regardless of the reference image's orientation. Preserve the subject's design.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\base.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\base.png.raw.png",
+  "raw_bytes": 1222548,
+  "elapsed_seconds": 118.989,
+  "model": null,
+  "session_id": "01a1b16f-f729-74f3-ad5b-f0d520a4b261",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png"
+  ],
+  "transparent": false,
+  "alpha": null,
+  "chroma": null,
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false,
+    "facing": {
+      "transport": "codex-exec",
+      "auth_source": "codex-login",
+      "direction": "right",
+      "confidence": 0.99,
+      "confidence_source": "model-self-report",
+      "model": null,
+      "requested": "right",
+      "fix": "regen",
+      "action": "none",
+      "final_direction": "right",
+      "final_direction_source": "observation",
+      "reason": "already-matched"
+    },
+    "view": {
+      "direction": "side",
+      "facing": "right",
+      "handed": [
+        {
+          "item": "the single black pistol",
+          "side": "right",
+          "part": "hand"
+        }
+      ]
+    }
+  },
+  "provider_resolved_from": "explicit"
+}

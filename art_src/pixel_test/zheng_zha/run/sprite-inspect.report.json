@@ -1,0 +1,155 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "kind": "sprite-gen-inspect-report",
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run",
+  "states": [
+    "idle",
+    "attack",
+    "hit",
+    "down"
+  ],
+  "thresholds": {
+    "histogram_min": 0.0,
+    "dhash_min": 0.55,
+    "motion_min": 0.01
+  },
+  "rows": [
+    {
+      "state": "idle",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/idle/frame-0.png",
+        "frames/idle/frame-1.png",
+        "frames/idle/frame-2.png",
+        "frames/idle/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9559775792787489,
+          "mean": 0.968410575123956
+        },
+        "dhash_similarity": {
+          "min": 0.9375,
+          "mean": 0.9583333333333334
+        },
+        "motion_presence": 0.030935808568218953,
+        "centroid_sigma": {
+          "x": 0.3408838542068407,
+          "y": 0.4147295166248755
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "attack",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/attack/frame-0.png",
+        "frames/attack/frame-1.png",
+        "frames/attack/frame-2.png",
+        "frames/attack/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9371057440440831,
+          "mean": 0.9512481374795402
+        },
+        "dhash_similarity": {
+          "min": 0.921875,
+          "mean": 0.9401041666666666
+        },
+        "motion_presence": 0.034586588541666664,
+        "centroid_sigma": {
+          "x": 0.4567250851712131,
+          "y": 0.9378173694931992
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "hit",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/hit/frame-0.png",
+        "frames/hit/frame-1.png",
+        "frames/hit/frame-2.png",
+        "frames/hit/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.8839381132808705,
+          "mean": 0.9211700273240844
+        },
+        "dhash_similarity": {
+          "min": 0.8125,
+          "mean": 0.8645833333333334
+        },
+        "motion_presence": 0.06168204912173203,
+        "centroid_sigma": {
+          "x": 0.9981447749413667,
+          "y": 0.5234026003370207
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "state": "down",
+      "source": "frames",
+      "expected_frames": 4,
+      "found_frames": 4,
+      "natural_pose_count": 4,
+      "frame_files": [
+        "frames/down/frame-0.png",
+        "frames/down/frame-1.png",
+        "frames/down/frame-2.png",
+        "frames/down/frame-3.png"
+      ],
+      "metrics": {
+        "histogram_intersection": {
+          "min": 0.9195240353765031,
+          "mean": 0.9395508444267138
+        },
+        "dhash_similarity": {
+          "min": 0.609375,
+          "mean": 0.7135416666666666
+        },
+        "motion_presence": 0.06749857983558007,
+        "centroid_sigma": {
+          "x": 2.039697304161804,
+          "y": 4.290772901269135
+        }
+      },
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "down: pitch crosscheck: axis ratio y/x disagrees — run-length 1.216 vs grid 1.008 (20.6%); one axis may have collapsed to the other",
+        "down: pitch disagreement — detect 12.50x12.60 (uniformity 52.9) vs runlen 9.11x11.08 (47.0); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+        "down: frame 0 pitch detection inconclusive — consensus fallback 12.50x12.60",
+        "down: frames exceed the safe area 32x32 but fit within the margin zone (informational, no action): 0:20x39, 1:23x35, 3:34x21"
+      ]
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "down: pitch crosscheck: axis ratio y/x disagrees — run-length 1.216 vs grid 1.008 (20.6%); one axis may have collapsed to the other",
+    "down: pitch disagreement — detect 12.50x12.60 (uniformity 52.9) vs runlen 9.11x11.08 (47.0); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "down: frame 0 pitch detection inconclusive — consensus fallback 12.50x12.60",
+    "down: frames exceed the safe area 32x32 but fit within the margin zone (informational, no action): 0:20x39, 1:23x35, 3:34x21"
+  ]
+}

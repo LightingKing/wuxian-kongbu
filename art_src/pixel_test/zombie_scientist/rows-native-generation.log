@@ -1,0 +1,8 @@
+{"state": "idle", "ok": true}
+{"state": "attack", "ok": true}
+{"state": "hit", "ok": true}
+| state | provider | resolved from | seconds | status |
+|---|---|---|---|---|
+| idle | codex | explicit | 159.1 | OK |
+| attack | codex | explicit | 201.8 | OK |
+| hit | codex | explicit | 195.9 | OK |

@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+已验证内部画布、最近邻、整数四倍放大与原生立绘/中文界面。
+已验证 D 键及触屏按钮的模式切换。
+已播放 zheng_zha/idle：4 帧，loop=true
+已播放 zheng_zha/attack：4 帧，loop=false
+已播放 zheng_zha/hit：4 帧，loop=false
+已播放 zheng_zha/down：4 帧，loop=false
+已播放 zombie_scientist/idle：4 帧，loop=true
+已播放 zombie_scientist/attack：4 帧，loop=false
+已播放 zombie_scientist/hit：4 帧，loop=false
+已播放 zombie_scientist/death：4 帧，loop=false
+像素预览验证：失败 0 项

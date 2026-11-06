@@ -1,0 +1,84 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "Create one original game sprite, a Q-style pixel-art zombie scientist derived from the attached approved character reference. Preserve the recognizable identity: messy short black hair, gray-white skin, a torn white laboratory coat, a few dark crimson blood stains, a tiny rectangular ID badge, dark charcoal trousers and dark shoes. Keep the expression eerie but readable and the little character cute in its proportions.\n\nThe reference is identity guidance only. Convert it completely into coarse, authentic low-resolution pixel art suitable for a 48 by 48 logical-pixel animation cell. The entire standing figure is about 32 logical pixels tall, with a large head and a total height of exactly about 2.5 heads. The head should be roughly 12 to 13 logical pixels high, the compact torso about 10, and the short legs about 9. Leave generous empty space around the character, especially in front of its hands; feet sit eight logical pixels above the cell bottom. A neutral zombie idle pose: slightly bent knees, hunched shoulders, both short arms relaxed forward at waist level, hands empty. Entire head, both hands, coat hem and both shoes must be visible.\n\nDraw as a clean 48 by 48 pixel design displayed at a large integer nearest-neighbor enlargement: every logical pixel is a large square on one consistent grid. The silhouette uses a one-logical-pixel dark navy outline. Use deliberate solid clusters and only two or three values per material. Cold, muted horror palette: near-black navy outlines and hair, gray-green flesh, off-white and cool gray coat, deep wine-red blood. No anti-aliasing, no smooth curves, no gradients, no dithering, no tiny illustration details, no subpixel lines, no blur, no text, no visible pixel grid, no border and no cast shadow. Only one character. The final sprite will be used as the fixed reference for all animation frames.\n\nSeen from the exact side, facing left. The ID badge is on the character's own left chest only; the right chest has none, and it never moves to the other side. Facing left, the character's own left side is toward the viewer: its left chest is the near one, nearer the viewer, and the ID badge on it shows clearly. These sentences decide which side each item is on, whatever an attached picture shows.\n\nThe subject must be facing left (toward the left edge of the image), regardless of the reference image's orientation. Preserve the subject's design.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\base.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\base.png.raw.png",
+  "raw_bytes": 420362,
+  "elapsed_seconds": 119.469,
+  "model": null,
+  "session_id": "01a1b176-2447-7f80-9d87-21b9ba7bdfa7",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zombie_scientist_attack.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\base.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1263x1246",
+    "key": "magenta",
+    "keyed_pixels": 304633,
+    "fringe_pixels": 0,
+    "cleaned_transparent_rgb_pixels": 11978,
+    "alpha_zero_pct": 99.99,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "auto",
+      "applied": false,
+      "reason": "no subject pixel lies deeper than 6 px inside the keyed silhouette, so there is no interior to learn the subject's colours from"
+    }
+  },
+  "chroma": {
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\base.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1263x1246",
+    "key": "magenta",
+    "keyed_pixels": 304633,
+    "fringe_pixels": 0,
+    "cleaned_transparent_rgb_pixels": 11978,
+    "alpha_zero_pct": 99.99,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "auto",
+      "applied": false,
+      "reason": "no subject pixel lies deeper than 6 px inside the keyed silhouette, so there is no interior to learn the subject's colours from"
+    }
+  },
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": false,
+    "transparent_background_reported": true,
+    "facing": {
+      "transport": "codex-exec",
+      "auth_source": "codex-login",
+      "direction": "left",
+      "confidence": 0.99,
+      "confidence_source": "model-self-report",
+      "model": null,
+      "requested": "left",
+      "fix": "regen",
+      "action": "none",
+      "final_direction": "left",
+      "final_direction_source": "observation",
+      "reason": "already-matched"
+    },
+    "view": {
+      "direction": "side",
+      "facing": "left",
+      "handed": [
+        {
+          "item": "the ID badge",
+          "side": "left",
+          "part": "chest"
+        }
+      ]
+    }
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\base.gen-report.json"
+}

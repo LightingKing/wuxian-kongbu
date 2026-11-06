@@ -1,0 +1,924 @@
+{
+  "kind": "pixel-test-asset-audit",
+  "palette_count": 32,
+  "characters": {
+    "zheng_zha": {
+      "path": "game/art/pixel_test/zheng_zha/sprite-sheet-alpha.png",
+      "sha256": "906bb88b5ecefd0bcb5ede289a6873ab68f9d179ae4dd9ca77bc4fa483349fd7",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_color_count": 25,
+      "opaque_colors": [
+        "#0B0F1A",
+        "#141B2B",
+        "#20283B",
+        "#30384A",
+        "#37494B",
+        "#3D182B",
+        "#465064",
+        "#483843",
+        "#556869",
+        "#626D7B",
+        "#652438",
+        "#76545B",
+        "#7D8D88",
+        "#89939B",
+        "#A77A77",
+        "#ABB8A6",
+        "#AFB8BB",
+        "#B78B57",
+        "#D0D5BC",
+        "#D3D9D6",
+        "#D5A397",
+        "#DEC17D",
+        "#E8C4AD",
+        "#ECEBDD",
+        "#F1DEA6"
+      ],
+      "foreign_colors": [],
+      "states": {
+        "idle": {
+          "frame_count": 4,
+          "fps": 4,
+          "loop": true,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                17,
+                9,
+                31,
+                40
+              ],
+              "visible_width": 14,
+              "visible_height": 31,
+              "baseline_exclusive": 40,
+              "color_count": 18,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                16,
+                8,
+                31,
+                40
+              ],
+              "visible_width": 15,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 18,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                17,
+                10,
+                32,
+                40
+              ],
+              "visible_width": 15,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                17,
+                9,
+                31,
+                40
+              ],
+              "visible_width": 14,
+              "visible_height": 31,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            }
+          ]
+        },
+        "attack": {
+          "frame_count": 4,
+          "fps": 6,
+          "loop": false,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                17,
+                11,
+                31,
+                40
+              ],
+              "visible_width": 14,
+              "visible_height": 29,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                17,
+                12,
+                34,
+                40
+              ],
+              "visible_width": 17,
+              "visible_height": 28,
+              "baseline_exclusive": 40,
+              "color_count": 19,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                17,
+                11,
+                38,
+                40
+              ],
+              "visible_width": 21,
+              "visible_height": 29,
+              "baseline_exclusive": 40,
+              "color_count": 19,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                17,
+                8,
+                31,
+                40
+              ],
+              "visible_width": 14,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 19,
+              "visible_height_28_to_34": true
+            }
+          ]
+        },
+        "hit": {
+          "frame_count": 4,
+          "fps": 6,
+          "loop": false,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                12,
+                8,
+                30,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 20,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                11,
+                8,
+                32,
+                40
+              ],
+              "visible_width": 21,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 21,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                12,
+                10,
+                34,
+                40
+              ],
+              "visible_width": 22,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 21,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                12,
+                8,
+                30,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 18,
+              "visible_height_28_to_34": true
+            }
+          ]
+        },
+        "down": {
+          "frame_count": 4,
+          "fps": 6,
+          "loop": false,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                22,
+                9,
+                38,
+                40
+              ],
+              "visible_width": 16,
+              "visible_height": 31,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                20,
+                12,
+                38,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 28,
+              "baseline_exclusive": 40,
+              "color_count": 19,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                16,
+                16,
+                39,
+                40
+              ],
+              "visible_width": 23,
+              "visible_height": 24,
+              "baseline_exclusive": 40,
+              "color_count": 21,
+              "visible_height_28_to_34": false
+            },
+            {
+              "bbox_xyxy": [
+                11,
+                23,
+                38,
+                40
+              ],
+              "visible_width": 27,
+              "visible_height": 17,
+              "baseline_exclusive": 40,
+              "color_count": 20,
+              "visible_height_28_to_34": false
+            }
+          ]
+        }
+      }
+    },
+    "zombie_scientist": {
+      "path": "game/art/pixel_test/zombie_scientist/sprite-sheet-alpha.png",
+      "sha256": "0e87901ab727e8e982d50d1af4afe365fbc141e38bbbfe1069f360732a3abe26",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_values": [
+        0,
+        255
+      ],
+      "opaque_color_count": 23,
+      "opaque_colors": [
+        "#0B0F1A",
+        "#141B2B",
+        "#20283B",
+        "#263C54",
+        "#30384A",
+        "#37494B",
+        "#3D182B",
+        "#3E7477",
+        "#465064",
+        "#483843",
+        "#556869",
+        "#626D7B",
+        "#652438",
+        "#76545B",
+        "#7D8D88",
+        "#89939B",
+        "#A77A77",
+        "#ABB8A6",
+        "#AFB8BB",
+        "#D0D5BC",
+        "#D3D9D6",
+        "#E8C4AD",
+        "#ECEBDD"
+      ],
+      "foreign_colors": [],
+      "states": {
+        "idle": {
+          "frame_count": 4,
+          "fps": 4,
+          "loop": true,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                14,
+                10,
+                31,
+                40
+              ],
+              "visible_width": 17,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                14,
+                8,
+                30,
+                40
+              ],
+              "visible_width": 16,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                13,
+                10,
+                32,
+                40
+              ],
+              "visible_width": 19,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                14,
+                10,
+                31,
+                40
+              ],
+              "visible_width": 17,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            }
+          ]
+        },
+        "attack": {
+          "frame_count": 4,
+          "fps": 6,
+          "loop": false,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                13,
+                8,
+                31,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 18,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                12,
+                8,
+                31,
+                40
+              ],
+              "visible_width": 19,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 18,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                10,
+                9,
+                33,
+                40
+              ],
+              "visible_width": 23,
+              "visible_height": 31,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                13,
+                8,
+                32,
+                40
+              ],
+              "visible_width": 19,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            }
+          ]
+        },
+        "hit": {
+          "frame_count": 4,
+          "fps": 6,
+          "loop": false,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                16,
+                10,
+                34,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                14,
+                8,
+                30,
+                40
+              ],
+              "visible_width": 16,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                16,
+                11,
+                34,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 29,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                16,
+                10,
+                34,
+                40
+              ],
+              "visible_width": 18,
+              "visible_height": 30,
+              "baseline_exclusive": 40,
+              "color_count": 18,
+              "visible_height_28_to_34": true
+            }
+          ]
+        },
+        "death": {
+          "frame_count": 4,
+          "fps": 6,
+          "loop": false,
+          "frames": [
+            {
+              "bbox_xyxy": [
+                15,
+                8,
+                34,
+                40
+              ],
+              "visible_width": 19,
+              "visible_height": 32,
+              "baseline_exclusive": 40,
+              "color_count": 15,
+              "visible_height_28_to_34": true
+            },
+            {
+              "bbox_xyxy": [
+                15,
+                13,
+                36,
+                40
+              ],
+              "visible_width": 21,
+              "visible_height": 27,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": false
+            },
+            {
+              "bbox_xyxy": [
+                17,
+                19,
+                41,
+                40
+              ],
+              "visible_width": 24,
+              "visible_height": 21,
+              "baseline_exclusive": 40,
+              "color_count": 19,
+              "visible_height_28_to_34": false
+            },
+            {
+              "bbox_xyxy": [
+                5,
+                29,
+                32,
+                40
+              ],
+              "visible_width": 27,
+              "visible_height": 11,
+              "baseline_exclusive": 40,
+              "color_count": 17,
+              "visible_height_28_to_34": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "cell_size": "48x48",
+    "binary_character_alpha": true,
+    "opaque_background": true,
+    "shared_palette_only": true,
+    "height": "See each frame measurement and the report's posture interpretation; no excluded frames are silently marked passing."
+  },
+  "background": {
+    "path": "game/art/pixel_test/bg_lab_corridor_pixel.png",
+    "sha256": "71b0ca746bf2142b83204d35beb872d41b58a6a4e90f9bbbff5e570d6b146939",
+    "size": [
+      480,
+      270
+    ],
+    "mode": "RGB",
+    "alpha_values": [
+      255
+    ],
+    "opaque_color_count": 26,
+    "opaque_colors": [
+      "#0B0F1A",
+      "#141B2B",
+      "#20283B",
+      "#263C54",
+      "#30384A",
+      "#37494B",
+      "#3D182B",
+      "#3E7477",
+      "#3F5B73",
+      "#465064",
+      "#483843",
+      "#556869",
+      "#60859A",
+      "#626D7B",
+      "#652438",
+      "#76545B",
+      "#7D8D88",
+      "#89939B",
+      "#8FB1BC",
+      "#ABB8A6",
+      "#AFB8BB",
+      "#B78B57",
+      "#D0D5BC",
+      "#D3D9D6",
+      "#DEC17D",
+      "#ECEBDD"
+    ],
+    "foreign_colors": []
+  },
+  "combined_color_count": 30,
+  "combined_colors": [
+    "#0B0F1A",
+    "#141B2B",
+    "#20283B",
+    "#263C54",
+    "#30384A",
+    "#37494B",
+    "#3D182B",
+    "#3E7477",
+    "#3F5B73",
+    "#465064",
+    "#483843",
+    "#556869",
+    "#60859A",
+    "#626D7B",
+    "#652438",
+    "#76545B",
+    "#7D8D88",
+    "#89939B",
+    "#8FB1BC",
+    "#A77A77",
+    "#ABB8A6",
+    "#AFB8BB",
+    "#B78B57",
+    "#D0D5BC",
+    "#D3D9D6",
+    "#D5A397",
+    "#DEC17D",
+    "#E8C4AD",
+    "#ECEBDD",
+    "#F1DEA6"
+  ],
+  "files_sha256": {
+    "game/art/pixel_test/bg_lab_corridor_pixel.png": "71b0ca746bf2142b83204d35beb872d41b58a6a4e90f9bbbff5e570d6b146939",
+    "game/art/pixel_test/palette.hex": "8b5632860302785e35c48f891e815e4a77b2f0edea0364a815991e83d9b22657",
+    "game/art/pixel_test/zheng_zha/manifest.json": "11c0eac1151366743f10cb284ae29e72ef2980ef2bc2c62bf427dd8ba9de1527",
+    "game/art/pixel_test/zheng_zha/sprite-sheet-alpha.png": "906bb88b5ecefd0bcb5ede289a6873ab68f9d179ae4dd9ca77bc4fa483349fd7",
+    "game/art/pixel_test/zheng_zha/sprite_frames.tres": "5999e8544d6c07018a05a91b48aa98ca4bb20bf39e95b3d415d1a5349328ce23",
+    "game/art/pixel_test/zombie_scientist/manifest.json": "a8776f6d51ca1d4b70fa0b3b12f22615d91059e6654f5c39e62b6d8ae9906000",
+    "game/art/pixel_test/zombie_scientist/sprite-sheet-alpha.png": "0e87901ab727e8e982d50d1af4afe365fbc141e38bbbfe1069f360732a3abe26",
+    "game/art/pixel_test/zombie_scientist/sprite_frames.tres": "9946b552928d7aa86c83aba7466197273605fb5dec4a1baa4a76fd85f7dd2435",
+    "art_src/pixel_test/apply_native_curation.py": "f5a6b7468bd57706a7f0258aeb5db48c7be996004fbd2881d30e66da631702f9",
+    "art_src/pixel_test/audit_assets.py": "f0342ccb9a65b17b4fec3bdc2b6cdae7d85c9d37336d0da8532e771e6dc941fd",
+    "art_src/pixel_test/background-conversion.md": "7c0d9bbb7f6ef08b8ddc6b1e7039a656c6d83c3857c68e78b47fca7320071930",
+    "art_src/pixel_test/background-conversion.report.json": "4ad01ac259d0d6e723b66ff441e082f1fd94dce8479434933731e07574fe0643",
+    "art_src/pixel_test/background-generation.report.json": "89d8f99e2c2c50fa48dd0761dc9908a14510af52585a67a3f37c44467293fefb",
+    "art_src/pixel_test/background-prompt.txt": "08b65dfa4caffeb7bf9919a6234ea9d01cfdf2406f352863ca10b11985130be3",
+    "art_src/pixel_test/background-raw.png": "a8205672d175125a20beeeb2f1f6c436125b300a3032ee148a0a9c346efefcce",
+    "art_src/pixel_test/background-raw.png.raw.png": "a8205672d175125a20beeeb2f1f6c436125b300a3032ee148a0a9c346efefcce",
+    "art_src/pixel_test/core-tests.log": "36da64d393e0d0e40524e1e40518e5c2184c2dab8272c663bea84c58c97e1bbf",
+    "art_src/pixel_test/generate_facing_rows.py": "7934cac4f3ba0ea5b4d4af69a12b965f1fbc5c0c7b3f9ff5f96771f31d43f166",
+    "art_src/pixel_test/generation-summary.json": "8d0a8f7c3244981d0139c7a9a9cea21e5c866e5738dd6dbb997d00adaf651670",
+    "art_src/pixel_test/godot-atlas-qa-4x.png": "e62f3b3c3494e9ca0aee863e462c56c0dab6bd1f2edd3e6ef8d2bd7e0927af4d",
+    "art_src/pixel_test/godot-battle.png": "f0c0159ea037c12230dcf6cb695e4dab477df41ec386311f0527a427ad8fe18f",
+    "art_src/pixel_test/godot-dialogue.png": "e3f20985d1198068e47acd787b837682a70fb6fb35cf4b9328413e37870d3117",
+    "art_src/pixel_test/godot-headless-verification.log": "f763540734e66af2a8231c5a8d9882a2d9f1bdb79eca7f3636c359e623f13887",
+    "art_src/pixel_test/godot-identity-comparison-4x.png": "9458025bea46fbb8b5210bb1f9a0b4ef3838b17e0f35088a017bdc3756516d98",
+    "art_src/pixel_test/godot-render-verification.log": "7e6f75c0738752041323815f0032a830e7126d9924538746686b71062df5dea8",
+    "art_src/pixel_test/palette-notes.md": "c941c0b4f7571caaffacd43e2b0d1b16a5c4652ff79f488f57b9d18ab96ad3b1",
+    "art_src/pixel_test/README.md": "b11517171df6340aa6cc6a02e64e3abc257d24c95516e09f079af6aaf8043b4c",
+    "art_src/pixel_test/render-grid-audit.json": "8f98f6517e39d7c487fc686190a68d8e94e326b4d62cf5fd1769ddd68ac956de",
+    "art_src/pixel_test/review.html": "b5c4a82be594e8859d07edc1faa5bb3455ebe531c3094f562d3d3c4d245af9ca",
+    "art_src/pixel_test/zheng_zha/base-prompt.txt": "9985e8fbbc5a68317073d3be54bac41010b9bc4b7c946cd7263ba32688ed359a",
+    "art_src/pixel_test/zheng_zha/base.png": "07e91b5c6be24eb124df188363ed9f2acc7ab96d8c0ce2344905da341327297a",
+    "art_src/pixel_test/zheng_zha/base.png.raw.png": "07e91b5c6be24eb124df188363ed9f2acc7ab96d8c0ce2344905da341327297a",
+    "art_src/pixel_test/zheng_zha/base.report.json": "08c0a102c7f11cddc5d3af14bf50d44f68d360afe4c33e3127e5e14b84c780cf",
+    "art_src/pixel_test/zheng_zha/compose-curated.log": "32b8eef1958402d39584f9343bd0842ca25ee39d078391cab7508af53ec4378b",
+    "art_src/pixel_test/zheng_zha/compose-final.log": "32b8eef1958402d39584f9343bd0842ca25ee39d078391cab7508af53ec4378b",
+    "art_src/pixel_test/zheng_zha/compose-gif-4x.log": "528d5c1743902480b6572caaefce0afb586a66d70ca625de875a80918e53ffab",
+    "art_src/pixel_test/zheng_zha/compose-gif.log": "dc2dda3d8c64044e1f2da5569052f48c31e23bd80ace0a39283e2c989ae7117e",
+    "art_src/pixel_test/zheng_zha/compose-uncurated.log": "32b8eef1958402d39584f9343bd0842ca25ee39d078391cab7508af53ec4378b",
+    "art_src/pixel_test/zheng_zha/extract-attack.log": "aac09f72f291528eaf2dce8e0d205216506bc01110b7aa9d2f30f944f7025c35",
+    "art_src/pixel_test/zheng_zha/extract-down.log": "7458c82961380fd2ba362b5852ccf44b1f437952a35386b858f542b08209cbae",
+    "art_src/pixel_test/zheng_zha/extract-hit.log": "889783d805d1af34698d7f4faff690c2d681e2760fa7bcc394febf06b89eb718",
+    "art_src/pixel_test/zheng_zha/extract-idle.log": "0aac695aa639579d9103da096ec3f72c055af3fd9c5ee41ebb9c31d6f65dcfce",
+    "art_src/pixel_test/zheng_zha/generate-down.log": "1ff1720cfba6ceede11e00697214aecada42642dedb2b46280e8ec5cfe78ec93",
+    "art_src/pixel_test/zheng_zha/generate-rows.log": "14db188f6077817aadd1c6aba064c95ea6d268bd16df3a78065496cf4eb388a5",
+    "art_src/pixel_test/zheng_zha/idle-uncurated-contact.png": "a9eb7659dc164e22b542fea226ab3fd5fc3bfb1be2491adc1def8a7467115396",
+    "art_src/pixel_test/zheng_zha/idle-uncurated-gif.json": "e4c70f570e4c6ae96a26e4d940f22d0ecb1e235a80345a18388c62cb2e5b89a3",
+    "art_src/pixel_test/zheng_zha/idle-uncurated.gif": "e0494de2ff2c94b2a451e468aa948e229554c7ed14e125fc77f5c90e02682049",
+    "art_src/pixel_test/zheng_zha/inspect.log": "d25b4f1ed1f0fbb12f15d6a4b75d53f525cc1ce94916f40c26496bb16bcc7bc2",
+    "art_src/pixel_test/zheng_zha/previews/attack.gif": "0361cccf716a98da6deb1a0a0b044c81fd4927fe0da6c555a8dde320838e95f8",
+    "art_src/pixel_test/zheng_zha/previews/gif-manifest.json": "4f23fa3aad249994091057b62c98e03598dd885befb0f56efae2183e7d06c050",
+    "art_src/pixel_test/zheng_zha/previews/hit.gif": "79b6d5901195cd0a977b7c7e15ab2e7487a64dfe58ed33ba33678bf3edde1d08",
+    "art_src/pixel_test/zheng_zha/previews/idle.gif": "f0ecca973939206edb01165ad66c1abf22e354744fce616eed47e046be6e1030",
+    "art_src/pixel_test/zheng_zha/previews-4x/attack.gif": "5f2b5d47f6adee052e4771bcb053d8277343af29bcdbc1d83d9d1db61d3aa59e",
+    "art_src/pixel_test/zheng_zha/previews-4x/down.gif": "4ba67d5e3d0fd98d3bf739351765a42907522e4a14a54973c16f50dc31fa561a",
+    "art_src/pixel_test/zheng_zha/previews-4x/gif-manifest.json": "189282aa7da06ab7b17ad00c9e33ff26fae9bc30a96a2379a66b3888bfc42f59",
+    "art_src/pixel_test/zheng_zha/previews-4x/hit.gif": "d0cececc48130b7f0c5fbe058822fbee6cdacfc83c97f9bc36cfd9d28c3682bb",
+    "art_src/pixel_test/zheng_zha/previews-4x/idle.gif": "03f54899dc21dd8e92a4cf6346411791c84fac3068e30b8647bddae454599cc8",
+    "art_src/pixel_test/zheng_zha/request.json": "9e0610903329024e1538766abb6853923d5f8c7d6b2fe8b47a52eb5a9d9e0b83",
+    "art_src/pixel_test/zheng_zha/run/base-source.png": "07e91b5c6be24eb124df188363ed9f2acc7ab96d8c0ce2344905da341327297a",
+    "art_src/pixel_test/zheng_zha/run/curation.json": "f457d5338a4aabaf1de7692aa3df0bf24013f871acd8428bd6a265d39fe8281f",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-0.plain.png": "827339836646971935e65b20160447d4bbb7ee12577f7e6cfa309921a1d48867",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-0.png": "60c8b86c7579423efb48a246c08fb6096f3e36f74f9a6812d6d6a47190dbc3c5",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-1.plain.png": "f40a9db91a77d5b6d41312471f5cd03d62c6e8539e3325c69af54e6647e873cc",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-1.png": "4266bcc3ef4befe1ec1281c70fda11918c3db6223d3773e7a4ba1503a866d24c",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-2.plain.png": "941a3242740cd9186c86008203087b6ea797a4d6c4888b868efc2c9a7eb631c0",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-2.png": "fc0fdb8065cd1c692dd79cfef0a5e86f9907d9423aa6c14933aa59b284793ecc",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-3.plain.png": "95e06b29e23f577c7f315813dc0c36444e67f2ef6324a5e7acab8dbd887386eb",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/frame-3.png": "93ac632d27254db6dc0d33f44269649d453f24fd9c58fc5f0127cca08e7affeb",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/orig/frame-0.png": "bbd163c7d46d10924598cc1750dbccb4579c82b0297a15cd1115e7699e71ebbf",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/orig/frame-1.png": "1405863b69e40f3fc24a0db1d803547a4b5f925e938096f5c6d6bb4e65929d75",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/orig/frame-2.png": "b1abb11383c2a7eef55c4498f5b1626eb8f83e0dd34cd8958e7ca5827eb45ff8",
+    "art_src/pixel_test/zheng_zha/run/frames/attack/orig/frame-3.png": "8b6f520e16bc9c336db9b16d77c707df4a74abe42a4036a407ec51728ecf7de6",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-0.plain.png": "5de80da6e6eb9466aa4f7ccf13f861142517b35aaff96fbc045568898d3ef101",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-0.png": "96cb20b3d8b0da3f53ffb0f0b2b98d57166d5c877920fa6422b2feedd2c7d041",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-1.plain.png": "795650eed1f62d90a149e8712832adb5bbbafd6b7464aab885d9d345515299b4",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-1.png": "a04be7548b6551b57bcf970c94ba1b64e462b119c26c69608c3c827afac164c2",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-2.plain.png": "d2535f80278a0135e5a5d3108c51f221c8e05007250cb0b56be08d2533650bac",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-2.png": "7aeffd9716f6739d0edc85a944173636a57b73369fd820ee79ce117197f51319",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-3.plain.png": "ad283e8b409f2619ed497f7195d25d97083e5df5bfa85a6b3d0f411ed42e5ca8",
+    "art_src/pixel_test/zheng_zha/run/frames/down/frame-3.png": "58a887c36e37d10b81b2a079b302f3908333e8fe0cc7a6411078f94b05e4ce52",
+    "art_src/pixel_test/zheng_zha/run/frames/down/orig/frame-0.png": "dfa1e2180275e9cc0d180a0c33d0a443bef20e76ae01b6d93fb2b76e2fe59a6b",
+    "art_src/pixel_test/zheng_zha/run/frames/down/orig/frame-1.png": "fcb89bcc43d8a39d7cbf2b0d9c73ef19e2fa1a48c7fbce7f811dc60deea55487",
+    "art_src/pixel_test/zheng_zha/run/frames/down/orig/frame-2.png": "97be39d40832d7e7c8d91b2a8e06d4f8257fc7fe394cbd4c0e131102ff36828d",
+    "art_src/pixel_test/zheng_zha/run/frames/down/orig/frame-3.png": "b091fb4ed0fc6ba45bea4366acfa77730eeeb951f654b66cf8741f8870a66616",
+    "art_src/pixel_test/zheng_zha/run/frames/frames-manifest.json": "93ecc710a17ced4ce87edc04f710b011cca4e468ccd4bc03e2fdd005d23c6f4d",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-0.plain.png": "a7fd6b0127e8a94e33264b04c33c27cf8e737c1d40f21448f5766c7dd3839ec8",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-0.png": "945a7c094e358fdf751594fc84acd40873063632afdee3ea85aebde2c6712ede",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-1.plain.png": "6767111dba28ea1bb79af14bdb76c7aca31372a6a1e715b209508e3b4aa0c3c7",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-1.png": "1046ce366ae57e9edeaca729a6d9e17673eae5ea0e1fe9a33faa480e863f24f1",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-2.plain.png": "c402cfff2e6cff2e51314eedb403f6546bffe9289c040f55c902ead59ead67c0",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-2.png": "f41177d776a604edceb6cedd70be04b9920079b720f1afae00e3a79741c112be",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-3.plain.png": "d4b4718ef0b79a3f1aa36ed7e642e06fc01f75c28e4edd2991d25ba1d172075d",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/frame-3.png": "50fe4920a7dcdfd9be5e58573df84bd3f6a622ffa2405f7044096155654f061b",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/orig/frame-0.png": "6ff95dd159c3aec77b139dfd819640722d42ba0b814ea9d3398971a9901ac3c4",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/orig/frame-1.png": "53585c5b22b641aef3ddab4b06b330b29cf535ffd52c6555829a48677ae34807",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/orig/frame-2.png": "667198af9129f1f8060861f3743096fde5afde5fc5d7fad90ea02a6ec5ec532f",
+    "art_src/pixel_test/zheng_zha/run/frames/hit/orig/frame-3.png": "e1ed467f58381bc4e8acf359a5eca48fda3ca988be17cdffe218f926a25d0f94",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-0.plain.png": "4c6e377c51e6bda87539bea0b6f981784032e2874a66b026d90891b4e34866d2",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-0.png": "dee474778aac06115b95e15f398afca21636e3f3a44ec1beddae02d1f7887e77",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-1.plain.png": "3461810725694f82f328a22eb24fc07c596129c2ded6041a809dbf6f9a134bf2",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-1.png": "274ed3f55069c537dab71a816064cdfc3bcb9b5d6591743ca589163680d584a2",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-2.plain.png": "bee158b2d27064ab84446b16b1038c1aa54c411d3f17005b32066ab69c345487",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-2.png": "aa95f929e9a48a76b90b2cce84a1fdc9780ef116dfd9a59f39c8b2c0eadbf5fd",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-3.plain.png": "e68194b61dd444c90bb1cfaad8e1185df83df64c73682a5507cdf34f7d47be26",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/frame-3.png": "1939f15c6e4672b2ca5ba769f160aea8d349af59a321b1a8fd27b240654731b3",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/orig/frame-0.png": "3759de6be85322eb47beff28b10ef78eb0d916e6c844ec603c5d05b19ccc2b97",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/orig/frame-1.png": "927d51517548f9911eba50090f7e8088f81c8a5fb6c9d514631ce5e82406be45",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/orig/frame-2.png": "69892b8b81211bf2989f595f2eaa4121e843ba80d96207003a927a6032d4a0dc",
+    "art_src/pixel_test/zheng_zha/run/frames/idle/orig/frame-3.png": "7007c6df76e9525f03c42617c47683f5289ed11b9aeab2a7ef4a5db9950e8270",
+    "art_src/pixel_test/zheng_zha/run/manifest.json": "11c0eac1151366743f10cb284ae29e72ef2980ef2bc2c62bf427dd8ba9de1527",
+    "art_src/pixel_test/zheng_zha/run/palette.lock.json": "8747d824ac1ed0017c8f14a550d9446ffb91a621391daff5617f964cb2f9bc9c",
+    "art_src/pixel_test/zheng_zha/run/prompts/attack.txt": "a184b4028fd500a008261f3146ad6aabc3d377161b96739f1ba712f5c3600bdb",
+    "art_src/pixel_test/zheng_zha/run/prompts/down.txt": "7119dcb88c79254a40975a13598aad7ebda5b26daa16899fb7ab7e946e6c5e73",
+    "art_src/pixel_test/zheng_zha/run/prompts/hit.txt": "4d16be44ae6e360789a24b9e95e4db0984f9501ff96142328deab76f7c44c397",
+    "art_src/pixel_test/zheng_zha/run/prompts/idle.txt": "5d83748a12a4dd7867eeebc3b94c860e4348ffd7533ae6484f6af47c5808e9dd",
+    "art_src/pixel_test/zheng_zha/run/raw/attack.png": "a4c7347b69e82b7d7e0afd0b98bb12a5a2a7f314ed1c819cd1cff9505f7c3a48",
+    "art_src/pixel_test/zheng_zha/run/raw/attack.png.raw.png": "a4c7347b69e82b7d7e0afd0b98bb12a5a2a7f314ed1c819cd1cff9505f7c3a48",
+    "art_src/pixel_test/zheng_zha/run/raw/down.png": "27f3b080e7e36ddfa6d896f909871680675c660e1a96f0161d5f190e8f7277b8",
+    "art_src/pixel_test/zheng_zha/run/raw/down.png.raw.png": "27f3b080e7e36ddfa6d896f909871680675c660e1a96f0161d5f190e8f7277b8",
+    "art_src/pixel_test/zheng_zha/run/raw/hit.png": "c40fb28b4add9f11dd09d5d0513bd9cb7ce36c71e624989572c808e2b876120a",
+    "art_src/pixel_test/zheng_zha/run/raw/hit.png.raw.png": "c40fb28b4add9f11dd09d5d0513bd9cb7ce36c71e624989572c808e2b876120a",
+    "art_src/pixel_test/zheng_zha/run/raw/idle.png": "1c5f9d09c99f96b130258e4c3d4b469a3980ff64fadbbb300f64f289df9d43ef",
+    "art_src/pixel_test/zheng_zha/run/raw/idle.png.raw.png": "1c5f9d09c99f96b130258e4c3d4b469a3980ff64fadbbb300f64f289df9d43ef",
+    "art_src/pixel_test/zheng_zha/run/references/layout-guides/attack.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zheng_zha/run/references/layout-guides/down.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zheng_zha/run/references/layout-guides/hit.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zheng_zha/run/references/layout-guides/idle.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/attack.json": "809a516d064804b24b7a6cd9a95b7d3dd8e5bf9a7dde2d99ade06e0c6cf6fcf6",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/attack.log": "eee43db63dab0c037ecfa84dcf3b9108290970ae111a04e691193ab324a324fa",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/down.json": "8e6ff274621688ba1958d4b78824340a991562fb82498d5d7f690539ba8df97c",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/down.log": "bb6e0a93876e3cb947c5c775b56f7ddc6eb1fab1602fb35810874fb13b6d5868",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/hit.json": "5775aba8c1862d88ef09051ac8d7f39b561e6a7c7cde37b45aeab05f44d57673",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/hit.log": "cc97ea91e7bf25c4e8437cb078b956dad355337b686812fdef565412b23823bb",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/idle.json": "5222e7405c36e9dd44c74f77795c061612ddb69a8faa64ed56223ef06c6b1daf",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/idle.log": "8b8d96542ea946bf025c70567ab7dcff6947d38237179752aade5c8f2534b8e7",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/set.report.json": "11097d016c90ee9b584dcf4bc4d144984502e083e68c587df501864933ea04f6",
+    "art_src/pixel_test/zheng_zha/run/reports/gen-set/table.md": "3ca96c6f9afeea304de620e6fdc95ad4301c078615a99ed6cc2c85e09f8fc63d",
+    "art_src/pixel_test/zheng_zha/run/sprite-inspect.report.json": "9de8a5151ff445b774a754efb0dabfc2c3da272e6299a3af0dea28a2d9222e20",
+    "art_src/pixel_test/zheng_zha/run/sprite-request.json": "51e43c3c83b435781cdba4fdb938c373fc3c82d330daea3a6f12d2adcbb791f9",
+    "art_src/pixel_test/zheng_zha/run/sprite-sheet-alpha.png": "906bb88b5ecefd0bcb5ede289a6873ab68f9d179ae4dd9ca77bc4fa483349fd7",
+    "art_src/pixel_test/zheng_zha/run/sprite-sheet-alpha.report.json": "c0d469a8ed14732a0009cacb9b4a4b33d4510b16f847a4f38324824d7d646e56",
+    "art_src/pixel_test/zheng_zha/uncurated/manifest.json": "67556ea11a1eae7f68aa75b7dd83c956e71e2f04cde93d95f871a75474ee55cb",
+    "art_src/pixel_test/zheng_zha/uncurated/sprite-sheet-alpha.png": "8979e994c3c9cacd31b79fd1cd23625a5343ae637c73cc8b7fcab8edb6e67076",
+    "art_src/pixel_test/zombie_scientist/apply_uniform_scale.py": "df8170b09e6cdb11ff952578dd91a03123a3b8d978948e3866098ebea0b7a24c",
+    "art_src/pixel_test/zombie_scientist/base-generation.log": "3773bfd8b0db44966b0ae5518334690d1463d3967de83a35c1b8080c86e10f9b",
+    "art_src/pixel_test/zombie_scientist/base-work/raw.png": "93236264d10a296ae427d7d74f999f0ca4353bdf3d9d1ac377c74b0b8c1ec5c7",
+    "art_src/pixel_test/zombie_scientist/base.gen-report.json": "c04136ccce4837e7f5bc7a2e263749b752a9e0f70ea29b364cccc88275c17ae3",
+    "art_src/pixel_test/zombie_scientist/base.png": "5954edcdd3095bd464d39858e64514f0dac7d978c6fb64b51eb774c79b1e8de2",
+    "art_src/pixel_test/zombie_scientist/base.png.raw.png": "93236264d10a296ae427d7d74f999f0ca4353bdf3d9d1ac377c74b0b8c1ec5c7",
+    "art_src/pixel_test/zombie_scientist/base.prompt.txt": "b5c3b21db1286d877df63435acbf2d8cce4d94d78e42b185528967ea08a5bb39",
+    "art_src/pixel_test/zombie_scientist/compose.log": "321c7c9c8e98df714294bad26ecafe278deeabf5cbb6d671a0ba4e76a74780cd",
+    "art_src/pixel_test/zombie_scientist/death-generation.log": "7ef51b3751e4fec896d7d81c7531a8fdd3263b72893a17e9e62e3622c52fb1d8",
+    "art_src/pixel_test/zombie_scientist/extract-death.log": "2c3fd0bf25a99dbf1be2577349517f8cf24e57ffc7e1f7dd7f6398ca8e895ba4",
+    "art_src/pixel_test/zombie_scientist/extract-hit.log": "b8f2bda0d4ffa11e809e5966544c0274bedcf5acc68cd136605c4e8fa204f115",
+    "art_src/pixel_test/zombie_scientist/extract-idle-attack.log": "0f55b7da2572205c19bd6824026827527441b85cd0061221773d57e2370104c2",
+    "art_src/pixel_test/zombie_scientist/gif.log": "257c84d4879b87f2a325fbe12451afa2c61f965a7b01b77ae033dafbec13177d",
+    "art_src/pixel_test/zombie_scientist/inspect.log": "d10b180d69ab957fc8ab39d93c4268ccc1bc06d77f27bd3120d7ab01cb721d10",
+    "art_src/pixel_test/zombie_scientist/pixel-audit.log": "c848a90912d6dc3d7f242523dc825932305c7bb57e17d8f007b49bbee413d5cd",
+    "art_src/pixel_test/zombie_scientist/preview.log": "ce00f6cb78e6c5378b6764febbfd8bf1ee510d630339447138afd6be8c52f28d",
+    "art_src/pixel_test/zombie_scientist/previews-4x/attack.gif": "6f23bb37afcb617d5be0f0e64d770c293ae374ed358833805ad750837d6554ac",
+    "art_src/pixel_test/zombie_scientist/previews-4x/death.gif": "1eb7da01e287e98d6afeade4c9a7a203dabd0f260c3c6a0891e235fe21ab66eb",
+    "art_src/pixel_test/zombie_scientist/previews-4x/gif-manifest.json": "fc37b70ed4d73d107bef19dc6ee5512f71f1b9c760926772c98e9e0f16dfdb75",
+    "art_src/pixel_test/zombie_scientist/previews-4x/hit.gif": "c47fac1296ac1b95756561b434161a5443b6bd6bc30688912e4211cd686a9c53",
+    "art_src/pixel_test/zombie_scientist/previews-4x/idle.gif": "8588b7eaf69a3980d4c84dd8ccc02389e510292e8f3fe0f0399d152af799a3b2",
+    "art_src/pixel_test/zombie_scientist/qa-notes.md": "3559ea3d20c3efbdd7f734948fcddb14a458f490f430d6517af1c071ae3f06a3",
+    "art_src/pixel_test/zombie_scientist/qa-summary.json": "6a7db2bccd43e13d0796ce7038cc5242d811bcc156cd6a81bd610018f5aaa37f",
+    "art_src/pixel_test/zombie_scientist/README.md": "2f660c7a9700d4f67aab8b02d28b91edb30246ae2c97676432dcf44f70803a70",
+    "art_src/pixel_test/zombie_scientist/record_qa.py": "4a9c0c03554b05372181239b869a89eb31a8508434f422924ab391aee03a6fa8",
+    "art_src/pixel_test/zombie_scientist/request.json": "4f11dae21bb959537b9f66ee38ebd8ad56743cf8196c1662ceb026a6c4fe5f6f",
+    "art_src/pixel_test/zombie_scientist/rows-generation.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "art_src/pixel_test/zombie_scientist/rows-native-generation.log": "05ed78e5177e1e29d53f5687b5c91e0905745deb98cba44fab3c036ca2f36f5c",
+    "art_src/pixel_test/zombie_scientist/run/base-source.png": "5954edcdd3095bd464d39858e64514f0dac7d978c6fb64b51eb774c79b1e8de2",
+    "art_src/pixel_test/zombie_scientist/run/palette.lock.json": "b28c571f7e8a74639d7e7bb5193e02cc113f26cc2f4a3bfd7f9690d10cd6f947",
+    "art_src/pixel_test/zombie_scientist/run/prompts/attack.txt": "13b0540139feac03f2d840aced52db76aefbfda960ef90d5318a2f22eea6d4af",
+    "art_src/pixel_test/zombie_scientist/run/prompts/hit.txt": "7150c4ec33f9a6f7949d8341da668dee122289559141e488806cba7067bb00c7",
+    "art_src/pixel_test/zombie_scientist/run/prompts/idle.txt": "0ad6263ee5102f03fc59e36e0f29194b97306414d7a2ae37a4b0794d8643bc23",
+    "art_src/pixel_test/zombie_scientist/run/references/layout-guides/attack.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run/references/layout-guides/hit.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run/references/layout-guides/idle.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run/reports/gen-set/attack.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "art_src/pixel_test/zombie_scientist/run/reports/gen-set/idle.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "art_src/pixel_test/zombie_scientist/run/sprite-request.json": "b06180e41424fbd1c26c8083a24529e885285e7915f03b752ffa23435a34d77d",
+    "art_src/pixel_test/zombie_scientist/run-native/base-source.png": "93236264d10a296ae427d7d74f999f0ca4353bdf3d9d1ac377c74b0b8c1ec5c7",
+    "art_src/pixel_test/zombie_scientist/run-native/curation.json": "57a39c56cdf7d476f9c76a5a28ed472828bb8bf2ecb767afae283a67455b212d",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-0.plain.png": "ba96f445518561b9996fab8a2e59c29c0a42c996c2768864184c392976a973f2",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-0.png": "4cb5d6acecba53e8d5afbb397708940c4f2d94dcb54047801bbaf6f88043a6d2",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-1.plain.png": "4f07bd481447f7d937d7c945fb58e19d9e26eff9b1816647aab0c196f57b5f71",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-1.png": "c5aec7a570c11a1bebaa617541e5b9ac76bcfe2e86cc1dcb7408ebe67aa3e01c",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-2.plain.png": "f91ef8699fa79544bba80c37db9afda31e37c1fc95fa39aa321120ead5f5aa24",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-2.png": "4aaca7f52839c088c1087b2d69e25881ca02b146635223bfdcda3dc03a6e96ef",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-3.plain.png": "28422ff70c12ba5a6b3e6bcb78c73ed7e645a179fbba5d8b368d2a6f73df8482",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/frame-3.png": "f691e9006fc0daea57cf76eec0bbec596cbbbde86cfc7c4fe43f4109fb6ef412",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-0.png": "52edbb611ffa65efec3c324255d03cc7d81c3fc3aaaff3a9bb969b136a40fe17",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-1.png": "ba19f80f55dc7359aac9364a67e5ca55b611f862f4cbc94c1b8549ed5feb991e",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-2.png": "296c6cb1a497f3b5f2f53bfddbbc9ce4b9f549f4d3fe4dcad7ee1af1d21b8dba",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/attack/orig/frame-3.png": "18b7e04adf24c43670de883a3aabde7c04ed278ffe90c94088f8832cfb9c5ad4",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-0.plain.png": "09fa356b2a39e73b7a37cc2071f23e6199b335fe74cb2e2ad276180e1989ca8c",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-0.png": "a572695463b071bbaadea2aef579318dc36d10c9e41dfaee3a1902941ec3086c",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-1.plain.png": "e10f0069cd178df3a1775b3a7459b1602ba2dd5711134a1fae097515b6dab40a",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-1.png": "dc0ba99a8e5f423c738951f7224d659d6ad1c3e2f669f503366e89e1edb88e60",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-2.plain.png": "499fd2b7a686ce522b0fe40f2b7697e3ac644bba6cac87e46ee3b2396f0e15ac",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-2.png": "8d87bf45e990c5c62a9256b8f0c289103fa07a0f2bf0ac1061dd09a753b02444",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-3.plain.png": "08a52dd3ecea4d6a9efe0cc21701ee956c2867c1932352d554fc6725e260fbc7",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/frame-3.png": "7dcb0911fde28a769a992b39a8f738d33bf76f6e61546c1bc24d2f41eb07e918",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-0.png": "89761d8a5398663d7a445127efda2acf9dd1077552585b011a77b8df6b2400d9",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-1.png": "708796fc8cc63aad182c4a5dbb11144008d6c6f24699ba3383b3c1175e80a49d",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-2.png": "06b1500e30444e811648080c95c27fac87331476ad59bea4ccb20aa2c4026931",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/death/orig/frame-3.png": "7911aae5a215fe0e1684e8357b37630d0ee5e5d6ab4f482e6e6d4c00f9221abc",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/frames-manifest.json": "79335e2ebdacb4c5da02ac0126d93f38a8fb4a051e272d2e670e5c15f8aa1f68",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-0.plain.png": "7bbf0e02b31e19a2734c71108662bb2aa77ddf9a816d253e9efa3430850954b2",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-0.png": "a15a22cbbc69d3b4ead03ae263cbe8350d0924ab4b4a68f3850cf4c7f691742a",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-1.plain.png": "c5cd90dd56f2fbaae6d3ccc78279a491a323d5ecf6b59cd5e00b0f8b5e119faf",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-1.png": "3a7ee243bd42f6da27283f143b423f32c37b4286f516f7b9580ba5b0c33aa865",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-2.plain.png": "30ee6ce6dc0d6223fd6cb4b57ed575b7534c5941441cd0217c0f55aa148f2a52",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-2.png": "0ac089651803327f3d1dc23bd5ae607875fed013f84859c615b1493d377df26f",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-3.plain.png": "1335b80bba9d41591681b155ebca66d7e6188752295e618b393726b2236a3786",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/frame-3.png": "d015a51bf90846577d6cb5eee19438fb3acdae65809cc4d1995c7a4c5f7de8b0",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-0.png": "dc723ff3846dfa1c3a86e6c7c63b4d9e799422f14b37f93bea82e071c50acf06",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-1.png": "43c65e47d89f40595cea85281b9b894819606339f261beb909e758519a8c114d",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-2.png": "9df14185eba67a92667946d102d52d9ea08c5b9c8bfce4a041c3108aa9dad829",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/hit/orig/frame-3.png": "53663d27bcd39bf45742c4e80427ee167546de50d15566bd30d0333f9c7c8f7a",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-0.plain.png": "06669b41b8e972b16cb7988721bf175d0dd6aff1e494e03c5ae6c1d0ebe2eff5",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-0.png": "58d6b748c7ec482db45bb18622bbb832c4578158d6bca83d53afef44e5b5c345",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-1.plain.png": "a8aac9aabd0b2206b7432af234c7b88bee06887a3a34fb64d379e4da8b87b73c",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-1.png": "912c154b78048bdc99259da2ea0d77ace853fbf1a91eb8647357f9df18761c77",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-2.plain.png": "eed6de73cae8f6c3fb673a144fa4a078ae78fffbebec395fb0b1c12fd8bbda46",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-2.png": "1c26d4597cebae5cf5a138658b4d864a0811dd6c2ca0015712b67b5e2fc64bfe",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-3.plain.png": "ef6c8bf58f2cf0b998afaff651e235d7d4ea6949289a41f9a7d19e256ecca031",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/frame-3.png": "3cb1c6c44f184c97a4201c402556d564ee41d82998f68d4b5aa8b84aa3f5855a",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-0.png": "f44f397893361dbc0e6cc2a5331d498646fbae8acf28acc7384b254e7e1e6a84",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-1.png": "fb3f8664089bd1f27016981f04cb98cacaca27e48cfa955411abc4c6471c612d",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-2.png": "5c8b18bdf014555a36236fdabebb61f7a3ba2eb36bd134e490d1037e21c2ce09",
+    "art_src/pixel_test/zombie_scientist/run-native/frames/idle/orig/frame-3.png": "d23ede3b1f7d3984455b3da0fdba3cc76efad8366d52abbb07adb36cb23d3ca1",
+    "art_src/pixel_test/zombie_scientist/run-native/manifest.json": "a8776f6d51ca1d4b70fa0b3b12f22615d91059e6654f5c39e62b6d8ae9906000",
+    "art_src/pixel_test/zombie_scientist/run-native/palette.lock.json": "b28c571f7e8a74639d7e7bb5193e02cc113f26cc2f4a3bfd7f9690d10cd6f947",
+    "art_src/pixel_test/zombie_scientist/run-native/prompts/attack.txt": "13b0540139feac03f2d840aced52db76aefbfda960ef90d5318a2f22eea6d4af",
+    "art_src/pixel_test/zombie_scientist/run-native/prompts/death.txt": "7d9daccee5491364891387740d4136d5826e4e7ea33309f57f7534e4402a5073",
+    "art_src/pixel_test/zombie_scientist/run-native/prompts/hit.txt": "7150c4ec33f9a6f7949d8341da668dee122289559141e488806cba7067bb00c7",
+    "art_src/pixel_test/zombie_scientist/run-native/prompts/idle.txt": "0ad6263ee5102f03fc59e36e0f29194b97306414d7a2ae37a4b0794d8643bc23",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/all-contact.png": "d4e20e3fbcae1b1e0ffde703cdc760a6f465cf6ff705c54c307667697714502a",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/attack-contact.png": "4357b5ec93b48c8099ca75fd6ee854a01c93b1cad87ec4768f410d11d5ed4843",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/attack.gif": "0b0c5dd8d628c0d8b0a61d677b533995a9204ea748820fe3b2e87dd91307164a",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/death-contact.png": "960696ccf881dff2ceb5dd276e542e2dfed77e95fda6da412a3721152e9a7623",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/death.gif": "f9728b1b04c2cd82a100feb53e98fbcc178edb7c094789129e180ee4d9c3f002",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/hit-contact.png": "29a4b59a58771053c6109522d86a03b41c94bc110585d9805a813308d7a6dfe7",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/hit.gif": "c5bb7e85193982b0f48b6da9dec43ad762ab6ea9cf888c7213f2a91a298b532f",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/idle-contact.png": "870b657ccbd5020e72a7f291c91a47c43c3d65e66f31a44d2e0511caba04bd66",
+    "art_src/pixel_test/zombie_scientist/run-native/qa/idle.gif": "bc1de8bc6697ba9102f5c78f766d175cb9fd71a945ccdaff7ddfdbd3a443a299",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/attack.png": "556f1739deb77aaafdd84543baaa8d6a2e161545cafceec0d99e2bdd10f1c118",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/attack.png.raw.png": "556f1739deb77aaafdd84543baaa8d6a2e161545cafceec0d99e2bdd10f1c118",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/death.png": "b2b24c75133f71c85e501a76ac9cd2311a6e6e426150c06b2853ee3224836691",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/death.png.raw.png": "b2b24c75133f71c85e501a76ac9cd2311a6e6e426150c06b2853ee3224836691",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/hit.png": "4eeee02a586f7894172207082f4902804ae9e96e3e8b13f8d785c2d2ab1f4f51",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/hit.png.raw.png": "4eeee02a586f7894172207082f4902804ae9e96e3e8b13f8d785c2d2ab1f4f51",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/idle.png": "71a56af0a0bb3650b9369d57d5428132b89c06009d7791a02fa071f6106b6ca8",
+    "art_src/pixel_test/zombie_scientist/run-native/raw/idle.png.raw.png": "71a56af0a0bb3650b9369d57d5428132b89c06009d7791a02fa071f6106b6ca8",
+    "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/attack.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/death.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/hit.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run-native/references/layout-guides/idle.png": "e66148a0241aaa51dbb8a2d0833862ee037954736be5a633faf5f47a97244d5c",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/attack.json": "a88d2af0e5213fbc8b261d0bb21d51d724a24e0d35e4eec0af36a142284b426c",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/attack.log": "d84a6f496fc676d1a084a7c64450c14bd4cfd8b5e48e44cf6f4c4bb1e55a36dd",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/death.json": "aa84e206eb79643fd2a97c7b876e135a12e30b2e1ab8f937ce2e0e3e0b5a7de4",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/death.log": "b7e42ee7079690e0cac7d4ab557f4f6ed2e7e5d404c8b799a1d53f6a8368b2c7",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/hit.json": "765a4639d52dd790fff4276372701ca34f042c80435177c19c03c35b56a8c785",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/hit.log": "4c7df7f4c0da4dbb833d4f8eccf1352619796a5c5758466d3a42baaaf49535ba",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/idle.json": "f0a4c5279f84bb57cd0206ea63457b5c30100378724fe28e249caf7b471f0941",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/idle.log": "2dc4cf40150df97219f6bd0a656c7827fc31f62d0e441fa032b80bbcc1f3e6d0",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/set.report.json": "5c586ad4dc46cb3869031891224a660cd3a0a71e1e5daac36bda834d27762379",
+    "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/table.md": "9b35a76f3ca96c4bc955c79310063243b3fc45cdee8e4b643980b69844937ad6",
+    "art_src/pixel_test/zombie_scientist/run-native/sprite-inspect.report.json": "7f0f6c461889b72346afdd2e460b5d6b7b51e3f8cacdaf737700e380fa66b183",
+    "art_src/pixel_test/zombie_scientist/run-native/sprite-request.json": "7f485f48631e50355ceff664d219b229180907a4177e4547b63ea80d1f8e96bd",
+    "art_src/pixel_test/zombie_scientist/run-native/sprite-score.report.json": "315dd7e9d15da2ac2f12b53f24effa02a5c43c7e4411cd7ddd2c86a115faea83",
+    "art_src/pixel_test/zombie_scientist/run-native/sprite-sheet-alpha.png": "0e87901ab727e8e982d50d1af4afe365fbc141e38bbbfe1069f360732a3abe26",
+    "art_src/pixel_test/zombie_scientist/run-native/sprite-sheet-alpha.report.json": "50396857656319395d80dacd82c67b2a9098ac090cdd8f1c1f03c4e0c4bf7c2f",
+    "art_src/pixel_test/zombie_scientist/score.log": "eb416a6473334f3c7d871a687d7b471dec7d5e1bc9d88f1b1a342ae343da6f9e"
+  }
+}

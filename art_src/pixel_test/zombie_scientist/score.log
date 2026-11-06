@@ -1,0 +1,10 @@
+{
+  "ok": false,
+  "kind": "sprite-gen-score-report",
+  "source_report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\run-native",
+  "overall_score": 94.75,
+  "candidate_rank": 1593,
+  "hints": [
+    "death: Pixel-grid pitch instability was detected. Regenerate with a clearer true low-resolution pixel grid, or rerun extraction with the runlen crosscheck visible and review the before/after grid proof."
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "completed_images": [
+    {
+      "path": "art_src/pixel_test/zheng_zha/base.report.json",
+      "elapsed_seconds": 118.989,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "right",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "right",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "right",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/base.gen-report.json",
+      "elapsed_seconds": 119.469,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/background-generation.report.json",
+      "elapsed_seconds": 121.024,
+      "facing": {},
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zheng_zha/run/reports/gen-set/attack.json",
+      "elapsed_seconds": 145.524,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "right",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "right",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "right",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zheng_zha/run/reports/gen-set/down.json",
+      "elapsed_seconds": 110.574,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "right",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "right",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "right",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zheng_zha/run/reports/gen-set/hit.json",
+      "elapsed_seconds": 102.789,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "unknown",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "reason": "vision-uncertain",
+        "requested": "right",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "unknown",
+        "final_direction_source": "observation"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zheng_zha/run/reports/gen-set/idle.json",
+      "elapsed_seconds": 105.048,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "right",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "right",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "right",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/attack.json",
+      "elapsed_seconds": 161.731,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/death.json",
+      "elapsed_seconds": 160.193,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/hit.json",
+      "elapsed_seconds": 167.456,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "left",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "left",
+        "final_direction_source": "observation",
+        "reason": "already-matched"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    },
+    {
+      "path": "art_src/pixel_test/zombie_scientist/run-native/reports/gen-set/idle.json",
+      "elapsed_seconds": 122.081,
+      "facing": {
+        "transport": "codex-exec",
+        "auth_source": "codex-login",
+        "direction": "unknown",
+        "confidence": 0.99,
+        "confidence_source": "model-self-report",
+        "model": null,
+        "reason": "vision-uncertain",
+        "requested": "left",
+        "fix": "regen",
+        "action": "none",
+        "final_direction": "unknown",
+        "final_direction_source": "observation"
+      },
+      "provider": "codex",
+      "auth": "codex-login"
+    }
+  ],
+  "interrupted_row_requests": {
+    "zombie_scientist": [
+      "idle",
+      "attack"
+    ]
+  },
+  "timing_note": "Image report elapsed_seconds measures image generation; it does not include all direction inspection, interrupted requests, manual QA or engine import time."
+}

@@ -1,0 +1,147 @@
+{
+  "kind": "sprite-gen-curation",
+  "version": 1,
+  "states": {
+    "idle": {
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "b7cfc806c208"
+      ]
+    },
+    "attack": {
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "e0a1230cf98e"
+      ]
+    },
+    "hit": {
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "22cbe9503f15"
+      ]
+    },
+    "down": {
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "rotate": 0,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "bb7e96bc76c1"
+      ]
+    }
+  },
+  "run_revision": "f21335cb6faba704"
+}

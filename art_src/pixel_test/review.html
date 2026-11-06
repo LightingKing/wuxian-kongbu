@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>003 像素素材逐帧复核</title>
+<style>
+body { margin: 24px; background: #20283b; color: #ecebdd; font: 18px sans-serif; }
+h1 { font-size: 26px; } h2 { font-size: 22px; }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: start; }
+figure { margin: 0 0 24px; } figcaption { margin: 10px 0; }
+.pixel { image-rendering: pixelated; background: #626d7b; }
+.atlas { width: 768px; height: auto; }
+.motion { width: 192px; height: 192px; }
+.reference { width: 280px; height: 420px; object-fit: contain; }
+.scene { width: 960px; height: 540px; object-fit: contain; }
+</style>
+<h1>003 像素素材复核</h1>
+<p>图集按原生像素整数四倍显示；动画使用 sprite-gen 原生四倍 GIF。GIF 为 QA 回绕预览，运行时仅 idle 循环。</p>
+<h2>郑吒 · 四倍逐帧与原参考</h2>
+<div class="row">
+<figure><img class="pixel atlas" src="zheng_zha/run/sprite-sheet-alpha.png"><figcaption>从上到下：idle / attack / hit / down</figcaption></figure>
+<figure><img class="reference" src="../../game/art/style_test/zheng_zha_reference.png"><figcaption>动漫设定图</figcaption></figure>
+<figure><img class="reference" src="../../game/art/style_test/zheng_zha_portrait_calm.png"><figcaption>平静立绘</figcaption></figure>
+</div>
+<div class="row">
+<figure><img class="pixel motion" src="zheng_zha/previews-4x/idle.gif"><figcaption>idle</figcaption></figure>
+<figure><img class="pixel motion" src="zheng_zha/previews-4x/attack.gif"><figcaption>attack</figcaption></figure>
+<figure><img class="pixel motion" src="zheng_zha/previews-4x/hit.gif"><figcaption>hit</figcaption></figure>
+<figure><img class="pixel motion" src="zheng_zha/previews-4x/down.gif"><figcaption>down</figcaption></figure>
+</div>
+<h2>丧尸 · 四倍逐帧与原参考</h2>
+<div class="row">
+<figure><img class="pixel atlas" src="zombie_scientist/run-native/sprite-sheet-alpha.png"><figcaption>从上到下：idle / attack / hit / death</figcaption></figure>
+<figure><img class="reference" src="../../game/art/style_test/zombie_scientist_attack.png"><figcaption>研究员丧尸参考</figcaption></figure>
+</div>
+<div class="row">
+<figure><img class="pixel motion" src="zombie_scientist/previews-4x/idle.gif"><figcaption>idle</figcaption></figure>
+<figure><img class="pixel motion" src="zombie_scientist/previews-4x/attack.gif"><figcaption>attack</figcaption></figure>
+<figure><img class="pixel motion" src="zombie_scientist/previews-4x/hit.gif"><figcaption>hit</figcaption></figure>
+<figure><img class="pixel motion" src="zombie_scientist/previews-4x/death.gif"><figcaption>death</figcaption></figure>
+</div>
+<h2>Godot 实际渲染</h2>
+<img class="scene" src="godot-battle.png">
+<img class="scene" src="godot-dialogue.png">
+</html>

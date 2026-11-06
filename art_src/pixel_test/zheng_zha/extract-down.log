@@ -1,0 +1,36 @@
+[pitch-crosscheck] down: pitch crosscheck: axis ratio y/x disagrees — run-length 1.216 vs grid 1.008 (20.6%); one axis may have collapsed to the other
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "db8ab1c245df",
+  "extract_args": {},
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run",
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "errors": [],
+  "warnings": [
+    "down: pitch crosscheck: axis ratio y/x disagrees — run-length 1.216 vs grid 1.008 (20.6%); one axis may have collapsed to the other",
+    "down: pitch disagreement — detect 12.50x12.60 (uniformity 52.9) vs runlen 9.11x11.08 (47.0); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "down: frame 0 pitch detection inconclusive — consensus fallback 12.50x12.60",
+    "down: frames exceed the safe area 32x32 but fit within the margin zone (informational, no action): 0:20x39, 1:23x35, 3:34x21",
+    "palette: pinned (32 colors, palette.lock.json)",
+    "pixel unfake: pitch=[(12.5, 12.6), (13.0, 12.54), (12.5, 12.64), (12.38, 12.6)] scale=1x logical<=48x48 palette=32"
+  ]
+}

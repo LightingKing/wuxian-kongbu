@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-curation",
+  "pixel_unfake": true,
+  "states": {
+    "idle": {
+      "selected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "ecee668ca65d"
+      ]
+    },
+    "attack": {
+      "selected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "8ddec3bca03d"
+      ]
+    },
+    "hit": {
+      "selected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "3206816086d1"
+      ]
+    },
+    "death": {
+      "selected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "transforms": {
+        "0": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "1": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "2": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        },
+        "3": {
+          "scale": 0.8,
+          "dx": 0,
+          "dy": 3.2,
+          "flipX": 0
+        }
+      },
+      "revision": [
+        "ac9ccf85d287"
+      ]
+    }
+  },
+  "run_revision": "583b558bfb2fde47"
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "pixel-scene-conversion-report",
+  "source": "art_src/pixel_test/background-raw.png",
+  "source_sha256": "a8205672d175125a20beeeb2f1f6c436125b300a3032ee148a0a9c346efefcce",
+  "source_size": [
+    1672,
+    941
+  ],
+  "output": "game/art/pixel_test/bg_lab_corridor_pixel.png",
+  "output_sha256": "71b0ca746bf2142b83204d35beb872d41b58a6a4e90f9bbbff5e570d6b146939",
+  "output_size": [
+    480,
+    270
+  ],
+  "output_mode": "RGB",
+  "palette": "game/art/pixel_test/palette.hex",
+  "palette_sha256": "8b5632860302785e35c48f891e815e4a77b2f0edea0364a815991e83d9b22657",
+  "palette_count": 32,
+  "used_color_count": 26,
+  "used_colors": {
+    "#0B0F1A": 11585,
+    "#141B2B": 4535,
+    "#20283B": 1332,
+    "#263C54": 2,
+    "#30384A": 29032,
+    "#37494B": 6768,
+    "#3D182B": 122,
+    "#3E7477": 1,
+    "#3F5B73": 59,
+    "#465064": 40745,
+    "#483843": 1180,
+    "#556869": 5037,
+    "#60859A": 106,
+    "#626D7B": 24119,
+    "#652438": 559,
+    "#76545B": 3,
+    "#7D8D88": 307,
+    "#89939B": 484,
+    "#8FB1BC": 94,
+    "#ABB8A6": 163,
+    "#AFB8BB": 118,
+    "#B78B57": 2459,
+    "#D0D5BC": 30,
+    "#D3D9D6": 146,
+    "#DEC17D": 2,
+    "#ECEBDD": 612
+  },
+  "foreign_colors": [],
+  "alpha_values": [
+    255
+  ],
+  "full_canvas_preserved": true,
+  "method": "Full-canvas integer area partitions; weighted RGB 2-means (up to 8 iterations, largest-channel-range endpoints); dominant-cluster centroid; nearest shared palette color by squared RGB distance; no dithering, crop, padding or alpha removal.",
+  "passed": true
+}

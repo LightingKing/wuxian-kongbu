@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "engine": "component-row",
+  "engine_revision": "db8ab1c245df",
+  "extract_args": {
+    "decontam": "auto"
+  },
+  "run_dir": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zombie_scientist\\run-native",
+  "cell": {
+    "shape": "square",
+    "width": 48,
+    "height": 48,
+    "safe_margin_x": 8,
+    "safe_margin_y": 8,
+    "size": 48,
+    "safe_margin": 8
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "errors": [],
+  "warnings": [
+    "death: dropped 1 collapsed per-frame pitch(es) below 6.52",
+    "death: dropped 1 collapsed per-frame pitch(es) below 6.52",
+    "death: pitch disagreement — detect 10.86x10.86 (uniformity 91.6) vs runlen 6.98x6.96 (64.9); detect kept. large gap usually means the raw was drawn finer than the cell contract — reroll with a block-count hint",
+    "death: frame 0 pitch detection inconclusive — consensus fallback 10.86x10.86",
+    "death: frame 1 pitch detection inconclusive — consensus fallback 10.86x10.86",
+    "death: frame 2 own pitch 5.00x5.00 is outside the consensus pitch family 10.86x10.86 — harmonic/collapsed misdetection; snapped at consensus",
+    "death: native logical exceeds the physical cap 48x40 — capped frames (reroll candidates): 0:29x50, 1:32x43",
+    "death: frames exceed the safe area 32x32 but fit within the margin zone (informational, no action): 2:38x32, 3:42x18",
+    "palette: pinned (32 colors, palette.lock.json)",
+    "pixel unfake: pitch=10.86 scale=1x logical<=48x48 palette=32"
+  ]
+}

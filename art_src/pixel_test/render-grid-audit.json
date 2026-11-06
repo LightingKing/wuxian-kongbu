@@ -1,0 +1,19 @@
+{
+  "source": "art_src/pixel_test/godot-battle.png",
+  "sha256": "f0c0159ea037c12230dcf6cb695e4dab477df41ec386311f0527a427ad8fe18f",
+  "source_size": [
+    1920,
+    1080
+  ],
+  "tested_region_xywh": [
+    0,
+    116,
+    1920,
+    964
+  ],
+  "excluded": "Native header and text above y=116",
+  "block_size": 4,
+  "blocks_checked": 115680,
+  "nonuniform_blocks": 0,
+  "passed": true
+}

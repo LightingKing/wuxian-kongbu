@@ -1,0 +1,18 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 Core Profile Context 26.7.1.260716 - Compatibility - Using Device: ATI Technologies Inc. - AMD Radeon RX 9070 XT
+
+已验证内部画布、最近邻、整数四倍放大与原生立绘/中文界面。
+已验证 D 键及触屏按钮的模式切换。
+已播放 zheng_zha/idle：4 帧，loop=true
+已播放 zheng_zha/attack：4 帧，loop=false
+已播放 zheng_zha/hit：4 帧，loop=false
+已播放 zheng_zha/down：4 帧，loop=false
+已播放 zombie_scientist/idle：4 帧，loop=true
+已播放 zombie_scientist/attack：4 帧，loop=false
+已播放 zombie_scientist/hit：4 帧，loop=false
+已播放 zombie_scientist/death：4 帧，loop=false
+已保存实际渲染截图：art_src/pixel_test/godot-battle.png
+已保存实际渲染截图：art_src/pixel_test/godot-dialogue.png
+已保存实际渲染截图：art_src/pixel_test/godot-atlas-qa-4x.png
+已保存实际渲染截图：art_src/pixel_test/godot-identity-comparison-4x.png
+像素预览验证：失败 0 项

@@ -1,0 +1,3 @@
+| state | provider | resolved from | seconds | status |
+|---|---|---|---|---|
+| death | codex | explicit | 188.2 | OK |

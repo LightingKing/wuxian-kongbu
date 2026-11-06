@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-gif",
+  "output": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\idle-uncurated.gif",
+  "delay_ticks": 17,
+  "duration_ms": 170,
+  "loop_count": 0,
+  "selected_user_frames": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "source_frames": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run\\frames\\idle\\frame-0.png",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run\\frames\\idle\\frame-1.png",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run\\frames\\idle\\frame-2.png",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\run\\frames\\idle\\frame-3.png"
+  ],
+  "contact": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\idle-uncurated-contact.png",
+  "gif_report": {
+    "path": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\pixel_test\\zheng_zha\\idle-uncurated.gif",
+    "frames": 4,
+    "delay_ticks": [
+      17,
+      17,
+      17,
+      17
+    ],
+    "loop": 0,
+    "transparent": true,
+    "disposal": [
+      2,
+      2,
+      2,
+      2
+    ]
+  }
+}
