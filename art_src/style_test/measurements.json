@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "method": {
+    "coordinate_system": "zero-based source-image pixel coordinates; x rightward, y downward",
+    "landmark_method": "Manual visual estimates from enlarged images with coordinate grids; y distances use endpoint subtraction. Sole for RGBA images uses the last nonzero-alpha row.",
+    "hair_roi_selection": "Polygons selected from broad hair interiors by geometry before reading RGB statistics, excluding face, background and outer fringe. Reference polygon is fixed for all comparisons; candidate polygons use the same anatomical selection rule.",
+    "brightness_formula": "Y = 0.2126 * R + 0.7152 * G + 0.0722 * B, applied directly to 8-bit sRGB channel values",
+    "pixel_condition": "inside hair_polygon AND alpha == 255 AND Y < 70",
+    "rgb_alpha_handling": "RGB reference is converted to RGBA with alpha 255; RGBA inputs retain their alpha. Polygon mask uses Pillow ImageDraw.polygon, including its boundary.",
+    "ratio_acceptance": "abs(candidate_head_to_body_ratio / reference_head_to_body_ratio - 1) <= 0.10",
+    "color_acceptance": "abs(candidate_mean_R_minus_G - reference_mean_R_minus_G) <= 1.5"
+  },
+  "images": [
+    {
+      "role": "reference",
+      "filename": "game/art/style_test/zheng_zha_reference.png",
+      "sha256": "afc7d6a7236509fbce4fd6d8b30b51bef0d93cd57c0f837098f5860aa29ccee8",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGB",
+      "manual_landmarks": {
+        "head_top": {
+          "y": 15,
+          "uncertainty_px": 3
+        },
+        "chin": {
+          "y": 200,
+          "uncertainty_px": 3
+        },
+        "sole_bottom": {
+          "y": 1492,
+          "uncertainty_px": 3
+        }
+      },
+      "head_height_px": 185,
+      "body_height_px": 1477,
+      "head_to_body_ratio": 0.12525389302640488,
+      "heads_per_body": 7.9837837837837835,
+      "hair_polygon": [
+        [
+          459,
+          44
+        ],
+        [
+          482,
+          31
+        ],
+        [
+          511,
+          26
+        ],
+        [
+          529,
+          38
+        ],
+        [
+          545,
+          33
+        ],
+        [
+          562,
+          48
+        ],
+        [
+          570,
+          65
+        ],
+        [
+          577,
+          83
+        ],
+        [
+          572,
+          99
+        ],
+        [
+          566,
+          117
+        ],
+        [
+          557,
+          125
+        ],
+        [
+          550,
+          111
+        ],
+        [
+          546,
+          91
+        ],
+        [
+          535,
+          74
+        ],
+        [
+          522,
+          63
+        ],
+        [
+          512,
+          64
+        ],
+        [
+          503,
+          78
+        ],
+        [
+          495,
+          90
+        ],
+        [
+          484,
+          101
+        ],
+        [
+          475,
+          106
+        ],
+        [
+          469,
+          111
+        ],
+        [
+          458,
+          122
+        ],
+        [
+          451,
+          118
+        ],
+        [
+          445,
+          104
+        ],
+        [
+          444,
+          86
+        ],
+        [
+          449,
+          66
+        ]
+      ],
+      "brightness_formula": "Y = 0.2126 * R + 0.7152 * G + 0.0722 * B, applied directly to 8-bit sRGB channel values",
+      "pixel_condition": "inside hair_polygon AND alpha == 255 AND Y < 70",
+      "eligible_hair_pixels": 7406,
+      "mean_RGB": [
+        28.08331082905752,
+        28.647312989468,
+        31.256143667296787
+      ],
+      "mean_R_minus_G": -0.564002160410478
+    },
+    {
+      "role": "rejected_battle",
+      "filename": "art_src/style_test/rejected/zheng_zha_battle_idle.png",
+      "sha256": "6869a0579f70de4996ee18eee47f9dd3ba7fddc04886d018f69cf18b37b7951b",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "manual_landmarks": {
+        "head_top": {
+          "y": 3,
+          "uncertainty_px": 2
+        },
+        "chin": {
+          "y": 104,
+          "uncertainty_px": 2
+        },
+        "sole_bottom": {
+          "y": 765,
+          "uncertainty_px": 0,
+          "method": "last nonzero-alpha row"
+        }
+      },
+      "head_height_px": 101,
+      "body_height_px": 762,
+      "head_to_body_ratio": 0.1325459317585302,
+      "heads_per_body": 7.544554455445544,
+      "hair_polygon": [
+        [
+          107,
+          20
+        ],
+        [
+          126,
+          14
+        ],
+        [
+          143,
+          16
+        ],
+        [
+          159,
+          21
+        ],
+        [
+          169,
+          30
+        ],
+        [
+          172,
+          43
+        ],
+        [
+          166,
+          48
+        ],
+        [
+          160,
+          45
+        ],
+        [
+          152,
+          47
+        ],
+        [
+          145,
+          54
+        ],
+        [
+          140,
+          58
+        ],
+        [
+          136,
+          49
+        ],
+        [
+          128,
+          44
+        ],
+        [
+          121,
+          44
+        ],
+        [
+          115,
+          49
+        ],
+        [
+          112,
+          58
+        ],
+        [
+          111,
+          69
+        ],
+        [
+          107,
+          76
+        ],
+        [
+          103,
+          66
+        ],
+        [
+          100,
+          53
+        ],
+        [
+          98,
+          40
+        ],
+        [
+          100,
+          28
+        ]
+      ],
+      "brightness_formula": "Y = 0.2126 * R + 0.7152 * G + 0.0722 * B, applied directly to 8-bit sRGB channel values",
+      "pixel_condition": "inside hair_polygon AND alpha == 255 AND Y < 70",
+      "eligible_hair_pixels": 2323,
+      "mean_RGB": [
+        30.564786913473956,
+        35.724063710718895,
+        36.95566078346965
+      ],
+      "mean_R_minus_G": -5.159276797244942
+    },
+    {
+      "role": "battle_rework_candidate_1",
+      "filename": "art_src/style_test/rejected/zheng_zha_battle_idle_rework_01.png",
+      "sha256": "cf3bf4d9dcc466175ce077d21104456736a101e11c078635867b65aed232dd95",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "manual_landmarks": {
+        "head_top": {
+          "y": 2,
+          "uncertainty_px": 2
+        },
+        "chin": {
+          "y": 111,
+          "uncertainty_px": 2
+        },
+        "sole_bottom": {
+          "y": 765,
+          "uncertainty_px": 0,
+          "method": "last nonzero-alpha row"
+        }
+      },
+      "head_height_px": 109,
+      "body_height_px": 763,
+      "head_to_body_ratio": 0.14285714285714285,
+      "heads_per_body": 7.0,
+      "hair_polygon": [
+        [
+          237,
+          23
+        ],
+        [
+          251,
+          15
+        ],
+        [
+          270,
+          14
+        ],
+        [
+          287,
+          17
+        ],
+        [
+          301,
+          25
+        ],
+        [
+          310,
+          36
+        ],
+        [
+          311,
+          48
+        ],
+        [
+          305,
+          54
+        ],
+        [
+          296,
+          50
+        ],
+        [
+          286,
+          48
+        ],
+        [
+          277,
+          53
+        ],
+        [
+          271,
+          60
+        ],
+        [
+          267,
+          69
+        ],
+        [
+          262,
+          64
+        ],
+        [
+          257,
+          56
+        ],
+        [
+          249,
+          54
+        ],
+        [
+          243,
+          58
+        ],
+        [
+          239,
+          67
+        ],
+        [
+          238,
+          80
+        ],
+        [
+          231,
+          88
+        ],
+        [
+          225,
+          85
+        ],
+        [
+          222,
+          72
+        ],
+        [
+          220,
+          57
+        ],
+        [
+          221,
+          43
+        ],
+        [
+          228,
+          31
+        ]
+      ],
+      "brightness_formula": "Y = 0.2126 * R + 0.7152 * G + 0.0722 * B, applied directly to 8-bit sRGB channel values",
+      "pixel_condition": "inside hair_polygon AND alpha == 255 AND Y < 70",
+      "eligible_hair_pixels": 3353,
+      "mean_RGB": [
+        43.41395764986579,
+        43.175961825231134,
+        42.85296749179839
+      ],
+      "mean_R_minus_G": 0.23799582463465555,
+      "generation_notes": "One generation; gen --decontam off; sprite-gen cutout --decontam auto from the same raw; fit_canvas.py --bottom.",
+      "visual_review": {
+        "identity": "Recognizably consistent short black hair, tired profile, white shirt and dark trousers.",
+        "pose": "Faces right; both hands overlap around one low-held pistol angled down and forward; no obvious additional gun or hand defect.",
+        "edges": "Whole figure is within the canvas; fine pale and occasional colored fringe remains visible around hair.",
+        "proportion": "Head appears larger relative to body than the reference; nominal ratio fails the fixed threshold."
+      },
+      "comparison_to_reference": {
+        "relative_ratio_difference": 0.14054054054054044,
+        "relative_ratio_difference_percent": 14.054054054054044,
+        "ratio_passes_nominal_threshold": false,
+        "absolute_R_minus_G_difference": 0.8019979850451335,
+        "color_passes_threshold": true,
+        "overall_measurement_pass": false
+      }
+    },
+    {
+      "role": "battle_rework_candidate_2",
+      "filename": "game/art/style_test/zheng_zha_battle_idle.png",
+      "sha256": "442669997ae5f46aa2660c37c82aaf06eca51d0ef82913585b6fc6ede9fbc1b2",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "manual_landmarks": {
+        "head_top": {
+          "y": 2,
+          "uncertainty_px": 2
+        },
+        "chin": {
+          "y": 106,
+          "uncertainty_px": 2,
+          "method": "Visual estimate on 5px grid, checked against source pixels in x=280..306: solid chin reaches y106; y107..112 are alpha<64 in this region."
+        },
+        "sole_bottom": {
+          "y": 765,
+          "uncertainty_px": 0,
+          "method": "last nonzero-alpha row"
+        }
+      },
+      "head_height_px": 104,
+      "body_height_px": 763,
+      "head_to_body_ratio": 0.1363040629095675,
+      "heads_per_body": 7.336538461538462,
+      "hair_polygon": [
+        [
+          237,
+          22
+        ],
+        [
+          251,
+          14
+        ],
+        [
+          270,
+          13
+        ],
+        [
+          285,
+          16
+        ],
+        [
+          300,
+          24
+        ],
+        [
+          308,
+          34
+        ],
+        [
+          310,
+          45
+        ],
+        [
+          303,
+          50
+        ],
+        [
+          295,
+          47
+        ],
+        [
+          285,
+          45
+        ],
+        [
+          276,
+          50
+        ],
+        [
+          269,
+          56
+        ],
+        [
+          266,
+          65
+        ],
+        [
+          261,
+          60
+        ],
+        [
+          257,
+          53
+        ],
+        [
+          250,
+          50
+        ],
+        [
+          244,
+          52
+        ],
+        [
+          239,
+          60
+        ],
+        [
+          237,
+          72
+        ],
+        [
+          232,
+          80
+        ],
+        [
+          226,
+          79
+        ],
+        [
+          222,
+          67
+        ],
+        [
+          220,
+          54
+        ],
+        [
+          222,
+          40
+        ],
+        [
+          228,
+          29
+        ]
+      ],
+      "brightness_formula": "Y = 0.2126 * R + 0.7152 * G + 0.0722 * B, applied directly to 8-bit sRGB channel values",
+      "pixel_condition": "inside hair_polygon AND alpha == 255 AND Y < 70",
+      "eligible_hair_pixels": 2856,
+      "mean_RGB": [
+        49.24859943977591,
+        49.463935574229694,
+        47.089285714285715
+      ],
+      "mean_R_minus_G": -0.21533613445378152,
+      "generation_notes": "Second generation using original reference and candidate 1 pose reference; cutout --decontam auto; fit_canvas.py --bottom.",
+      "visual_review": {
+        "identity": "Consistent short black hair, tired profile, white shirt and dark trousers.",
+        "pose": "Faces right; one low-held pistol angled down-forward is held with both hands; no obvious additional gun or hand defect.",
+        "edges": "Whole figure is inside canvas; fine pale/colored edge fragments remain.",
+        "proportion": "Nominal head ratio passes but lies near the upper acceptance bound; manual landmark uncertainty should not be hidden."
+      },
+      "comparison_to_reference": {
+        "relative_ratio_difference": 0.08822216712124975,
+        "relative_ratio_difference_percent": 8.822216712124975,
+        "ratio_passes_nominal_threshold": true,
+        "absolute_R_minus_G_difference": 0.3486660259566965,
+        "color_passes_threshold": true,
+        "overall_measurement_pass": true,
+        "note": "Nominal result only: ratio is near the 10% boundary and manual landmark uncertainty can affect classification. Fixed reference baseline and thresholds were not changed."
+      }
+    }
+  ],
+  "baseline_comparison": {
+    "reference_role": "reference",
+    "candidate_role": "rejected_battle",
+    "relative_ratio_difference": 0.05821806058026535,
+    "relative_ratio_difference_percent": 5.821806058026535,
+    "ratio_passes_nominal_threshold": true,
+    "absolute_R_minus_G_difference": 4.595274636834464,
+    "color_passes_threshold": false,
+    "notes": [
+      "The task card describes the rejected battle image as approximately 9 heads tall. Under its explicit head-top-to-chin divided by head-top-to-sole definition, the measured image is approximately 7.54 heads tall and differs from the reference ratio by approximately 5.82%. This discrepancy is recorded rather than changing landmarks to reproduce the description.",
+      "Landmarks are visual estimates with per-point uncertainties above. Ratios are nominal measurements, not exact anatomical ground truth.",
+      "The old hair color differs by approximately 4.5953 in R-G and fails the 1.5 threshold."
+    ]
+  }
+}

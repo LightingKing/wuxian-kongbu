@@ -1,0 +1,31 @@
+{
+  "kind": "sprite-gen-scene",
+  "version": 1,
+  "canvas": {
+    "width": 1072,
+    "height": 1584,
+    "background": [
+      24,
+      24,
+      28,
+      255
+    ]
+  },
+  "fps": 1,
+  "duration": 1,
+  "assets": {
+    "actor": {
+      "source": "../../../game/art/style_test/zheng_zha_portrait_calm.png"
+    }
+  },
+  "layers": [
+    {
+      "id": "actor",
+      "asset": "actor",
+      "at": [
+        536,
+        1560
+      ]
+    }
+  ]
+}

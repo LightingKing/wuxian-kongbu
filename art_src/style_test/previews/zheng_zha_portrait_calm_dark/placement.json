@@ -1,0 +1,55 @@
+{
+  "kind": "sprite-gen-scene-placement",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_calm_dark.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_calm_dark.scene.json": "a7bf91d5be9b25bef6fc1421c4eca1732e43b33b72337eb008d9f8d8591b3c37",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_portrait_calm.png": "f426153a5544d31b3ecb42f5ee96eedad32067aef3a2fe3027861a7d4761b30b"
+  },
+  "canvas": [
+    1072,
+    1584
+  ],
+  "fps": 1.0,
+  "duration": 1.0,
+  "camera": {},
+  "light": {},
+  "assets": {
+    "actor": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_portrait_calm.png",
+      "state": null
+    }
+  },
+  "layers": [
+    {
+      "id": "actor",
+      "asset": "actor",
+      "at": [
+        536.0,
+        1560.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        1024,
+        1536
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 1024.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    }
+  ],
+  "layer_plate_time": null,
+  "portable": false,
+  "note": "Placement metadata references source files; copy referenced assets when moving this output."
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "sprite-gen-scene-render",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_fear_dark.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_fear_dark.scene.json": "00716bc3a4ecbfbebc9d9425d1c5e282c8579bc67973a2a2b1e974508e87dc68",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_portrait_fear.png": "b5b697edbc837bad2bdb710dd6ce65b8dcbb6355e8dc30e97a84a2fbb6dbe55e"
+  },
+  "frames": 1,
+  "files": [
+    "check-00000.png",
+    "frames/frame-00000.png",
+    "placement.json",
+    "scene.report.json"
+  ],
+  "encoding": {},
+  "inspection": {
+    "kind": "sprite-gen-scene-inspection",
+    "version": 1,
+    "frames": 1,
+    "source_fingerprints": {
+      "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_fear_dark.scene.json": "00716bc3a4ecbfbebc9d9425d1c5e282c8579bc67973a2a2b1e974508e87dc68",
+      "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_portrait_fear.png": "b5b697edbc837bad2bdb710dd6ce65b8dcbb6355e8dc30e97a84a2fbb6dbe55e"
+    },
+    "status": "measured",
+    "loop": {
+      "seam_mae": 0.0,
+      "adjacent_mae_mean": 0.0,
+      "adjacent_mae_max": 0.0,
+      "seam_limit": 1.0,
+      "seam_pass": true,
+      "phase_closure_mae": 0.0,
+      "phase_closure_pass": true,
+      "pass": true
+    },
+    "key_like_pixels": {
+      "green": 0,
+      "magenta": 0
+    },
+    "clipping": {
+      "actor": {
+        "top_frames": 0,
+        "bottom_frames": 0,
+        "side_frames": 0,
+        "offscreen_frames": 0,
+        "empty_frames": 0,
+        "minimum_top_y": 26.0
+      }
+    },
+    "sources": {
+      "actor": {
+        "edge_contact": [
+          {
+            "top": 0,
+            "bottom": 0,
+            "left": 0,
+            "right": 0
+          }
+        ],
+        "completeness": "unverified",
+        "note": "Edge contact is a diagnostic; missing artwork inside a source needs visual review."
+      }
+    },
+    "tile_joins": {},
+    "warnings": [],
+    "visual_review_required": true
+  }
+}

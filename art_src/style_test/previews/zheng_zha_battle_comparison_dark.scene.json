@@ -1,0 +1,54 @@
+{
+  "kind": "sprite-gen-scene",
+  "version": 1,
+  "canvas": {
+    "width": 1632,
+    "height": 816,
+    "background": [
+      24,
+      24,
+      28,
+      255
+    ]
+  },
+  "fps": 1,
+  "duration": 1,
+  "assets": {
+    "reference": {
+      "source": "../../../game/art/style_test/zheng_zha_reference.png"
+    },
+    "new": {
+      "source": "../../../game/art/style_test/zheng_zha_battle_idle.png"
+    },
+    "old": {
+      "source": "../rejected/zheng_zha_battle_idle.png"
+    }
+  },
+  "layers": [
+    {
+      "id": "reference",
+      "asset": "reference",
+      "at": [
+        280,
+        792
+      ],
+      "scale": 0.5
+    },
+    {
+      "id": "new",
+      "asset": "new",
+      "at": [
+        816,
+        792
+      ]
+    },
+    {
+      "id": "old",
+      "asset": "old",
+      "at": [
+        1352,
+        792
+      ]
+    }
+  ]
+}

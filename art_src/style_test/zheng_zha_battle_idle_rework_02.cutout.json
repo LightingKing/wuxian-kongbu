@@ -1,0 +1,203 @@
+{
+  "out": "art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_02_cutout.png",
+  "mode": "RGBA",
+  "size": "1024x1536",
+  "key": "magenta",
+  "route": "extract:magenta",
+  "chroma_key": [
+    255,
+    0,
+    255
+  ],
+  "chroma_key_painted": [
+    250,
+    4,
+    249
+  ],
+  "decontam": {
+    "mode": "auto",
+    "applied": true,
+    "fit": "still",
+    "band_px": 6,
+    "alpha_depth": 4,
+    "flank_px": 3,
+    "edge_band": 0,
+    "palette_size": 32,
+    "palette_source": "frame",
+    "palette": [
+      [
+        83,
+        79,
+        77
+      ],
+      [
+        180,
+        177,
+        172
+      ],
+      [
+        52,
+        52,
+        50
+      ],
+      [
+        116,
+        116,
+        114
+      ],
+      [
+        29,
+        29,
+        27
+      ],
+      [
+        36,
+        36,
+        33
+      ],
+      [
+        179,
+        162,
+        144
+      ],
+      [
+        45,
+        45,
+        42
+      ],
+      [
+        172,
+        170,
+        165
+      ],
+      [
+        141,
+        140,
+        137
+      ],
+      [
+        101,
+        100,
+        99
+      ],
+      [
+        124,
+        123,
+        121
+      ],
+      [
+        33,
+        33,
+        30
+      ],
+      [
+        109,
+        109,
+        107
+      ],
+      [
+        187,
+        171,
+        152
+      ],
+      [
+        160,
+        158,
+        154
+      ],
+      [
+        20,
+        19,
+        16
+      ],
+      [
+        71,
+        68,
+        66
+      ],
+      [
+        60,
+        59,
+        57
+      ],
+      [
+        129,
+        112,
+        98
+      ],
+      [
+        176,
+        174,
+        169
+      ],
+      [
+        49,
+        49,
+        46
+      ],
+      [
+        132,
+        131,
+        129
+      ],
+      [
+        164,
+        146,
+        130
+      ],
+      [
+        25,
+        25,
+        22
+      ],
+      [
+        113,
+        97,
+        85
+      ],
+      [
+        189,
+        186,
+        182
+      ],
+      [
+        93,
+        90,
+        88
+      ],
+      [
+        149,
+        148,
+        145
+      ],
+      [
+        145,
+        128,
+        112
+      ],
+      [
+        41,
+        41,
+        38
+      ],
+      [
+        56,
+        56,
+        54
+      ]
+    ],
+    "palette_keyfree": true,
+    "key_material_share": 6e-05,
+    "noise_sigma_rgb": 1.254,
+    "material_spread": 3.403,
+    "opaque_margin": 10.0,
+    "changed_px": 10511,
+    "refit_px": 25859,
+    "tint_px": 863,
+    "recovered_px": 3101,
+    "unexplained_px": 59,
+    "restored_px": 0,
+    "key_hue_capped_px": 151
+  },
+  "alpha_zero_pct": 80.74
+}

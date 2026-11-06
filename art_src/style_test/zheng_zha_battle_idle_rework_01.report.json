@@ -1,0 +1,78 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n参考图中同一个郑吒，二十多岁的中国男性公司白领。保留黑色短碎发、发际线、端正略疲惫的窄脸与眼袋，白色长袖衬衫、胸袋、黑皮带、深灰西裤、黑皮鞋，头脸与服装设计严格一致。完整全身单人游戏战斗待机素材，头顶、手指、手枪和两只鞋全部在画布内，四周至少留 8% 空白。自然成年男性身材，严格参照参考图的头部大小和躯干腿长，不要拉长脖子或双腿：从头顶到下巴约占头顶到鞋底总高的 12.5% 到 13%，约八个头高，头部不能变小。\n这是等待行动的低位持枪戒备，不是开火瞄准。双脚分开稳定站立，膝盖稍弯、重心略低，上身微侧、肩膀放松，视线留意前方。双肘弯曲且靠近身体，双手在腰腹前共同握住同一把黑色手枪，支撑手包住握枪手；只有一把枪。枪身在腰部以下，枪口朝前下方约 40 度斜指地面，不能平举到肩部或伸直双臂，不能开枪、没有火光。手指自然，食指离开扳机。\n配色直接跟随参考图，头发和西裤为中性炭黑与灰黑，暗处 RGB 接近相等、红通道不明显低于绿通道；不要青色、蓝绿色环境染色或绿色轮廓光，也不要紫色边缘反光。白衬衫阴影是中性灰，皮肤为参考图的自然灰肤色。干净明确的轮廓与两三阶赛璐璐色块，非照片、非三维渲染。单独人物，不画场景、地面、投影、文字或其他道具。\n\nSeen from the exact side, facing right.\n\nThe subject must be facing right (toward the right edge of the image), regardless of the reference image's orientation. Preserve the subject's design.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_01.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_01.png.raw.png",
+  "raw_bytes": 1403567,
+  "elapsed_seconds": 156.887,
+  "model": null,
+  "session_id": "01a1af8a-cfb0-76d3-8e46-2a6dfca2caff",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "refs-attached",
+    "key_background": {
+      "injected": true,
+      "key": "magenta"
+    },
+    "raw_alpha": {
+      "mode": "RGB",
+      "has_alpha_band": false,
+      "verdict": "no-alpha",
+      "alpha_zero_pct": 0.0,
+      "border_alpha_zero_pct": 0.0
+    },
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_01.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 1264863,
+    "fringe_pixels": 68,
+    "cleaned_transparent_rgb_pixels": 4533,
+    "alpha_zero_pct": 80.42,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": {
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_01.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 1264863,
+    "fringe_pixels": 68,
+    "cleaned_transparent_rgb_pixels": 4533,
+    "alpha_zero_pct": 80.42,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false,
+    "facing": {
+      "transport": "codex-exec",
+      "auth_source": "codex-login",
+      "direction": "right",
+      "confidence": 0.99,
+      "confidence_source": "model-self-report",
+      "model": null,
+      "requested": "right",
+      "fix": "regen",
+      "action": "none",
+      "final_direction": "right",
+      "final_direction_source": "observation",
+      "reason": "already-matched"
+    },
+    "view": {
+      "direction": "side",
+      "facing": "right",
+      "handed": []
+    }
+  },
+  "provider_resolved_from": "explicit"
+}

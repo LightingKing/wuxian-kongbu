@@ -1,5 +1,5 @@
 {
-  "out": "game\\art\\style_test\\sources\\zombie_scientist_attack_cutout.png",
+  "out": "art_src\\style_test\\sources\\zombie_scientist_attack_cutout.png",
   "mode": "RGBA",
   "size": "1024x1536",
   "key": "magenta",
@@ -199,5 +199,6 @@
     "restored_px": 65,
     "key_hue_capped_px": 2910
   },
-  "alpha_zero_pct": 69.61
+  "alpha_zero_pct": 69.61,
+  "path_migration_note": "任务001b重排存放路径；生成提示词及统计未改。旧背景重复raw合并到同字节来源。早期已丢失原图仍保持缺失，详见文档。"
 }

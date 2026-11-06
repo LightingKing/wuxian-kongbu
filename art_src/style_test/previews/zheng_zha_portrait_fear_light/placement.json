@@ -1,0 +1,55 @@
+{
+  "kind": "sprite-gen-scene-placement",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_fear_light.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_portrait_fear_light.scene.json": "8bd657aebcaeefc8e2a30ca139450221f3f3ca7193e3e52dc838184189d1e5f1",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_portrait_fear.png": "b5b697edbc837bad2bdb710dd6ce65b8dcbb6355e8dc30e97a84a2fbb6dbe55e"
+  },
+  "canvas": [
+    1072,
+    1584
+  ],
+  "fps": 1.0,
+  "duration": 1.0,
+  "camera": {},
+  "light": {},
+  "assets": {
+    "actor": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_portrait_fear.png",
+      "state": null
+    }
+  },
+  "layers": [
+    {
+      "id": "actor",
+      "asset": "actor",
+      "at": [
+        536.0,
+        1560.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        1024,
+        1536
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 1024.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    }
+  ],
+  "layer_plate_time": null,
+  "portable": false,
+  "note": "Placement metadata references source files; copy referenced assets when moving this output."
+}

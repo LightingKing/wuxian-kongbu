@@ -1,0 +1,55 @@
+{
+  "kind": "sprite-gen-scene-placement",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_battle_idle_light.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_battle_idle_light.scene.json": "3a3fa9da743cc15ccd1b2974421425b0686c7f86fb4f6822e457194dfda3afae",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle.png": "442669997ae5f46aa2660c37c82aaf06eca51d0ef82913585b6fc6ede9fbc1b2"
+  },
+  "canvas": [
+    560,
+    816
+  ],
+  "fps": 1.0,
+  "duration": 1.0,
+  "camera": {},
+  "light": {},
+  "assets": {
+    "actor": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle.png",
+      "state": null
+    }
+  },
+  "layers": [
+    {
+      "id": "actor",
+      "asset": "actor",
+      "at": [
+        280.0,
+        792.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        512,
+        768
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 512.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    }
+  ],
+  "layer_plate_time": null,
+  "portable": false,
+  "note": "Placement metadata references source files; copy referenced assets when moving this output."
+}

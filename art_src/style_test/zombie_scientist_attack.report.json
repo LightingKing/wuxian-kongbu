@@ -2,8 +2,8 @@
   "kind": "sprite-gen-image-report",
   "provider": "codex",
   "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n一名地下生化研究所的研究员丧尸，完整全身的独立游戏敌人素材，灰白皮肤、浑浊眼睛、凌乱短发，破损白色实验大褂、深灰长裤、完整皮鞋，胸前工牌。弓背前倾扑咬，张口露出牙齿，两只胳膊弯曲向前伸，双膝微屈，一脚支撑一脚略向后，紧凑而凶猛的侧面姿势。竖向 2:3 构图，人物占画面高度约 80%，四周保留至少 10% 空白；头发、手指尖、大褂下摆与双鞋全部在画布内，绝不触碰或超出边缘。不要附带地面、投影、烟雾或背景环境，人体和衣服是不透明的实体，非鬼魂、非半透明人物。\n背景必须是完全不透明的纯洋红色 #FF00FF 色键底，均匀填满人物之外的全部区域，不要透明背景、灰黑渐变、光晕或棋盘格；人物本身全部不透明。The entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.\n\nSeen from the exact side, facing left.",
-  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zombie_scientist_attack.png",
-  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zombie_scientist_attack.png.raw.png",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zombie_scientist_attack.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zombie_scientist_attack.png.raw.png",
   "raw_bytes": 1729538,
   "elapsed_seconds": 139.608,
   "model": null,
@@ -13,7 +13,7 @@
   "alpha": {
     "strategy": "chroma",
     "strategy_source": "explicit",
-    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zombie_scientist_attack.png",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zombie_scientist_attack.png",
     "mode": "RGBA",
     "method": "ycbcr",
     "size": "1024x1536",
@@ -25,7 +25,7 @@
     "stale_transparent_rgb_pixels": 0
   },
   "chroma": {
-    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zombie_scientist_attack.png",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zombie_scientist_attack.png",
     "mode": "RGBA",
     "method": "ycbcr",
     "size": "1024x1536",
@@ -47,5 +47,6 @@
       "handed": []
     }
   },
-  "provider_resolved_from": "explicit"
+  "provider_resolved_from": "explicit",
+  "path_migration_note": "任务001b重排存放路径；生成提示词及统计未改。旧背景重复raw合并到同字节来源。早期已丢失原图仍保持缺失，详见文档。"
 }

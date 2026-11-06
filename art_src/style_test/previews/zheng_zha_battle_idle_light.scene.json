@@ -1,0 +1,31 @@
+{
+  "kind": "sprite-gen-scene",
+  "version": 1,
+  "canvas": {
+    "width": 560,
+    "height": 816,
+    "background": [
+      235,
+      235,
+      240,
+      255
+    ]
+  },
+  "fps": 1,
+  "duration": 1,
+  "assets": {
+    "actor": {
+      "source": "../../../game/art/style_test/zheng_zha_battle_idle.png"
+    }
+  },
+  "layers": [
+    {
+      "id": "actor",
+      "asset": "actor",
+      "at": [
+        280,
+        792
+      ]
+    }
+  ]
+}

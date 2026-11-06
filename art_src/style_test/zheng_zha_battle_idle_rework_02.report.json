@@ -1,0 +1,79 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n第一张参考图是郑吒的身份、服装和身体比例的唯一基准；第二张参考图只提供低位持枪姿势。人物为同一个二十多岁的中国男性公司白领，短黑碎发、发际线、略疲惫的端正窄脸，白色长袖衬衫、胸袋、黑皮带、深灰西裤、黑皮鞋。\n修正第二张图偏大的头：在完整全身的画面里，把头从头顶到下巴的高度缩小到第二张的约 88%，不要缩短身体、不要拉长腿；调整肩颈自然衔接。以第一张参考图实际约八头身为准：头顶至下巴高度是头顶至鞋底总高度的八分之一，即 12.5%。这张图的精确身体比例以第一张参考图为准，头不要再画成七分之一。保留成年男性正常宽肩、正常四肢长度；头部不能夸大，腿也不能异常细长。\n保留第二张的低位持枪待机姿势：身体微侧、双脚稳定分开、膝盖稍弯、重心略低；两肘弯曲贴近躯干，双手在腰腹前共同握住同一把黑色手枪。枪口斜朝前下方约 40 度、在腰部以下，没有平举瞄准，没有开火，视线警戒前方。只有一把枪，双手包握同一握柄，手指结构正常、食指离开扳机。\n头发、裤子、皮鞋和枪保持第一张参考图的中性炭灰黑，黑色暗部各RGB通道接近相等，红通道不要明显低于绿通道；不受青绿环境光或洋红背景反光染色。白衬衫用中性灰的赛璐璐块面阴影。完整头发、手指、枪口和双鞋全在画布内，四周留出空白，人物占画面高度约85%。单独人物，没有地面、投影、场景、文字或其它道具，不是照片或3D渲染。\n\nSeen from the exact side, facing right.\n\nThe subject must be facing right (toward the right edge of the image), regardless of the reference image's orientation. Preserve the subject's design.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_02.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_02.png.raw.png",
+  "raw_bytes": 1403074,
+  "elapsed_seconds": 177.258,
+  "model": null,
+  "session_id": "01a1af93-59da-7291-ab66-992ec35adfff",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_01_cutout.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "refs-attached",
+    "key_background": {
+      "injected": true,
+      "key": "magenta"
+    },
+    "raw_alpha": {
+      "mode": "RGB",
+      "has_alpha_band": false,
+      "verdict": "no-alpha",
+      "alpha_zero_pct": 0.0,
+      "border_alpha_zero_pct": 0.0
+    },
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_02.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 1275874,
+    "fringe_pixels": 38,
+    "cleaned_transparent_rgb_pixels": 4496,
+    "alpha_zero_pct": 81.12,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": {
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_battle_idle_rework_02.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 1275874,
+    "fringe_pixels": 38,
+    "cleaned_transparent_rgb_pixels": 4496,
+    "alpha_zero_pct": 81.12,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false,
+    "facing": {
+      "transport": "codex-exec",
+      "auth_source": "codex-login",
+      "direction": "right",
+      "confidence": 0.99,
+      "confidence_source": "model-self-report",
+      "model": null,
+      "requested": "right",
+      "fix": "regen",
+      "action": "none",
+      "final_direction": "right",
+      "final_direction_source": "observation",
+      "reason": "already-matched"
+    },
+    "view": {
+      "direction": "side",
+      "facing": "right",
+      "handed": []
+    }
+  },
+  "provider_resolved_from": "explicit"
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "sprite-gen-scene-placement",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zombie_scientist_attack_dark.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zombie_scientist_attack_dark.scene.json": "48ed1902e1aa56422900e18a405093f4148dcc8cd32dad03cf4ba9cf89008bf8",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zombie_scientist_attack.png": "5152d846182aae3303a3df0330d402a309fc93fb7215da033681e8f336741088"
+  },
+  "canvas": [
+    560,
+    816
+  ],
+  "fps": 1.0,
+  "duration": 1.0,
+  "camera": {},
+  "light": {},
+  "assets": {
+    "actor": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zombie_scientist_attack.png",
+      "state": null
+    }
+  },
+  "layers": [
+    {
+      "id": "actor",
+      "asset": "actor",
+      "at": [
+        280.0,
+        792.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        512,
+        768
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 512.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    }
+  ],
+  "layer_plate_time": null,
+  "portable": false,
+  "note": "Placement metadata references source files; copy referenced assets when moving this output."
+}

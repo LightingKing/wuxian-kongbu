@@ -1,0 +1,119 @@
+{
+  "kind": "sprite-gen-scene-placement",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_battle_comparison_dark.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\previews\\zheng_zha_battle_comparison_dark.scene.json": "d20b0e7d1085cea29f7f7649e97ad98075dfa08327a97b27847869d771871196",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png": "afc7d6a7236509fbce4fd6d8b30b51bef0d93cd57c0f837098f5860aa29ccee8",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle.png": "442669997ae5f46aa2660c37c82aaf06eca51d0ef82913585b6fc6ede9fbc1b2",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\rejected\\zheng_zha_battle_idle.png": "6869a0579f70de4996ee18eee47f9dd3ba7fddc04886d018f69cf18b37b7951b"
+  },
+  "canvas": [
+    1632,
+    816
+  ],
+  "fps": 1.0,
+  "duration": 1.0,
+  "camera": {},
+  "light": {},
+  "assets": {
+    "reference": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png",
+      "state": null
+    },
+    "new": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle.png",
+      "state": null
+    },
+    "old": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\rejected\\zheng_zha_battle_idle.png",
+      "state": null
+    }
+  },
+  "layers": [
+    {
+      "id": "reference",
+      "asset": "reference",
+      "at": [
+        280.0,
+        792.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 0.5,
+      "raster_size": [
+        512,
+        768
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 1024.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    },
+    {
+      "id": "new",
+      "asset": "new",
+      "at": [
+        816.0,
+        792.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        512,
+        768
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 512.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    },
+    {
+      "id": "old",
+      "asset": "old",
+      "at": [
+        1352.0,
+        792.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        512,
+        768
+      ],
+      "opacity": 1.0,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 512.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    }
+  ],
+  "layer_plate_time": null,
+  "portable": false,
+  "note": "Placement metadata references source files; copy referenced assets when moving this output."
+}

@@ -2,8 +2,8 @@
   "kind": "sprite-gen-image-report",
   "provider": "codex",
   "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n参考图中同一个郑吒，二十多岁的中国男性公司白领；保持他的黑色短碎发、发际线、疲惫眼袋、窄脸、鼻形、白色长袖衬衫的胸袋、黑皮带和深灰西裤。独立游戏对话立绘，从头顶到大腿中部，竖幅 2:3 构图，头顶和双手完整且离画布边缘有余量。刚在高速列车上醒来后受到惊吓：瞳孔紧缩、眼睛睁大，眉心紧锁、眉头抬起，嘴唇微张，额头少量汗珠，肩膀耸起，上身略后退，一只手在胸口下方虚抬、另一只手紧绷下垂，手指结构正常。画面只包含人物，车厢和座椅不入画；不要椅子、座椅、扶手、地板、墙壁或任何道具。光照和服装颜色与参考图一致。\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
-  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png",
-  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png.raw.png",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_portrait_fear.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_portrait_fear.png.raw.png",
   "raw_bytes": 1681897,
   "elapsed_seconds": 107.0,
   "model": null,
@@ -26,7 +26,7 @@
       "alpha_zero_pct": 0.0,
       "border_alpha_zero_pct": 0.0
     },
-    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_portrait_fear.png",
     "mode": "RGBA",
     "method": "ycbcr",
     "size": "1024x1536",
@@ -223,7 +223,7 @@
     }
   },
   "chroma": {
-    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\style_test\\sources\\zheng_zha_portrait_fear.png",
     "mode": "RGBA",
     "method": "ycbcr",
     "size": "1024x1536",
@@ -425,5 +425,6 @@
     "rollout_cleaned": true,
     "transparent_background_reported": false
   },
-  "provider_resolved_from": "explicit"
+  "provider_resolved_from": "explicit",
+  "path_migration_note": "任务001b重排存放路径；生成提示词及统计未改。旧背景重复raw合并到同字节来源。早期已丢失原图仍保持缺失，详见文档。"
 }

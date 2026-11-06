@@ -1,0 +1,278 @@
+{
+  "kind": "style-test-rework-final-qa",
+  "task": "001b",
+  "all_checks_passed": true,
+  "game_art_contains_only_six_final_pngs": true,
+  "unchanged_accepted_assets_sha256_match": true,
+  "fit_script_sha256": "75afd2135e09015d01182c52dccc386c41963483c1e47ef45fee200dc7546cd3",
+  "measurement_source": "art_src/style_test/measurements.json",
+  "measurements_recomputed_and_sha256_bound": true,
+  "battle_measurement": {
+    "ratio_relative_difference": 0.08822216712124975,
+    "ratio_limit": 0.1,
+    "color_absolute_R_minus_G_difference": 0.3486660259566965,
+    "color_limit": 1.5,
+    "landmarks_are_manual_estimates": true
+  },
+  "background_visual_floor_y": 666,
+  "background_floor_fraction": 0.38333333333333336,
+  "generation_calls": {
+    "background": 1,
+    "battle": 2
+  },
+  "files": [
+    {
+      "file": "game/art/style_test/zheng_zha_reference.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGB",
+      "sha256": "afc7d6a7236509fbce4fd6d8b30b51bef0d93cd57c0f837098f5860aa29ccee8",
+      "corner_alpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "border_nonzero_pixels": 5116,
+      "alpha_zero_pixels": 0,
+      "partial_alpha_pixels": 0,
+      "opaque_pixels": 1572864,
+      "bottom_clearance_px": 0
+    },
+    {
+      "file": "game/art/style_test/zheng_zha_portrait_calm.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "f426153a5544d31b3ecb42f5ee96eedad32067aef3a2fe3027861a7d4761b30b",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        158,
+        2,
+        865,
+        1534
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 794373,
+      "partial_alpha_pixels": 26087,
+      "opaque_pixels": 752404,
+      "bottom_clearance_px": 2,
+      "source": "art_src/style_test/sources/zheng_zha_portrait_calm.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "5115bf237bf21bceb8a63ac59b037d7562ab005d6683d20c27adf0d81019273c",
+      "source_alpha_bbox": [
+        155,
+        17,
+        856,
+        1536
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/zheng_zha_portrait_fear.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "b5b697edbc837bad2bdb710dd6ce65b8dcbb6355e8dc30e97a84a2fbb6dbe55e",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        97,
+        2,
+        926,
+        1534
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 800250,
+      "partial_alpha_pixels": 25946,
+      "opaque_pixels": 746668,
+      "bottom_clearance_px": 2,
+      "source": "art_src/style_test/sources/zheng_zha_portrait_fear.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "c255c01636c570c7c6936622971432ddede7c82bfca4f10962f5339c90deeb45",
+      "source_alpha_bbox": [
+        107,
+        39,
+        917,
+        1536
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/zheng_zha_battle_idle.png",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "sha256": "442669997ae5f46aa2660c37c82aaf06eca51d0ef82913585b6fc6ede9fbc1b2",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        112,
+        2,
+        399,
+        766
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 299100,
+      "partial_alpha_pixels": 10048,
+      "opaque_pixels": 84068,
+      "bottom_clearance_px": 2,
+      "source": "art_src/style_test/sources/zheng_zha_battle_idle_rework_02_cutout.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "21eca216b200f02f6d3166fbe7dee44fff5ec25ede238ca0e1256c9a0197f4b3",
+      "source_alpha_bbox": [
+        228,
+        68,
+        753,
+        1466
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/zombie_scientist_attack.png",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "sha256": "5152d846182aae3303a3df0330d402a309fc93fb7215da033681e8f336741088",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        2,
+        47,
+        510,
+        766
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 230875,
+      "partial_alpha_pixels": 16845,
+      "opaque_pixels": 145496,
+      "bottom_clearance_px": 2,
+      "source": "art_src/style_test/sources/zombie_scientist_attack_cutout.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "8dd588cf14b13fe664f8eb301499cfd5358a33ac0a1ec7d51b7494e81293412a",
+      "source_alpha_bbox": [
+        66,
+        157,
+        954,
+        1413
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/bg_lab_corridor.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "sha256": "4552adb6495453df59d9e1a777ba556250ccecf49a70d27d8f1d023c1a56f55d",
+      "corner_alpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "border_nonzero_pixels": 5996,
+      "alpha_zero_pixels": 0,
+      "partial_alpha_pixels": 0,
+      "opaque_pixels": 2073600,
+      "bottom_clearance_px": 0,
+      "source": "art_src/style_test/sources/bg_lab_corridor.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_mode": "RGB",
+      "source_sha256": "b28ec4f70c2f79279f2c4a678dad9287e2151fbdbfe913b20fc82a44f8d5ac90",
+      "source_alpha_bbox": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "fit_reproduces_final_pixels": true
+    }
+  ],
+  "visual_review": {
+    "light_background": [
+      235,
+      235,
+      240,
+      255
+    ],
+    "dark_background": [
+      24,
+      24,
+      28,
+      255
+    ],
+    "all_four_transparent_finals_reviewed_on_both": true,
+    "preview_pairs": 4,
+    "comparison_preview": "art_src/style_test/previews/zheng_zha_battle_comparison_dark/check-00000.png",
+    "method": "sprite-gen scene-render, no source edits",
+    "review": "New battle hair and trousers appear neutral to warm dark grey without the rejected image cyan tint. Fine preexisting edge specks remain on unchanged portraits and zombie. No broad leftover background, thick white halo or clipping."
+  },
+  "tests": {
+    "command": "bash game/tools/run_tests.sh",
+    "exit_code": 0,
+    "count": 32,
+    "failures": 0,
+    "script_errors": false,
+    "log": "art_src/style_test/tests.log"
+  }
+}

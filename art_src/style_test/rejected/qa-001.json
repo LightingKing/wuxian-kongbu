@@ -54,7 +54,7 @@
       "partial_alpha_pixels": 26087,
       "opaque_pixels": 752404,
       "bottom_clearance_px": 2,
-      "source": "game/art/style_test/sources/zheng_zha_portrait_calm.png",
+      "source": "art_src/style_test/sources/zheng_zha_portrait_calm.png",
       "source_size": [
         1024,
         1536
@@ -94,7 +94,7 @@
       "partial_alpha_pixels": 25946,
       "opaque_pixels": 746668,
       "bottom_clearance_px": 2,
-      "source": "game/art/style_test/sources/zheng_zha_portrait_fear.png",
+      "source": "art_src/style_test/sources/zheng_zha_portrait_fear.png",
       "source_size": [
         1024,
         1536
@@ -110,7 +110,7 @@
       "fit_reproduces_final_pixels": true
     },
     {
-      "file": "game/art/style_test/zheng_zha_battle_idle.png",
+      "file": "art_src/style_test/rejected/zheng_zha_battle_idle.png",
       "size": [
         512,
         768
@@ -134,7 +134,7 @@
       "partial_alpha_pixels": 9310,
       "opaque_pixels": 67681,
       "bottom_clearance_px": 2,
-      "source": "game/art/style_test/sources/zheng_zha_battle_idle_cutout.png",
+      "source": "art_src/style_test/rejected/sources/zheng_zha_battle_idle_cutout.png",
       "source_size": [
         512,
         768
@@ -174,7 +174,7 @@
       "partial_alpha_pixels": 16845,
       "opaque_pixels": 145496,
       "bottom_clearance_px": 2,
-      "source": "game/art/style_test/sources/zombie_scientist_attack_cutout.png",
+      "source": "art_src/style_test/sources/zombie_scientist_attack_cutout.png",
       "source_size": [
         1024,
         1536
@@ -190,7 +190,7 @@
       "fit_reproduces_final_pixels": true
     },
     {
-      "file": "game/art/style_test/bg_laser_corridor.png",
+      "file": "art_src/style_test/rejected/bg_laser_corridor.png",
       "size": [
         1920,
         1080
@@ -214,7 +214,7 @@
       "partial_alpha_pixels": 0,
       "opaque_pixels": 2073600,
       "bottom_clearance_px": 0,
-      "source": "game/art/style_test/sources/bg_laser_corridor.png",
+      "source": "art_src/style_test/rejected/sources/bg_laser_corridor.png",
       "source_size": [
         1672,
         941
