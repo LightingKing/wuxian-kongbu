@@ -8,7 +8,7 @@ static func save_to(path: String, state: RefCounted) -> Error:
 	var f := FileAccess.open(path, FileAccess.WRITE)
 	if f == null:
 		return FileAccess.get_open_error()
-	f.store_string(JSON.stringify(state.to_dict(), "	"))
+	f.store_string(JSON.stringify(state.to_dict(), "\t"))
 	f.close()
 	return OK
 
