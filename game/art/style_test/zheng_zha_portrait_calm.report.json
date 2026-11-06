@@ -1,0 +1,429 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n参考图中同一个郑吒，二十多岁的中国男性公司白领；保持他的黑色短碎发、发际线、疲惫眼袋、窄脸、鼻形、白色长袖衬衫的胸袋、黑皮带和深灰西裤。独立游戏对话立绘，从头顶到大腿中部，竖幅 2:3 构图，人物居中，头顶和双手完整且离画布边缘有余量。刚从列车上醒来，已经压住惊慌，平静但警觉地观察前方：嘴唇完全闭合，眉毛放松，眼睛正常睁开，没有张嘴、没有汗珠，肩膀自然放松，两手低垂而轻微绷紧。背景场景不入画，画面只包含人物，不出现椅子、座椅扶手、车厢或地面。保持参考图的柔和冷光，肤色自然。\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_calm.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_calm.png.raw.png",
+  "raw_bytes": 1594360,
+  "elapsed_seconds": 80.59,
+  "model": null,
+  "session_id": "01a1af24-c7a1-74d2-be27-806f1d08490c",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "refs-attached",
+    "key_background": {
+      "injected": true,
+      "key": "magenta"
+    },
+    "raw_alpha": {
+      "mode": "RGB",
+      "has_alpha_band": false,
+      "verdict": "no-alpha",
+      "alpha_zero_pct": 0.0,
+      "border_alpha_zero_pct": 0.0
+    },
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_calm.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 815194,
+    "fringe_pixels": 10520,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 51.83,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "palette",
+      "applied": true,
+      "fit": "still",
+      "band_px": 6,
+      "alpha_depth": 4,
+      "flank_px": 3,
+      "edge_band": 0,
+      "palette_size": 32,
+      "palette_source": "frame",
+      "palette": [
+        [
+          125,
+          107,
+          102
+        ],
+        [
+          43,
+          44,
+          50
+        ],
+        [
+          166,
+          164,
+          169
+        ],
+        [
+          26,
+          26,
+          29
+        ],
+        [
+          166,
+          147,
+          139
+        ],
+        [
+          124,
+          123,
+          133
+        ],
+        [
+          157,
+          155,
+          162
+        ],
+        [
+          140,
+          139,
+          148
+        ],
+        [
+          74,
+          74,
+          83
+        ],
+        [
+          114,
+          114,
+          125
+        ],
+        [
+          114,
+          97,
+          93
+        ],
+        [
+          38,
+          38,
+          43
+        ],
+        [
+          149,
+          147,
+          155
+        ],
+        [
+          89,
+          89,
+          99
+        ],
+        [
+          110,
+          109,
+          122
+        ],
+        [
+          20,
+          20,
+          21
+        ],
+        [
+          163,
+          161,
+          166
+        ],
+        [
+          172,
+          154,
+          145
+        ],
+        [
+          132,
+          131,
+          140
+        ],
+        [
+          41,
+          41,
+          46
+        ],
+        [
+          59,
+          56,
+          63
+        ],
+        [
+          173,
+          170,
+          175
+        ],
+        [
+          143,
+          125,
+          119
+        ],
+        [
+          100,
+          100,
+          112
+        ],
+        [
+          29,
+          29,
+          33
+        ],
+        [
+          161,
+          158,
+          165
+        ],
+        [
+          106,
+          106,
+          117
+        ],
+        [
+          102,
+          86,
+          83
+        ],
+        [
+          169,
+          166,
+          171
+        ],
+        [
+          85,
+          71,
+          68
+        ],
+        [
+          118,
+          118,
+          129
+        ],
+        [
+          33,
+          33,
+          37
+        ]
+      ],
+      "palette_keyfree": true,
+      "key_material_share": 7e-05,
+      "noise_sigma_rgb": 1.245,
+      "material_spread": 3.504,
+      "opaque_margin": 10.0,
+      "changed_px": 16019,
+      "refit_px": 31064,
+      "tint_px": 1723,
+      "recovered_px": 3863,
+      "unexplained_px": 931,
+      "restored_px": 0,
+      "key_hue_capped_px": 3609
+    }
+  },
+  "chroma": {
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_calm.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 815194,
+    "fringe_pixels": 10520,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 51.83,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "palette",
+      "applied": true,
+      "fit": "still",
+      "band_px": 6,
+      "alpha_depth": 4,
+      "flank_px": 3,
+      "edge_band": 0,
+      "palette_size": 32,
+      "palette_source": "frame",
+      "palette": [
+        [
+          125,
+          107,
+          102
+        ],
+        [
+          43,
+          44,
+          50
+        ],
+        [
+          166,
+          164,
+          169
+        ],
+        [
+          26,
+          26,
+          29
+        ],
+        [
+          166,
+          147,
+          139
+        ],
+        [
+          124,
+          123,
+          133
+        ],
+        [
+          157,
+          155,
+          162
+        ],
+        [
+          140,
+          139,
+          148
+        ],
+        [
+          74,
+          74,
+          83
+        ],
+        [
+          114,
+          114,
+          125
+        ],
+        [
+          114,
+          97,
+          93
+        ],
+        [
+          38,
+          38,
+          43
+        ],
+        [
+          149,
+          147,
+          155
+        ],
+        [
+          89,
+          89,
+          99
+        ],
+        [
+          110,
+          109,
+          122
+        ],
+        [
+          20,
+          20,
+          21
+        ],
+        [
+          163,
+          161,
+          166
+        ],
+        [
+          172,
+          154,
+          145
+        ],
+        [
+          132,
+          131,
+          140
+        ],
+        [
+          41,
+          41,
+          46
+        ],
+        [
+          59,
+          56,
+          63
+        ],
+        [
+          173,
+          170,
+          175
+        ],
+        [
+          143,
+          125,
+          119
+        ],
+        [
+          100,
+          100,
+          112
+        ],
+        [
+          29,
+          29,
+          33
+        ],
+        [
+          161,
+          158,
+          165
+        ],
+        [
+          106,
+          106,
+          117
+        ],
+        [
+          102,
+          86,
+          83
+        ],
+        [
+          169,
+          166,
+          171
+        ],
+        [
+          85,
+          71,
+          68
+        ],
+        [
+          118,
+          118,
+          129
+        ],
+        [
+          33,
+          33,
+          37
+        ]
+      ],
+      "palette_keyfree": true,
+      "key_material_share": 7e-05,
+      "noise_sigma_rgb": 1.245,
+      "material_spread": 3.504,
+      "opaque_margin": 10.0,
+      "changed_px": 16019,
+      "refit_px": 31064,
+      "tint_px": 1723,
+      "recovered_px": 3863,
+      "unexplained_px": 931,
+      "restored_px": 0,
+      "key_hue_capped_px": 3609
+    }
+  },
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false
+  },
+  "provider_resolved_from": "explicit"
+}

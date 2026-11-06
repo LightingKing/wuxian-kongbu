@@ -1,0 +1,429 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n参考图中同一个郑吒，二十多岁的中国男性公司白领；保持他的黑色短碎发、发际线、疲惫眼袋、窄脸、鼻形、白色长袖衬衫的胸袋、黑皮带和深灰西裤。独立游戏对话立绘，从头顶到大腿中部，竖幅 2:3 构图，头顶和双手完整且离画布边缘有余量。刚在高速列车上醒来后受到惊吓：瞳孔紧缩、眼睛睁大，眉心紧锁、眉头抬起，嘴唇微张，额头少量汗珠，肩膀耸起，上身略后退，一只手在胸口下方虚抬、另一只手紧绷下垂，手指结构正常。画面只包含人物，车厢和座椅不入画；不要椅子、座椅、扶手、地板、墙壁或任何道具。光照和服装颜色与参考图一致。\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png.raw.png",
+  "raw_bytes": 1681897,
+  "elapsed_seconds": 107.0,
+  "model": null,
+  "session_id": "01a1af24-c794-72d0-b6ae-d993978a8044",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "refs-attached",
+    "key_background": {
+      "injected": true,
+      "key": "magenta"
+    },
+    "raw_alpha": {
+      "mode": "RGB",
+      "has_alpha_band": false,
+      "verdict": "no-alpha",
+      "alpha_zero_pct": 0.0,
+      "border_alpha_zero_pct": 0.0
+    },
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 842089,
+    "fringe_pixels": 11727,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 53.54,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "palette",
+      "applied": true,
+      "fit": "still",
+      "band_px": 6,
+      "alpha_depth": 4,
+      "flank_px": 3,
+      "edge_band": 0,
+      "palette_size": 32,
+      "palette_source": "frame",
+      "palette": [
+        [
+          93,
+          90,
+          99
+        ],
+        [
+          147,
+          140,
+          148
+        ],
+        [
+          45,
+          44,
+          49
+        ],
+        [
+          27,
+          27,
+          28
+        ],
+        [
+          139,
+          133,
+          141
+        ],
+        [
+          71,
+          67,
+          73
+        ],
+        [
+          120,
+          114,
+          124
+        ],
+        [
+          38,
+          38,
+          43
+        ],
+        [
+          102,
+          98,
+          108
+        ],
+        [
+          152,
+          146,
+          153
+        ],
+        [
+          150,
+          133,
+          131
+        ],
+        [
+          79,
+          76,
+          84
+        ],
+        [
+          42,
+          41,
+          46
+        ],
+        [
+          132,
+          126,
+          134
+        ],
+        [
+          34,
+          34,
+          36
+        ],
+        [
+          109,
+          105,
+          114
+        ],
+        [
+          155,
+          138,
+          136
+        ],
+        [
+          22,
+          21,
+          22
+        ],
+        [
+          85,
+          82,
+          90
+        ],
+        [
+          62,
+          57,
+          63
+        ],
+        [
+          98,
+          84,
+          83
+        ],
+        [
+          140,
+          124,
+          124
+        ],
+        [
+          142,
+          136,
+          144
+        ],
+        [
+          98,
+          94,
+          103
+        ],
+        [
+          106,
+          92,
+          91
+        ],
+        [
+          174,
+          167,
+          171
+        ],
+        [
+          90,
+          86,
+          94
+        ],
+        [
+          129,
+          114,
+          113
+        ],
+        [
+          31,
+          30,
+          33
+        ],
+        [
+          114,
+          100,
+          100
+        ],
+        [
+          161,
+          155,
+          160
+        ],
+        [
+          86,
+          73,
+          73
+        ]
+      ],
+      "palette_keyfree": false,
+      "key_material_share": 0.00818,
+      "noise_sigma_rgb": 1.229,
+      "material_spread": 3.611,
+      "opaque_margin": 10.0,
+      "changed_px": 13261,
+      "refit_px": 30431,
+      "tint_px": 1377,
+      "recovered_px": 3953,
+      "unexplained_px": 245,
+      "restored_px": 0,
+      "key_hue_capped_px": 0
+    }
+  },
+  "chroma": {
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\sources\\zheng_zha_portrait_fear.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 842089,
+    "fringe_pixels": 11727,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 53.54,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "palette",
+      "applied": true,
+      "fit": "still",
+      "band_px": 6,
+      "alpha_depth": 4,
+      "flank_px": 3,
+      "edge_band": 0,
+      "palette_size": 32,
+      "palette_source": "frame",
+      "palette": [
+        [
+          93,
+          90,
+          99
+        ],
+        [
+          147,
+          140,
+          148
+        ],
+        [
+          45,
+          44,
+          49
+        ],
+        [
+          27,
+          27,
+          28
+        ],
+        [
+          139,
+          133,
+          141
+        ],
+        [
+          71,
+          67,
+          73
+        ],
+        [
+          120,
+          114,
+          124
+        ],
+        [
+          38,
+          38,
+          43
+        ],
+        [
+          102,
+          98,
+          108
+        ],
+        [
+          152,
+          146,
+          153
+        ],
+        [
+          150,
+          133,
+          131
+        ],
+        [
+          79,
+          76,
+          84
+        ],
+        [
+          42,
+          41,
+          46
+        ],
+        [
+          132,
+          126,
+          134
+        ],
+        [
+          34,
+          34,
+          36
+        ],
+        [
+          109,
+          105,
+          114
+        ],
+        [
+          155,
+          138,
+          136
+        ],
+        [
+          22,
+          21,
+          22
+        ],
+        [
+          85,
+          82,
+          90
+        ],
+        [
+          62,
+          57,
+          63
+        ],
+        [
+          98,
+          84,
+          83
+        ],
+        [
+          140,
+          124,
+          124
+        ],
+        [
+          142,
+          136,
+          144
+        ],
+        [
+          98,
+          94,
+          103
+        ],
+        [
+          106,
+          92,
+          91
+        ],
+        [
+          174,
+          167,
+          171
+        ],
+        [
+          90,
+          86,
+          94
+        ],
+        [
+          129,
+          114,
+          113
+        ],
+        [
+          31,
+          30,
+          33
+        ],
+        [
+          114,
+          100,
+          100
+        ],
+        [
+          161,
+          155,
+          160
+        ],
+        [
+          86,
+          73,
+          73
+        ]
+      ],
+      "palette_keyfree": false,
+      "key_material_share": 0.00818,
+      "noise_sigma_rgb": 1.229,
+      "material_spread": 3.611,
+      "opaque_margin": 10.0,
+      "changed_px": 13261,
+      "refit_px": 30431,
+      "tint_px": 1377,
+      "recovered_px": 3953,
+      "unexplained_px": 245,
+      "restored_px": 0,
+      "key_hue_capped_px": 0
+    }
+  },
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false
+  },
+  "provider_resolved_from": "explicit"
+}

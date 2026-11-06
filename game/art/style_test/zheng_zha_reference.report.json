@@ -1,0 +1,22 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n二十多岁的中国男性公司白领，短黑发，五官端正但神情疲惫，白衬衫，深色西裤，黑皮鞋，正面全身站立，身体比例自然，双手自然垂落，纯色深灰背景，完整人物从头到脚都在画面内，角色设定参考图。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png.raw.png",
+  "raw_bytes": 2006463,
+  "elapsed_seconds": 102.42,
+  "model": null,
+  "session_id": "01a1aee2-57b0-7c23-aac3-4d01ba17201b",
+  "refs": [],
+  "transparent": false,
+  "alpha": null,
+  "chroma": null,
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false
+  },
+  "provider_resolved_from": "explicit"
+}

@@ -1,0 +1,448 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "日系动漫立绘风格，线条干净利落，偏写实的头身比例（约 7 头身），赛璐璐上色带少量柔和阴影；整体色调偏暗、偏冷，带一点胶片颗粒感，恐怖片氛围；人物清晰，背景阴森。\n与参考图中完全相同的郑吒：二十多岁的中国男性公司白领，短黑发，白衬衫、深色西裤、黑皮鞋，全身立绘，面朝画面右侧的侧面视图。双手共同握住同一把黑色手枪，手枪只有一把，双臂伸向右侧的戒备姿势，手指离开扳机，身体重心稳定，完整人物从头到脚，脚底贴近画面下沿，透明背景。\n\nSeen from the exact side, facing right.\n\nThe subject must be facing right (toward the right edge of the image), regardless of the reference image's orientation. Preserve the subject's design.\n\nThe entire background is one perfectly flat, uniform pure magenta chroma-key fill (#FF00FF) with no gradient, no texture, no shadow and no ground line.",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle_raw.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle_raw.png.raw.png",
+  "raw_bytes": 1363534,
+  "elapsed_seconds": 179.427,
+  "model": null,
+  "session_id": "01a1af07-f782-7bb3-b678-2d8e3dafc9fe",
+  "refs": [
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_reference.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "refs-attached",
+    "key_background": {
+      "injected": true,
+      "key": "magenta"
+    },
+    "raw_alpha": {
+      "mode": "RGB",
+      "has_alpha_band": false,
+      "verdict": "no-alpha",
+      "alpha_zero_pct": 0.0,
+      "border_alpha_zero_pct": 0.0
+    },
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle_raw.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 1288706,
+    "fringe_pixels": 9268,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 81.93,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "palette",
+      "applied": true,
+      "fit": "still",
+      "band_px": 6,
+      "alpha_depth": 4,
+      "flank_px": 3,
+      "edge_band": 0,
+      "palette_size": 32,
+      "palette_source": "frame",
+      "palette": [
+        [
+          66,
+          66,
+          67
+        ],
+        [
+          147,
+          146,
+          147
+        ],
+        [
+          19,
+          21,
+          20
+        ],
+        [
+          34,
+          37,
+          37
+        ],
+        [
+          99,
+          98,
+          102
+        ],
+        [
+          164,
+          163,
+          163
+        ],
+        [
+          149,
+          132,
+          122
+        ],
+        [
+          81,
+          82,
+          85
+        ],
+        [
+          26,
+          27,
+          27
+        ],
+        [
+          132,
+          131,
+          134
+        ],
+        [
+          140,
+          139,
+          141
+        ],
+        [
+          38,
+          41,
+          42
+        ],
+        [
+          155,
+          155,
+          156
+        ],
+        [
+          91,
+          91,
+          95
+        ],
+        [
+          116,
+          115,
+          117
+        ],
+        [
+          13,
+          13,
+          12
+        ],
+        [
+          108,
+          107,
+          109
+        ],
+        [
+          74,
+          76,
+          80
+        ],
+        [
+          55,
+          55,
+          57
+        ],
+        [
+          173,
+          171,
+          172
+        ],
+        [
+          30,
+          33,
+          34
+        ],
+        [
+          169,
+          149,
+          141
+        ],
+        [
+          123,
+          123,
+          126
+        ],
+        [
+          89,
+          75,
+          69
+        ],
+        [
+          85,
+          86,
+          90
+        ],
+        [
+          23,
+          25,
+          24
+        ],
+        [
+          41,
+          43,
+          45
+        ],
+        [
+          140,
+          123,
+          114
+        ],
+        [
+          157,
+          139,
+          129
+        ],
+        [
+          42,
+          49,
+          52
+        ],
+        [
+          110,
+          94,
+          87
+        ],
+        [
+          36,
+          39,
+          40
+        ]
+      ],
+      "palette_keyfree": true,
+      "key_material_share": 0.00015,
+      "noise_sigma_rgb": 1.233,
+      "material_spread": 4.762,
+      "opaque_margin": 10.0,
+      "changed_px": 10959,
+      "refit_px": 24528,
+      "tint_px": 1074,
+      "recovered_px": 2926,
+      "unexplained_px": 231,
+      "restored_px": 0,
+      "key_hue_capped_px": 536
+    }
+  },
+  "chroma": {
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\game\\art\\style_test\\zheng_zha_battle_idle_raw.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1024x1536",
+    "key": "magenta",
+    "keyed_pixels": 1288706,
+    "fringe_pixels": 9268,
+    "cleaned_transparent_rgb_pixels": 0,
+    "alpha_zero_pct": 81.93,
+    "stale_transparent_rgb_pixels": 0,
+    "decontam": {
+      "mode": "palette",
+      "applied": true,
+      "fit": "still",
+      "band_px": 6,
+      "alpha_depth": 4,
+      "flank_px": 3,
+      "edge_band": 0,
+      "palette_size": 32,
+      "palette_source": "frame",
+      "palette": [
+        [
+          66,
+          66,
+          67
+        ],
+        [
+          147,
+          146,
+          147
+        ],
+        [
+          19,
+          21,
+          20
+        ],
+        [
+          34,
+          37,
+          37
+        ],
+        [
+          99,
+          98,
+          102
+        ],
+        [
+          164,
+          163,
+          163
+        ],
+        [
+          149,
+          132,
+          122
+        ],
+        [
+          81,
+          82,
+          85
+        ],
+        [
+          26,
+          27,
+          27
+        ],
+        [
+          132,
+          131,
+          134
+        ],
+        [
+          140,
+          139,
+          141
+        ],
+        [
+          38,
+          41,
+          42
+        ],
+        [
+          155,
+          155,
+          156
+        ],
+        [
+          91,
+          91,
+          95
+        ],
+        [
+          116,
+          115,
+          117
+        ],
+        [
+          13,
+          13,
+          12
+        ],
+        [
+          108,
+          107,
+          109
+        ],
+        [
+          74,
+          76,
+          80
+        ],
+        [
+          55,
+          55,
+          57
+        ],
+        [
+          173,
+          171,
+          172
+        ],
+        [
+          30,
+          33,
+          34
+        ],
+        [
+          169,
+          149,
+          141
+        ],
+        [
+          123,
+          123,
+          126
+        ],
+        [
+          89,
+          75,
+          69
+        ],
+        [
+          85,
+          86,
+          90
+        ],
+        [
+          23,
+          25,
+          24
+        ],
+        [
+          41,
+          43,
+          45
+        ],
+        [
+          140,
+          123,
+          114
+        ],
+        [
+          157,
+          139,
+          129
+        ],
+        [
+          42,
+          49,
+          52
+        ],
+        [
+          110,
+          94,
+          87
+        ],
+        [
+          36,
+          39,
+          40
+        ]
+      ],
+      "palette_keyfree": true,
+      "key_material_share": 0.00015,
+      "noise_sigma_rgb": 1.233,
+      "material_spread": 4.762,
+      "opaque_margin": 10.0,
+      "changed_px": 10959,
+      "refit_px": 24528,
+      "tint_px": 1074,
+      "recovered_px": 2926,
+      "unexplained_px": 231,
+      "restored_px": 0,
+      "key_hue_capped_px": 536
+    }
+  },
+  "extra": {
+    "auth_source": "codex-login",
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": false,
+    "facing": {
+      "transport": "codex-exec",
+      "auth_source": "codex-login",
+      "direction": "right",
+      "confidence": 0.99,
+      "confidence_source": "model-self-report",
+      "model": null,
+      "requested": "right",
+      "fix": "regen",
+      "action": "none",
+      "final_direction": "right",
+      "final_direction_source": "observation",
+      "reason": "already-matched"
+    },
+    "view": {
+      "direction": "side",
+      "facing": "right",
+      "handed": []
+    }
+  },
+  "provider_resolved_from": "explicit"
+}

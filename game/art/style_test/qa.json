@@ -1,0 +1,233 @@
+{
+  "kind": "style-test-final-qa",
+  "all_checks_passed": true,
+  "fit_script_sha256": "75afd2135e09015d01182c52dccc386c41963483c1e47ef45fee200dc7546cd3",
+  "files": [
+    {
+      "file": "game/art/style_test/zheng_zha_reference.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGB",
+      "sha256": "afc7d6a7236509fbce4fd6d8b30b51bef0d93cd57c0f837098f5860aa29ccee8",
+      "corner_alpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1536
+      ],
+      "border_nonzero_pixels": 5116,
+      "alpha_zero_pixels": 0,
+      "partial_alpha_pixels": 0,
+      "opaque_pixels": 1572864,
+      "bottom_clearance_px": 0
+    },
+    {
+      "file": "game/art/style_test/zheng_zha_portrait_calm.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "f426153a5544d31b3ecb42f5ee96eedad32067aef3a2fe3027861a7d4761b30b",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        158,
+        2,
+        865,
+        1534
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 794373,
+      "partial_alpha_pixels": 26087,
+      "opaque_pixels": 752404,
+      "bottom_clearance_px": 2,
+      "source": "game/art/style_test/sources/zheng_zha_portrait_calm.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "5115bf237bf21bceb8a63ac59b037d7562ab005d6683d20c27adf0d81019273c",
+      "source_alpha_bbox": [
+        155,
+        17,
+        856,
+        1536
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/zheng_zha_portrait_fear.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "sha256": "b5b697edbc837bad2bdb710dd6ce65b8dcbb6355e8dc30e97a84a2fbb6dbe55e",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        97,
+        2,
+        926,
+        1534
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 800250,
+      "partial_alpha_pixels": 25946,
+      "opaque_pixels": 746668,
+      "bottom_clearance_px": 2,
+      "source": "game/art/style_test/sources/zheng_zha_portrait_fear.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "c255c01636c570c7c6936622971432ddede7c82bfca4f10962f5339c90deeb45",
+      "source_alpha_bbox": [
+        107,
+        39,
+        917,
+        1536
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/zheng_zha_battle_idle.png",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "sha256": "6869a0579f70de4996ee18eee47f9dd3ba7fddc04886d018f69cf18b37b7951b",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        73,
+        2,
+        438,
+        766
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 316225,
+      "partial_alpha_pixels": 9310,
+      "opaque_pixels": 67681,
+      "bottom_clearance_px": 2,
+      "source": "game/art/style_test/sources/zheng_zha_battle_idle_cutout.png",
+      "source_size": [
+        512,
+        768
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "4a0fa6b434a4c6a44e05b187a49ce50486b8bfa2cbe8fb9361ec734dc61cc91b",
+      "source_alpha_bbox": [
+        115,
+        6,
+        474,
+        758
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/zombie_scientist_attack.png",
+      "size": [
+        512,
+        768
+      ],
+      "mode": "RGBA",
+      "sha256": "5152d846182aae3303a3df0330d402a309fc93fb7215da033681e8f336741088",
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_bbox": [
+        2,
+        47,
+        510,
+        766
+      ],
+      "border_nonzero_pixels": 0,
+      "alpha_zero_pixels": 230875,
+      "partial_alpha_pixels": 16845,
+      "opaque_pixels": 145496,
+      "bottom_clearance_px": 2,
+      "source": "game/art/style_test/sources/zombie_scientist_attack_cutout.png",
+      "source_size": [
+        1024,
+        1536
+      ],
+      "source_mode": "RGBA",
+      "source_sha256": "8dd588cf14b13fe664f8eb301499cfd5358a33ac0a1ec7d51b7494e81293412a",
+      "source_alpha_bbox": [
+        66,
+        157,
+        954,
+        1413
+      ],
+      "fit_reproduces_final_pixels": true
+    },
+    {
+      "file": "game/art/style_test/bg_laser_corridor.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB",
+      "sha256": "68a003545de4d3f43f8bdbbe1acc2a484751e26644962d8a4d2456f3102d869b",
+      "corner_alpha": [
+        255,
+        255,
+        255,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "border_nonzero_pixels": 5996,
+      "alpha_zero_pixels": 0,
+      "partial_alpha_pixels": 0,
+      "opaque_pixels": 2073600,
+      "bottom_clearance_px": 0,
+      "source": "game/art/style_test/sources/bg_laser_corridor.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_mode": "RGB",
+      "source_sha256": "66c1da0bb0588b9bdfafb8ec22bc3ee8afffedf68b2a19b68662a44a9bce2065",
+      "source_alpha_bbox": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "fit_reproduces_final_pixels": true
+    }
+  ]
+}
