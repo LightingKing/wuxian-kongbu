@@ -25,6 +25,7 @@
 ## 代码约定
 - Tab 缩进，snake_case 命名，尽量写静态类型。
 - `game/core/` 里不使用 `class_name`，一律用 `const X = preload("res://...")`。原因：无界面测试在不导入工程时，`class_name` 不会注册。`game/ui/` 里可以用 `class_name`。
+- Godot 为每个脚本生成的 `*.uid` 文件（如 `rng.gd.uid`）要和脚本一起提交，不要删除，也不要加进 `.gitignore`。
 - 界面只订阅 core 返回的事件来播放表现，并把玩家的选择交回 core；不要在界面里写规则判断。
 - 文本用中文，通过 `tr()` 包装，为以后的翻译留口。
 
