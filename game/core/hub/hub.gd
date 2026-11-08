@@ -1,0 +1,179 @@
+extends RefCounted
+## 主神空间的一次休整（设计规格 6.2~6.4）。休整天数是行动点：兑换、结算、造人、修复不耗天；训练、休息耗天。
+## 原著惯例：回归当晚（第 0 天）不兑换，只结算和造人；最后一天强制休息，不能训练；每天恐惧自然下降。
+## 代兑：每人每次休整只能用自己的点数或支线给别人兑换一次（设计规格 6.3）。
+
+const Exchange = preload("res://core/hub/exchange.gd")
+const Pricing = preload("res://core/hub/pricing.gd")
+const Rules = preload("res://core/util/rules.gd")
+
+var game: RefCounted
+var days_total: int = 10
+## 0 = 回归当晚；每过一天加 1，到 days_total 就该出发了。
+var day: int = 0
+## 这次休整里已经给别人付过钱的人。
+var gifts: Dictionary = {}
+var history: Array[Dictionary] = []
+
+
+func start(game_state: RefCounted, days: int = -1) -> Array[Dictionary]:
+	game = game_state
+	days_total = days if days > 0 else int(Pricing.rules()["rest"]["days_default"])
+	day = 0
+	gifts = {}
+	return _emit([{"type": "hub_start", "days": days_total}])
+
+
+func days_left() -> int:
+	return days_total - day
+
+
+func can_depart() -> bool:
+	return day >= days_total
+
+
+func _char(id: String) -> RefCounted:
+	return game.characters[id]
+
+
+func _emit(events: Array[Dictionary]) -> Array[Dictionary]:
+	history.append_array(events)
+	return events
+
+
+func _refuse(reason: String) -> Array[Dictionary]:
+	return _emit([{"type": "hub_refused", "reason": reason}])
+
+
+## 兑换。opts：payer（付钱的人的 id）、accept_risk（坚持兑换有变异风险的血统）。
+func exchange(char_id: String, entry_id: String, opts: Dictionary = {}) -> Array[Dictionary]:
+	if day == 0:
+		return _refuse("return_night")
+	var payer_id := String(opts.get("payer", char_id))
+	var gift := payer_id != char_id
+	var events := Exchange.buy(_char(char_id), entry_id, game.rng, {
+		"payer": _char(payer_id) if gift else null,
+		"accept_risk": bool(opts.get("accept_risk", false)),
+		"gift_used": gift and gifts.has(payer_id),
+	})
+	if gift and events[0]["type"] == "exchange_done":
+		gifts[payer_id] = true
+	return _emit(events)
+
+
+## 直接强化属性：10 点 = 1 点（原著）。
+func buy_attribute(char_id: String, attr: String, amount: int) -> Array[Dictionary]:
+	if day == 0:
+		return _refuse("return_night")
+	var ch := _char(char_id)
+	var cost := amount * int(Rules.get_rules()["points_per_attribute"])
+	if amount <= 0 or ch.points < cost:
+		return _refuse("not_enough_points")
+	ch.points -= cost
+	ch.attributes.add_enhanced(attr, float(amount))
+	return _emit([{"type": "attribute_bought", "char": char_id, "attr": attr, "amount": amount, "cost": cost}])
+
+
+## 支线拆分（1 个高一级 → 3 个低一级）与合成（3 个 → 1 个高一级）。
+func split_ticket(char_id: String, grade: String) -> Array[Dictionary]:
+	if not _char(char_id).tickets.split(grade):
+		return _refuse("cannot_split")
+	return _emit([{"type": "ticket_split", "char": char_id, "grade": grade}])
+
+
+func merge_tickets(char_id: String, grade: String) -> Array[Dictionary]:
+	if not _char(char_id).tickets.merge(grade):
+		return _refuse("cannot_merge")
+	return _emit([{"type": "tickets_merged", "char": char_id, "grade": grade}])
+
+
+## 修复费用：生命还有一半以上算"修补"（400）；更重按伤势线性涨到"修复"上限（2000）。满血不要钱。
+func repair_cost(char_id: String) -> int:
+	var ch := _char(char_id)
+	var ratio: float = ch.hp / ch.hp_max()
+	if ratio >= 1.0:
+		return 0
+	var r: Dictionary = Pricing.rules()["repair"]
+	var patch := float(r["patch_cost"])
+	var threshold := float(r["patch_hp_ratio"])
+	if ratio >= threshold:
+		return int(patch)
+	return roundi(patch + (threshold - maxf(ratio, 0.0)) / threshold * (float(r["full_cost"]) - patch))
+
+
+## 修复：生命回满，基因锁后遗症消除。可以由别人付钱（修复不算代兑次数）。
+func repair(char_id: String, payer_id: String = "") -> Array[Dictionary]:
+	var ch := _char(char_id)
+	var payer := _char(payer_id if payer_id != "" else char_id)
+	var cost := repair_cost(char_id)
+	if cost == 0:
+		return _refuse("not_injured")
+	if payer.points < cost:
+		return _refuse("not_enough_points")
+	payer.points -= cost
+	ch.hp = ch.hp_max()
+	ch.flags.erase("gene_lock_aftereffect")
+	return _emit([{"type": "repaired", "char": char_id, "payer": payer.id, "cost": cost}])
+
+
+## 造人（娱乐类）：每个制造者第一个免费，之后 500 点；各项素质最多约两倍常人（设计规格 6.3）。回归当晚就可以造。
+func create_human(creator_id: String, name: String, attrs: Dictionary) -> Array[Dictionary]:
+	var ch := _char(creator_id)
+	var h: Dictionary = Pricing.rules()["human"]
+	var made := 0
+	for c: Dictionary in game.companions:
+		if c["creator"] == creator_id:
+			made += 1
+	var cost := 0 if made == 0 else int(h["cost"])
+	if ch.points < cost:
+		return _refuse("not_enough_points")
+	ch.points -= cost
+	var clamped := {}
+	for k: String in attrs:
+		clamped[k] = minf(float(attrs[k]), float(h["attr_max"]))
+	var companion := {"id": "%s_human_%d" % [creator_id, made + 1], "name": name, "creator": creator_id, "attributes": clamped}
+	game.companions.append(companion)
+	return _emit([{"type": "human_created", "creator": creator_id, "companion": companion, "cost": cost}])
+
+
+## 训练：花天数提升已有技能或能力的熟练度。最后一天强制休息，不能占用。
+func train(char_id: String, skill_id: String, days: int) -> Array[Dictionary]:
+	var ch := _char(char_id)
+	if not ch.skills.has(skill_id) and not ch.abilities.has(skill_id):
+		return _refuse("unknown_skill")
+	if days <= 0 or day + days > days_total - 1:
+		return _refuse("no_days")
+	var gain := float(Pricing.rules()["train"]["proficiency_per_day"]) * days
+	ch.proficiency[skill_id] = minf(1.0, float(ch.proficiency.get(skill_id, 1.0)) + gain)
+	var events: Array[Dictionary] = [{"type": "trained", "char": char_id, "skill": skill_id, "days": days, "proficiency": ch.proficiency[skill_id]}]
+	_pass_days(days, events)
+	return _emit(events)
+
+
+func rest(days: int) -> Array[Dictionary]:
+	if days <= 0 or day + days > days_total:
+		return _refuse("no_days")
+	var events: Array[Dictionary] = []
+	_pass_days(days, events)
+	return _emit(events)
+
+
+func _pass_days(days: int, events: Array[Dictionary]) -> void:
+	var relief := float(Pricing.rules()["rest"]["fear_relief_per_day"])
+	for i in days:
+		day += 1
+		for ch: RefCounted in game.characters.values():
+			if ch.alive:
+				ch.fear = maxf(0.0, ch.fear - relief)
+		events.append({"type": "day_passed", "day": day, "days_left": days_left()})
+
+
+func to_dict() -> Dictionary:
+	return {"days_total": days_total, "day": day, "gifts": gifts.duplicate()}
+
+
+func load_dict(d: Dictionary, game_state: RefCounted) -> void:
+	game = game_state
+	days_total = int(d["days_total"])
+	day = int(d["day"])
+	gifts = (d["gifts"] as Dictionary).duplicate()
