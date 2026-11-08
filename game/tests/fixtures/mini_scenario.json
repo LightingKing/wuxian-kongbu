@@ -1,0 +1,90 @@
+{
+	"id": "mini_hive",
+	"name": "测试用：小蜂巢",
+	"start_location": "car",
+	"duration_minutes": 120,
+	"main_task": "存活 2 小时",
+	"locations": {
+		"car": {"name": "高速车厢", "search": [{"item": "grenade", "count": 1}]},
+		"hall": {"name": "蜂巢入口大厅"},
+		"stairs": {"name": "楼梯井", "dark": true},
+		"laser": {"name": "激光通道"},
+		"control": {"name": "火焰女皇主机房", "search": [{"item": "spray", "count": 2}], "search_minutes": 20},
+		"sewer": {"name": "下水道", "dark": true}
+	},
+	"paths": [
+		{"a": "car", "b": "hall", "minutes": 10},
+		{"a": "hall", "b": "stairs", "minutes": 5},
+		{"a": "stairs", "b": "laser", "minutes": 5},
+		{"a": "laser", "b": "control", "minutes": 5, "closed": true},
+		{"a": "hall", "b": "sewer", "minutes": 15}
+	],
+	"npcs": {
+		"matthew": {"name": "马修", "location": "car", "plot": true},
+		"kaplan": {"name": "卡普兰", "location": "hall", "plot": true}
+	},
+	"watch": {
+		"tether": {"npc": "matthew", "max_hops": 1, "grace_minutes": 10, "transfer_to": "kaplan"},
+		"gag_penalty": -10
+	},
+	"events": [
+		{
+			"id": "rules_talk",
+			"at": 0,
+			"effects": [
+				{"say": {"speaker": "zhang_jie", "text": "欢迎来到恐怖片的世界。"}},
+				{"bonus": {"points": 100, "label": "讲解规则", "recipients": ["zhang_jie"]}}
+			]
+		},
+		{
+			"id": "mercs_arrive",
+			"at": 10,
+			"effects": [
+				{"npc_move": {"npc": "matthew", "to": "hall"}},
+				{"fear": {"amount": 10}}
+			]
+		},
+		{
+			"id": "laser_trap",
+			"when": {"party_at": "laser"},
+			"location": "laser",
+			"inertia": 2,
+			"effects": [
+				{"fear": {"amount": 30, "location": "laser"}},
+				{"battle": {"location": "laser", "enemies": [{"def": "zombie", "count": 2, "row": 0}]}}
+			],
+			"alterations": [
+				{
+					"if": {"flag": "warned_laser"},
+					"label": "提前提醒，陷阱被识破",
+					"effects": [
+						{"open_path": ["laser", "control"]},
+						{"side_plot": {"id": "save_matthew", "grade": "B", "points": 5000, "label": "救下马修", "recipients": "present"}},
+						{"bonus": {"points": 500, "label": "精神临界值突破", "recipients": "present", "attributes": {"spirit": 20, "nerve_reaction": 30}}},
+						{"tether_release": true}
+					]
+				}
+			]
+		},
+		{
+			"id": "queen_shutdown",
+			"at": 60,
+			"inertia": 1,
+			"effects": [
+				{"set_flag": "lights_out"},
+				{"npc_die": "matthew"}
+			],
+			"alterations": [
+				{"if": {"flag": "threatened_queen"}, "label": "威胁火焰女皇，断电被推迟", "effects": []}
+			]
+		},
+		{
+			"id": "lickers_early",
+			"when": {"deviation_at_least": 2},
+			"effects": [
+				{"say": {"speaker": "narrator", "text": "剧情被改变，远处传来爬行者的嘶叫。"}},
+				{"set_flag": "lickers_early"}
+			]
+		}
+	]
+}
