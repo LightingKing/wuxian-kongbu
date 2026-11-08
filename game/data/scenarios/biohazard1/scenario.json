@@ -1,0 +1,267 @@
+{
+	"id": "biohazard1",
+	"name": "生化危机一",
+	"start_location": "car",
+	"duration_minutes": 187,
+	"main_task": "存活 3 小时 07 分；不得离开马修 100 米",
+	"locations": {
+		"car": {"name": "高速车厢", "search": [{"item": "grenade", "count": 1}]},
+		"hall": {"name": "蜂巢入口大厅"},
+		"stairs": {"name": "楼梯井", "dark": true},
+		"laser": {"name": "激光通道"},
+		"control": {"name": "火焰女皇主机房", "search": [{"item": "spray", "count": 2}, {"item": "antidote", "count": 1}], "search_minutes": 20},
+		"corridor": {"name": "实验区走廊"},
+		"freezer": {"name": "冷冻仓库", "dark": true, "search": [{"item": "antidote", "count": 1}]},
+		"sewer": {"name": "下水道", "dark": true}
+	},
+	"paths": [
+		{"a": "car", "b": "hall", "minutes": 10},
+		{"a": "hall", "b": "stairs", "minutes": 8},
+		{"a": "stairs", "b": "laser", "minutes": 7},
+		{"a": "laser", "b": "control", "minutes": 5, "closed": true},
+		{"a": "control", "b": "corridor", "minutes": 4},
+		{"a": "corridor", "b": "freezer", "minutes": 5},
+		{"a": "corridor", "b": "sewer", "minutes": 6},
+		{"a": "hall", "b": "sewer", "minutes": 15}
+	],
+	"npcs": {
+		"matthew": {"name": "马修·艾迪森", "location": "hall", "plot": true},
+		"alice": {"name": "艾丽丝", "location": "hall", "plot": true},
+		"ryan": {"name": "瑞恩", "location": "hall", "plot": true},
+		"matt": {"name": "马特", "location": "hall", "plot": true},
+		"kaplan": {"name": "卡普兰", "location": "hall", "plot": true},
+		"jd": {"name": "J·D", "location": "hall", "plot": true},
+		"rain": {"name": "雷恩", "location": "hall", "plot": true},
+		"red_queen": {"name": "火焰女皇", "location": "control", "plot": false}
+	},
+	"watch": {
+		"gag_penalty": -10,
+		"dark_flag": "power_out"
+	},
+	"facts": {
+		"queen_controls_lasers": {
+			"statement": "火焰女皇控制着蜂巢里的激光防御",
+			"domain": "biohazard",
+			"truth": true,
+			"difficulty": 0.4,
+			"clues": {"zheng_zha_memory": 0.5, "queen_console": 0.5}
+		},
+		"matthew_doomed": {
+			"statement": "原剧情里马修会死在激光通道",
+			"domain": "biohazard",
+			"truth": true,
+			"difficulty": 0.5,
+			"clues": {"zheng_zha_memory": 0.3, "matthew_dies": 1.0, "laser_survived": 0.4}
+		},
+		"zhang_jie_hiding": {
+			"statement": "张杰的实力远不止他表现出来的样子",
+			"domain": "zhushen",
+			"truth": true,
+			"difficulty": 0.6,
+			"clues": {"desert_eagle": 0.5, "rules_too_smooth": 0.5}
+		}
+	},
+	"events": [
+		{
+			"id": "opening",
+			"at": 0,
+			"location": "car",
+			"effects": [
+				{"say": {"speaker": "zhang_jie", "text": "菜鸟们，欢迎来到恐怖片的世界。活过一部片，一千点；攒够五万点，可以回现实。"}},
+				{"bonus": {"points": 100, "label": "讲解规则", "recipients": ["zhang_jie"]}},
+				{"clue": "rules_too_smooth"},
+				{"clue": "zheng_zha_memory"},
+				{"choice": {"id": "opening_attitude", "prompt": "张杰讲完规则，看着你们几个新人。", "options": [
+					{"id": "listen", "text": "认真听完，记住每一条", "effects": [{"set_flag": "listened_rules"}]},
+					{"id": "doubt", "text": "质疑：凭什么信你", "effects": [{"fear": {"amount": 5}}, {"set_flag": "doubted_rules"}, {"say": {"speaker": "zhang_jie", "text": "信不信由你，反正死的是你。"}}]},
+					{"id": "mock", "text": "嘲讽他装神弄鬼", "effects": [{"fear": {"amount": 10}}, {"set_flag": "mocked_rules"}, {"say": {"speaker": "zhang_jie", "text": "有意思。等会儿别哭。"}}]}
+				]}}
+			]
+		},
+		{
+			"id": "mercs_board",
+			"at": 10,
+			"location": "hall",
+			"effects": [
+				{"npc_move": {"npc": "matthew", "to": "hall"}},
+				{"npc_move": {"npc": "alice", "to": "hall"}},
+				{"npc_move": {"npc": "kaplan", "to": "hall"}},
+				{"npc_move": {"npc": "ryan", "to": "hall"}},
+				{"npc_move": {"npc": "rain", "to": "hall"}},
+				{"npc_move": {"npc": "jd", "to": "hall"}},
+				{"npc_move": {"npc": "matt", "to": "hall"}},
+				{"say": {"speaker": "matthew", "text": "你们六个，从现在起是保安。跟紧我，别离开一百米。"}},
+				{"set_tether": {"npc": "matthew", "max_hops": 1, "grace_minutes": 10, "transfer_to": "kaplan"}},
+				{"clue": "desert_eagle"},
+				{"say": {"speaker": "zhang_jie", "text": "看什么看，老子的枪。"}}
+			]
+		},
+		{
+			"id": "control_console",
+			"when": {"party_at": "control"},
+			"location": "control",
+			"effects": [
+				{"say": {"speaker": "kaplan", "text": "火焰女皇控制着整栋楼的防御，包括那些激光。"}},
+				{"clue": "queen_console"}
+			]
+		},
+		{
+			"id": "stairs_lag",
+			"when": {"party_at": "stairs"},
+			"location": "stairs",
+			"effects": [
+				{"say": {"speaker": "zhang_jie", "text": "小胖子和阿姨掉队了。等不等？"}},
+				{"choice": {"id": "lag_behind", "prompt": "两个人的体力撑不住了，等他们会拖慢队伍。", "options": [
+					{"id": "help", "text": "扶着他们一起走", "effects": [
+						{"delay": {"minutes": 15}},
+						{"fear": {"amount": 10}},
+						{"set_flag": "helped_lagging"},
+						{"say": {"speaker": "xiao_pang_zi", "text": "谢谢……谢谢郑哥。"}}
+					]},
+					{"id": "leave", "text": "不管他们，跟上雇佣兵", "effects": [
+						{"erase": {"targets": ["xiao_pang_zi", "zhong_nian_fu_nv"], "reason": "tether"}},
+						{"fear": {"amount": 15}},
+						{"say": {"speaker": "zhang_jie", "text": "超出范围了。别看。"}}
+					]}
+				]}}
+			]
+		},
+		{
+			"id": "laser_corridor",
+			"when": {"party_at": "laser"},
+			"location": "laser",
+			"inertia": 2,
+			"effects": [
+				{"say": {"speaker": "matthew", "text": "郑吒、牟钢，你们两个跟我进来。"}},
+				{"give": {"recipients": ["zheng_zha"], "skill": "pistol_shot"}},
+				{"choice": {"id": "laser_choice", "prompt": "激光网正在合拢，只有贴着大门的一小块地方是安全的。", "options": [
+					{"id": "save_matthew", "text": "扑倒，拖着马修贴到门上", "effects": [
+						{"open_path": ["laser", "control"]},
+						{"side_plot": {"id": "save_matthew", "grade": "B", "points": 5000, "label": "救下马修"}},
+						{"bonus": {"points": 500, "label": "精神临界值突破", "attributes": {"spirit": 20, "nerve_reaction": 30}}},
+						{"tether_release": true},
+						{"clue": "laser_survived"},
+						{"say": {"speaker": "matthew", "text": "你救了我。为什么？"}}
+					]},
+					{"id": "self_only", "text": "只顾自己贴门，喊一声让他躲", "effects": [
+						{"open_path": ["laser", "control"]},
+						{"npc_die": "matthew"},
+						{"fear": {"amount": 20}},
+						{"damage": {"amount": 999, "recipients": ["mu_gang"], "reason": "laser"}},
+						{"clue": "matthew_dies"}
+					]},
+					{"id": "panic", "text": "慌乱后退", "effects": [
+						{"open_path": ["laser", "control"]},
+						{"damage": {"amount": 60, "recipients": "present", "reason": "laser"}},
+						{"npc_die": "matthew"},
+						{"damage": {"amount": 999, "recipients": ["mu_gang"], "reason": "laser"}}
+					]}
+				]}}
+			]
+		},
+		{
+			"id": "queen_shutdown",
+			"at": 70,
+			"location": "control",
+			"effects": [
+				{"npc_move": {"npc": "kaplan", "to": "control"}},
+				{"say": {"speaker": "kaplan", "text": "火焰女皇已关闭。我们得快点。"}},
+				{"set_flag": "queen_off"},
+				{"battle": {"location": "control", "enemies": [{"def": "zombie", "count": 10, "row": 0}]}}
+			]
+		},
+		{
+			"id": "divergence",
+			"when": {"all": [{"time_at_least": 90}, {"party_at": "control"}]},
+			"location": "control",
+			"effects": [
+				{"say": {"speaker": "zhan_lan", "text": "雇佣兵被困住了。与其跟他们走，不如赖在主机房——这里只有一道门。"}},
+				{"choice": {"id": "stay_or_follow", "prompt": "留守主机房，还是跟雇佣兵走下水道？", "options": [
+					{"id": "stay", "text": "留守主机房", "effects": [
+						{"set_flag": "stay_control"},
+						{"say": {"speaker": "matthew", "text": "你们留下。卡普兰，把门锁死。"}}
+					]},
+					{"id": "follow", "text": "跟雇佣兵走下水道", "effects": [
+						{"set_flag": "went_sewer"},
+						{"fear": {"amount": 10}},
+						{"npc_move": {"npc": "matthew", "to": "sewer"}},
+						{"npc_move": {"npc": "kaplan", "to": "sewer"}},
+						{"npc_move": {"npc": "ryan", "to": "sewer"}},
+						{"npc_move": {"npc": "rain", "to": "sewer"}},
+						{"npc_move": {"npc": "jd", "to": "sewer"}},
+						{"npc_move": {"npc": "alice", "to": "sewer"}},
+						{"npc_move": {"npc": "matt", "to": "sewer"}},
+						{"move_members": {"members": ["zheng_zha", "zhang_jie", "zhan_lan", "li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"], "to": "sewer"}}
+					]}
+				]}}
+			]
+		},
+		{
+			"id": "sewer_dogs",
+			"when": {"all": [{"time_at_least": 100}, {"party_at": "sewer"}]},
+			"location": "sewer",
+			"effects": [
+				{"say": {"speaker": "rain", "text": "有东西在下面！"}},
+				{"battle": {"location": "sewer", "enemies": [{"def": "zombie_dog", "count": 2, "row": 0}]}}
+			]
+		},
+		{
+			"id": "lickers_outer",
+			"when": {"all": [{"time_at_least": 120}, {"party_at": "control"}]},
+			"location": "control",
+			"effects": [
+				{"say": {"speaker": "kaplan", "text": "外门被撕开了！两只爬行者！"}},
+				{"persuade": {"id": "threaten_queen", "npc": "red_queen", "goal": "逼火焰女皇用激光杀掉爬行者", "difficulty": 2, "keywords": ["威胁", "断电", "激光"],
+					"success": [
+						{"set_flag": "queen_helps"},
+						{"say": {"speaker": "red_queen", "text": "……执行。"}}
+					],
+					"failure": [
+						{"battle": {"location": "control", "enemies": [{"def": "licker", "count": 2, "row": 0}]}}
+					]}}
+			]
+		},
+		{
+			"id": "sewer_licker",
+			"when": {"all": [{"time_at_least": 150}, {"party_at": "sewer"}]},
+			"location": "sewer",
+			"effects": [
+				{"say": {"speaker": "matthew", "text": "前面有东西。准备战斗！"}},
+				{"battle": {"location": "sewer", "enemies": [{"def": "licker", "count": 1, "row": 0}]}}
+			]
+		},
+		{
+			"id": "power_out",
+			"at": 160,
+			"effects": [
+				{"set_flag": "power_out"},
+				{"say": {"speaker": "kaplan", "text": "防御系统断电了。全黑。"}},
+				{"fear": {"amount": 10}}
+			]
+		},
+		{
+			"id": "lickers_inner",
+			"when": {"all": [{"time_at_least": 170}, {"party_at": "control"}]},
+			"location": "control",
+			"inertia": 1,
+			"effects": [
+				{"battle": {"location": "control", "enemies": [{"def": "licker", "count": 2, "row": 0}]}}
+			],
+			"alterations": [
+				{"if": {"flag": "queen_helps"}, "label": "火焰女皇的激光守住内门", "effects": [
+					{"say": {"speaker": "narrator", "text": "激光闪过，两只爬行者被切成两段。"}}
+				]}
+			]
+		},
+		{
+			"id": "sewer_escape",
+			"when": {"all": [{"time_at_least": 175}, {"party_at": "sewer"}]},
+			"location": "sewer",
+			"effects": [
+				{"side_plot": {"id": "sewer_escape", "grade": "D", "points": 500, "label": "从下水道生还"}},
+				{"set_flag": "sewer_out"},
+				{"say": {"speaker": "matthew", "text": "出口就在前面。快！"}}
+			]
+		}
+	]
+}

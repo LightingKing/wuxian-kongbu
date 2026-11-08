@@ -1,0 +1,124 @@
+{
+	"version": 1,
+	"characters": {
+		"zheng_zha": {
+			"name": "郑吒",
+			"attributes": {"intelligence": 100, "spirit": 110, "cell_vitality": 105, "nerve_reaction": 105, "muscle": 110, "immunity": 100},
+			"skills": ["punch"],
+			"items": {},
+			"films_completed": 0,
+			"flags": {
+				"background": "普通公司职员，看过这部电影，记得激光通道和火焰女皇。",
+				"talent": "iron_will",
+				"talent_name": "不屈",
+				"talent_condition": "濒死或同伴死在面前",
+				"demon": "怕失去重要的人",
+				"potential": 0.8,
+				"personality": "重情义、护短，关键时候反而冷静。",
+				"role": "主角"
+			}
+		},
+		"zhang_jie": {
+			"name": "张杰",
+			"attributes": {"intelligence": 110, "spirit": 130, "cell_vitality": 130, "nerve_reaction": 140, "muscle": 140, "immunity": 120},
+			"skills": ["desert_eagle", "punch"],
+			"items": {},
+			"films_completed": 3,
+			"flags": {
+				"background": "经历过三部片的老手，对主神的规则了如指掌。",
+				"talent": "half_guide",
+				"talent_name": "半引导者",
+				"talent_condition": "队伍面临团灭",
+				"demon": "知道自己迟早要死",
+				"potential": 0.7,
+				"personality": "懒散、爱抽烟，用玩笑藏事。",
+				"role": "资深者"
+			}
+		},
+		"zhan_lan": {
+			"name": "詹岚",
+			"attributes": {"intelligence": 130, "spirit": 150, "cell_vitality": 95, "nerve_reaction": 100, "muscle": 90, "immunity": 95},
+			"skills": ["punch"],
+			"items": {},
+			"films_completed": 0,
+			"flags": {
+				"background": "作家，擅长从局势里推出别人没说的东西。",
+				"talent": "psychic",
+				"talent_name": "精神力天赋",
+				"talent_condition": "兑换精神类强化，或队伍陷入绝境",
+				"demon": "总觉得自己不够强，只会拖累别人",
+				"potential": 0.75,
+				"personality": "冷静、话少，提出计划时会先算最坏情况。",
+				"role": "智者苗子"
+			}
+		},
+		"li_xiao_yi": {
+			"name": "李萧毅",
+			"attributes": {"intelligence": 105, "spirit": 100, "cell_vitality": 100, "nerve_reaction": 105, "muscle": 100, "immunity": 100},
+			"skills": ["punch"],
+			"items": {},
+			"films_completed": 0,
+			"flags": {
+				"background": "大学生，跑得快，嘴也快。",
+				"talent": "quick_learner",
+				"talent_name": "学得快",
+				"talent_condition": "有人教，或者拿到说明书",
+				"demon": "怕被队伍丢下",
+				"potential": 0.55,
+				"personality": "话多、爱表现，真出事时会跟着最靠得住的人。",
+				"role": "新人"
+			}
+		},
+		"mu_gang": {
+			"name": "牟钢",
+			"attributes": {"intelligence": 90, "spirit": 90, "cell_vitality": 110, "nerve_reaction": 95, "muscle": 120, "immunity": 105},
+			"skills": ["punch"],
+			"items": {},
+			"films_completed": 0,
+			"flags": {
+				"background": "货运司机，开过长途，力气大、耐力好。",
+				"talent": "wheelman",
+				"talent_name": "老司机",
+				"talent_condition": "摸到方向盘",
+				"demon": "怕死，越怕越慌",
+				"potential": 0.45,
+				"personality": "嗓门大、爱吹牛，真遇到事容易崩。",
+				"role": "新人"
+			}
+		},
+		"xiao_pang_zi": {
+			"name": "小胖子",
+			"attributes": {"intelligence": 95, "spirit": 85, "cell_vitality": 90, "nerve_reaction": 90, "muscle": 85, "immunity": 90},
+			"skills": ["punch"],
+			"items": {},
+			"films_completed": 0,
+			"flags": {
+				"background": "刚毕业，体能差，怕黑。",
+				"talent": "lucky",
+				"talent_name": "傻人有傻福",
+				"talent_condition": "被人护着的时候",
+				"demon": "觉得自己只会拖后腿",
+				"potential": 0.5,
+				"personality": "胆小、听话，被救过就死心塌地。",
+				"role": "新人"
+			}
+		},
+		"zhong_nian_fu_nv": {
+			"name": "中年妇女",
+			"attributes": {"intelligence": 95, "spirit": 105, "cell_vitality": 95, "nerve_reaction": 90, "muscle": 85, "immunity": 95},
+			"skills": ["punch"],
+			"items": {},
+			"films_completed": 0,
+			"flags": {
+				"background": "中学老师，见过些世面，但体力跟不上。",
+				"talent": "calm_voice",
+				"talent_name": "稳住人心",
+				"talent_condition": "有人听她说话",
+				"demon": "怕自己和孩子一样被丢下",
+				"potential": 0.4,
+				"personality": "嘴上硬，心里软，会照顾比她更怕的人。",
+				"role": "新人"
+			}
+		}
+	}
+}

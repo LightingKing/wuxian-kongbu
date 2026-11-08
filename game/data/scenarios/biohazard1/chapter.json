@@ -1,0 +1,7 @@
+{
+	"id": "m1",
+	"name": "生化危机一",
+	"scenario": "res://data/scenarios/biohazard1/scenario.json",
+	"roster": "res://data/characters/m1_roster.json",
+	"members": ["zheng_zha", "zhang_jie", "zhan_lan", "li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"]
+}
