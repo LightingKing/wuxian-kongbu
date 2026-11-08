@@ -136,7 +136,7 @@ func test_laser_trap_battle() -> void:
 	assert_eq(total_kills, 2)
 
 
-## 击杀奖励按相对威胁算：丧尸基础价 0.1，威胁 100，新人队评价战力 120 → 每只 0.0833。
+## 击杀奖励按相对威胁算：丧尸基础价 0.1，威胁 120，新人队评价战力 120 → 每只 0.1（原著：10 只丧尸 = 1 点）。
 ## 杀死新人扣 1000 点。战后写回生命和剩余道具。
 func test_report_records_kills_and_penalties() -> void:
 	var g := _game()
@@ -157,7 +157,7 @@ func test_report_records_kills_and_penalties() -> void:
 	]
 	units[2].alive = false
 	ex.report_battle(b)
-	assert_almost(float(ex.st.kill_points["zheng_zha"]), 0.1 * 100.0 / 120.0)
+	assert_almost(float(ex.st.kill_points["zheng_zha"]), 0.1)
 	assert_eq(ex.st.ledger[ex.st.ledger.size() - 1], {"char": "zhang_jie", "kind": "penalty", "points": -1000.0, "label": "杀死新人", "grade": ""})
 	assert_almost(g.characters["zheng_zha"].hp, 50.0)
 	assert_false(g.characters["newbie"].alive)

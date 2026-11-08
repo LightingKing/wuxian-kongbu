@@ -16,6 +16,7 @@ const BattleReport = preload("res://core/expedition/battle_report.gd")
 const ExpeditionSettlement = preload("res://core/expedition/expedition_settlement.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
 const UnitFactory = preload("res://core/battle/unit_factory.gd")
+const Statuses = preload("res://core/battle/statuses.gd")
 const KillReward = preload("res://core/economy/kill_reward.gd")
 const Rules = preload("res://core/util/rules.gd")
 
@@ -136,8 +137,8 @@ func apply_effects(effects: Array, location: String = "") -> Array[Dictionary]:
 	return _emit(events)
 
 
-## 为待打的战斗生成单位。loadouts：角色 id → 技能 id 数组（没给的只会拳脚）。
-## 分队的道具交给第一个人携带；每排最多 4 人，多出来的往后排。
+## 为待打的战斗生成单位。loadouts：角色 id → 技能 id 数组（没给的用角色自己的技能，什么都没有就只会拳脚）。
+## 每个人带着自己的能量和道具；分队共用的道具交给第一个人携带；每排最多 4 人，多出来的往后排。
 func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[RefCounted]:
 	var units: Array[RefCounted] = []
 	if st.pending_battle.is_empty():
@@ -146,11 +147,16 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 	var members: Array[String] = st.living_members(sid)
 	for i in members.size():
 		var c := members[i]
+		var ch: RefCounted = st.characters[c]
 		var skills: Array[String] = []
-		for s in loadouts.get(c, ["punch"]):
+		var own_skills: Array = ch.skills if not ch.skills.is_empty() else ["punch"]
+		for s in loadouts.get(c, own_skills):
 			skills.append(String(s))
-		var res: Dictionary = st.squads[sid]["items"] if i == 0 else {}
-		units.append(UnitFactory.from_character(st.characters[c], "ally", mini(floori(i / 4.0), 2), skills, controller, res))
+		var res: Dictionary = ch.battle_resources()
+		if i == 0:
+			for k: String in st.squads[sid]["items"]:
+				res[k] = float(res.get(k, 0.0)) + float(st.squads[sid]["items"][k])
+		units.append(UnitFactory.from_character(ch, "ally", mini(floori(i / 4.0), 2), skills, controller, res))
 	st.pending_battle["carrier"] = members[0] if not members.is_empty() else ""
 	var n := 0
 	for g: Dictionary in st.pending_battle["enemies"]:
@@ -165,7 +171,8 @@ func battle_options() -> Dictionary:
 	return {"dark": bool(st.pending_battle.get("dark", false))}
 
 
-## 战斗打完后回报：写回轮回者的生命、恐惧、基因锁、生死和剩余道具；记击杀奖励；杀死新人扣 1000 点。
+## 战斗打完后回报：写回轮回者的生命、恐惧、基因锁、生死和剩余道具（用掉的先扣分队共用的）；记击杀奖励；杀死新人扣 1000 点；
+## 带着感染下场的人开始感染倒计时；逃离战场的人往离绑定对象最远的相邻地点跑；最后发生战斗后效果（after_victory / after_defeat）。
 func report_battle(b: RefCounted) -> Array[Dictionary]:
 	var events: Array[Dictionary] = []
 	if st.pending_battle.is_empty():
@@ -176,13 +183,12 @@ func report_battle(b: RefCounted) -> Array[Dictionary]:
 	for u: RefCounted in b.field.units:
 		if u.side != "ally" or not st.characters.has(u.character_id):
 			continue
-		UnitFactory.write_back(u, st.characters[u.character_id])
-		if u.character_id == carrier:
-			var items := {}
-			for k: String in u.resources:
-				if k != "rebirth_cross" and float(u.resources[k]) > 0.0:
-					items[k] = float(u.resources[k])
-			st.squads[sid]["items"] = items
+		var ch: RefCounted = st.characters[u.character_id]
+		UnitFactory.write_back(u, ch)
+		_settle_items(u, ch, sid if u.character_id == carrier else "")
+		if u.alive and Statuses.has(u, "infection") and not st.infected.has(ch.id):
+			st.infected[ch.id] = 0
+			events.append({"type": "infected", "char": ch.id})
 	var summary := BattleReport.summarize(b.history, b.field.units)
 	for k: Dictionary in summary["kills"]:
 		var killer := String(k["killer"])
@@ -199,10 +205,134 @@ func report_battle(b: RefCounted) -> Array[Dictionary]:
 		if st.characters.has(victim) and st.characters.has(killer) and killer != victim and st.characters[victim].is_newbie():
 			st.add_ledger(killer, "penalty", float(Rules.get_value("settlement", "kill_newbie")), "杀死新人")
 			events.append({"type": "kill_newbie_penalty", "char": killer, "victim": victim})
+	for f: String in summary["fled"]:
+		if st.is_alive(f):
+			_flee(f, events)
+	var loc := String(st.pending_battle["location"])
+	var won := ["victory", "survived"].has(String(b.outcome))
+	var after: Array = st.pending_battle.get("after_victory" if won else "after_defeat", [])
 	st.pending_battle = {}
 	events.append({"type": "battle_resolved", "outcome": String(b.outcome)})
 	Watch.check_wipe(st, events)
+	PlotRunner.apply_effects(st, after, loc, events)
 	PlotRunner.run_conditional(st, events)
+	return _emit(events)
+
+
+## 道具结算：战斗里用掉的数量先从分队共用的扣，再从自己的扣。
+func _settle_items(u: RefCounted, ch: RefCounted, squad_id: String) -> void:
+	var shared: Dictionary = st.squads[squad_id]["items"] if squad_id != "" else {}
+	var keys: Array = ch.items.keys()
+	for k: String in shared:
+		if not keys.has(k):
+			keys.append(k)
+	for k: String in keys:
+		var own := float(ch.items.get(k, 0.0))
+		var common := float(shared.get(k, 0.0))
+		var used := maxf(0.0, own + common - float(u.resources.get(k, own + common)))
+		var from_common := minf(used, common)
+		if squad_id != "":
+			if common - from_common > 0.0:
+				shared[k] = common - from_common
+			else:
+				shared.erase(k)
+		var own_left := own - (used - from_common)
+		if own_left > 0.0:
+			ch.items[k] = own_left
+		else:
+			ch.items.erase(k)
+
+
+## 逃离战场：往相邻地点里离绑定对象最远的那个跑（没有绑定就跑第一个相邻地点），可能因此被抹杀。
+func _flee(char_id: String, events: Array[Dictionary]) -> void:
+	var options: Array[String] = st.scenario.neighbors(st.location_of(char_id))
+	if options.is_empty():
+		return
+	var best := options[0]
+	if not st.tether.is_empty():
+		var npc_loc := String(st.npcs[String(st.tether["npc"])]["location"])
+		var best_d := -1
+		for n in options:
+			var d: int = st.scenario.hops(n, npc_loc)
+			if d > best_d:
+				best_d = d
+				best = n
+	st.move_members([char_id], best)
+	events.append({"type": "fled_away", "char": char_id, "to": best})
+	Watch.check_tether(st, 0, events)
+
+
+## 回答等待中的选择。
+func choose(option_id: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = []
+	if st.outcome != "ongoing" or st.pending_choice.is_empty():
+		events.append({"type": "invalid_action", "reason": "no_choice"})
+		return _emit(events)
+	var pending: Dictionary = st.pending_choice
+	var picked: Dictionary = {}
+	for o: Dictionary in pending["options"]:
+		if o["id"] == option_id:
+			picked = o
+	if picked.is_empty():
+		events.append({"type": "invalid_action", "reason": "bad_option"})
+		return _emit(events)
+	st.pending_choice = {}
+	events.append({"type": "choice_made", "id": String(pending["id"]), "option": option_id})
+	PlotRunner.apply_effects(st, picked.get("effects", []), String(pending["location"]), events)
+	PlotRunner.run_conditional(st, events)
+	return _emit(events)
+
+
+## 说服检定：level 是对话层（AI 或离线兜底）给的说服力等级 0~3。高于难度必成，等于难度一半机会，低于难度失败。
+func resolve_persuasion(level: int) -> Array[Dictionary]:
+	var events: Array[Dictionary] = []
+	if st.outcome != "ongoing" or st.pending_check.is_empty():
+		events.append({"type": "invalid_action", "reason": "no_check"})
+		return _emit(events)
+	var check: Dictionary = st.pending_check
+	var difficulty := int(check["difficulty"])
+	var success: bool = level > difficulty or (level == difficulty and game.rng.chance(float(Watch.rules()["persuade_even_chance"])))
+	st.pending_check = {}
+	events.append({"type": "persuade_result", "id": String(check["id"]), "npc": String(check["npc"]), "level": level, "difficulty": difficulty, "success": success})
+	PlotRunner.apply_effects(st, check.get("success" if success else "failure", []), String(check["location"]), events)
+	PlotRunner.run_conditional(st, events)
+	return _emit(events)
+
+
+## 使用道具（解毒剂解除感染、止血喷雾回血）。先用自己的，没有再用分队共用的。
+func use_item(char_id: String, item: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = []
+	var def: Dictionary = (Watch.rules()["items"] as Dictionary).get(item, {})
+	if st.outcome != "ongoing" or not st.is_alive(char_id) or def.is_empty():
+		events.append({"type": "invalid_action", "reason": "cannot_use"})
+		return _emit(events)
+	var ch: RefCounted = st.characters[char_id]
+	var shared: Dictionary = st.squads[st.squad_of(char_id)]["items"]
+	var pool: Dictionary = ch.items if float(ch.items.get(item, 0.0)) >= 1.0 else shared
+	if float(pool.get(item, 0.0)) < 1.0:
+		events.append({"type": "invalid_action", "reason": "no_item"})
+		return _emit(events)
+	pool[item] = float(pool[item]) - 1.0
+	if float(pool[item]) <= 0.0:
+		pool.erase(item)
+	if bool(def.get("cure_infection", false)):
+		st.infected.erase(char_id)
+	if def.has("heal"):
+		ch.hp = minf(ch.hp + float(def["heal"]), ch.hp_max())
+	events.append({"type": "item_used", "char": char_id, "item": item, "hp": ch.hp, "infected": st.infected.has(char_id)})
+	return _emit(events)
+
+
+## 推理一条隐藏事实：花 deduce_minutes 分钟，结论和可信度见 intel_state.gd。
+func deduce(fact_id: String, thinker_id: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = []
+	if not st.is_alive(thinker_id):
+		events.append({"type": "invalid_action", "reason": "no_thinker"})
+		return _emit(events)
+	if not _can_act(st.squad_of(thinker_id), events):
+		return _emit(events)
+	if _run_time(int(Watch.rules()["deduce_minutes"]), events):
+		events.append(st.intel.deduce(fact_id, st.characters[thinker_id], game.rng.randf()))
 	return _emit(events)
 
 
@@ -242,6 +372,10 @@ func _can_act(squad_id: String, events: Array[Dictionary]) -> bool:
 		reason = "ended"
 	elif not st.pending_battle.is_empty():
 		reason = "battle_pending"
+	elif not st.pending_choice.is_empty():
+		reason = "choice_pending"
+	elif not st.pending_check.is_empty():
+		reason = "check_pending"
 	elif not st.squads.has(squad_id) or st.living_members(squad_id).is_empty():
 		reason = "no_squad"
 	if reason != "":
@@ -251,7 +385,7 @@ func _can_act(squad_id: String, events: Array[Dictionary]) -> bool:
 
 
 ## 推进 minutes 分钟：途中到点的定时事件依次发生，每次之后检查条件事件。
-## 返回 true 表示时间完整走完；被战斗打断或远征结束返回 false。
+## 返回 true 表示时间完整走完；被战斗、选择、说服打断或远征结束返回 false。
 func _run_time(minutes: int, events: Array[Dictionary]) -> bool:
 	var target: int = st.clock + minutes
 	while st.outcome == "ongoing":
@@ -263,8 +397,8 @@ func _run_time(minutes: int, events: Array[Dictionary]) -> bool:
 			return false
 		PlotRunner.fire(st, ev, events)
 		PlotRunner.run_conditional(st, events)
-		if not st.pending_battle.is_empty():
+		if st.is_blocked():
 			return false
 	Watch.pass_time(st, target - st.clock, events)
 	PlotRunner.run_conditional(st, events)
-	return st.outcome == "ongoing" and st.pending_battle.is_empty()
+	return st.outcome == "ongoing" and not st.is_blocked()

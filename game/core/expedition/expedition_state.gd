@@ -3,6 +3,7 @@ extends RefCounted
 ## 规则由 watch.gd、plot_runner.gd、expedition.gd 实现；这里只存数据、做查询、存读档。
 
 const Scenario = preload("res://core/expedition/scenario.gd")
+const IntelState = preload("res://core/intel/intel_state.gd")
 
 var scenario: RefCounted
 ## 角色 id → character.gd，和 GameState 共用同一批对象。
@@ -35,6 +36,14 @@ var kill_counts: Dictionary = {}
 var ledger: Array = []
 ## 等待界面去打的战斗；不为空时其他行动都会被拒绝。
 var pending_battle: Dictionary = {}
+## 等待玩家做的选择 {"id", "prompt", "options": [{"id", "text", "effects"}], "location"}。
+var pending_choice: Dictionary = {}
+## 等待对话层评估的说服 {"id", "npc", "goal", "difficulty", "keywords", "success", "failure", "location"}。
+var pending_check: Dictionary = {}
+## 这部片的隐藏事实与线索（剧本的 facts）。
+var intel: RefCounted = IntelState.new()
+## 感染者 id → 已感染多少分钟（战斗里被咬、没解毒，带出了战斗）。
+var infected: Dictionary = {}
 ## ongoing（进行中）、returned（倒计时结束，回归）、wiped（全员死亡）或剧本 end 效果给的结果。
 var outcome: String = "ongoing"
 var settled: bool = false
@@ -50,6 +59,12 @@ func setup(sc: RefCounted, chars: Dictionary, member_ids: Array[String]) -> void
 	for p: Dictionary in sc.data["paths"]:
 		path_open[Scenario.path_key(String(p["a"]), String(p["b"]))] = not bool(p.get("closed", false))
 	tether = (sc.data["watch"].get("tether", {}) as Dictionary).duplicate()
+	intel.load_facts(sc.data.get("facts", {}))
+
+
+## 有等待处理的战斗、选择或说服时，其他行动都要等。
+func is_blocked() -> bool:
+	return not (pending_battle.is_empty() and pending_choice.is_empty() and pending_check.is_empty())
 
 
 func is_path_open(a: String, b: String) -> bool:
@@ -137,6 +152,23 @@ func merge(a: String, b: String) -> bool:
 	return true
 
 
+## 把指定的人（不管原来在哪支队）拉出来，组成一支新分队放到 to；返回新分队 id。一个活人都没有时返回空字符串。
+func move_members(member_ids: Array, to: String) -> String:
+	var moving: Array = []
+	for c: String in member_ids:
+		if is_alive(c):
+			moving.append(c)
+	if moving.is_empty():
+		return ""
+	for sid: String in squads:
+		for c in moving:
+			(squads[sid]["members"] as Array).erase(c)
+	var new_id := "s%d" % next_squad_no
+	next_squad_no += 1
+	squads[new_id] = {"members": moving, "location": to, "items": {}}
+	return new_id
+
+
 func add_ledger(char_id: String, kind: String, points: float, label: String, grade: String = "") -> void:
 	ledger.append({"char": char_id, "kind": kind, "points": points, "label": label, "grade": grade})
 
@@ -161,6 +193,10 @@ func to_dict() -> Dictionary:
 		"kill_counts": kill_counts.duplicate(),
 		"ledger": ledger.duplicate(true),
 		"pending_battle": pending_battle.duplicate(true),
+		"pending_choice": pending_choice.duplicate(true),
+		"pending_check": pending_check.duplicate(true),
+		"intel": intel.to_dict(),
+		"infected": infected.duplicate(),
 		"outcome": outcome,
 		"settled": settled,
 	}
@@ -190,5 +226,12 @@ func load_dict(d: Dictionary, sc: RefCounted, chars: Dictionary) -> void:
 		kill_counts[c] = int(d["kill_counts"][c])
 	ledger = (d["ledger"] as Array).duplicate(true)
 	pending_battle = (d["pending_battle"] as Dictionary).duplicate(true)
+	pending_choice = (d.get("pending_choice", {}) as Dictionary).duplicate(true)
+	pending_check = (d.get("pending_check", {}) as Dictionary).duplicate(true)
+	if d.has("intel"):
+		intel.load_dict(d["intel"])
+	infected = {}
+	for c: String in d.get("infected", {}):
+		infected[c] = int(d["infected"][c])
 	outcome = String(d["outcome"])
 	settled = bool(d["settled"])

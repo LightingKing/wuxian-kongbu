@@ -6,7 +6,7 @@ const DataLoader = preload("res://core/util/data_loader.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
 
 const REQUIRED: Array[String] = ["id", "name", "start_location", "duration_minutes", "main_task", "locations", "paths", "npcs", "watch", "events"]
-const EFFECT_KEYS: Array[String] = ["say", "set_flag", "npc_move", "npc_die", "open_path", "close_path", "fear", "battle", "side_plot", "bonus", "penalty", "tether_release", "end"]
+const EFFECT_KEYS: Array[String] = ["say", "set_flag", "npc_move", "npc_die", "open_path", "close_path", "fear", "battle", "side_plot", "bonus", "penalty", "tether_release", "end", "choice", "persuade", "give", "move_members", "damage", "set_tether", "clue", "relation", "erase", "delay"]
 
 var data: Dictionary = {}
 var id: String = ""
@@ -101,13 +101,25 @@ func validate() -> Array[String]:
 		seen[ev_id] = true
 		if not ev.has("at") and not ev.has("when"):
 			errors.append("事件 %s 既没有 at 也没有 when" % ev_id)
-		var lists: Array = [ev.get("effects", [])]
+		_check_effects(ev_id, ev.get("effects", []), errors)
 		for alt: Dictionary in ev.get("alterations", []):
-			lists.append(alt.get("effects", []))
-		for effects: Array in lists:
-			for e: Dictionary in effects:
-				_check_effect(ev_id, e, errors)
+			_check_effects(ev_id, alt.get("effects", []), errors)
 	return errors
+
+
+## 检查一组效果，连同选项、说服结果、战斗后效果里套着的效果。
+func _check_effects(ev_id: String, effects: Array, errors: Array[String]) -> void:
+	for e: Dictionary in effects:
+		_check_effect(ev_id, e, errors)
+		if e.has("choice"):
+			for o: Dictionary in e["choice"].get("options", []):
+				_check_effects(ev_id, o.get("effects", []), errors)
+		if e.has("persuade"):
+			_check_effects(ev_id, e["persuade"].get("success", []), errors)
+			_check_effects(ev_id, e["persuade"].get("failure", []), errors)
+		if e.has("battle"):
+			_check_effects(ev_id, e["battle"].get("after_victory", []), errors)
+			_check_effects(ev_id, e["battle"].get("after_defeat", []), errors)
 
 
 func _check_effect(ev_id: String, e: Dictionary, errors: Array[String]) -> void:
@@ -120,3 +132,14 @@ func _check_effect(ev_id: String, e: Dictionary, errors: Array[String]) -> void:
 				errors.append("事件 %s 引用了不存在的敌人 %s" % [ev_id, group.get("def", "")])
 	if e.has("npc_move") and not has_location(String(e["npc_move"].get("to", ""))):
 		errors.append("事件 %s 把人移到不存在的地点" % ev_id)
+	if e.has("move_members") and not has_location(String(e["move_members"].get("to", ""))):
+		errors.append("事件 %s 把队员移到不存在的地点" % ev_id)
+	if e.has("choice") and (e["choice"].get("options", []) as Array).is_empty():
+		errors.append("事件 %s 的选择没有选项" % ev_id)
+	if e.has("clue"):
+		var known := false
+		for f: String in data.get("facts", {}):
+			if (data["facts"][f].get("clues", {}) as Dictionary).has(String(e["clue"])):
+				known = true
+		if not known:
+			errors.append("事件 %s 的线索 %s 不属于任何事实" % [ev_id, e["clue"]])

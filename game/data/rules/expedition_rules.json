@@ -3,5 +3,12 @@
 	"dark_fear_per_10_minutes": 3,
 	"rest_fear_per_10_minutes": -5,
 	"default_search_minutes": 10,
-	"default_rating_power": 120
+	"default_rating_power": 120,
+	"infection_turn_minutes": 60,
+	"deduce_minutes": 10,
+	"persuade_even_chance": 0.5,
+	"items": {
+		"antidote": {"cure_infection": true},
+		"spray": {"heal": 40}
+	}
 }

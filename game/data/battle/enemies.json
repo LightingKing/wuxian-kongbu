@@ -7,7 +7,7 @@
 			"speed": 70,
 			"attack_mult": 1.0,
 			"kill_base": 0.1,
-			"threat": 100,
+			"threat": 120,
 			"skills": ["zombie_bite"],
 			"ai": "wounded",
 			"flags": ["fearless"],

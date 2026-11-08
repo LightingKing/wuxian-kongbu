@@ -37,22 +37,44 @@ static func pass_time(st: RefCounted, minutes: int, events: Array[Dictionary]) -
 	var m := mini(minutes, duration - st.clock)
 	st.clock += m
 	_darkness(st, m, events)
+	_infection(st, m, events)
 	check_tether(st, m, events)
 	if st.clock >= duration and st.outcome == "ongoing":
 		st.outcome = "returned"
 		events.append({"type": "returned", "clock": st.clock})
 
 
+## 黑暗：地点本身黑，或者剧本 watch.dark_flag 指定的旗标为真（例如断电后全黑）。
+static func is_dark(st: RefCounted, loc: String) -> bool:
+	var flag := String(st.scenario.data["watch"].get("dark_flag", ""))
+	return bool(st.scenario.location(loc).get("dark", false)) or (flag != "" and bool(st.flags.get(flag, false)))
+
+
 static func _darkness(st: RefCounted, minutes: int, events: Array[Dictionary]) -> void:
 	var rate := float(rules()["dark_fear_per_10_minutes"])
 	for sid: String in st.squads:
 		var loc := String(st.squads[sid]["location"])
-		if not bool(st.scenario.location(loc).get("dark", false)):
+		if not is_dark(st, loc):
 			continue
 		for c in st.living_members(sid):
 			var d := add_fear(st.characters[c], rate * float(minutes) / 10.0)
 			if d != 0.0:
 				events.append({"type": "fear_changed", "char": c, "amount": d, "fear": st.characters[c].fear, "reason": "darkness"})
+
+
+## 感染：带出战斗的感染不解毒，到 infection_turn_minutes 分钟就变成丧尸（死亡）。
+static func _infection(st: RefCounted, minutes: int, events: Array[Dictionary]) -> void:
+	var limit := int(rules()["infection_turn_minutes"])
+	for c: String in st.infected.keys():
+		if not st.is_alive(c):
+			st.infected.erase(c)
+			continue
+		st.infected[c] = int(st.infected[c]) + minutes
+		if int(st.infected[c]) >= limit:
+			st.infected.erase(c)
+			st.characters[c].flags["turned"] = true
+			events.append({"type": "infection_turned", "char": c})
+			kill(st, c, "turned", events)
 
 
 ## 检查百米绑定。minutes = 这次流逝的时间；刚到达新地点时用 0 检查一次，超出就立刻警告。
@@ -103,6 +125,20 @@ static func erase(st: RefCounted, char_id: String, reason: String, events: Array
 	ch.flags["erased"] = reason
 	st.tether_out.erase(char_id)
 	events.append({"type": "erased", "char": char_id, "reason": reason})
+	check_wipe(st, events)
+
+
+## 死亡（剧情伤害、变成丧尸……）。和抹杀不同，flags.death 记原因。
+static func kill(st: RefCounted, char_id: String, reason: String, events: Array[Dictionary]) -> void:
+	var ch: RefCounted = st.characters[char_id]
+	if not ch.alive:
+		return
+	ch.alive = false
+	ch.hp = 0.0
+	ch.flags["death"] = reason
+	st.tether_out.erase(char_id)
+	st.infected.erase(char_id)
+	events.append({"type": "char_died", "char": char_id, "reason": reason})
 	check_wipe(st, events)
 
 
