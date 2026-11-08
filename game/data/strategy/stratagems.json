@@ -1,0 +1,17 @@
+{
+	"version": 1,
+	"stratagems": {
+		"bait": {"name": "诱饵", "roles": 1, "minutes": 10, "role_risk": 0.4, "first_strike": true, "trust_cost": 25, "assumes": ["enemy_takes_bait"]},
+		"ambush": {"name": "伏击", "roles": 2, "minutes": 20, "role_risk": 0.05, "first_strike": true, "power_bonus": 0.2, "assumes": ["enemy_path_known"]},
+		"split_forces": {"name": "分兵", "roles": 2, "minutes": 10, "role_risk": 0.1, "split": 0.3, "assumes": ["enemy_pursues"]},
+		"feint": {"name": "佯攻", "roles": 1, "minutes": 10, "role_risk": 0.15, "split": 0.2, "assumes": ["enemy_reacts"]},
+		"show_weakness": {"name": "示弱", "roles": 1, "minutes": 30, "role_risk": 0.1, "power_bonus": 0.15, "assumes": ["enemy_underestimates"]},
+		"deceive": {"name": "情报欺骗", "roles": 0, "minutes": 30, "power_bonus": 0.1, "requires_intel": 180, "assumes": ["enemy_trusts_intel"]},
+		"borrow_knife": {"name": "借刀杀人", "roles": 1, "minutes": 40, "role_risk": 0.1, "reduction": 0.3, "assumes": ["third_party_hostile"]},
+		"chaos": {"name": "制造混乱", "roles": 1, "minutes": 15, "role_risk": 0.15, "enemy_morale": -0.2},
+		"decapitate": {"name": "斩首", "roles": 2, "minutes": 10, "role_risk": 0.3, "reduction": 0.25, "assumes": ["leader_exposed"]},
+		"retreat_route": {"name": "预设撤退路线", "roles": 0, "minutes": 15, "casualty_mult": 0.6},
+		"trap": {"name": "布置陷阱", "roles": 1, "minutes": 30, "role_risk": 0.05, "reduction": 0.2, "assumes": ["enemy_path_known"]},
+		"momentum": {"name": "造势", "roles": 0, "minutes": 30, "power_bonus": 0.1, "requires_intel": 160}
+	}
+}
