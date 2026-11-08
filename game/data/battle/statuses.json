@@ -1,0 +1,55 @@
+{
+	"version": 1,
+	"statuses": {
+		"bleed": {
+			"name": "流血",
+			"duration": 3,
+			"stack": "refresh",
+			"tick_damage": 5
+		},
+		"infection": {
+			"name": "感染",
+			"duration": 5,
+			"stack": "keep",
+			"on_expire": "turn_zombie"
+		},
+		"defending": {
+			"name": "防御",
+			"duration": 1,
+			"stack": "refresh",
+			"modifiers": {"damage_taken_mult": 0.5}
+		},
+		"panic": {
+			"name": "恐慌",
+			"duration": 3,
+			"stack": "refresh",
+			"flags": ["panic"]
+		},
+		"stun": {
+			"name": "眩晕",
+			"duration": 2,
+			"stack": "keep",
+			"flags": ["skip_turn"]
+		},
+		"gene_lock": {
+			"name": "基因锁",
+			"duration": 4,
+			"stack": "refresh",
+			"modifiers": {"speed_mult": 1.5, "attack_mult": 1.5},
+			"flags": ["no_pain"]
+		},
+		"blind": {
+			"name": "失明",
+			"duration": 3,
+			"stack": "refresh",
+			"modifiers": {"hit_mod": -0.4}
+		},
+		"acid": {
+			"name": "酸蚀",
+			"duration": 3,
+			"stack": "refresh",
+			"tick_damage": 4,
+			"modifiers": {"damage_taken_mult": 1.2}
+		}
+	}
+}

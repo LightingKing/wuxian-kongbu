@@ -1,0 +1,52 @@
+{
+	"version": 1,
+	"rows": 3,
+	"row_capacity_default": 4,
+	"ctb_base_delay": 10000,
+	"hit": {
+		"min": 0.05,
+		"max": 0.95,
+		"per_speed_point": 0.002,
+		"darkness_penalty": 0.25
+	},
+	"damage_variance": 0.1,
+	"delay_mult": {
+		"move": 0.6,
+		"defend": 0.8,
+		"gene_lock": 1.0,
+		"panic": 1.0
+	},
+	"fear": {
+		"max": 100,
+		"resist_baseline": 100,
+		"ally_death": 20,
+		"heavy_wound_ratio": 0.25,
+		"heavy_wound": 10,
+		"darkness_per_turn": 4,
+		"after_awaken": 30
+	},
+	"gene_lock": {
+		"low_hp_ratio": 0.25,
+		"awaken_base": 0.02,
+		"awaken_per_potential": 0.4,
+		"awaken_per_spirit_over_baseline": 0.001,
+		"awaken_per_fear": 0.001,
+		"awaken_veteran_bonus": 0.05,
+		"awaken_max": 0.9,
+		"max_stage_in_battle": 3,
+		"active_min_stage": 2
+	},
+	"collapse": {
+		"base": 0.35,
+		"newbie_bonus": 0.35,
+		"per_spirit_over_baseline": -0.002,
+		"min": 0.05,
+		"max": 0.95
+	},
+	"panic": {
+		"freeze": 0.4,
+		"flee": 0.3
+	},
+	"revive_hp_ratio": 0.3,
+	"max_actions": 2000
+}

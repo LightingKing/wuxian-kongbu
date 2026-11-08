@@ -1,0 +1,151 @@
+{
+	"version": 1,
+	"skills": {
+		"punch": {
+			"name": "拳脚",
+			"user_rows": [0, 1],
+			"target_side": "enemy",
+			"reach": "melee",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.9,
+			"power": 8,
+			"scaling": "muscle",
+			"tags": ["physical", "melee"]
+		},
+		"pistol_shot": {
+			"name": "手枪射击",
+			"user_rows": [0, 1, 2],
+			"target_side": "enemy",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.8,
+			"power": 16,
+			"scaling": "fixed",
+			"tags": ["physical", "bullet"]
+		},
+		"desert_eagle": {
+			"name": "沙漠之鹰",
+			"user_rows": [0, 1, 2],
+			"target_side": "enemy",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.75,
+			"power": 30,
+			"scaling": "fixed",
+			"tags": ["physical", "bullet"]
+		},
+		"grenade": {
+			"name": "手榴弹",
+			"user_rows": [0, 1, 2],
+			"target_side": "enemy",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "row",
+			"accuracy": 0.85,
+			"power": 45,
+			"scaling": "fixed",
+			"tags": ["physical", "explosive"],
+			"cost": {"grenade": 1}
+		},
+		"qigong_palm": {
+			"name": "气功掌",
+			"user_rows": [0, 1],
+			"target_side": "enemy",
+			"reach": "melee",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.9,
+			"power": 20,
+			"scaling": "muscle",
+			"tags": ["physical", "melee", "qi"],
+			"cost": {"neili": 10}
+		},
+		"first_aid_spray": {
+			"name": "止血喷雾",
+			"user_rows": [0, 1, 2],
+			"target_side": "ally",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"heal": 40,
+			"cleanse": ["bleed"],
+			"cost": {"spray": 1}
+		},
+		"antidote": {
+			"name": "解毒剂",
+			"user_rows": [0, 1, 2],
+			"target_side": "ally",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"cleanse": ["infection"],
+			"cost": {"antidote": 1}
+		},
+		"encourage": {
+			"name": "鼓舞",
+			"user_rows": [0, 1, 2],
+			"target_side": "ally",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "all",
+			"fear": -15,
+			"cooldown": 3
+		},
+		"zombie_bite": {
+			"name": "撕咬",
+			"user_rows": [0, 1],
+			"target_side": "enemy",
+			"reach": "melee",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.75,
+			"power": 18,
+			"scaling": "muscle",
+			"tags": ["physical", "melee"],
+			"applies": [{"status": "infection", "chance": 0.5}]
+		},
+		"dog_bite": {
+			"name": "扑咬",
+			"user_rows": [0, 1],
+			"target_side": "enemy",
+			"reach": "melee",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.85,
+			"power": 14,
+			"scaling": "muscle",
+			"tags": ["physical", "melee"],
+			"applies": [{"status": "bleed", "chance": 0.5}]
+		},
+		"licker_tongue": {
+			"name": "舌击",
+			"user_rows": [0, 1, 2],
+			"target_side": "enemy",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.9,
+			"power": 20,
+			"scaling": "muscle",
+			"tags": ["physical"],
+			"applies": [{"status": "stun", "chance": 0.3}]
+		},
+		"licker_claw": {
+			"name": "爪击",
+			"user_rows": [0, 1],
+			"target_side": "enemy",
+			"reach": "melee",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.8,
+			"power": 55,
+			"scaling": "muscle",
+			"tags": ["physical", "melee"],
+			"applies": [{"status": "bleed", "chance": 0.7}],
+			"cooldown": 1
+		}
+	}
+}
