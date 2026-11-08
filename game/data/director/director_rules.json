@@ -1,0 +1,14 @@
+{
+	"version": 1,
+	"stages": ["guide", "captain", "growth", "team_battle", "escalation", "bottleneck", "finale"],
+	"rating": {
+		"survive_wipe_bonus": 1,
+		"low_loss_survivor_ratio": 0.7,
+		"captain_death": -1
+	},
+	"rating_power": {
+		"base": 120,
+		"per_rating": 0.5
+	},
+	"demon_copy_spike": 0.2
+}
