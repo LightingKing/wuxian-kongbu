@@ -1,0 +1,14 @@
+{
+	"version": 1,
+	"ticket_value": {"D": 500, "C": 1400, "B": 2400, "A": 7000, "S": 20000},
+	"category_mult": {"tech": 1.0, "magic": 2.0, "enhance": 1.0, "item": 1.0},
+	"unlimited_mult": 20,
+	"high_grade_from": "B",
+	"low_proficiency_from": "A",
+	"new_high_skill_proficiency": 0.3,
+	"mutation_chance": 0.7,
+	"human": {"cost": 500, "attr_max": 200},
+	"repair": {"patch_cost": 400, "full_cost": 2000, "patch_hp_ratio": 0.5},
+	"rest": {"days_default": 10, "fear_relief_per_day": 15},
+	"train": {"proficiency_per_day": 0.25}
+}

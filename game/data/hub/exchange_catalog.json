@@ -1,0 +1,149 @@
+{
+	"version": 1,
+	"entries": {
+		"qigong_low": {
+			"name": "低级气功", "category": "enhance", "series": "qigong",
+			"price": {"points": 500, "tier": "D"}, "source": "L403、L597",
+			"blocks": [
+				{"attr": {"spirit": 10, "cell_vitality": 20, "nerve_reaction": 20, "muscle": 30, "immunity": 20}, "tier": "D"},
+				{"energy": "neili", "amount": 30, "value": 0}
+			]
+		},
+		"qigong_mid": {
+			"name": "中级气功", "category": "enhance", "series": "qigong", "requires": ["qigong_low"],
+			"price": {"points": 1200, "tier": "C"}, "source": "L597",
+			"blocks": [{"energy": "neili", "amount": 60, "value": 2600, "tier": "C"}]
+		},
+		"qigong_high": {
+			"name": "高级气功", "category": "enhance", "series": "qigong", "requires": ["qigong_mid"],
+			"price": {"points": 2500, "tier": "B"}, "source": "L588、L6251",
+			"blocks": [
+				{"energy": "neili", "amount": 120, "value": 4400, "tier": "B"},
+				{"passive": "qi_burst", "value": 500}
+			]
+		},
+		"vampire_baron": {
+			"name": "血族男爵", "category": "enhance", "series": "vampire", "bloodline": true,
+			"price": {"points": 800, "tier": "D"}, "source": "L597",
+			"blocks": [{"energy": "blood", "amount": 30, "value": 1300, "tier": "D"}]
+		},
+		"vampire_viscount": {
+			"name": "血族子爵", "category": "enhance", "series": "vampire", "bloodline": true, "requires": ["vampire_baron"],
+			"price": {"points": 1500, "tier": "C"}, "source": "L597、L4789",
+			"blocks": [{"energy": "blood", "amount": 60, "value": 2900, "tier": "C"}]
+		},
+		"vampire_count": {
+			"name": "血族伯爵", "category": "enhance", "series": "vampire", "bloodline": true, "requires": ["vampire_viscount"],
+			"price": {"points": 3000, "tier": "B"}, "source": "L590、L4748",
+			"blocks": [
+				{"energy": "blood", "amount": 120, "value": 3900, "tier": "B"},
+				{"passive": "undying_unless_heart_or_brain", "value": 1500}
+			]
+		},
+		"spider_gene": {
+			"name": "蜘蛛侠基因变异血统", "category": "enhance", "series": "spider", "bloodline": true,
+			"price": {"points": 2000, "tier": "B"}, "source": "L399、L587",
+			"blocks": [
+				{"attr": {"intelligence": 20, "spirit": 20, "cell_vitality": 50, "nerve_reaction": 100, "muscle": 100, "immunity": 150}, "tier": "B"},
+				{"ability": "spider_silk", "value": 0}
+			]
+		},
+		"t_virus": {
+			"name": "T 病毒进化模式", "category": "enhance", "series": "t_virus",
+			"price": {"points": 1500, "tier": "C"}, "source": "L404",
+			"blocks": [{"attr": {"intelligence": 20, "spirit": 20, "cell_vitality": 50, "nerve_reaction": 50, "muscle": 50, "immunity": 100}, "tier": "C"}]
+		},
+		"werewolf_high": {
+			"name": "高级狼人血统", "category": "enhance", "series": "werewolf", "bloodline": true,
+			"price": {"points": 2700, "tier": "B"}, "source": "L589",
+			"blocks": [{"passive": "werewolf_form", "value": 5100, "tier": "B"}]
+		},
+		"eagle_eye": {
+			"name": "德鲁依苍鹰眼固化", "category": "enhance", "series": "druid",
+			"price": {"points": 1000, "tier": "C"}, "source": "L2782",
+			"blocks": [{"passive": "eagle_eye", "value": 2400, "tier": "C"}]
+		},
+		"elf_wind_archer": {
+			"name": "精灵族风系射手", "category": "enhance", "series": "elf", "bloodline": true,
+			"price": {"points": 2000, "tier": "C"}, "source": "L4765",
+			"blocks": [{"ability": "wind_arrow", "value": 3400, "tier": "C"}]
+		},
+		"red_flame": {
+			"name": "红炎", "category": "enhance", "series": "vampire_skill", "requires_energy": "blood",
+			"price": {"points": 2000, "tier": "C"}, "source": "L2787、L3406",
+			"blocks": [{"ability": "red_flame", "value": 3400, "tier": "C"}]
+		},
+		"light_kungfu": {
+			"name": "轻功", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 2000, "tier": "C"}, "source": "L4816、L4839",
+			"blocks": [{"ability": "light_kungfu", "value": 3400, "tier": "C"}]
+		},
+		"mind_scan": {
+			"name": "精神力扫描", "category": "enhance", "series": "psionic",
+			"gates": {"attr_min": {"spirit": 300}, "talent_bypass": "spirit_talent"},
+			"price": {"points": 4000, "tier": "C"}, "source": "L4740",
+			"note": "门槛数值是占位，计划 7 按原著核对",
+			"blocks": [{"ability": "mind_scan", "value": 5400, "tier": "C"}]
+		},
+		"mind_focus": {
+			"name": "心神凝聚", "category": "enhance", "series": "psionic",
+			"price": {"points": 2500, "tier": "B"}, "source": "L6206",
+			"blocks": [{"passive": "mind_focus", "value": 4900, "tier": "B"}]
+		},
+		"desert_eagle": {
+			"name": "沙漠之鹰（无限子弹）", "category": "tech", "series": "pistol",
+			"price": {"points": 100, "tier": ""}, "source": "L44",
+			"blocks": [{"skill": "desert_eagle", "value": 5, "unlimited": true}]
+		},
+		"gauss_pistol": {
+			"name": "无限弹药高斯手枪", "category": "tech", "series": "gauss",
+			"price": {"points": 1500, "tier": "D"}, "source": "L8334",
+			"blocks": [{"ability": "gauss_pistol", "value": 100, "unlimited": true, "tier": "D"}]
+		},
+		"gauss_sniper": {
+			"name": "无限弹药高斯离子狙击步枪", "category": "tech", "series": "gauss",
+			"price": {"points": 5000, "tier": "D"}, "source": "L1583",
+			"blocks": [{"ability": "gauss_sniper", "value": 275, "unlimited": true, "tier": "D"}]
+		},
+		"shield_plate": {
+			"name": "防护盾", "category": "tech", "series": "shield",
+			"price": {"points": 1500, "tier": "D"}, "source": "L5689",
+			"blocks": [{"passive": "shield_plate", "value": 2000, "tier": "D"}]
+		},
+		"na_ring": {
+			"name": "纳戒", "category": "magic", "series": "storage", "requires_energy": "neili",
+			"price": {"points": 1500, "tier": "D"}, "source": "L626~630",
+			"blocks": [{"ability": "na_ring", "value": 1000, "tier": "D"}]
+		},
+		"purifying_sword": {
+			"name": "净化之光（长剑）", "category": "magic", "series": "holy_blade",
+			"price": {"points": 1000, "tier": ""}, "source": "L623",
+			"blocks": [{"ability": "purifying_light_sword", "value": 500}]
+		},
+		"grenade": {
+			"name": "手榴弹", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 50, "tier": ""}, "source": "原著未载价格",
+			"blocks": [{"item": "grenade", "count": 1, "unit_value": 50}]
+		},
+		"first_aid_spray": {
+			"name": "止血喷雾", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 50, "tier": ""}, "source": "原著未载价格",
+			"blocks": [{"item": "spray", "count": 1, "unit_value": 50}]
+		},
+		"antidote": {
+			"name": "解毒剂", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 100, "tier": ""}, "source": "原著未载价格",
+			"blocks": [{"item": "antidote", "count": 1, "unit_value": 100}]
+		},
+		"bingning_dan": {
+			"name": "冰凝丹", "category": "item", "series": "elixir", "consumable": true,
+			"price": {"points": 1000, "tier": "D"}, "source": "L13123",
+			"blocks": [{"item": "bingning_dan", "count": 1, "unit_value": 1500, "tier": "D"}]
+		},
+		"rebirth_cross": {
+			"name": "重生十字章", "category": "item", "series": "revival", "consumable": true,
+			"price": {"points": 7000, "tier": "2B"}, "source": "L6153、L12207",
+			"blocks": [{"item": "rebirth_cross", "count": 1, "unit_value": 11800, "tier": "2B"}]
+		}
+	}
+}
