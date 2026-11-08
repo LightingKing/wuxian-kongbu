@@ -1,0 +1,16 @@
+{
+	"version": 1,
+	"defaults": {"trust": 50, "affection": 50, "awe": 20, "resentment": 0},
+	"events": {
+		"saved_life": {"name": "救命", "target_to_actor": {"trust": 25, "affection": 15}, "witness_to_actor": {"trust": 5, "awe": 5}},
+		"fought_together": {"name": "并肩作战", "target_to_actor": {"trust": 5, "affection": 3}, "actor_to_target": {"trust": 5, "affection": 3}},
+		"advice_taken": {"name": "意见被采纳", "target_to_actor": {"trust": 8, "awe": 3}},
+		"shown_strength": {"name": "展现实力", "witness_to_actor": {"awe": 10}, "target_to_actor": {"awe": 10}},
+		"used_as_bait": {"name": "被当成诱饵", "target_to_actor": {"trust": -30, "resentment": 25}, "witness_to_actor": {"trust": -10, "resentment": 5}},
+		"unfair_share": {"name": "分配不公", "target_to_actor": {"trust": -10, "resentment": 10}},
+		"left_to_die": {"name": "见死不救", "target_to_actor": {"trust": -35, "resentment": 30}, "witness_to_actor": {"trust": -10}},
+		"promise_broken": {"name": "违背承诺", "target_to_actor": {"trust": -20, "resentment": 10}},
+		"lied_to": {"name": "“我骗你的”", "target_to_actor": {"trust": -15, "awe": 5, "resentment": 5}},
+		"killed_innocent": {"name": "杀害无辜", "witness_to_actor": {"trust": -10, "affection": -5, "awe": 5}}
+	}
+}
