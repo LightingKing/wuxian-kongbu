@@ -1,0 +1,53 @@
+{
+	"version": 1,
+	"rules": {
+		"bodyguard_human": {
+			"name": "第一个造人名额应该造保镖",
+			"unlocks": "hub:bodyguard_human",
+			"requires": {"intelligence_min": 180, "flags": ["seen_human_creation"]},
+			"source": "L1556~1597"
+		},
+		"parts_blueprints": {
+			"name": "零件与图纸能绕开支线门槛",
+			"unlocks": "catalog:parts_blueprints",
+			"requires": {"intelligence_min": 200, "talents": ["tech_talent"]},
+			"source": "L1556~1597"
+		},
+		"record_travel": {
+			"name": "“记录”可以回旧片和现实",
+			"unlocks": "hub:record_travel",
+			"requires": {"intelligence_min": 200, "films_completed_min": 1},
+			"source": "L1556~1597"
+		},
+		"cold_storage": {
+			"name": "冷藏尸体能省下复活费",
+			"unlocks": "hub:cold_storage",
+			"requires": {"intelligence_min": 180, "flags": ["knows_revival"]},
+			"source": "核心机制分析 9.2"
+		},
+		"newbie_free_revival": {
+			"name": "新人复活免费",
+			"unlocks": "hub:newbie_free_revival",
+			"requires": {"intelligence_min": 150, "flags": ["knows_revival"]},
+			"source": "L8284、L9091"
+		},
+		"self_skills_unrated": {
+			"name": "自创技能不计入主神评价",
+			"unlocks": "info:self_skills_unrated",
+			"requires": {"intelligence_min": 200, "flags": ["has_self_skill"]},
+			"source": "L7866、L21838"
+		},
+		"sacrifice_lowers_rating": {
+			"name": "牺牲新人能让评价略降",
+			"unlocks": "info:sacrifice_lowers_rating",
+			"requires": {"intelligence_min": 220, "films_completed_min": 3},
+			"source": "核心机制分析 2.2"
+		},
+		"always_a_way": {
+			"name": "主神不给必死的任务，一定有解",
+			"unlocks": "info:always_a_way",
+			"requires": {"intelligence_min": 150, "films_completed_min": 2},
+			"source": "L361、L8543、L13656"
+		}
+	}
+}
