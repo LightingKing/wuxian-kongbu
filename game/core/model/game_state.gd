@@ -12,6 +12,8 @@ var team_rating: int = 0  # 主神评价分（核心机制分析 2.2）
 var films_record: Array = []  # 经历过的片的 id；团灭时清空
 var mode: Dictionary = {"content": "canon", "control": "team"}
 var iron_man: bool = true
+## 造物（人造人）：{"id", "name", "creator", "attributes"}。制造者死亡，造物随之消失（设计规格 6.6）。
+var companions: Array = []
 var flags: Dictionary = {}
 
 
@@ -39,6 +41,7 @@ func to_dict() -> Dictionary:
 		"films_record": films_record.duplicate(),
 		"mode": mode.duplicate(),
 		"iron_man": iron_man,
+		"companions": companions.duplicate(true),
 		"flags": flags.duplicate(true),
 	}
 
@@ -55,4 +58,5 @@ func load_dict(d: Dictionary) -> void:
 	films_record = (d["films_record"] as Array).duplicate()
 	mode = (d["mode"] as Dictionary).duplicate()
 	iron_man = bool(d["iron_man"])
+	companions = (d.get("companions", []) as Array).duplicate(true)
 	flags = (d["flags"] as Dictionary).duplicate(true)
