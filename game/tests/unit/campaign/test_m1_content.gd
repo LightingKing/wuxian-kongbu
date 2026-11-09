@@ -111,6 +111,41 @@ func test_leave_costs_trust_until_fought_together() -> void:
 	assert_true(ex.obeys("zhan_lan"))
 
 
+## 站位：抗打（肌肉 + 细胞活力）的一半站前排。七个人时张杰、牟钢、郑吒、李萧毅在前；
+## 只剩四个人时张杰、郑吒在前，詹岚在后排（近战够不着）。分队共用的道具还是郑吒背。
+func test_formation_tough_in_front() -> void:
+	var g := GameState.new(1)
+	var ex := Campaign.start(g, CHAPTER)
+	ex.choose("listen")
+	ex.st.pending_battle = {"location": "car", "squad": "s1", "enemies": [{"def": "zombie", "count": 1}], "dark": false, "survive_until": -1.0, "after_victory": [], "after_defeat": []}
+	var rows := {}
+	for u: RefCounted in ex.battle_units({}):
+		if u.side == "ally":
+			rows[u.character_id] = u.row
+	assert_eq(rows, {"zhang_jie": 0, "mu_gang": 0, "zheng_zha": 0, "li_xiao_yi": 0, "zhan_lan": 1, "zhong_nian_fu_nv": 1, "xiao_pang_zi": 1})
+	assert_eq(String(ex.st.pending_battle["carrier"]), "zheng_zha")
+	for c in ["mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"]:
+		g.characters[c].alive = false
+	rows = {}
+	for u: RefCounted in ex.battle_units({}):
+		if u.side == "ally":
+			rows[u.character_id] = u.row
+	assert_eq(rows, {"zhang_jie": 0, "zheng_zha": 0, "li_xiao_yi": 1, "zhan_lan": 1})
+
+
+## 规格 9.3：爬行者破内门之后是"坚持到倒计时结束"，不是清场。
+func test_inner_lickers_hold_out() -> void:
+	var sc := Scenario.load_file(SCENARIO)
+	var found := false
+	for ev: Dictionary in sc.events():
+		if String(ev["id"]) == "lickers_inner":
+			for e: Dictionary in ev["effects"]:
+				if e.has("battle"):
+					found = true
+					assert_almost(float(e["battle"]["survive_until"]), 400.0)
+	assert_true(found)
+
+
 ## 走到激光通道门口：听规则 → 大厅 → 楼梯井（扶掉队的人）→ 激光通道。
 func _to_laser() -> RefCounted:
 	var ex := _start()

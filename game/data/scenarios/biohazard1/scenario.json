@@ -299,7 +299,7 @@
 			"location": "control",
 			"inertia": 1,
 			"effects": [
-				{"battle": {"location": "control", "enemies": [{"def": "licker", "count": 2, "row": 0}]}}
+				{"battle": {"location": "control", "survive_until": 400, "enemies": [{"def": "licker", "count": 2, "row": 0}]}}
 			],
 			"alterations": [
 				{"if": {"flag": "queen_helps"}, "label": "火焰女皇的激光守住内门", "effects": [

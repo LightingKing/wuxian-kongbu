@@ -157,14 +157,18 @@ func apply_effects(effects: Array, location: String = "") -> Array[Dictionary]:
 
 
 ## 为待打的战斗生成单位。loadouts：角色 id → 技能 id 数组（没给的用角色自己的技能，什么都没有就只会拳脚）。
-## 每个人带着自己的能量和道具；分队共用的道具交给第一个人携带；每排最多 4 人，多出来的往后排。
+## 每个人带着自己的能量和道具；分队共用的道具交给分队名单上的第一个人携带。
 ## 带着手榴弹、止血喷雾这类消耗品的人，自动多出对应的技能（battle_data.item_skills）。
+## 站位：近战只打得到最前面一排，所以按"抗打"（肌肉 + 细胞活力）排，抗打的一半站前排（最多 4 人），其余往后。
 func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[RefCounted]:
 	var units: Array[RefCounted] = []
 	if st.pending_battle.is_empty():
 		return units
 	var sid := String(st.pending_battle["squad"])
-	var members: Array[String] = st.living_members(sid)
+	var living: Array[String] = st.living_members(sid)
+	var carrier: String = living[0] if not living.is_empty() else ""
+	var members: Array[String] = formation(living)
+	var front := mini(4, ceili(members.size() / 2.0))
 	for i in members.size():
 		var c := members[i]
 		var ch: RefCounted = st.characters[c]
@@ -173,14 +177,15 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 		for s in loadouts.get(c, own_skills):
 			skills.append(String(s))
 		var res: Dictionary = ch.battle_resources()
-		if i == 0:
+		if c == carrier:
 			for k: String in st.squads[sid]["items"]:
 				res[k] = float(res.get(k, 0.0)) + float(st.squads[sid]["items"][k])
 		for s in BattleData.item_skills(res):
 			if not skills.has(s):
 				skills.append(s)
-		units.append(UnitFactory.from_character(ch, "ally", mini(floori(i / 4.0), 2), skills, controller if obeys(c) else "ai", res))
-	st.pending_battle["carrier"] = members[0] if not members.is_empty() else ""
+		var row := 0 if i < front else mini(1 + floori((i - front) / 4.0), 2)
+		units.append(UnitFactory.from_character(ch, "ally", row, skills, controller if obeys(c) else "ai", res))
+	st.pending_battle["carrier"] = carrier
 	var n := 0
 	for g: Dictionary in st.pending_battle["enemies"]:
 		for k in int(g.get("count", 1)):
@@ -188,6 +193,22 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 			var row := mini(int(g.get("row", 0)) + floori(k / 4.0), 2)
 			units.append(UnitFactory.from_enemy(String(g["def"]), "%s_%d" % [g["def"], n], row))
 	return units
+
+
+## 战斗站位顺序：抗打（肌肉 + 细胞活力）高的在前；一样高的保持原来的顺序。
+func formation(member_ids: Array[String]) -> Array[String]:
+	var order: Array[String] = member_ids.duplicate()
+	var toughness := func(id: String) -> float:
+		var ch: RefCounted = st.characters[id]
+		return float(ch.attributes.total("muscle")) + float(ch.attributes.total("cell_vitality"))
+	var index := {}
+	for i in order.size():
+		index[order[i]] = i
+	order.sort_custom(func(a: String, b: String) -> bool:
+		var ta: float = toughness.call(a)
+		var tb: float = toughness.call(b)
+		return ta > tb if ta != tb else int(index[a]) < int(index[b]))
+	return order
 
 
 ## 这个人听不听拍板的人指挥。没有拍板的人、他自己就是、或者拍板的人已经死了，都算听。
