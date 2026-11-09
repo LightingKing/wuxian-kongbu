@@ -312,6 +312,22 @@ func choose(option_id: String) -> Array[Dictionary]:
 	return _emit(events)
 
 
+## 现在能不能开口：有等待中的说服、说的人活着、要的证据（requires_fact）已经有了。
+## 返回 {"ok", "check"} 或 {"ok": false, "reason", "fact"}。
+func can_persuade(thinker_id: String) -> Dictionary:
+	if st.outcome != "ongoing" or st.pending_check.is_empty():
+		return {"ok": false, "reason": "no_check"}
+	if not st.is_alive(thinker_id):
+		return {"ok": false, "reason": "no_thinker"}
+	var check: Dictionary = st.pending_check
+	var fact := String(check.get("requires_fact", ""))
+	if fact != "":
+		var s: String = st.intel.status(fact)
+		if s != "inferred" and s != "confirmed":
+			return {"ok": false, "reason": "no_fact", "fact": fact}
+	return {"ok": true, "check": check}
+
+
 ## 用关键词说服：把"说了什么"交给 persuasion.gd 折算成 0~3 级，再走 resolve_persuasion。
 ## 需要先推理出 requires_fact 指定的事实；没有推论时按失败处理，并报告 persuade_blocked。
 func persuade_with(keywords: Array, thinker_id: String) -> Array[Dictionary]:

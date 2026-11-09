@@ -25,6 +25,8 @@ var chapter_path: String = ""
 var day: int = 0
 ## 上一次结算的结果（角色 id → 结算条目），给结算界面用。
 var settlement: Dictionary = {}
+## 对话记忆与信任：npc_id → {"memories": [...], "trust": 0~5}。core/dialogue 直接读写这个字典。
+var dialogues: Dictionary = {}
 
 
 ## 开一局：建 GameState、按章节装配七名轮回者、开始第一部片。
@@ -38,6 +40,7 @@ func start(chapter: String, seed_value: int = 0) -> bool:
 	hub = null
 	day = 0
 	settlement = {}
+	dialogues = {}
 	return true
 
 
@@ -117,6 +120,7 @@ func to_dict() -> Dictionary:
 		"expedition": expedition.to_dict() if expedition != null else {},
 		"hub": hub.to_dict() if hub != null else {},
 		"settlement": settlement.duplicate(true),
+		"dialogues": dialogues.duplicate(true),
 	}
 
 
@@ -135,6 +139,7 @@ func load_dict(d: Dictionary) -> bool:
 		return false
 	day = int(d.get("day", 0))
 	settlement = (d.get("settlement", {}) as Dictionary).duplicate(true)
+	dialogues = (d.get("dialogues", {}) as Dictionary).duplicate(true)
 	var h: Dictionary = d.get("hub", {})
 	if not h.is_empty():
 		hub = Hub.new()

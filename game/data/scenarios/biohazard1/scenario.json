@@ -34,6 +34,12 @@
 		"rain": {"name": "雷恩", "location": "hall", "plot": true},
 		"red_queen": {"name": "火焰女皇", "location": "control", "plot": false}
 	},
+	"trust": {
+		"kaplan": {"at": 2, "line": "主机房的线路我摸过。激光是女皇自己控的，不是墙上的开关。", "effects": [{"clue": "queen_console"}]},
+		"alice": {"at": 2, "line": "激光通道……跑错一步就没了。别信地上的标记。", "effects": [{"clue": "laser_survived"}]},
+		"zhan_lan": {"at": 2, "line": "张杰讲规则讲得太顺了，像是背过。", "effects": [{"clue": "rules_too_smooth"}]},
+		"zhang_jie": {"at": 3, "line": "枪这东西，看谁拿。我这把可不是道具。", "effects": [{"clue": "desert_eagle"}]}
+	},
 	"watch": {
 		"gag_penalty": -10,
 		"dark_flag": "power_out"
