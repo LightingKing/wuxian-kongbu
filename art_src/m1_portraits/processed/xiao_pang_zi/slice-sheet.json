@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-slice-sheet",
+  "version": 1,
+  "sheet": "xiao_pang_zi.png",
+  "grid": [
+    1,
+    1
+  ],
+  "canvas": {
+    "w": 512,
+    "h": 768
+  },
+  "baseline_y": 766.0,
+  "target_height": 705.0,
+  "scale": "cell",
+  "fit": "contain",
+  "factor": null,
+  "factor_from": null,
+  "alpha_cleanup": "alpha-cleanup.json",
+  "cells": [
+    {
+      "name": "xiao_pang_zi",
+      "file": "xiao_pang_zi.png",
+      "factor": 0.49682875264270615,
+      "factor_from": "target_height",
+      "subject": {
+        "sheet": {
+          "w": 1003,
+          "h": 1419
+        },
+        "canvas": {
+          "w": 498,
+          "h": 705
+        }
+      },
+      "box": {
+        "x": 7,
+        "y": 61,
+        "w": 498,
+        "h": 705
+      },
+      "anchor": [
+        256.0,
+        766.0
+      ],
+      "clipped_px": 0,
+      "parts": 1
+    }
+  ]
+}

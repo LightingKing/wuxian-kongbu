@@ -1,0 +1,55 @@
+{
+  "kind": "sprite-gen-scene-placement",
+  "version": 1,
+  "source_spec": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\red_queen-opacity.scene.json",
+  "source_fingerprints": {
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\red_queen-opacity.scene.json": "bf0ea97b10fe42d4ae4f223eba6afa27af4be22ce6ab564f17cae751ee40f723",
+    "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\processed\\red_queen\\red_queen.png": "6b2a531dec871d1915dd0d1043e5c5f8689797289a8c7a1059aad936928a5083"
+  },
+  "canvas": [
+    512,
+    768
+  ],
+  "fps": 1.0,
+  "duration": 1.0,
+  "camera": {},
+  "light": {},
+  "assets": {
+    "red_queen": {
+      "source": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\processed\\red_queen\\red_queen.png",
+      "state": null
+    }
+  },
+  "layers": [
+    {
+      "id": "red_queen",
+      "asset": "red_queen",
+      "at": [
+        256.0,
+        768.0
+      ],
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "scale": 1.0,
+      "raster_size": [
+        512,
+        768
+      ],
+      "opacity": 0.65,
+      "z": 0.0,
+      "parallax": 1.0,
+      "repeat_x": false,
+      "period": 512.0,
+      "shadow": false,
+      "playback_rate": 1.0,
+      "loop": true,
+      "offset": 0.0,
+      "plane": null
+    }
+  ],
+  "layer_plate_time": null,
+  "portable": false,
+  "note": "Placement metadata references source files; copy referenced assets when moving this output."
+}

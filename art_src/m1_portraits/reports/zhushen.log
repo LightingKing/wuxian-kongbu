@@ -1,0 +1,52 @@
+[gen] openai: running on OPENAI_API_KEY — this is a per-call API charge, not a subscription (model=gpt-image-2.6-flare, quality=auto, size=1024x1536).
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个主神：完全非人的巨大悬浮光球，不存在身体、头部或任何人脸。光球的可见球面是正圆形，冷白色为主，带克制的淡金色光晕，庄严、安静、令人感到无法接近。用清楚的明暗层次和少量柔和赛璐璐过渡表现球体体积：左前上方较亮，右下侧略带浅灰金色，中心保持冷白，不要亮到变成没有轮廓的纯白方块。球面可有极淡且不规则的光能流动纹理，但不形成眼睛、嘴、符文、文字、图案或机械接缝。球面近不透明，边缘外侧只允许一圈很薄、平滑、低亮度的白金色辉光，沿圆周均匀而自然地渐隐；不要团块状光雾、颗粒云、锯齿或断裂硬边。\n\n独立对话用非人立绘，竖幅2:3，输出原图1024×1536、后续等比适配为512×768。只保留一个完整圆形光球：原图中球心在(512,768)，实体球面直径约500像素，含全部外层柔光在内的总直径最多620像素。左右各至少200像素、上下各至少450像素必须完全空白透明；这些尺寸仅指导布局，不在画面绘制数字或参考线。请主动缩小光球，宁可留更多透明边距，不能靠近或碰到任何画布边。竖幅画布是背景比例，不能把球体拉伸成椭圆，不按人形填满画布高度。球体自然悬浮，不接触任何物体，不画地面、投影阴影、广场、建筑或底座。背景必须是真实RGBA透明；仅靠近圆球的一圈薄辉光有半透明alpha，外圈平滑地降至完全透明，不出现四方裁切或垂直截断。把它作为能叠加在深浅背景上的独立光球素材。\n\n负向要求：辉光触边、光球触边、垂直截断、四方光晕、锯齿光雾、大块浮渣、人脸、眼睛、嘴、鼻子、人物、人影、身体、手、多个球体、卫星、椭圆球、蛋形、扁圆、圆环、圆盘、月亮陨石坑、太阳火焰、爆炸、烟雾、尖刺、巨大光束、镜头光斑、过曝白色整屏、文字、字母、数字、符文、水印、签名、边框、UI、机械外壳、网格图案、黑色背景、白色背景、实色背景、绘制的棋盘格、场景、天空、星空、地面、广场、建筑、光柱、底座、投影阴影、Q版、像素风、摄影、3D渲染。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\zhushen.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\zhushen.png.raw.png",
+  "raw_bytes": 1084363,
+  "elapsed_seconds": 29.015,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\zhushen.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 73.88,
+    "partial_alpha_pct": 26.12,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 714733,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 792,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 792
+      },
+      "output_tokens": 1372,
+      "output_tokens_details": {
+        "image_tokens": 1372,
+        "text_tokens": 0
+      },
+      "total_tokens": 2164
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\reports\\zhushen.json"
+}

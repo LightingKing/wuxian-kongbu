@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-slice-sheet",
+  "version": 1,
+  "sheet": "mu_gang.png",
+  "grid": [
+    1,
+    1
+  ],
+  "canvas": {
+    "w": 512,
+    "h": 768
+  },
+  "baseline_y": 766.0,
+  "target_height": 705.0,
+  "scale": "cell",
+  "fit": "contain",
+  "factor": null,
+  "factor_from": null,
+  "alpha_cleanup": "alpha-cleanup.json",
+  "cells": [
+    {
+      "name": "mu_gang",
+      "file": "mu_gang.png",
+      "factor": 0.4919748778785764,
+      "factor_from": "target_height",
+      "subject": {
+        "sheet": {
+          "w": 1005,
+          "h": 1433
+        },
+        "canvas": {
+          "w": 494,
+          "h": 705
+        }
+      },
+      "box": {
+        "x": 9,
+        "y": 61,
+        "w": 494,
+        "h": 705
+      },
+      "anchor": [
+        256.0,
+        766.0
+      ],
+      "clipped_px": 0,
+      "parts": 1
+    }
+  ]
+}

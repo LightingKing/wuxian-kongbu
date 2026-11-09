@@ -1,0 +1,11 @@
+{
+  "kind": "sprite-gen-scene",
+  "version": 1,
+  "canvas": {"width": 512, "height": 768, "background": [0, 0, 0, 0]},
+  "fps": 1,
+  "duration": 1,
+  "assets": {"red_queen": {"source": "processed/red_queen/red_queen.png"}},
+  "layers": [
+    {"id": "red_queen", "asset": "red_queen", "at": [256, 768], "scale": 1, "opacity": 0.65, "shadow": false}
+  ]
+}

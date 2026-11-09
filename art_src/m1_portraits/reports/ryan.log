@@ -1,0 +1,52 @@
+[gen] openai: running on OPENAI_API_KEY — this is a per-call API charge, not a subscription (model=gpt-image-2.6-flare, quality=auto, size=1024x1536).
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个瑞恩：成年女性雇佣兵，深棕色头发扎成清楚可见的单束马尾，发根收整，马尾从脑后垂到肩部附近，面部不被散发遮挡。身材结实利落，穿深炭灰色作战上衣和哑光黑色实用战术背心，肩带与装备袋简洁，无字无徽标。只有一副护目镜挂在脖子上，深灰镜框、低饱和透明灰色双镜片，镜片位于锁骨下方胸前，带子自然绕过颈后；护目镜不戴在脸上或头顶，不能变成项链或两副镜子。表情沉着警觉，闭嘴，目光略偏向画面左侧。近正面站立，身体轻微转向画面左侧，肩膀自然，双臂放低，不持道具。保持同一套马尾、深灰作战服、黑色战术背心、颈前护目镜的固定外观，用马尾与颈前护目镜清楚区分其他短发女雇佣兵。\n\n独立对话用半身立绘，竖幅2:3，目标512×768。画面从完整头顶至腰部下缘，人物居中偏下，头顶留约画布高度8%的完整空白，左右轮廓和马尾留安全余量，不裁头发和肩膀。脸占比足够大，上半幅裁为正方形后仍能辨认脸、马尾与颈前护目镜。主光统一来自画面左前方、偏上，柔和中性冷光，暗部保留衣褶和装备层次，无背景环境色溢出。背景透明，仅保留人物与颈前护目镜；衣服、皮肤、头发主体不透明，边缘自然抗锯齿。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、徽标、多人、重复人物、全身远景、超长身体、Q版、像素风、摄影、3D渲染、塑料皮肤、鲜亮霓虹、青绿色脸、过曝、光晕白边、彩色抠图边、棋盘格、实色背景、环境、椅子、地面、武器、头盔、面罩、短发、披肩散发、双马尾、护目镜戴在脸上、护目镜在额头、重复护目镜、墨镜、裸露服装、夸张媚态、额外肢体、畸形手指。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\ryan.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\ryan.png.raw.png",
+  "raw_bytes": 1924739,
+  "elapsed_seconds": 39.983,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\ryan.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 39.45,
+    "partial_alpha_pct": 60.55,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 495805,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 705,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 705
+      },
+      "output_tokens": 1372,
+      "output_tokens_details": {
+        "image_tokens": 1372,
+        "text_tokens": 0
+      },
+      "total_tokens": 2077
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\reports\\ryan.json"
+}

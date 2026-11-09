@@ -112,3 +112,30 @@
 - 已知限制：人物主体 alpha 主要为 253（约 99.2% 不透明），保留原生轻微透明并在 QA 记录；CG 金属反光较立绘更写实，激光网合拢的动势偏静态。当前首批没有新增必须补充的人物设定歧义；张杰深灰上衣、马修深色战术装备等细节见提示词，验收后再作为固定描述。
 - 成品落盘后运行 `bash game/tools/run_tests.sh`：退出 0，共 380 个测试、失败 0 个；5 项最终 SHA-256 与文件重新计算结果一致，完整提示词与实际请求一致。图片仅留本机，未改 `_work/`。
 - **停在第一批验收点**：依照本卡“做完先停，等 Claude 看图确认，再批量”，第二批 12 张立绘与第三批 3 张 CG 尚未开始。
+
+## 完成汇报
+
+### 2026-11-10：第二批 12 张立绘完成
+
+依照本轮明确授权，仅制作以下第二批 12 张立绘。先写 `art_src/prompts/<id>.md`，沿用第一批相同的画风前缀，固定角色描述，再用 sprite-gen 的 `openai` 适配器经指定网关逐张调用 `gpt-image-2.6-flare`。共 13 次 API 调用：主神重做一次，其余各一次。原图均为 1024×1536 RGBA，seed 如实记为 `null`。
+
+| ID | 本机成品路径 | 尺寸 / 模式 | SHA-256 |
+|---|---|---|---|
+| `mu_gang` | `game/art/portraits/mu_gang.png` | 512×768 RGBA | `44923a9c2ce4f49bbf25ff09c6399eb442d7059729b217ffc7e31887ff0a8a38` |
+| `li_xiao_yi` | `game/art/portraits/li_xiao_yi.png` | 512×768 RGBA | `2325d8e59c14f0dc583a5c9524781e9207ccfb368b15c684452bfe87d4af18bf` |
+| `xiao_pang_zi` | `game/art/portraits/xiao_pang_zi.png` | 512×768 RGBA | `956614239679760abe0b2889c8df9bde756a8e72d3ccd5082022169f8bff9446` |
+| `zhong_nian_fu_nv` | `game/art/portraits/zhong_nian_fu_nv.png` | 512×768 RGBA | `9fc0845fd14bab67f16e3f99468586d8adad5bf916a2388503335dfcc307be0a` |
+| `alice` | `game/art/portraits/alice.png` | 512×768 RGBA | `0aef94628b7867a95b9f3cd31837157d0d0dadbda0485ae6da80217fa2c7c3f5` |
+| `rain` | `game/art/portraits/rain.png` | 512×768 RGBA | `74fbeff2588f8e270d225bd10425bce998c7ba11c38b81f056a17454826afea6` |
+| `kaplan` | `game/art/portraits/kaplan.png` | 512×768 RGBA | `c13011016dd683367417abf43db5515253dcca68d26e1defaaa5b37695598372` |
+| `matt` | `game/art/portraits/matt.png` | 512×768 RGBA | `8527e1dd6243e4bd0350adb4e3faf21b31603bc05215defd09c7b35d067360da` |
+| `jd` | `game/art/portraits/jd.png` | 512×768 RGBA | `1849507ff754305058423d6b01b40eed3507cbb241efd98faa38215c51e81adf` |
+| `ryan` | `game/art/portraits/ryan.png` | 512×768 RGBA | `588579bb9234da473a83301175d0676daa91f05587a53dfb1d92d8df8bc4f6fb` |
+| `red_queen` | `game/art/portraits/red_queen.png` | 512×768 RGBA | `a2c5a8dc4043dc75d2d877a7bef2aad3684c98cff4b1a67bfed4afd924056867` |
+| `zhushen` | `game/art/portraits/zhushen.png` | 512×768 RGBA | `80e96ecdfd0c579b06c6b5b58420c72c3a97eb34c466236e6b9840b2f5036a57` |
+
+- 文件：新增 12 份完整提示词、实际输入 TXT、原生生成/处理报告与日志、自动 QA 脚本及报告、透明度合成规范和人工复核记录；更新 `art_src/qa/portraits.sha256`。完整复现步骤见 `art_src/m1_portraits/README-second-batch.md`。图片及中间图仅保留本机，未加入 Git。
+- 处理：普通 10 人通过原生 `slice-sheet` 清理外围淡雾、等比适配；火焰女皇和主神保留原生扫描线及辉光。火焰女皇另以原生 `scene-render` 单层 `opacity=0.65` 合成，最终 alpha 最大值 165。主神首版源图辉光触边，已归档至 `art_src/m1_portraits/rejected/zhushen-v1/`；缩小占幅后重做 v2，圆球及辉光完整。
+- 验证：12 张全部通过 PNG、512×768、RGBA、有效主体及透明边缘检查；原生处理报告无主体裁切。主代理与独立代理实际查看最终深浅底预览和单图，主代理核查 328×328 头像裁切；未发现必须返工的问题。自动结果见 `qa-second-batch.json`，人工结论见 `visual-review-second-batch.md`，仍待用户风格验收。
+- 已知限制与设定解释：普通人物主体 alpha 主要为 253，与第一批一致；J·D 的咀嚼动作较含蓄，静态表现更像偏嘴微笑；火焰女皇和主神的浅底对比弱于深底。卡普兰的“笔记本”按笔记本电脑解释；其余未规定的发色、服装细节已记入固定提示词，后续由 Claude／用户确认后沿用。
+- 项目测试：仓库根目录运行 `bash game/tools/run_tests.sh`，退出 0，共 393 个测试，失败 0 个，日志保存在 `art_src/m1_portraits/tests-second-batch.log`。第一批 5 个成品校验和保持原值；未改游戏代码、数据或 `_work/`，第三批 3 张 CG 未开始。

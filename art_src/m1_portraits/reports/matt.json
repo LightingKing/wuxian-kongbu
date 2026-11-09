@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个马特：成年男性环保主义者，深棕色短发，自然稍乱，普通市民的身材与气质，朴素、认真、带一点紧绷感。穿低饱和灰蓝色冲锋衣，拉链拉到胸前，内搭无图案的深灰色T恤，衣领和肩部有自然布料褶皱，服装有轻微使用痕迹，没有军用装备或标志。面部清爽，眉头轻收，闭嘴，警觉而关切地看向画面左侧，像在担心同伴的处境。近正面站立，身体轻微转向画面左侧，肩膀自然，双臂下垂，双手不拿武器或工具。保持同一套深棕短发、灰蓝冲锋衣、深灰内搭的固定外观，明确是陷入危险的普通市民。\n\n独立对话用半身立绘，竖幅2:3，目标512×768。画面从完整头顶至腰部下缘，人物居中偏下，头顶留约画布高度8%的完整空白，左右轮廓留安全余量，不裁头发和肩膀。脸占比足够大，上半幅裁为正方形后仍能清楚辨认。主光统一来自画面左前方、偏上，柔和中性冷光，暗部保留冲锋衣与内搭的材质层次，无背景环境色溢出。背景透明，仅保留人物；衣服、皮肤、头发主体不透明，边缘自然抗锯齿。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、徽标、多人、重复人物、全身远景、超长身体、Q版、像素风、摄影、3D渲染、塑料皮肤、鲜亮霓虹、青绿色脸、过曝、光晕白边、彩色抠图边、棋盘格、实色背景、环境、树木、椅子、地面、标语牌、宣传横幅、武器、战术背心、军服、头盔、动力甲、夸张肌肉、额外肢体、畸形手指。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\matt.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\matt.png.raw.png",
+  "raw_bytes": 1857981,
+  "elapsed_seconds": 38.057,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\matt.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 37.44,
+    "partial_alpha_pct": 62.56,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 446490,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 609,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 609
+      },
+      "output_tokens": 1372,
+      "output_tokens_details": {
+        "image_tokens": 1372,
+        "text_tokens": 0
+      },
+      "total_tokens": 1981
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit"
+}

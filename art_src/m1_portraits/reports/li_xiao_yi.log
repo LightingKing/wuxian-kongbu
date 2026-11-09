@@ -1,0 +1,52 @@
+[gen] openai: running on OPENAI_API_KEY — this is a per-call API charge, not a subscription (model=gpt-image-2.6-flare, quality=auto, size=1024x1536).
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个李萧毅：十七八岁的中国男学生，偏瘦，肩膀窄，脸颊清瘦，尚有学生的青涩感，没有胡须；使用这个年龄自然的少年比例，不画成小孩或成熟壮汉。黑色短发整齐但略有几缕垂在额前，深褐色眼睛。穿深海军蓝与灰白拼色的运动式校服外套，立领、前襟拉链、简单袖侧条带，内搭朴素浅灰色T恤；衣服没有校名、校徽或任何文字。紧张地闭着嘴，眉头收拢，眼睛略睁大，目光不确定地看向画面左侧，肩膀微微绷紧。近正面站立，身体轻微转向画面左侧，双臂贴近身体自然放低，不拿物品，不做夸张尖叫表情。这是独立的新角色，清瘦学生脸与蓝白校服按本段首次锁定，不复制画风参考图中其他人物的脸和衣服。\n\n独立对话用半身立绘，竖幅2:3，目标512×768。画面从完整头顶至腰部下缘，人物居中偏下，头顶留约画布高度8%的完整空白，左右轮廓留安全余量，不裁头发和肩膀。脸占比足够大，上半幅裁为正方形后仍能清楚辨认。主光统一来自画面左前方、偏上，柔和中性冷光，保持自然肤色与蓝白校服的清楚色块，暗部保留衣褶层次，无背景环境色溢出。背景透明，仅保留人物；衣服、皮肤、头发主体不透明，边缘自然抗锯齿。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、校徽、校名、多人、重复人物、全身远景、超长身体、Q版、大头儿童、像素风、摄影、3D渲染、塑料皮肤、鲜亮霓虹、青绿色脸、过曝、光晕白边、彩色抠图边、棋盘格、实色背景、环境、椅子、地面、武器、书包遮脸、成熟胡须、宽厚肌肉、白领衬衫、西装、夸张尖叫、额外肢体、畸形手指。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\li_xiao_yi.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\li_xiao_yi.png.raw.png",
+  "raw_bytes": 1670477,
+  "elapsed_seconds": 22.893,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\li_xiao_yi.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 41.49,
+    "partial_alpha_pct": 58.51,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 532009,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 664,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 664
+      },
+      "output_tokens": 601,
+      "output_tokens_details": {
+        "image_tokens": 601,
+        "text_tokens": 0
+      },
+      "total_tokens": 1265
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\reports\\li_xiao_yi.json"
+}

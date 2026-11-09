@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个小胖子：中国男性青年，圆脸、饱满的脸颊、较圆润的下颌，身材微胖，腹部和上臂有自然软肉，比例真实，不夸张成滑稽人物。黑色短发，平缓的短刘海，深褐色眼睛，五官普通。穿一件宽松、无图案、无文字的低饱和灰蓝色圆领T恤，棉布衣褶自然。两肩明显但克制地向内缩起，脖子略收，双肘靠近身体，双臂低垂；闭嘴，眉尾微抬，眼睛警惕地望向画面左侧，表现身处陌生危险环境中的畏缩和不安。近正面半身站立，不拿食物或其他物品。这是独立的新角色，圆脸、微胖体形、灰蓝T恤与缩肩姿态按本段首次锁定，不复制画风参考图中其他人物的脸和衣服。\n\n独立对话用半身立绘，竖幅2:3，目标512×768。画面从完整头顶至腰部下缘，人物居中偏下，头顶留约画布高度8%的完整空白，左右轮廓留安全余量，不裁头发和肩膀。脸占比足够大，上半幅裁为正方形后仍能清楚辨认圆脸与紧张神情。主光统一来自画面左前方、偏上，柔和中性冷光，自然肤色，暗部保留棉布衣褶层次，无背景环境色溢出。背景透明，仅保留人物；衣服、皮肤、头发主体不透明，边缘自然抗锯齿。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、徽标、多人、重复人物、全身远景、超长身体、Q版、像素风、摄影、3D渲染、塑料皮肤、鲜亮霓虹、青绿色脸、过曝、光晕白边、彩色抠图边、棋盘格、实色背景、环境、椅子、地面、武器、食物、饮料、夸张肥胖、嘲弄表情、滑稽漫画、婴儿或幼童比例、健美肌肉、额外肢体、畸形手指。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\xiao_pang_zi.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\xiao_pang_zi.png.raw.png",
+  "raw_bytes": 1787399,
+  "elapsed_seconds": 24.026,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\xiao_pang_zi.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 33.71,
+    "partial_alpha_pct": 66.29,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 414050,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 648,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 648
+      },
+      "output_tokens": 601,
+      "output_tokens_details": {
+        "image_tokens": 601,
+        "text_tokens": 0
+      },
+      "total_tokens": 1249
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit"
+}

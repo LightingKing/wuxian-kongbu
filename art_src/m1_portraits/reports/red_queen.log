@@ -1,0 +1,52 @@
+[gen] openai: running on OPENAI_API_KEY — this is a per-call API charge, not a subscription (model=gpt-image-2.6-flare, quality=auto, size=1024x1536).
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个火焰女皇：非人智能系统形成的红色全息少女投影。此角色的形体采用少女的自然比例，短直发整齐垂至下颌附近，年轻清晰的面容，目光正视前方，嘴唇闭合，表情完全中性、冷静，没有微笑或愤怒。穿合宜朴素的短袖连衣裙，圆领、肩部与胸部完整遮盖，没有花纹、首饰或装饰性徽记。人物整体由柔和的红色投影光构成，头发、面部与衣服有可辨认的深浅红赛璐璐层次，不能只剩发光线框。身体与服装是有真实透明度的半透明全息形体，面部保留足够清晰度供对话头像辨认；横向扫描线稀疏地穿过轮廓附近，局部轮廓有极轻微的红色投影错位，不能把脸割裂。双臂自然下垂，不拿物品。\n\n独立对话用半身全息立绘，竖幅2:3，目标512×768，从完整头顶到腰部下缘，投影居中偏下，头顶留约画布高度8%的余量，左右轮廓和细微辉光完整留在画布内。保留同批左前方偏上较亮、右侧较暗的体积层次，但这是自发光投影，不画实体人被红灯照亮的效果。上半幅裁为正方形后少女脸部仍清楚可辨认。背景必须是真实RGBA透明，人物以外没有任何实色底、房间或机器；红色扫描线和克制辉光逐渐衰减到完全透明，四周画布边缘完全透明。不要把半透明投影整体变成实心不透明人物，也不要让投影淡到看不清。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、徽标、多人、重复投影、成年艳丽女性、夸张胸部、低领、裸露服装、媚态、恐怖鬼脸、尖牙、红眼特写、面部过曝、没有五官、纯线框人物、实心不透明人物、Q版、像素风、摄影、3D渲染、真人皮肤、火焰、浓烟、大面积光晕、粗密扫描线、蓝绿色投影、黑色背景、白色背景、实色背景、绘制的棋盘格、机房、机柜、地面、底座、投影仪、额外肢体、畸形手指。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\red_queen.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\red_queen.png.raw.png",
+  "raw_bytes": 2039442,
+  "elapsed_seconds": 29.59,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\red_queen.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 36.46,
+    "partial_alpha_pct": 63.54,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 565316,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 705,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 705
+      },
+      "output_tokens": 601,
+      "output_tokens_details": {
+        "image_tokens": 601,
+        "text_tokens": 0
+      },
+      "total_tokens": 1306
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\reports\\red_queen.json"
+}

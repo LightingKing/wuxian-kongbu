@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-slice-sheet",
+  "version": 1,
+  "sheet": "zhushen.png",
+  "grid": [
+    1,
+    1
+  ],
+  "canvas": {
+    "w": 512,
+    "h": 768
+  },
+  "baseline_y": 604.0,
+  "target_height": 440.0,
+  "scale": "cell",
+  "fit": "contain",
+  "factor": null,
+  "factor_from": null,
+  "alpha_cleanup": null,
+  "cells": [
+    {
+      "name": "zhushen",
+      "file": "zhushen.png",
+      "factor": 0.5962059620596206,
+      "factor_from": "target_height",
+      "subject": {
+        "sheet": {
+          "w": 726,
+          "h": 738
+        },
+        "canvas": {
+          "w": 433,
+          "h": 440
+        }
+      },
+      "box": {
+        "x": 40,
+        "y": 91,
+        "w": 433,
+        "h": 513
+      },
+      "anchor": [
+        256.5,
+        604.0
+      ],
+      "clipped_px": 0,
+      "parts": 2
+    }
+  ]
+}

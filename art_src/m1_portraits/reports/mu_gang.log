@@ -1,0 +1,52 @@
+[gen] openai: running on OPENAI_API_KEY — this is a per-call API charge, not a subscription (model=gpt-image-2.6-flare, quality=auto, size=1024x1536).
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个牟钢：成年中国男性，身材壮实，肩背厚实，粗壮的前臂，是常年干体力活的普通劳动者。深黑色短发，略宽的方脸，鼻梁宽实，下颌结实，肤色自然略晒深，不画夸张健美肌肉。穿低饱和灰橄榄色无袖工装背心，厚实布料、简单无字口袋、少量磨损，背心正常遮住胸腹，双臂露出。人物右侧前臂外侧有两道已经愈合的浅色旧疤，疤痕平整，不是流血新伤。嘴唇紧闭，眉头轻皱，神情有些不安但仍强撑镇定。近正面站立，身体轻微转向画面左侧，双肩自然撑开，双臂放低，不拿工具或武器。这是独立的新角色，脸型与工装服饰按本段首次锁定，不复制画风参考图中其他人物的脸和衣服。\n\n独立对话用半身立绘，竖幅2:3，目标512×768。画面从完整头顶至腰部下缘，人物居中偏下，头顶留约画布高度8%的完整空白，左右轮廓留安全余量，不裁头发和肩膀；露出的手臂旧疤清楚但不夸张。脸占比足够大，上半幅裁为正方形后仍能清楚辨认。主光统一来自画面左前方、偏上，柔和中性冷光，暗部保留厚布衣褶和手臂结构，无背景环境色溢出。背景透明，仅保留人物；衣服、皮肤、头发主体不透明，边缘自然抗锯齿。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、徽标、多人、重复人物、全身远景、超长身体、Q版、像素风、摄影、3D渲染、塑料皮肤、鲜亮霓虹、青绿色脸、过曝、光晕白边、彩色抠图边、棋盘格、实色背景、环境、椅子、地面、武器、工具、战术防弹背心、科幻盔甲、赤裸上身、健美舞台肌肉、鲜血、开放伤口、满脸伤疤、额外肢体、畸形手指、长发。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\mu_gang.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\mu_gang.png.raw.png",
+  "raw_bytes": 1997247,
+  "elapsed_seconds": 40.589,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\mu_gang.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 36.15,
+    "partial_alpha_pct": 63.85,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 426397,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 671,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 671
+      },
+      "output_tokens": 1372,
+      "output_tokens_details": {
+        "image_tokens": 1372,
+        "text_tokens": 0
+      },
+      "total_tokens": 2043
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\reports\\mu_gang.json"
+}

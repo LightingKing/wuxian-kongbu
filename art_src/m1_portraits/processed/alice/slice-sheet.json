@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-slice-sheet",
+  "version": 1,
+  "sheet": "alice.png",
+  "grid": [
+    1,
+    1
+  ],
+  "canvas": {
+    "w": 512,
+    "h": 768
+  },
+  "baseline_y": 766.0,
+  "target_height": 705.0,
+  "scale": "cell",
+  "fit": "contain",
+  "factor": null,
+  "factor_from": null,
+  "alpha_cleanup": "alpha-cleanup.json",
+  "cells": [
+    {
+      "name": "alice",
+      "file": "alice.png",
+      "factor": 0.48090040927694405,
+      "factor_from": "target_height",
+      "subject": {
+        "sheet": {
+          "w": 867,
+          "h": 1466
+        },
+        "canvas": {
+          "w": 417,
+          "h": 705
+        }
+      },
+      "box": {
+        "x": 48,
+        "y": 61,
+        "w": 417,
+        "h": 705
+      },
+      "anchor": [
+        256.5,
+        766.0
+      ],
+      "clipped_px": 0,
+      "parts": 1
+    }
+  ]
+}
