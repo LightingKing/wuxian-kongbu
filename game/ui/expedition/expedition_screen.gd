@@ -4,6 +4,10 @@ extends Control
 
 signal battle_needed
 signal ended
+## 想跟某个人说话（剧情人物或队友）。
+signal talk_requested(npc_id: String)
+## 想用自由说辞（交给 AI 评分）过当前的说服检定。
+signal persuade_requested
 
 const ExpeditionView = preload("res://ui/expedition/expedition_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
@@ -33,6 +37,7 @@ var log_label: RichTextLabel
 var pending_box: VBoxContainer
 var action_box: HBoxContainer
 var item_box: HBoxContainer
+var talk_box: HBoxContainer
 var title_label: Label
 var search_button: Button
 var chosen_keywords: Array[String] = []
@@ -71,31 +76,37 @@ func _build() -> void:
 
 	member_label = UiTheme.rich(20)
 	member_label.bbcode_enabled = true
-	member_label.position = Vector2(1000, 240)
-	member_label.size = Vector2(880, 180)
+	member_label.position = Vector2(1000, 236)
+	member_label.size = Vector2(880, 160)
 	add_child(member_label)
 
+	talk_box = HBoxContainer.new()
+	talk_box.position = Vector2(1000, 402)
+	talk_box.size = Vector2(880, 48)
+	talk_box.add_theme_constant_override("separation", 8)
+	add_child(talk_box)
+
 	pending_box = VBoxContainer.new()
-	pending_box.position = Vector2(1000, 425)
-	pending_box.size = Vector2(880, 195)
+	pending_box.position = Vector2(1000, 456)
+	pending_box.size = Vector2(880, 182)
 	pending_box.add_theme_constant_override("separation", 8)
 	add_child(pending_box)
 
 	item_box = HBoxContainer.new()
-	item_box.position = Vector2(1000, 625)
-	item_box.size = Vector2(880, 52)
+	item_box.position = Vector2(1000, 644)
+	item_box.size = Vector2(880, 50)
 	item_box.add_theme_constant_override("separation", 10)
 	add_child(item_box)
 
 	action_box = HBoxContainer.new()
-	action_box.position = Vector2(1000, 685)
-	action_box.size = Vector2(880, 56)
+	action_box.position = Vector2(1000, 700)
+	action_box.size = Vector2(880, 52)
 	action_box.add_theme_constant_override("separation", 10)
 	add_child(action_box)
 
 	log_label = UiTheme.rich(19)
-	log_label.position = Vector2(1000, 752)
-	log_label.size = Vector2(880, 250)
+	log_label.position = Vector2(1000, 760)
+	log_label.size = Vector2(880, 242)
 	add_child(log_label)
 
 	search_button = UiTheme.button("搜索", 20)
@@ -161,6 +172,7 @@ func refresh() -> void:
 		b.disabled = not reachable
 		b.modulate = Color(0.78, 0.84, 1.0, 1.0) if bool(item.get("dark", false)) else Color.WHITE
 
+	_build_talk()
 	_build_pending()
 	_build_items()
 	var here_info: Dictionary = view.ex.st.scenario.location(view.location())
@@ -232,9 +244,49 @@ func _build_pending() -> void:
 		var force := UiTheme.button("硬扛（放弃说服）", 19)
 		force.pressed.connect(press_persuade.bind(0))
 		row2.add_child(force)
+		var free := UiTheme.button("自己说（AI 评分）", 19)
+		free.pressed.connect(press_persuade_free)
+		row2.add_child(free)
 		pending_box.add_child(row2)
 	elif kind == "battle":
 		pending_box.add_child(UiTheme.label("战斗：%s" % "、".join(p["enemies"]), 22, UiTheme.ACCENT))
+
+
+## 列出能搭话的人：最多四个，多的先不显示。
+func _build_talk() -> void:
+	for c in talk_box.get_children():
+		talk_box.remove_child(c)
+		c.queue_free()
+	var targets: Array[Dictionary] = view.talk_targets()
+	if targets.is_empty():
+		talk_box.add_child(UiTheme.label("这里没有能说话的人。", 17, UiTheme.MUTED))
+		return
+	var head := UiTheme.label("搭话：", 17, UiTheme.MUTED)
+	head.custom_minimum_size = Vector2(62, 44)
+	talk_box.add_child(head)
+	for i in mini(targets.size(), 4):
+		var t: Dictionary = targets[i]
+		var b := UiTheme.button(String(t["name"]), 17)
+		b.custom_minimum_size = Vector2(160, 44)
+		b.pressed.connect(press_talk.bind(String(t["id"])))
+		talk_box.add_child(b)
+
+
+func press_talk(npc_id: String) -> bool:
+	var ids: Array[String] = []
+	for t: Dictionary in view.talk_targets():
+		ids.append(String(t["id"]))
+	if not ids.has(npc_id):
+		return false
+	talk_requested.emit(npc_id)
+	return true
+
+
+func press_persuade_free() -> bool:
+	if view.pending().get("kind", "") != "check":
+		return false
+	persuade_requested.emit()
+	return true
 
 
 func press_move(loc_id: String) -> bool:

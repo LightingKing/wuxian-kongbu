@@ -85,6 +85,27 @@ func _npcs_at(loc_id: String) -> Array[String]:
 	return out
 
 
+## 能搭话的人：当前地点的剧情人物 + 同分队的队友。
+func talk_targets() -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	var loc := location()
+	for npc_id: String in ex.st.npcs:
+		var n: Dictionary = ex.st.npcs[npc_id]
+		if String(n["location"]) == loc and bool(n["alive"]):
+			out.append({"id": npc_id, "name": _name(npc_id), "kind": "npc"})
+	var sid := squad_id()
+	if sid != "":
+		for c: String in ex.st.squads[sid]["members"]:
+			if ex.st.is_alive(c):
+				out.append({"id": c, "name": _name(c), "kind": "mate"})
+	return out
+
+
+## 信任到一定门槛会说实话的配置（剧本 trust 段）；没有就返回空字典。
+func trust_def(id: String) -> Dictionary:
+	return (ex.st.scenario.data.get("trust", {}) as Dictionary).get(id, {})
+
+
 ## 手表：主线、剩余时间、击杀、绑定、禁言。
 func watch() -> Dictionary:
 	var sid := squad_id()

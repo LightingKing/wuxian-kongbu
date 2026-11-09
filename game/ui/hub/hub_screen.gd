@@ -3,6 +3,8 @@ extends Control
 ## 只调用 HubView；规则在 core/hub。
 
 signal departed
+## 想向主神提问。
+signal zhushen_requested
 
 const HubView = preload("res://ui/hub/hub_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
@@ -61,6 +63,12 @@ func _build() -> void:
 	depart_button.size = Vector2(180, 52)
 	depart_button.pressed.connect(press_depart)
 	add_child(depart_button)
+
+	var ask := UiTheme.button("问主神", 20)
+	ask.position = Vector2(30, 792)
+	ask.size = Vector2(380, 52)
+	ask.pressed.connect(press_ask_zhushen)
+	add_child(ask)
 
 	tab_box = HBoxContainer.new()
 	tab_box.position = Vector2(450, 24)
@@ -316,6 +324,10 @@ func press_train(skill_id: String, days: int) -> void:
 func press_rest() -> void:
 	status_label.text = _describe(view.rest(1))
 	refresh()
+
+
+func press_ask_zhushen() -> void:
+	zhushen_requested.emit()
 
 
 func press_depart() -> bool:

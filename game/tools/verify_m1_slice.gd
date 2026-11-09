@@ -1,7 +1,8 @@
 extends SceneTree
 ## M1 可玩切片的无头验收：加载主场景，按真实界面路径走一遍
-## 听规则 → 大厅 → 楼梯井（扶人）→ 激光通道（救马修）→ 主机房 → 丧尸战 → 留守
-## → 威胁火焰女皇 → 断电 → 撑到回归 → 结算 → 主神空间 → 存档/读档。
+## 听规则 → 大厅 → 楼梯井（扶人）→ 激光通道（救马修）→ 主机房（跟詹岚搭话）
+## → 推理 → 丧尸战 → 留守 → 自由说辞逼火焰女皇 → 断电 → 撑到回归 → 结算
+## → 主神空间（问主神）→ 存档/读档。
 ## 用法：godot --headless --path game -s res://tools/verify_m1_slice.gd
 ## 加 --capture（不带 --headless）可以截一张结算后的图到 art_src/qa/。
 
@@ -40,6 +41,22 @@ func _run() -> void:
 	_expect(screen.press_move("control"), "进入主机房")
 	_expect(int(main.session.expedition.st.clock) == 45, "第 45 分钟到达主机房")
 	_expect(main.session.expedition.st.tether.is_empty(), "救下马修后绑定解除")
+
+	_expect(screen.has_method("press_talk"), "界面支持搭话")
+	_expect(screen.press_talk("zhan_lan"), "跟同队的詹岚搭话")
+	var dlg: Control = main.panel
+	_expect(dlg != null, "对话框打开")
+	if dlg != null:
+		_expect(dlg.log_label.text.contains("詹岚"), "开场有台词")
+		dlg.press_send("你怎么看张杰")
+		_expect(main.session.dialogues.has("zhan_lan"), "对话记进存档数据")
+		dlg.press_send("他讲规则讲得太顺了")
+		_expect(int(main.dialogue.trust_of("zhan_lan")) >= 2, "两次对话涨到 2 点信任")
+		_expect(bool(main.session.expedition.st.intel.clues_found.has("rules_too_smooth")), "信任换来线索")
+		await _shot("m1_slice_dialogue.png")
+		dlg.press_close()
+		await process_frame
+
 	screen.press_deduce()
 	_expect(int(main.session.expedition.st.clock) == 55, "推理花了 10 分钟")
 	await _shot("m1_slice_expedition.png")
@@ -75,10 +92,20 @@ func _run() -> void:
 	screen.press_rest(35)
 	await process_frame
 	await _shot("m1_slice_persuade.png")
-	_expect(screen.has_method("select_keywords"), "界面支持关键词说服")
-	if screen.has_method("select_keywords"):
-		screen.select_keywords(["威胁", "断电", "激光"])
-		_expect(screen.press_persuade_keywords(), "第 125 分钟用关键词威胁火焰女皇")
+	_expect(screen.has_method("press_persuade_free"), "界面支持自由说辞")
+	var opened := false
+	if screen.has_method("press_persuade_free"):
+		opened = screen.press_persuade_free()
+	_expect(opened, "第 125 分钟打开说服对话")
+	var side: Control = main.panel
+	_expect(side != null, "说服对话框打开")
+	if side != null:
+		side.press_send("我知道激光是你控的。不关闭，我就断电拆板——这是威胁。")
+		await process_frame
+		_expect(bool(main.session.expedition.st.flags.get("queen_helps", false)), "自由说辞说服成功")
+		await _shot("m1_slice_persuade_panel.png")
+		side.press_close()
+		await process_frame
 	screen.press_rest(40)
 	_expect(int(main.session.expedition.st.clock) == 165, "断电事件在第 160 分钟发生")
 	screen.press_rest(5)
@@ -128,6 +155,20 @@ func _run() -> void:
 	_expect(int(main.session.hub.day) == 1, "读档保留天数")
 	_expect(main.session.game.characters["zheng_zha"].owned.has("qigong_low"), "读档保留兑换")
 	_expect(main.session.game.companions.size() == 1, "读档保留造物")
+	_expect(main.session.dialogues.has("zhan_lan"), "读档保留对话记忆")
+
+	_expect(loaded.has_method("press_ask_zhushen"), "主神空间能提问")
+	loaded.press_ask_zhushen()
+	var zs: Control = main.panel
+	_expect(zs != null, "主神对话框打开")
+	if zs != null:
+		zs.press_send("支线怎么拆分")
+		_expect(zs.log_label.text.contains("三个 C"), "主神回答支线规则")
+		zs.press_send("下一部是什么")
+		_expect(zs.log_label.text.contains("权限"), "越界的问题被拒绝")
+		await _shot("m1_slice_zhushen.png")
+		zs.press_close()
+		await process_frame
 
 	var hurt: Array[Dictionary] = loaded.view.repairs()
 	if not hurt.is_empty():
