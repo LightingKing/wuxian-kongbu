@@ -1,0 +1,38 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n一张地下研究设施激光通道的惊险剧情CG，横幅16:9，目标1920×1080，画面填满、不透明。狭窄压迫的金属通道，两侧墙板和顶灯画成有手绘笔触的动画背景，冷蓝灰暗部为主，空间尽头是一扇只剩狭窄逃生缝隙的厚重安全门。相机在人眼高度，略偏离中轴，从通道一端向窄门看，透视引导视线落向中景的危险。\n\n一面由少量清楚、笔直的红色激光横线与竖线组成的网格位于通道中景，正向窄门前合拢推进；激光网严格处于一个平面，短促红光映亮临近墙板和地面，激光后面的窄门仍清楚可见。网格集中在通道中部，保留两侧冷暗区和前景留白，不以密线铺满整幅画。靠近窄门处有两个人的成年雇佣兵深色剪影，一个稍侧身后退，另一个抬手作出急迫反应；两人有明确分开的头、躯干和四肢，处于红光的威胁下，突出危险正在逼近的瞬间。剪影不提供具体可辨认人物面部，不画受害者被切割。环境比激光暗，亮部面积克制，红色危险与冷色阴影形成强烈但不过曝的对比。保持二维动画电影分镜的手绘感。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、标识牌、摄影、真人电影截图、3D渲染、游戏引擎截图、光追、镜面墙面、光洁商业展厅、过亮通道、纯白灯光、大面积过曝、满屏密集激光、激光遮住所有人物、无规则弯曲光束、激光穿过墙壁、彩虹霓虹、血肉切割、断肢、尸块、夸张血浆、挤在一起无法辨认的人群、Q版、像素风、拼贴、上下黑边、透明背景。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\cg_laser.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\cg_laser.png.raw.png",
+  "raw_bytes": 1866715,
+  "elapsed_seconds": 29.189,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": false,
+  "alpha": null,
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1536x864",
+    "background": "opaque",
+    "usage": {
+      "input_tokens": 608,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 608
+      },
+      "output_tokens": 301,
+      "output_tokens_details": {
+        "image_tokens": 301,
+        "text_tokens": 0
+      },
+      "total_tokens": 909
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit"
+}

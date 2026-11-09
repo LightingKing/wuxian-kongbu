@@ -1,0 +1,52 @@
+[gen] openai: running on OPENAI_API_KEY — this is a per-call API charge, not a subscription (model=gpt-image-2.6-flare, quality=auto, size=1024x1536).
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "openai",
+  "prompt": "日系动漫剧情插画，干净深色轮廓线，清晰赛璐璐色块与少量柔和阴影，自然成人比例，低饱和冷灰蓝与灰紫暗部，自然肤色，克制的电影感恐怖氛围，极轻微胶片颗粒，无文字。\n\n只画一个张杰：三十多岁中国男性，黑色寸头，宽肩、结实的老兵体格，略方的脸，目光老练。穿无文字无徽标的深炭灰色短袖实用上衣，领口和衣褶自然。嘴角带一点随意而自信的笑，像对危险已经习以为常，不露出夸张大笑。近正面站立，身体轻微转向画面左侧。右手握着且只握着一把大型沙漠之鹰手枪，枪为哑光深枪灰色，有可辨认的宽厚方形套筒；右肘弯曲，枪位于胸前靠身体右侧，枪口斜朝上方远离头部，食指贴在扳机护圈外。左手自然放低，不拿第二把枪。把持枪的手和整把枪画完整，轮廓清楚，五指结构自然，枪不遮挡脸。\n\n独立对话用半身立绘，竖幅2:3，目标512×768。画面从完整头顶至腰部下缘，人物居中偏下，头顶留约画布高度8%的完整空白，左右轮廓、枪口和手肘均留安全余量。脸占比足够大，上半幅裁为正方形后仍能清楚辨认。主光统一来自画面左前方、偏上，柔和中性冷光，暗部保留衣褶层次，无背景环境色溢出。背景透明，仅保留人物及手中一把枪；衣服、皮肤、头发和枪主体不透明，边缘自然抗锯齿。\n\n负向要求：文字、字母、数字、水印、签名、边框、UI、徽标、多人、重复人物、全身远景、超长身体、Q版、像素风、摄影、3D渲染、塑料皮肤、鲜亮霓虹、青绿色脸、过曝、光晕白边、彩色抠图边、棋盘格、实色背景、环境、椅子、地面、双枪、第二把武器、枪口火光、射击动作、枪遮脸、手枪变步枪、枪管弯曲、手与枪粘连、额外手指、缺指、多肢、夸张伤疤、长发。",
+  "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\zhang_jie.png",
+  "raw": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\zhang_jie.png.raw.png",
+  "raw_bytes": 1862585,
+  "elapsed_seconds": 42.077,
+  "model": "gpt-image-2.6-flare",
+  "session_id": null,
+  "refs": [],
+  "transparent": true,
+  "alpha": {
+    "strategy": "native",
+    "strategy_source": "explicit",
+    "out": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\sources\\zhang_jie.png",
+    "mode": "RGBA",
+    "method": "native",
+    "size": "1024x1536",
+    "alpha_zero_pct": 40.71,
+    "partial_alpha_pct": 59.29,
+    "opaque_pct": 0.0,
+    "cleaned_transparent_rgb_pixels": 507740,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": null,
+  "extra": {
+    "auth_source": "OPENAI_API_KEY",
+    "transport": "openai-api",
+    "endpoint": "/images/generations",
+    "quality": "auto",
+    "size": "1024x1536",
+    "background": "transparent",
+    "usage": {
+      "input_tokens": 640,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 640
+      },
+      "output_tokens": 1372,
+      "output_tokens_details": {
+        "image_tokens": 1372,
+        "text_tokens": 0
+      },
+      "total_tokens": 2012
+    },
+    "rate_limit": {}
+  },
+  "provider_resolved_from": "explicit",
+  "report": "I:\\workspace\\mobilegame\\wuxian-kongbu\\art_src\\m1_portraits\\reports\\zhang_jie.json"
+}

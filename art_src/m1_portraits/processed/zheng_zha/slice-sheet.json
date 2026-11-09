@@ -1,0 +1,50 @@
+{
+  "kind": "sprite-gen-slice-sheet",
+  "version": 1,
+  "sheet": "zheng_zha.png",
+  "grid": [
+    1,
+    1
+  ],
+  "canvas": {
+    "w": 512,
+    "h": 768
+  },
+  "baseline_y": 766.0,
+  "target_height": 705.0,
+  "scale": "cell",
+  "fit": "contain",
+  "factor": null,
+  "factor_from": null,
+  "alpha_cleanup": "alpha-cleanup.json",
+  "cells": [
+    {
+      "name": "zheng_zha",
+      "file": "zheng_zha.png",
+      "factor": 0.4769959404600812,
+      "factor_from": "target_height",
+      "subject": {
+        "sheet": {
+          "w": 868,
+          "h": 1478
+        },
+        "canvas": {
+          "w": 414,
+          "h": 705
+        }
+      },
+      "box": {
+        "x": 49,
+        "y": 61,
+        "w": 414,
+        "h": 705
+      },
+      "anchor": [
+        256.0,
+        766.0
+      ],
+      "clipped_px": 0,
+      "parts": 1
+    }
+  ]
+}

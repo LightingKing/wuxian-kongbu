@@ -93,3 +93,22 @@
 - 当前 sprite-gen / Codex image_gen 不支持 seed 参数，五份提示词将 seed 如实记为 `null`；无法验证“同 seed 重跑结果接近”。后续以固定人物描述、已验收参考图和原生生成报告维持一致性，需验收时确认这一工具限制。
 - 清单计数提示：第二批应为其余 **12 张立绘**（16 − 4），原文“11 张”少算一张。
 - 验证：仓库根目录 `bash game/tools/run_tests.sh` 退出 0，共 380 个测试，失败 0 个；`git ls-files '*.png' '*.gif'` 输出为空。未改游戏代码、数据或 `_work/`。
+
+### 2026-11-09：第一批 5 张完成，待风格验收
+
+用户随后明确授权使用 `https://hy.nps1.aizhidong.com:8443/` 网关和本机已配置的 API key。模型列表确认有 `gpt-image-2.6-flare` 与 `gpt-image-2.6-sunburst`，本批用 sprite-gen 的 `openai` 适配器调用前者，共 5 次生图、每张一次，无重生成。密钥仅注入子进程环境，没有写入仓库或生成记录。
+
+| ID | 本机成品路径 | 尺寸 / 模式 | SHA-256 |
+|---|---|---|---|
+| 郑吒 | `game/art/portraits/zheng_zha.png` | 512×768 RGBA | `f39b4148f2fe4fa78dfea151c663e903e614d1975856e1ca85385c53aa26a9b9` |
+| 詹岚 | `game/art/portraits/zhan_lan.png` | 512×768 RGBA | `11a3706e043d1a59a171cd637aa65da31ff7ca5bf49db1da212d4ad0429cf785` |
+| 张杰 | `game/art/portraits/zhang_jie.png` | 512×768 RGBA | `8d8b58d2cd1ac78b5ea936aba6fa5c47df9019258e2b9043db6e953e39b734cf` |
+| 马修 | `game/art/portraits/matthew.png` | 512×768 RGBA | `8d283bd222bc0e178f6dbe368d6b1a10c8fb1a20947081be93892eb21c78c208` |
+| 激光通道 | `game/art/cg/cg_laser.png` | 1920×1080 RGB | `dee94b75f5e7d6aa9a0ecaba569a84049e80f9021afaa9b213e0809333032bf3` |
+
+- 原图、原生生成报告、提示词提取副本、处理报告、预览、QA 和复现步骤保存在 `art_src/m1_portraits/`；完整提示词在 `art_src/prompts/`，最终校验和在 `art_src/qa/portraits.sha256`。
+- 立绘原图为 1024×1536 RGBA，sprite-gen 原生单格 `slice-sheet` 清理外围透明雾点并统一画布，头顶有效余量 61～62px；四角和四条外边全透明，处理未裁掉主体。CG 实际返回 1672×941，使用已有 `fit_canvas.py` 等比适配，右侧补 1px 暗色。没有修改该脚本或其他游戏代码/数据。
+- 主代理及独立代理实际查看深浅底立绘、328×328 头像、CG：人物外观与规定服装清楚，张杰只有一把枪，未见明显肢体错误或文字水印；全部技术检查通过。此结论不替代 Claude／用户风格验收。
+- 已知限制：人物主体 alpha 主要为 253（约 99.2% 不透明），保留原生轻微透明并在 QA 记录；CG 金属反光较立绘更写实，激光网合拢的动势偏静态。当前首批没有新增必须补充的人物设定歧义；张杰深灰上衣、马修深色战术装备等细节见提示词，验收后再作为固定描述。
+- 成品落盘后运行 `bash game/tools/run_tests.sh`：退出 0，共 380 个测试、失败 0 个；5 项最终 SHA-256 与文件重新计算结果一致，完整提示词与实际请求一致。图片仅留本机，未改 `_work/`。
+- **停在第一批验收点**：依照本卡“做完先停，等 Claude 看图确认，再批量”，第二批 12 张立绘与第三批 3 张 CG 尚未开始。
