@@ -1,0 +1,104 @@
+{
+	"version": 1,
+	"events": [
+		{
+			"id": "zhang_jie_alliance",
+			"day_min": 1,
+			"when": {"alive": ["zhang_jie", "zheng_zha"]},
+			"prompt": "张杰把活下来的人叫到广场上：「以后你们就是一队了。我说的话，最好都记着。」",
+			"default": "accept",
+			"options": [
+				{"id": "accept", "text": "认他当带头的老手", "effects": [
+					{"rel_change": {"from": "all", "to": "zhang_jie", "deltas": {"trust": 10}}},
+					{"relation": {"kind": "heeded_rules", "actor": "zheng_zha", "target": "zhang_jie"}},
+					{"say": {"speaker": "zhang_jie", "text": "行。那下一部，先听我的。"}}
+				]},
+				{"id": "own_way", "text": "我们自己拿主意", "effects": [
+					{"rel_change": {"from": ["zhang_jie"], "to": "zheng_zha", "deltas": {"trust": -5}}},
+					{"rel_change": {"from": "all", "to": "zheng_zha", "deltas": {"awe": 5}}},
+					{"say": {"speaker": "zhang_jie", "text": "随你。死了别怪我没提醒。"}}
+				]}
+			]
+		},
+		{
+			"id": "no_veteran",
+			"day_min": 1,
+			"when": {"dead": ["zhang_jie"], "alive": ["zheng_zha"]},
+			"prompt": "张杰没能回来。广场上没人说话，大家都看着郑吒。",
+			"default": "share",
+			"options": [
+				{"id": "lead", "text": "站出来：以后我拿主意", "effects": [
+					{"rel_change": {"from": "all", "to": "zheng_zha", "deltas": {"awe": 10}}}
+				]},
+				{"id": "share", "text": "大家商量着来", "effects": [
+					{"rel_change": {"from": "all", "to": "zheng_zha", "deltas": {"trust": 5}}}
+				]}
+			]
+		},
+		{
+			"id": "newbie_stays",
+			"day_min": 2,
+			"when": {"alive": ["zheng_zha"], "any_alive": ["li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"]},
+			"prompt": "{who_name}缩在广场角落里，说下一部片不想再跟着队伍跑了。",
+			"default": "let_go",
+			"options": [
+				{"id": "encourage", "text": "陪他聊聊，拉他一起练", "effects": [
+					{"rel_change": {"from": ["{who}"], "to": "zheng_zha", "deltas": {"trust": 10, "affection": 5}}},
+					{"fear": {"chars": ["{who}"], "amount": -15}}
+				]},
+				{"id": "let_go", "text": "随他去", "effects": [
+					{"rel_change": {"from": ["{who}"], "to": "zheng_zha", "deltas": {"trust": -5}}},
+					{"fear": {"chars": ["{who}"], "amount": 5}}
+				]}
+			]
+		},
+		{
+			"id": "lori_meets_team",
+			"day_min": 2,
+			"when": {"companion_of": "zheng_zha", "alive": ["zheng_zha"]},
+			"prompt": "萝丽跟着郑吒来到广场，好奇又有点怕地看着其他人。",
+			"default": "keep_room",
+			"options": [
+				{"id": "introduce", "text": "把她介绍给大家", "effects": [
+					{"companion": {"creator": "zheng_zha", "mood": 10, "security": 10}}
+				]},
+				{"id": "keep_room", "text": "让她先回房间", "effects": [
+					{"companion": {"creator": "zheng_zha", "dependence": 10, "mood": -5}}
+				]}
+			]
+		},
+		{
+			"id": "zhan_lan_talk",
+			"day_min": 3,
+			"when": {"alive": ["zhan_lan", "zheng_zha"]},
+			"prompt": "詹岚一早来找郑吒：「我一直在想，主神为什么让我们活下来。」",
+			"default": "busy",
+			"options": [
+				{"id": "listen", "text": "坐下来听她说完", "effects": [
+					{"rel_change": {"from": ["zhan_lan"], "to": "zheng_zha", "deltas": {"trust": 8, "affection": 5}}},
+					{"codex": ["team_rating"]},
+					{"say": {"speaker": "zhan_lan", "text": "它在给我们打分。活得越好，下一部越难。"}}
+				]},
+				{"id": "busy", "text": "改天再说", "effects": [
+					{"rel_change": {"from": ["zhan_lan"], "to": "zheng_zha", "deltas": {"affection": -5}}}
+				]}
+			]
+		},
+		{
+			"id": "points_help",
+			"day_min": 4,
+			"when": {"any_alive": ["li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"], "points_min": {"zheng_zha": 500}},
+			"prompt": "{who_name}红着脸来问郑吒，能不能借点点数，想换点保命的东西。",
+			"default": "refuse",
+			"options": [
+				{"id": "give", "text": "给他五百点", "effects": [
+					{"points": {"from": "zheng_zha", "to": "{who}", "amount": 500}},
+					{"rel_change": {"from": ["{who}"], "to": "zheng_zha", "deltas": {"trust": 15, "affection": 10}}}
+				]},
+				{"id": "refuse", "text": "点数我自己也要用", "effects": [
+					{"rel_change": {"from": ["{who}"], "to": "zheng_zha", "deltas": {"trust": -5}}}
+				]}
+			]
+		}
+	]
+}

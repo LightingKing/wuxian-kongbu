@@ -188,6 +188,43 @@ func test_talk_trust_capped() -> void:
 	assert_eq(s.talked("zheng_zha"), [] as Array[Dictionary])
 
 
+## 铁人模式：随存档走；不能手动存档。宽松模式可以。
+func test_iron_man_flag() -> void:
+	var a := Session.new()
+	a.start_m1(1, true)
+	assert_true(a.iron_man)
+	assert_true(a.game.iron_man)
+	assert_false(a.can_save_manually())
+	var b := Session.new()
+	assert_true(b.load_dict(a.to_dict()))
+	assert_true(b.iron_man)
+	var c := Session.new()
+	c.start_m1(1)
+	assert_true(c.can_save_manually())
+	var old: Dictionary = c.to_dict()
+	old.erase("iron_man")
+	var d := Session.new()
+	assert_true(d.load_dict(old))
+	assert_false(d.iron_man, "旧存档没有这个字段，按宽松模式读")
+
+
+## 全员死亡：结算后进 lost，没有主神空间；lost 也能存读。
+func test_wipe_is_lost() -> void:
+	var s := Session.new()
+	s.start_m1(1)
+	for c: String in s.game.characters:
+		s.game.characters[c].alive = false
+	s.expedition.st.outcome = "wiped"
+	assert_true(s.lost())
+	s.settle()
+	assert_eq(s.phase, "lost")
+	assert_true(s.hub == null)
+	assert_false(s.enter_hub())
+	var t := Session.new()
+	assert_true(t.load_dict(s.to_dict()))
+	assert_eq(t.phase, "lost")
+
+
 func test_reject_bad_save() -> void:
 	assert_false(Session.new().load_dict({"version": 99}))
 	assert_false(Session.new().load_dict({"version": 1, "chapter": "res://nope.json", "game": {}}))

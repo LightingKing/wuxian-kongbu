@@ -6,6 +6,7 @@
 	"members": ["zheng_zha", "zhang_jie", "zhan_lan", "li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"],
 	"leader": "zheng_zha",
 	"hub_tour_guide": "zhang_jie",
+	"morning_events": "res://data/hub/m1_morning.json",
 	"agenda": {
 		"expected_wipe": true,
 		"anomalies": [

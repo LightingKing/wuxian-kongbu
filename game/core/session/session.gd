@@ -1,6 +1,8 @@
 extends RefCounted
 ## 一局游戏（设计规格 2、10.2）：把 GameState、当前远征、阶段和休整天数装在一起。
 ## 阶段：expedition（在片子里）→ settlement（刚回归，结算完）→ hub（主神空间休整 9 天）→ done（下一次出发，M2 未做）。
+## 全员死亡时结算后进 lost（任务失败，没有主神空间可回）。
+## 存档方式（设计规格 7.7）：铁人模式只有一个自动存档、不能手动存读、全灭就删档；宽松模式有三个手动槽。
 ## 界面只读这里的 game / expedition，并调用这里的方法推进；存档就是 to_dict()。
 
 const GameState = preload("res://core/model/game_state.gd")
@@ -10,10 +12,11 @@ const Expedition = preload("res://core/expedition/expedition.gd")
 const SaveService = preload("res://core/save/save_service.gd")
 const Hub = preload("res://core/hub/hub.gd")
 const Agenda = preload("res://core/director/agenda.gd")
+const Companion = preload("res://core/hub/companion.gd")
 
 const VERSION := 1
 const M1_CHAPTER := "res://data/scenarios/biohazard1/chapter.json"
-const PHASES: Array[String] = ["expedition", "settlement", "hub", "done"]
+const PHASES: Array[String] = ["expedition", "settlement", "hub", "done", "lost"]
 const REST_DAYS := 9
 
 var game: RefCounted
@@ -32,15 +35,23 @@ var dialogues: Dictionary = {}
 ##   "tour_guide": 回归当晚带新人认识主神空间的人（没人带就是空）, "tour_entries": 因此解锁的规则百科条目}。
 var film_report: Dictionary = {}
 
+## 铁人模式：只有一个自动存档，不能手动存读，全灭就删档。
+var iron_man: bool = false
+## 走光柱时造物们的反应：[{"companion", "name", "line", "fear"}]。
+var farewells: Array = []
+
 ## 聊天能拉近关系，但只到这里；再往上要靠行动（救人、并肩作战）。
 const TALK_TRUST_STEP := 2.0
 const TALK_TRUST_CAP := 60.0
 
 
-## 开一局：建 GameState、按章节装配七名轮回者、开始第一部片。
-func start(chapter: String, seed_value: int = 0) -> bool:
+## 开一局：建 GameState、按章节装配七名轮回者、开始第一部片。iron 为 true 是铁人模式。
+func start(chapter: String, seed_value: int = 0, iron: bool = false) -> bool:
 	chapter_path = chapter
 	game = GameState.new(seed_value)
+	iron_man = iron
+	game.iron_man = iron
+	farewells = []
 	expedition = Campaign.start(game, chapter)
 	if expedition == null:
 		return false
@@ -53,8 +64,18 @@ func start(chapter: String, seed_value: int = 0) -> bool:
 	return true
 
 
-func start_m1(seed_value: int = 0) -> bool:
-	return start(M1_CHAPTER, seed_value)
+func start_m1(seed_value: int = 0, iron: bool = false) -> bool:
+	return start(M1_CHAPTER, seed_value, iron)
+
+
+## 铁人模式不能手动存档（也不能手动读档）。
+func can_save_manually() -> bool:
+	return not iron_man
+
+
+## 这部片全员死亡：任务失败。
+func lost() -> bool:
+	return expedition != null and String(expedition.st.outcome) == "wiped"
 
 
 func in_expedition() -> bool:
@@ -89,8 +110,13 @@ func settle() -> Dictionary:
 	settlement = expedition.finish()
 	var chapter := Campaign.load_chapter(chapter_path)
 	film_report = _rate_film(chapter)
+	if lost():
+		phase = "lost"
+		hub = null
+		return settlement
+	_companions_follow_creators()
 	hub = Hub.new()
-	hub.start(game, REST_DAYS)
+	hub.start(game, REST_DAYS, String(chapter.get("morning_events", "")))
 	_hub_tour(chapter)
 	phase = "settlement"
 	day = hub.day
@@ -122,6 +148,20 @@ func _rate_film(chapter: Dictionary) -> Dictionary:
 		"film": film, "members": st.roster.size(), "survivors": survivors,
 		"rating_before": int(r["before"]), "rating_after": int(r["after"]), "reasons": (r["reasons"] as Array).duplicate(),
 	}
+
+
+## 制造者死在片里，他的造物和房间一起消失（设计规格 6.6）。消失的名字记进 film_report.companions_lost。
+func _companions_follow_creators() -> void:
+	var kept: Array = []
+	var gone: Array = []
+	for c: Dictionary in game.companions:
+		var creator := String(c["creator"])
+		if game.characters.has(creator) and game.characters[creator].alive:
+			kept.append(c)
+		else:
+			gone.append(String(c["name"]))
+	game.companions = kept
+	film_report["companions_lost"] = gone
 
 
 ## 回归当晚：老手（章节的 hub_tour_guide）还活着，就带新人认识光球和房间，规则百科的 hub_tour 组解锁；
@@ -169,10 +209,18 @@ func can_depart() -> bool:
 	return phase == "hub" and hub != null and hub.can_depart()
 
 
-## 走光柱出发；M2 的内容还没做，先把阶段停在 done。
+## 走光柱出发；M2 的内容还没做，先把阶段停在 done。造物们各说一句话，亲密够高的让制造者安心些。
 func depart() -> bool:
 	if not can_depart():
 		return false
+	farewells = []
+	for c: Dictionary in game.companions:
+		var creator: RefCounted = game.characters.get(String(c["creator"]), null)
+		if creator == null or not creator.alive:
+			continue
+		var f := Companion.farewell(c)
+		creator.fear = clampf(creator.fear + float(f["fear"]), 0.0, 100.0)
+		farewells.append(f)
 	phase = "done"
 	return true
 
@@ -189,6 +237,8 @@ func to_dict() -> Dictionary:
 		"settlement": settlement.duplicate(true),
 		"dialogues": dialogues.duplicate(true),
 		"film_report": film_report.duplicate(true),
+		"iron_man": iron_man,
+		"farewells": farewells.duplicate(true),
 	}
 
 
@@ -209,6 +259,9 @@ func load_dict(d: Dictionary) -> bool:
 	settlement = (d.get("settlement", {}) as Dictionary).duplicate(true)
 	dialogues = (d.get("dialogues", {}) as Dictionary).duplicate(true)
 	film_report = (d.get("film_report", {}) as Dictionary).duplicate(true)
+	iron_man = bool(d.get("iron_man", false))
+	game.iron_man = iron_man
+	farewells = (d.get("farewells", []) as Array).duplicate(true)
 	var h: Dictionary = d.get("hub", {})
 	if not h.is_empty():
 		hub = Hub.new()
