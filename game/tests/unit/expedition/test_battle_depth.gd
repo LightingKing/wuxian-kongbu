@@ -15,6 +15,8 @@ func _at_control() -> RefCounted:
 	ex.choose("help")
 	ex.move("s1", "laser")
 	ex.dismiss_cutscene()
+	assert_eq(String(ex.st.pending_check.get("id", "")), "convince_matthew")
+	ex.resolve_persuasion(2)
 	ex.choose("save_matthew")
 	ex.move("s1", "control")
 	return s
