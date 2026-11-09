@@ -405,6 +405,7 @@ func _on_talk(npc_id: String) -> void:
 	var title: String = dialogue.display_name(npc_id)
 	_open_panel(title, "%s · 第 %d 分钟" % [_location_name(), int(session.expedition.st.clock)], "talk")
 	var p: Control = panel
+	p.set_portrait(npc_id)
 	p.set_status("……")
 	dialogue.say(npc_id, "", _situation(), func(res: Dictionary) -> void:
 		if panel != p:
@@ -486,6 +487,7 @@ func _on_persuade_free() -> void:
 		return
 	var npc := String(check["npc"])
 	_open_panel("%s · 说服" % dialogue.display_name(npc), String(check["goal"]), "persuade")
+	panel.set_portrait(npc)
 	panel.push("（局面）", "要让对方点头：%s" % String(check["goal"]))
 	panel.persuading.connect(_on_persuade_text)
 
@@ -514,6 +516,7 @@ func _on_persuade_text(text: String) -> void:
 
 func _on_ask_zhushen() -> void:
 	_open_panel("主神", "巨大的光球悬在头顶，没有表情。", "talk")
+	panel.set_portrait("zhushen")
 	panel.push("主神", "问。")
 	panel.submitted.connect(_on_zhushen_question)
 

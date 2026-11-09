@@ -9,6 +9,7 @@ signal reply_picked(text: String)
 signal closed
 
 const UiTheme = preload("res://ui/ui_theme.gd")
+const PixelArt = preload("res://core/art/pixel_art.gd")
 
 var panel: Panel
 var title_label: Label
@@ -18,6 +19,9 @@ var reply_box: HBoxContainer
 var input: LineEdit
 var send_button: Button
 var status_label: Label
+## 右侧立绘位：现在放放大后的像素头像占位，等 Codex 的剧情立绘到位后换成贴图。
+var portrait: TextureRect
+var portrait_caption: Label
 var mode: String = "talk"
 var _lines: Array[String] = []
 var _built := false
@@ -63,33 +67,50 @@ func build() -> void:
 	log_label = UiTheme.rich(21)
 	log_label.bbcode_enabled = true
 	log_label.position = Vector2(28, 96)
-	log_label.size = Vector2(1184, 470)
+	log_label.size = Vector2(800, 470)
 	panel.add_child(log_label)
 
 	reply_box = HBoxContainer.new()
 	reply_box.position = Vector2(28, 578)
-	reply_box.size = Vector2(1184, 56)
+	reply_box.size = Vector2(800, 56)
 	reply_box.add_theme_constant_override("separation", 10)
 	panel.add_child(reply_box)
 
 	input = LineEdit.new()
 	input.position = Vector2(28, 650)
-	input.size = Vector2(920, 54)
+	input.size = Vector2(600, 54)
 	input.placeholder_text = "说点什么……"
 	input.add_theme_font_size_override("font_size", 20)
 	input.text_submitted.connect(func(_t: String) -> void: _on_send())
 	panel.add_child(input)
 
 	send_button = UiTheme.button("说", 21)
-	send_button.position = Vector2(964, 650)
-	send_button.size = Vector2(248, 54)
+	send_button.position = Vector2(644, 650)
+	send_button.size = Vector2(184, 54)
 	send_button.pressed.connect(_on_send)
 	panel.add_child(send_button)
 
 	status_label = UiTheme.label("", 16, UiTheme.MUTED)
 	status_label.position = Vector2(28, 722)
-	status_label.size = Vector2(1184, 24)
+	status_label.size = Vector2(800, 24)
 	panel.add_child(status_label)
+
+	var frame := Panel.new()
+	frame.position = Vector2(856, 96)
+	frame.size = Vector2(356, 650)
+	frame.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.DARK, UiTheme.LINE, 8))
+	panel.add_child(frame)
+	portrait = TextureRect.new()
+	portrait.position = Vector2(14, 14)
+	portrait.size = Vector2(328, 328)
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_SCALE
+	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	frame.add_child(portrait)
+	portrait_caption = UiTheme.label("", 15, UiTheme.MUTED)
+	portrait_caption.position = Vector2(14, 352)
+	portrait_caption.size = Vector2(328, 280)
+	frame.add_child(portrait_caption)
 
 
 ## 打开对话框：清空记录、设定称呼与副标题。
@@ -102,6 +123,7 @@ func open_for(title: String, subtitle: String, dialogue_mode: String = "talk") -
 	sub_label.text = subtitle
 	set_mode(dialogue_mode)
 	set_status("")
+	set_portrait("", 1.0)
 	show()
 	if is_inside_tree():
 		input.grab_focus()
@@ -161,6 +183,17 @@ func _on_send(forced: String = "") -> void:
 		persuading.emit(text)
 	else:
 		submitted.emit(text)
+
+
+## 立绘位：现在用像素头像放大占位；剧情立绘（512×768）到位后这里换成 load("res://art/portraits/<id>.png")。
+func set_portrait(id: String, zoom: float = 6.0) -> void:
+	build()
+	if id == "":
+		portrait.texture = null
+		portrait_caption.text = ""
+		return
+	portrait.texture = PixelArt.portrait(id)
+	portrait_caption.text = "%s\n\n立绘位（%d×%d 像素头像占位，放大 %.0f 倍）\n正式立绘 512×768 · 待 Codex 生成" % [id, PixelArt.UNIT_SIZE, PixelArt.UNIT_SIZE, zoom]
 
 
 ## 供测试与验收脚本用：等于点了"说"。

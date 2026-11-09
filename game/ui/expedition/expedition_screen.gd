@@ -12,6 +12,7 @@ signal persuade_requested
 const ExpeditionView = preload("res://ui/expedition/expedition_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
+const PixelArt = preload("res://core/art/pixel_art.gd")
 
 
 ## 画通路的小画布：地点按钮是它的子节点。
@@ -124,9 +125,12 @@ func _build() -> void:
 
 	for loc_id: String in view.ex.st.scenario.data["locations"]:
 		var btn := UiTheme.map_button("")
+		btn.icon = PixelArt.place(loc_id)
+		btn.add_theme_constant_override("icon_max_width", 22)
+		btn.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var pos: Array = view.ex.st.scenario.location(loc_id).get("pos", [0, 0])
 		btn.position = Vector2(float(pos[0]), float(pos[1]))
-		btn.size = Vector2(180, 62)
+		btn.size = Vector2(196, 62)
 		btn.pressed.connect(_on_location.bind(loc_id))
 		map_canvas.add_child(btn)
 		location_buttons[loc_id] = btn
@@ -164,9 +168,9 @@ func refresh() -> void:
 		elif not bool(item.get("adjacent", false)):
 			text = "  " + text
 		if (item.get("npcs", []) as Array).size() > 0:
-			text += " ·人"
+			text += " 人"
 		if bool(item.get("risk", false)):
-			text += " ·险"
+			text += " 险"
 		b.text = text
 		var reachable := bool(item.get("here", false)) or (bool(item.get("adjacent", false)) and bool(item.get("open", true)))
 		b.disabled = not reachable

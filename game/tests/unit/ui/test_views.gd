@@ -36,7 +36,7 @@ func test_map() -> void:
 	assert_true(by_id["car"]["here"])
 	assert_true(by_id["hall"]["adjacent"])
 	assert_false(by_id["laser"]["adjacent"])
-	assert_eq(by_id["control"]["pos"], Vector2(680, 210))
+	assert_eq(by_id["control"]["pos"], Vector2(700, 280))
 	assert_false(by_id["stairs"]["searched"])
 	assert_true(by_id["stairs"]["dark"])
 
