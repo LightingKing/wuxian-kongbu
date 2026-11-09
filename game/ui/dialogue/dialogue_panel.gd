@@ -10,6 +10,7 @@ signal closed
 
 const UiTheme = preload("res://ui/ui_theme.gd")
 const PixelArt = preload("res://core/art/pixel_art.gd")
+const PortraitSource = preload("res://core/art/portrait_source.gd")
 
 var panel: Panel
 var title_label: Label
@@ -38,7 +39,7 @@ func build() -> void:
 	_built = true
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	var mask := ColorRect.new()
-	mask.color = Color(0, 0, 0, 0.62)
+	mask.color = Color(0, 0, 0, 0.78)
 	mask.set_anchors_preset(Control.PRESET_FULL_RECT)
 	mask.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(mask)
@@ -102,14 +103,14 @@ func build() -> void:
 	panel.add_child(frame)
 	portrait = TextureRect.new()
 	portrait.position = Vector2(14, 14)
-	portrait.size = Vector2(328, 328)
+	portrait.size = Vector2(328, 492)
 	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	portrait.stretch_mode = TextureRect.STRETCH_SCALE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	frame.add_child(portrait)
 	portrait_caption = UiTheme.label("", 15, UiTheme.MUTED)
-	portrait_caption.position = Vector2(14, 352)
-	portrait_caption.size = Vector2(328, 280)
+	portrait_caption.position = Vector2(14, 516)
+	portrait_caption.size = Vector2(328, 110)
 	frame.add_child(portrait_caption)
 
 
@@ -123,7 +124,7 @@ func open_for(title: String, subtitle: String, dialogue_mode: String = "talk") -
 	sub_label.text = subtitle
 	set_mode(dialogue_mode)
 	set_status("")
-	set_portrait("", 1.0)
+	set_portrait("")
 	show()
 	if is_inside_tree():
 		input.grab_focus()
@@ -185,15 +186,20 @@ func _on_send(forced: String = "") -> void:
 		submitted.emit(text)
 
 
-## 立绘位：现在用像素头像放大占位；剧情立绘（512×768）到位后这里换成 load("res://art/portraits/<id>.png")。
-func set_portrait(id: String, zoom: float = 6.0) -> void:
+## 立绘位：有正式立绘（res://art/portraits/<id>.png）就用，没有退回像素头像。
+func set_portrait(id: String) -> void:
 	build()
 	if id == "":
 		portrait.texture = null
 		portrait_caption.text = ""
 		return
-	portrait.texture = PixelArt.portrait(id)
-	portrait_caption.text = "%s\n\n立绘位（%d×%d 像素头像占位，放大 %.0f 倍）\n正式立绘 512×768 · 待 Codex 生成" % [id, PixelArt.UNIT_SIZE, PixelArt.UNIT_SIZE, zoom]
+	portrait.texture = PortraitSource.portrait(id)
+	if PortraitSource.has_portrait(id):
+		portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		portrait_caption.text = "%s\n\n半身立绘 512×768" % id
+	else:
+		portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		portrait_caption.text = "%s\n\n立绘位（%d×%d 像素头像占位）\n正式立绘 512×768 · 待生成" % [id, PixelArt.UNIT_SIZE, PixelArt.UNIT_SIZE]
 
 
 ## 供测试与验收脚本用：等于点了"说"。

@@ -7,6 +7,7 @@ extends SceneTree
 ## 加 --capture（不带 --headless）可以截一张结算后的图到 art_src/qa/。
 
 const Slots = preload("res://core/save/slots.gd")
+const PortraitSource = preload("res://core/art/portrait_source.gd")
 
 var failures := 0
 
@@ -57,6 +58,10 @@ func _run() -> void:
 	_expect(dlg != null, "对话框打开")
 	if dlg != null:
 		_expect(dlg.log_label.text.contains("詹岚"), "开场有台词")
+		if PortraitSource.has_portrait("zhan_lan"):
+			_expect(dlg.portrait.texture.get_height() == 768, "对话框用的是正式立绘")
+		else:
+			_expect(dlg.portrait.texture.get_height() == 24, "没有正式立绘时回退像素头像")
 		dlg.press_send("你怎么看张杰")
 		_expect(main.session.dialogues.has("zhan_lan"), "对话记进存档数据")
 		dlg.press_send("他讲规则讲得太顺了")
