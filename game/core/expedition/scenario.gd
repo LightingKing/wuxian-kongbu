@@ -6,7 +6,7 @@ const DataLoader = preload("res://core/util/data_loader.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
 
 const REQUIRED: Array[String] = ["id", "name", "start_location", "duration_minutes", "main_task", "locations", "paths", "npcs", "watch", "events"]
-const EFFECT_KEYS: Array[String] = ["say", "set_flag", "npc_move", "npc_die", "open_path", "close_path", "fear", "battle", "side_plot", "bonus", "penalty", "tether_release", "end", "choice", "persuade", "give", "move_members", "damage", "set_tether", "clue", "relation", "erase", "delay", "cg"]
+const EFFECT_KEYS: Array[String] = ["say", "set_flag", "npc_move", "npc_die", "open_path", "close_path", "fear", "battle", "side_plot", "bonus", "penalty", "tether_release", "end", "choice", "persuade", "give", "move_members", "damage", "set_tether", "clue", "relation", "erase", "delay", "cg", "codex"]
 
 var data: Dictionary = {}
 var id: String = ""

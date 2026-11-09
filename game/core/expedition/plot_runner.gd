@@ -2,6 +2,7 @@ extends RefCounted
 ## 剧情事件（设计规格 5.2）：定时事件（at，到点发生）和条件事件（when，条件一成立就发生），每个只发生一次。
 ## 效果见 apply_effect。choice（等玩家选）、persuade（等说服检定）、battle（等打完）会让远征停下来等待，之后才继续。
 ## erase 是主神抹杀（超出百米绑定、剧本直接判定），delay 只推进时钟（地点内的耽搁，不触发定时事件）。
+## relation（关系事件）和 codex（规则百科条目）只发请求事件，由 expedition.gd 落到整局状态（GameState）上。
 ## 剧情惯性：原剧情默认照常发生；事件的 alterations 里第一条 if 成立的改写会替代原效果，
 ## 剧情偏移量加上事件的惯性等级（inertia，默认 1）。偏移量可以触发连锁事件（deviation_at_least）。
 
@@ -174,11 +175,18 @@ static func apply_effect(st: RefCounted, e: Dictionary, location: String, events
 	if e.has("delay"):
 		Watch.pass_time(st, int(e["delay"]["minutes"]), events)
 	if e.has("relation"):
+		# 当事人可以是轮回者，也可以是剧情人物（救下马修）。一件事有几个当事人时，旁观者只算一次。
 		var rel: Dictionary = e["relation"]
 		var targets: Array = rel["targets"] if rel.has("targets") else [rel["target"]]
+		var witnesses: Array[String] = recipients(st, rel.get("witnesses", "present"), location)
 		for t: String in targets:
-			if st.is_alive(t):
-				events.append({"type": "relation_request", "kind": String(rel["kind"]), "actor": String(rel["actor"]), "target": t, "witnesses": recipients(st, rel.get("witnesses", "present"), location)})
+			var alive: bool = st.is_alive(t) or (st.npcs.has(t) and bool(st.npcs[t]["alive"]))
+			if alive:
+				events.append({"type": "relation_request", "kind": String(rel["kind"]), "actor": String(rel["actor"]), "target": t, "witnesses": witnesses.duplicate()})
+				witnesses.clear()
+	if e.has("codex"):
+		var cx: Dictionary = e["codex"]
+		events.append({"type": "codex_request", "entries": (cx["ids"] as Array).duplicate(), "source": String(cx.get("source", ""))})
 	if e.has("end"):
 		st.outcome = String(e["end"])
 		events.append({"type": "expedition_end", "outcome": st.outcome})

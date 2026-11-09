@@ -78,10 +78,25 @@
 				{"bonus": {"points": 100, "label": "讲解规则", "recipients": ["zhang_jie"]}},
 				{"clue": "rules_too_smooth"},
 				{"clue": "zheng_zha_memory"},
+				{"codex": {"ids": ["survive_points", "go_home", "watch_tasks"], "source": "zhang_jie"}},
 				{"choice": {"id": "opening_attitude", "prompt": "张杰讲完规则，看着你们几个新人。", "options": [
-					{"id": "listen", "text": "认真听完，记住每一条", "effects": [{"set_flag": "listened_rules"}]},
-					{"id": "doubt", "text": "质疑：凭什么信你", "effects": [{"fear": {"amount": 5}}, {"set_flag": "doubted_rules"}, {"say": {"speaker": "zhang_jie", "text": "信不信由你，反正死的是你。"}}]},
-					{"id": "mock", "text": "嘲讽他装神弄鬼", "effects": [{"fear": {"amount": 10}}, {"set_flag": "mocked_rules"}, {"say": {"speaker": "zhang_jie", "text": "有意思。等会儿别哭。"}}]}
+					{"id": "listen", "text": "认真听完，记住每一条", "effects": [
+						{"set_flag": "listened_rules"},
+						{"relation": {"kind": "heeded_rules", "actor": "zheng_zha", "target": "zhang_jie"}},
+						{"codex": {"ids": ["tether", "gag", "kill_points", "side_plots", "death_is_real"], "source": "zhang_jie"}}
+					]},
+					{"id": "doubt", "text": "质疑：凭什么信你", "effects": [
+						{"fear": {"amount": 5}},
+						{"set_flag": "doubted_rules"},
+						{"relation": {"kind": "questioned", "actor": "zheng_zha", "target": "zhang_jie"}},
+						{"say": {"speaker": "zhang_jie", "text": "信不信由你，反正死的是你。"}}
+					]},
+					{"id": "mock", "text": "嘲讽他装神弄鬼", "effects": [
+						{"fear": {"amount": 10}},
+						{"set_flag": "mocked_rules"},
+						{"relation": {"kind": "mocked", "actor": "zheng_zha", "target": "zhang_jie"}},
+						{"say": {"speaker": "zhang_jie", "text": "有意思。等会儿别哭。"}}
+					]}
 				]}}
 			]
 		},
@@ -123,12 +138,14 @@
 				{"say": {"speaker": "zhang_jie", "text": "小胖子和阿姨掉队了。等不等？"}},
 				{"choice": {"id": "lag_behind", "prompt": "两个人的体力撑不住了，等他们会拖慢队伍。", "options": [
 					{"id": "help", "text": "扶着他们一起走", "effects": [
+						{"relation": {"kind": "saved_life", "actor": "zheng_zha", "targets": ["xiao_pang_zi", "zhong_nian_fu_nv"]}},
 						{"delay": {"minutes": 15}},
 						{"fear": {"amount": 10}},
 						{"set_flag": "helped_lagging"},
 						{"say": {"speaker": "xiao_pang_zi", "text": "谢谢……谢谢郑哥。"}}
 					]},
 					{"id": "leave", "text": "不管他们，跟上雇佣兵", "effects": [
+						{"relation": {"kind": "left_to_die", "actor": "zheng_zha", "targets": ["xiao_pang_zi", "zhong_nian_fu_nv"]}},
 						{"erase": {"targets": ["xiao_pang_zi", "zhong_nian_fu_nv"], "reason": "tether"}},
 						{"fear": {"amount": 15}},
 						{"say": {"speaker": "zhang_jie", "text": "超出范围了。别看。"}}
@@ -163,6 +180,7 @@
 				{"choice": {"id": "laser_choice", "prompt": "激光网正在合拢，只有贴着大门的一小块地方是安全的。", "options": [
 					{"id": "save_matthew", "text": "扑倒，拖着马修贴到门上", "effects": [
 						{"open_path": ["laser", "control"]},
+						{"relation": {"kind": "saved_life", "actor": "zheng_zha", "target": "matthew"}},
 						{"side_plot": {"id": "save_matthew", "grade": "B", "points": 5000, "label": "救下马修", "recipients": ["zheng_zha"]}},
 						{"bonus": {"points": 500, "label": "精神临界值突破", "recipients": ["zheng_zha"], "attributes": {"spirit": 20, "nerve_reaction": 30}}},
 						{"tether_release": true},
@@ -173,6 +191,7 @@
 						{"open_path": ["laser", "control"]},
 						{"npc_die": "matthew"},
 						{"fear": {"amount": 20}},
+						{"relation": {"kind": "left_to_die", "actor": "zheng_zha", "target": "mu_gang"}},
 						{"damage": {"amount": 999, "recipients": ["mu_gang"], "reason": "laser"}},
 						{"clue": "matthew_dies"}
 					]},
@@ -207,10 +226,12 @@
 				{"choice": {"id": "stay_or_follow", "prompt": "留守主机房，还是跟雇佣兵走下水道？", "options": [
 					{"id": "stay", "text": "留守主机房", "effects": [
 						{"set_flag": "stay_control"},
+						{"relation": {"kind": "advice_taken", "actor": "zheng_zha", "target": "zhan_lan"}},
 						{"say": {"speaker": "matthew", "text": "你们留下。卡普兰，把门锁死。"}}
 					]},
 					{"id": "follow", "text": "跟雇佣兵走下水道", "effects": [
 						{"set_flag": "went_sewer"},
+						{"relation": {"kind": "advice_ignored", "actor": "zheng_zha", "target": "zhan_lan"}},
 						{"fear": {"amount": 10}},
 						{"npc_move": {"npc": "matthew", "to": "sewer"}},
 						{"npc_move": {"npc": "kaplan", "to": "sewer"}},

@@ -28,8 +28,13 @@ var day: int = 0
 var settlement: Dictionary = {}
 ## 对话记忆与信任：npc_id → {"memories": [...], "trust": 0~5}。core/dialogue 直接读写这个字典。
 var dialogues: Dictionary = {}
-## 上一部片的总评（结算界面用）：{"film", "members", "survivors", "rating_before", "rating_after", "reasons"}。
+## 上一部片的总评（结算界面用）：{"film", "members", "survivors", "rating_before", "rating_after", "reasons",
+##   "tour_guide": 回归当晚带新人认识主神空间的人（没人带就是空）, "tour_entries": 因此解锁的规则百科条目}。
 var film_report: Dictionary = {}
+
+## 聊天能拉近关系，但只到这里；再往上要靠行动（救人、并肩作战）。
+const TALK_TRUST_STEP := 2.0
+const TALK_TRUST_CAP := 60.0
 
 
 ## 开一局：建 GameState、按章节装配七名轮回者、开始第一部片。
@@ -82,9 +87,11 @@ func settle() -> Dictionary:
 	if phase != "expedition" or not expedition_over():
 		return {}
 	settlement = expedition.finish()
-	film_report = _rate_film()
+	var chapter := Campaign.load_chapter(chapter_path)
+	film_report = _rate_film(chapter)
 	hub = Hub.new()
 	hub.start(game, REST_DAYS)
+	_hub_tour(chapter)
 	phase = "settlement"
 	day = hub.day
 	return settlement
@@ -92,10 +99,10 @@ func settle() -> Dictionary:
 
 ## 主神按这部片的结果调整评价（设计规格 7.3）：本该团灭的片活下来七成以上 +1、所有人都死过清零。
 ## 半引导者这类异常没解除时，主神记一条"继续加压"的决定。
-func _rate_film() -> Dictionary:
+func _rate_film(chapter: Dictionary) -> Dictionary:
 	var st: RefCounted = expedition.st
 	var film: String = st.scenario.id
-	var ag: Dictionary = Campaign.load_chapter(chapter_path).get("agenda", {})
+	var ag: Dictionary = chapter.get("agenda", {})
 	var survivors := 0
 	for c: String in st.roster:
 		if st.is_alive(c):
@@ -115,6 +122,32 @@ func _rate_film() -> Dictionary:
 		"film": film, "members": st.roster.size(), "survivors": survivors,
 		"rating_before": int(r["before"]), "rating_after": int(r["after"]), "reasons": (r["reasons"] as Array).duplicate(),
 	}
+
+
+## 回归当晚：老手（章节的 hub_tour_guide）还活着，就带新人认识光球和房间，规则百科的 hub_tour 组解锁；
+## 他死了就没人带，这些条目只能自己去问主神。
+func _hub_tour(chapter: Dictionary) -> void:
+	var guide := String(chapter.get("hub_tour_guide", ""))
+	film_report["tour_guide"] = ""
+	film_report["tour_entries"] = []
+	if guide == "" or not game.characters.has(guide) or not game.characters[guide].alive:
+		return
+	var events: Array[Dictionary] = game.codex.unlock_group("hub_tour", guide)
+	film_report["tour_guide"] = guide
+	if not events.is_empty():
+		film_report["tour_entries"] = (events[0]["entries"] as Array).duplicate()
+
+
+## 跟队友聊了一次：他对拍板的人的信任 +2，最多聊到 60。对剧情人物、拍板的人自己不起作用。
+## 返回 [{"type": "relation_talk", "char", "trust"}] 或空数组。
+func talked(npc_id: String) -> Array[Dictionary]:
+	if game == null or game.leader == "" or npc_id == game.leader or not game.characters.has(npc_id):
+		return []
+	var before: float = game.relations.value(npc_id, game.leader, "trust")
+	if before >= TALK_TRUST_CAP:
+		return []
+	game.relations.change(npc_id, game.leader, {"trust": minf(TALK_TRUST_STEP, TALK_TRUST_CAP - before)})
+	return [{"type": "relation_talk", "char": npc_id, "trust": game.relations.value(npc_id, game.leader, "trust")}]
 
 
 func enter_hub() -> bool:

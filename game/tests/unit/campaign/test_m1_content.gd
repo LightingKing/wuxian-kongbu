@@ -59,6 +59,58 @@ func test_chapter_agenda() -> void:
 	assert_eq(g.agenda.open_anomalies().size(), 1, "同一异常不重复记")
 
 
+## 张杰讲规则：开场就进三条百科；认真听再加五条，质疑的只有开场那三条。
+func test_opening_codex() -> void:
+	var g := GameState.new(1)
+	var ex := Campaign.start(g, CHAPTER)
+	assert_eq(g.codex.order, ["survive_points", "go_home", "watch_tasks"])
+	ex.choose("listen")
+	assert_eq(g.codex.order.size(), 8)
+	assert_true(g.codex.is_known("tether"))
+	var g2 := GameState.new(1)
+	var ex2 := Campaign.start(g2, CHAPTER)
+	ex2.choose("doubt")
+	assert_eq(g2.codex.order.size(), 3)
+	assert_almost(g2.relations.value("zhang_jie", "zheng_zha", "trust"), 45.0)
+
+
+## 嘲讽张杰：他对郑吒信任 40、怨恨 15，服从度不到 40，下一场战斗由 AI 接管。
+func test_mock_makes_zhang_jie_disobey() -> void:
+	var g := GameState.new(1)
+	var ex := Campaign.start(g, CHAPTER)
+	var events: Array[Dictionary] = ex.choose("mock")
+	assert_true(_types(events).has("relation_event"))
+	assert_almost(g.relations.value("zhang_jie", "zheng_zha", "trust"), 40.0)
+	assert_almost(g.relations.value("zhang_jie", "zheng_zha", "resentment"), 15.0)
+	assert_false(ex.obeys("zhang_jie"))
+	assert_true(ex.obeys("zhan_lan"))
+	assert_true(ex.obeys("zheng_zha"), "拍板的人自己永远听自己的")
+	ex.st.pending_battle = {"location": "car", "squad": "s1", "enemies": [{"def": "zombie", "count": 1}], "dark": false, "survive_until": -1.0, "after_victory": [], "after_defeat": []}
+	assert_eq(ex.disobedient(), ["zhang_jie"] as Array[String])
+	for u: RefCounted in ex.battle_units({}):
+		if u.side == "ally":
+			assert_eq(u.controller, "ai" if u.character_id == "zhang_jie" else "player", u.character_id)
+
+
+## 扔下掉队的人：在场的人对郑吒信任 −10（两个当事人也只算一次），掉到 40，不听指挥；
+## 一起打过一仗（并肩作战 +5）又回到听指挥。
+func test_leave_costs_trust_until_fought_together() -> void:
+	var g := GameState.new(1)
+	var ex := Campaign.start(g, CHAPTER)
+	ex.choose("doubt")
+	ex.move("s1", "hall")
+	ex.move("s1", "stairs")
+	ex.choose("leave")
+	assert_almost(g.relations.value("zhan_lan", "zheng_zha", "trust"), 40.0)
+	assert_false(ex.obeys("zhan_lan"))
+	assert_false(ex.obeys("li_xiao_yi"))
+	ex.st.pending_battle = {"location": "stairs", "squad": "s1", "enemies": [{"def": "zombie", "count": 1}], "dark": false, "survive_until": -1.0, "after_victory": [], "after_defeat": []}
+	var events := _win(ex)
+	assert_true(_types(events).has("bonded"))
+	assert_almost(g.relations.value("zhan_lan", "zheng_zha", "trust"), 45.0)
+	assert_true(ex.obeys("zhan_lan"))
+
+
 ## 走到激光通道门口：听规则 → 大厅 → 楼梯井（扶掉队的人）→ 激光通道。
 func _to_laser() -> RefCounted:
 	var ex := _start()
@@ -146,6 +198,9 @@ func test_lagging_help() -> void:
 	assert_true(ex.st.characters["xiao_pang_zi"].alive)
 	assert_true(ex.st.characters["zhong_nian_fu_nv"].alive)
 	assert_true(bool(ex.st.flags["helped_lagging"]))
+	# 救命之恩：被扶的人对郑吒信任 +25；旁观的人 +5（两个当事人只算一次）。
+	assert_almost(ex.game.relations.value("xiao_pang_zi", "zheng_zha", "trust"), 75.0)
+	assert_almost(ex.game.relations.value("zhan_lan", "zheng_zha", "trust"), 55.0)
 	# 队伍肯停下来等：小胖子"傻人有傻福"、中年妇女"稳住人心"觉醒，后者让同地点其他人恐惧 −10。
 	assert_true(Talents.is_awake(ex.st.characters["xiao_pang_zi"], "lucky"))
 	assert_true(Talents.is_awake(ex.st.characters["zhong_nian_fu_nv"], "calm_voice"))
@@ -183,6 +238,9 @@ func test_laser_saves_matthew() -> void:
 	assert_true(ex.st.characters["mu_gang"].alive)
 	assert_almost(ex.st.characters["zheng_zha"].attributes.total("spirit"), 130.0)
 	assert_almost(ex.st.characters["zheng_zha"].attributes.total("nerve_reaction"), 135.0)
+	# 救下马修，在场的人看在眼里：扶人 +5、救马修 +5。
+	assert_almost(ex.game.relations.value("zhan_lan", "zheng_zha", "trust"), 60.0)
+	assert_almost(ex.game.relations.value("zhan_lan", "zheng_zha", "awe"), 30.0)
 	assert_true(ex.move("s1", "control")[1]["type"] == "arrived")
 
 
@@ -195,6 +253,8 @@ func test_laser_selfish() -> void:
 	assert_false(ex.st.characters["mu_gang"].alive)
 	assert_true(_types(events).has("tether_transferred"))
 	assert_false(bool(ex.st.flags.get("side:save_matthew", false)))
+	# 眼看牟钢死在激光里：在场的人对郑吒信任 −10（扶人时 +5，现在 45）。
+	assert_almost(ex.game.relations.value("zhan_lan", "zheng_zha", "trust"), 45.0)
 
 
 ## 从线索推理火焰女皇：主机房的对话给线索，詹岚花 10 分钟推出结论（带可信度）。
@@ -235,8 +295,10 @@ func test_canon_route_to_return() -> void:
 	ex.rest("s1", 20)
 	assert_eq(ex.st.clock, 90)
 	assert_eq(ex.st.pending_choice["id"], "stay_or_follow")
+	var zl_trust: float = g.relations.value("zhan_lan", "zheng_zha", "trust")
 	ex.choose("stay")
 	assert_true(bool(ex.st.flags["stay_control"]))
+	assert_almost(g.relations.value("zhan_lan", "zheng_zha", "trust"), zl_trust + 8.0, 0.0001, "詹岚的提议被采纳")
 	ex.rest("s1", 35)
 	assert_eq(ex.st.clock, 125)
 	assert_eq(ex.st.pending_check["id"], "threaten_queen")
@@ -271,7 +333,9 @@ func test_sewer_route() -> void:
 	_win(ex)
 	ex.rest("s1", 20)
 	assert_eq(ex.st.clock, 90)
+	var zl_trust: float = ex.game.relations.value("zhan_lan", "zheng_zha", "trust")
 	ex.choose("follow")
+	assert_almost(ex.game.relations.value("zhan_lan", "zheng_zha", "trust"), zl_trust - 5.0, 0.0001, "詹岚的提议被驳回")
 	assert_eq(ex.st.location_of("zheng_zha"), "sewer")
 	assert_eq(ex.st.npcs["matthew"]["location"], "sewer")
 	var sid: String = ex.st.squad_of("zheng_zha")

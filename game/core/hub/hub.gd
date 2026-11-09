@@ -4,6 +4,7 @@ extends RefCounted
 ## 代兑：每人每次休整只能用自己的点数或支线给别人兑换一次（设计规格 6.3）。
 ## 天赋：兑换契合的强化、训练或对练会触发觉醒（talents.gd）；觉醒的"学得快"让训练熟练度翻倍。
 ## 造人：每个制造者的第一个造物让他的潜力突升；突升够大，主神悄悄把他复制进恶魔小队（议程里记着，玩家不知道）。
+## 规则发现：每过一段天数，活着的人里够格的智者会推出隐藏规则（rule_discovery.gd），写进规则百科。
 
 const Exchange = preload("res://core/hub/exchange.gd")
 const Pricing = preload("res://core/hub/pricing.gd")
@@ -233,6 +234,7 @@ func _pass_days(days: int, events: Array[Dictionary]) -> void:
 			if ch.alive:
 				ch.fear = maxf(0.0, ch.fear - relief)
 		events.append({"type": "day_passed", "day": day, "days_left": days_left()})
+	events.append_array(game.codex.discovery.discover_all(game.living_characters(), game))
 
 
 ## 天赋触发：觉醒的事件追加进 events，同时记进主神议程。

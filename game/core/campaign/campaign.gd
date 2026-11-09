@@ -3,6 +3,7 @@ extends RefCounted
 ## 章节 JSON：{"id", "name", "scenario", "roster", "members"}，两个路径都是 res:// 下的 JSON。
 ## 可选的 "agenda"：这部片开场时主神议程的状态——{"expected_wipe": 按团灭安排, "anomalies": [{"kind", "char", "note", "reason"}],
 ##   "decisions": [{"kind", "payload", "reason"}]}。开局时写进 GameState.agenda（同一异常不重复记）。
+## 可选的 "leader"：拍板的人（队友服从谁）；"hub_tour_guide"：回归当晚带新人认识主神空间的老手（由 Session 用）。
 ## 人物表 JSON：{"version", "characters": {id: {"name", "attributes", "skills", "items", "films_completed", "flags"}}}。
 ## 这里只做装配和校验；远征本身的规则在 expedition/ 里。
 
@@ -109,6 +110,7 @@ static func start(game_state: RefCounted, path: String) -> RefCounted:
 		members.append(String(id))
 	for id: String in members:
 		game_state.add_character(roster[id])
+	game_state.leader = String(ch.get("leader", ""))
 	var sc := Scenario.load_file(String(ch["scenario"]))
 	apply_agenda(game_state, ch, sc.id)
 	var ex := Expedition.new()

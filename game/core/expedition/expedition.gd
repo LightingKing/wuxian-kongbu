@@ -9,6 +9,8 @@ extends RefCounted
 ## 时间是全局的：任何分队的行动都推进同一个时钟，期间到点的剧情事件依次发生。
 ## 行动途中发生战斗时，行动被打断（移动没到达、搜索没完成），剩下的时间作废。
 ## 天赋觉醒（talents.gd）在这里判：剧情旗标、同伴死在面前、只剩一半人、战后濒死。觉醒事件追加在同一批事件后面。
+## 关系网与规则百科是整局状态：剧本发出的 relation_request / codex_request 在这里落到 GameState 上；
+## 打完仗活下来的人互相"并肩作战"；队友对拍板的人（GameState.leader）服从度不到 40 时，战斗里由 AI 接管。
 
 const ExpeditionState = preload("res://core/expedition/expedition_state.gd")
 const Watch = preload("res://core/expedition/watch.gd")
@@ -22,6 +24,7 @@ const Statuses = preload("res://core/battle/statuses.gd")
 const KillReward = preload("res://core/economy/kill_reward.gd")
 const Rules = preload("res://core/util/rules.gd")
 const Talents = preload("res://core/model/talents.gd")
+const Cohesion = preload("res://core/social/cohesion.gd")
 
 var game: RefCounted
 var st: RefCounted
@@ -172,7 +175,7 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 		if i == 0:
 			for k: String in st.squads[sid]["items"]:
 				res[k] = float(res.get(k, 0.0)) + float(st.squads[sid]["items"][k])
-		units.append(UnitFactory.from_character(ch, "ally", mini(floori(i / 4.0), 2), skills, controller, res))
+		units.append(UnitFactory.from_character(ch, "ally", mini(floori(i / 4.0), 2), skills, controller if obeys(c) else "ai", res))
 	st.pending_battle["carrier"] = members[0] if not members.is_empty() else ""
 	var n := 0
 	for g: Dictionary in st.pending_battle["enemies"]:
@@ -181,6 +184,35 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 			var row := mini(int(g.get("row", 0)) + floori(k / 4.0), 2)
 			units.append(UnitFactory.from_enemy(String(g["def"]), "%s_%d" % [g["def"], n], row))
 	return units
+
+
+## 这个人听不听拍板的人指挥。没有拍板的人、他自己就是、或者拍板的人已经死了，都算听。
+func obeys(char_id: String) -> bool:
+	var leader: String = game.leader
+	if leader == "" or char_id == leader or not st.is_alive(leader):
+		return true
+	return Cohesion.obeys(game.relations, char_id, leader, _traits())
+
+
+## 待打的战斗里不听指挥的人（界面提示用）。
+func disobedient() -> Array[String]:
+	var out: Array[String] = []
+	if st.pending_battle.is_empty():
+		return out
+	for c: String in st.living_members(String(st.pending_battle["squad"])):
+		if not obeys(c):
+			out.append(c)
+	return out
+
+
+## 个人倾向：人物表 flags.loyalty（0~100），没写的按 50。
+func _traits() -> Dictionary:
+	var out := {}
+	for c: String in st.roster:
+		var ch: RefCounted = st.characters[c]
+		if ch.flags.has("loyalty"):
+			out[c] = {"loyalty": float(ch.flags["loyalty"])}
+	return out
 
 
 func battle_options() -> Dictionary:
@@ -251,6 +283,12 @@ func report_battle(b: RefCounted) -> Array[Dictionary]:
 			_flee(f, events)
 	var won := ["victory", "survived"].has(String(b.outcome))
 	var after: Array = st.pending_battle.get("after_victory" if won else "after_defeat", [])
+	var fought: Array = []
+	for u: RefCounted in b.field.units:
+		if u.side == "ally" and st.is_alive(u.character_id) and not fought.has(u.character_id):
+			fought.append(u.character_id)
+	if fought.size() >= 2:
+		events.append(game.relations.bond("fought_together", fought))
 	st.pending_battle = {}
 	events.append({"type": "battle_resolved", "outcome": String(b.outcome)})
 	Watch.check_wipe(st, events)
@@ -454,9 +492,24 @@ func load_dict(d: Dictionary, game_state: RefCounted, sc: RefCounted) -> void:
 
 
 func _emit(events: Array[Dictionary]) -> Array[Dictionary]:
+	_state_hooks(events)
 	_talent_hooks(events)
 	history.append_array(events)
 	return events
+
+
+## 剧本对整局状态的请求：关系事件落到关系网，规则百科条目解锁。结果事件追加在后面。
+func _state_hooks(events: Array[Dictionary]) -> void:
+	if st == null:
+		return
+	var n := events.size()
+	for i in n:
+		var ev: Dictionary = events[i]
+		match String(ev.get("type", "")):
+			"relation_request":
+				events.append(game.relations.apply_event(String(ev["kind"]), String(ev["actor"]), String(ev["target"]), ev["witnesses"]))
+			"codex_request":
+				events.append_array(game.codex.unlock(ev["entries"], String(ev["source"])))
 
 
 ## 天赋觉醒的触发：剧情旗标被设上、同伴死了或被抹杀（同地点的人看在眼里）、活着的只剩一半。

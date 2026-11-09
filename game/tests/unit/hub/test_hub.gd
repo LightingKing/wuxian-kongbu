@@ -141,3 +141,19 @@ func test_save_round_trip() -> void:
 	copy.load_dict(JSON.parse_string(JSON.stringify(h.to_dict())), g)
 	assert_eq(copy.to_dict(), h.to_dict())
 	assert_eq(copy.days_left(), 6)
+
+
+## 规则发现：智力够 180、见过造人的人，休整一天就推出"第一个造人名额应该造保镖"，写进规则百科。
+func test_rule_discovery_on_day_pass() -> void:
+	var g := _game()
+	var h := _hub(g)
+	var events: Array[Dictionary] = h.rest(1)
+	assert_eq(events.size(), 1, "没人够格时什么也发现不了")
+	g.characters["zhang_jie"].attributes.add_enhanced("intelligence", 80.0)
+	g.flags["seen_human_creation"] = true
+	events = h.rest(1)
+	assert_eq(String(events[1]["type"]), "rule_discovered")
+	assert_eq(String(events[1]["rule"]), "bodyguard_human")
+	assert_eq(String(events[1]["by"]), "zhang_jie")
+	assert_eq(String(g.codex.entries()[0]["id"]), "bodyguard_human")
+	assert_eq(h.rest(1).size(), 1, "发现过的不再报")

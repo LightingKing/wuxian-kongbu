@@ -139,6 +139,55 @@ func test_human_creation_demon_copy() -> void:
 	assert_almost(float(s.game.agenda.potentials["zheng_zha"]), 0.25)
 
 
+## 关系网、规则百科、拍板的人都随存档走。
+func test_social_state_saved() -> void:
+	_clean()
+	var a := Session.new()
+	a.start_m1(4)
+	a.expedition.choose("mock")
+	assert_eq(a.game.leader, "zheng_zha")
+	assert_eq(a.save_to(SAVE_PATH), OK)
+	var b := Session.load_from(SAVE_PATH)
+	assert_eq(b.game.leader, "zheng_zha")
+	assert_eq(b.game.relations.to_dict(), a.game.relations.to_dict())
+	assert_eq(b.game.codex.to_dict(), a.game.codex.to_dict())
+	assert_false(b.expedition.obeys("zhang_jie"))
+	_clean()
+
+
+## 回归当晚：张杰活着就带新人认识主神空间（hub_tour 六条进百科）；他死了就没人带。
+func test_hub_tour_needs_guide() -> void:
+	var s := Session.new()
+	s.start_m1(1)
+	s.expedition.st.outcome = "returned"
+	s.settle()
+	assert_eq(s.film_report["tour_guide"], "zhang_jie")
+	assert_eq((s.film_report["tour_entries"] as Array).size(), 6)
+	assert_true(s.game.codex.is_known("return_night"))
+	var t := Session.new()
+	t.start_m1(1)
+	t.game.characters["zhang_jie"].alive = false
+	t.expedition.st.outcome = "returned"
+	t.settle()
+	assert_eq(t.film_report["tour_guide"], "")
+	assert_false(t.game.codex.is_known("return_night"))
+
+
+## 跟队友聊天：每次对郑吒信任 +2，聊到 60 封顶；跟剧情人物、郑吒自己聊不算。
+func test_talk_trust_capped() -> void:
+	var s := Session.new()
+	s.start_m1(1)
+	var ev: Array[Dictionary] = s.talked("li_xiao_yi")
+	assert_eq(String(ev[0]["type"]), "relation_talk")
+	assert_almost(s.game.relations.value("li_xiao_yi", "zheng_zha", "trust"), 52.0)
+	for i in 10:
+		s.talked("li_xiao_yi")
+	assert_almost(s.game.relations.value("li_xiao_yi", "zheng_zha", "trust"), 60.0)
+	assert_eq(s.talked("li_xiao_yi"), [] as Array[Dictionary])
+	assert_eq(s.talked("kaplan"), [] as Array[Dictionary])
+	assert_eq(s.talked("zheng_zha"), [] as Array[Dictionary])
+
+
 func test_reject_bad_save() -> void:
 	assert_false(Session.new().load_dict({"version": 99}))
 	assert_false(Session.new().load_dict({"version": 1, "chapter": "res://nope.json", "game": {}}))
