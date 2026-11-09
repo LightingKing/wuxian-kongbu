@@ -146,6 +146,20 @@
 				{"cg": {"name": "cg_laser", "text": "激光网正在合拢，只有贴着大门的一小块地方是安全的。"}},
 				{"say": {"speaker": "matthew", "text": "郑吒、牟钢，你们两个跟我进来。"}},
 				{"give": {"recipients": ["zheng_zha"], "skill": "pistol_shot_limited"}},
+				{"persuade": {
+					"id": "convince_matthew", "npc": "matthew",
+					"goal": "让马修同意你走在最后，好盯着激光的动势",
+					"difficulty": 1,
+					"keywords": ["最后", "盯着", "激光", "反应"],
+					"success": [
+						{"fear": {"amount": -10, "recipients": ["zheng_zha"]}},
+						{"say": {"speaker": "matthew", "text": "行，你走最后。看清楚了再动。"}}
+					],
+					"failure": [
+						{"fear": {"amount": 5}},
+						{"say": {"speaker": "matthew", "text": "少废话，跟紧我走。"}}
+					]
+				}},
 				{"choice": {"id": "laser_choice", "prompt": "激光网正在合拢，只有贴着大门的一小块地方是安全的。", "options": [
 					{"id": "save_matthew", "text": "扑倒，拖着马修贴到门上", "effects": [
 						{"open_path": ["laser", "control"]},

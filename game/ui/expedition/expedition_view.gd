@@ -160,12 +160,6 @@ func pending() -> Dictionary:
 	if not ex.st.pending_cutscene.is_empty():
 		var cg: Dictionary = ex.st.pending_cutscene
 		return {"kind": "cutscene", "name": String(cg.get("name", "")), "text": String(cg.get("text", ""))}
-	if not ex.st.pending_choice.is_empty():
-		var c: Dictionary = ex.st.pending_choice
-		var options: Array = []
-		for o: Dictionary in c["options"]:
-			options.append({"id": String(o["id"]), "text": String(o["text"])})
-		return {"kind": "choice", "id": String(c["id"]), "prompt": String(c["prompt"]), "options": options}
 	if not ex.st.pending_check.is_empty():
 		var k: Dictionary = ex.st.pending_check
 		var fact := String(k.get("requires_fact", ""))
@@ -173,9 +167,16 @@ func pending() -> Dictionary:
 		return {
 			"kind": "check", "id": String(k["id"]), "npc": _name(String(k["npc"])), "goal": String(k["goal"]),
 			"difficulty": int(k["difficulty"]), "keywords": (k.get("keywords", []) as Array).duplicate(),
-			"requires_fact": fact, "fact_name": _name(fact), "fact_ready": fact_status == "inferred" or fact_status == "confirmed",
+			# 没有 requires_fact 的检定理当直接能开口（之前空 fact 被判成"没把握"）。
+			"requires_fact": fact, "fact_name": _name(fact), "fact_ready": fact == "" or fact_status == "inferred" or fact_status == "confirmed",
 			"thinker": _name(best_thinker_id()),
 		}
+	if not ex.st.pending_choice.is_empty():
+		var c: Dictionary = ex.st.pending_choice
+		var options: Array = []
+		for o: Dictionary in c["options"]:
+			options.append({"id": String(o["id"]), "text": String(o["text"])})
+		return {"kind": "choice", "id": String(c["id"]), "prompt": String(c["prompt"]), "options": options}
 	if not ex.st.pending_battle.is_empty():
 		var b: Dictionary = ex.st.pending_battle
 		var enemies: Array = []

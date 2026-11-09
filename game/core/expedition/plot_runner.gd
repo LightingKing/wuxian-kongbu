@@ -97,8 +97,13 @@ static func apply_effect(st: RefCounted, e: Dictionary, location: String, events
 		st.path_open[Scenario.path_key(String(ends[0]), String(ends[1]))] = open
 		events.append({"type": "path_changed", "a": String(ends[0]), "b": String(ends[1]), "open": open})
 	if e.has("fear"):
-		var where := String(e["fear"].get("location", ""))
-		var targets: Array[String] = st.members_at(where) if where != "" else st.all_living()
+		var spec: Dictionary = e["fear"]
+		var targets: Array[String] = []
+		if spec.has("recipients"):
+			targets = recipients(st, spec["recipients"], location)
+		else:
+			var where := String(spec.get("location", ""))
+			targets = st.members_at(where) if where != "" else st.all_living()
 		for c in targets:
 			var d := Watch.add_fear(st.characters[c], float(e["fear"]["amount"]))
 			events.append({"type": "fear_changed", "char": c, "amount": d, "fear": st.characters[c].fear, "reason": "plot"})

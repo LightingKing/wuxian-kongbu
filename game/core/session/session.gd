@@ -66,10 +66,10 @@ func blocked_reason() -> String:
 		return "cutscene"
 	if not expedition.st.pending_battle.is_empty():
 		return "battle"
-	if not expedition.st.pending_choice.is_empty():
-		return "choice"
 	if not expedition.st.pending_check.is_empty():
 		return "check"
+	if not expedition.st.pending_choice.is_empty():
+		return "choice"
 	return ""
 
 

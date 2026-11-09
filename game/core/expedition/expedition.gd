@@ -297,6 +297,9 @@ func choose(option_id: String) -> Array[Dictionary]:
 	if st.outcome != "ongoing" or st.pending_choice.is_empty():
 		events.append({"type": "invalid_action", "reason": "no_choice"})
 		return _emit(events)
+	if not st.pending_check.is_empty():
+		events.append({"type": "invalid_action", "reason": "check_pending"})
+		return _emit(events)
 	var pending: Dictionary = st.pending_choice
 	var picked: Dictionary = {}
 	for o: Dictionary in pending["options"]:
@@ -452,10 +455,10 @@ func _can_act(squad_id: String, events: Array[Dictionary]) -> bool:
 		reason = "cutscene_pending"
 	elif not st.pending_battle.is_empty():
 		reason = "battle_pending"
-	elif not st.pending_choice.is_empty():
-		reason = "choice_pending"
 	elif not st.pending_check.is_empty():
 		reason = "check_pending"
+	elif not st.pending_choice.is_empty():
+		reason = "choice_pending"
 	elif not st.squads.has(squad_id) or st.living_members(squad_id).is_empty():
 		reason = "no_squad"
 	if reason != "":
