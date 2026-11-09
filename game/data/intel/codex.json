@@ -1,0 +1,113 @@
+{
+	"version": 1,
+	"entries": {
+		"survive_points": {
+			"title": "活过一部片，一千点",
+			"text": "每个活着回到主神空间的人，至少拿到一千点奖励点数。",
+			"group": "opening",
+			"keywords": ["点数", "奖励", "一千"]
+		},
+		"go_home": {
+			"title": "攒够点数能回现实",
+			"text": "张杰说攒够五万点可以回到现实世界。具体条件只有主神知道。",
+			"group": "opening",
+			"keywords": ["回家", "回现实", "现实"]
+		},
+		"watch_tasks": {
+			"title": "手表发布任务",
+			"text": "进片后手表会显示主线任务和剩余时间。主线完成、倒计时结束，才会被传送回来。",
+			"group": "opening",
+			"keywords": ["手表", "任务", "倒计时"]
+		},
+		"tether": {
+			"title": "绑定与抹杀",
+			"text": "手表可能把你和某个剧情人物绑在一起：离开规定范围太久，主神直接抹杀。",
+			"group": "opening_listen",
+			"keywords": ["绑定", "百米", "抹杀", "范围"]
+		},
+		"gag": {
+			"title": "不许泄露主神",
+			"text": "当着剧情人物说出主神、轮回、点数这类东西，要被扣分。",
+			"group": "opening_listen",
+			"keywords": ["泄露", "禁言", "扣分", "说出"]
+		},
+		"kill_points": {
+			"title": "杀怪有点数",
+			"text": "杀死片里的怪物能拿点数，怪物越强给得越多。主神按队伍的实力折算，越强的队伍拿得越少。",
+			"group": "opening_listen",
+			"keywords": ["杀怪", "击杀", "怪物"]
+		},
+		"side_plots": {
+			"title": "支线剧情",
+			"text": "主线之外还有支线：完成了给支线等级（D、C、B……）和额外点数。好东西都要支线才能换。",
+			"group": "opening_listen",
+			"keywords": ["支线"]
+		},
+		"death_is_real": {
+			"title": "死了就是真死",
+			"text": "死在恐怖片里不会自动复活。新人第一次死，主神也不会管。",
+			"group": "opening_listen",
+			"keywords": ["死亡", "复活", "死了"]
+		},
+		"return_night": {
+			"title": "回归当晚只结算",
+			"text": "回来的第一晚只结算点数、造人；兑换要等到第二天。",
+			"group": "hub_tour",
+			"keywords": ["回归", "当晚", "第一晚"]
+		},
+		"exchange": {
+			"title": "兑换",
+			"text": "在光球前兑换强化、道具和血统：要点数，档次高的还要支线。十点奖励点换一点属性。",
+			"group": "hub_tour",
+			"keywords": ["兑换", "强化", "属性"]
+		},
+		"repair": {
+			"title": "修复",
+			"text": "受了伤可以花点数修复，伤得越重越贵。已经死了的人修不回来。",
+			"group": "hub_tour",
+			"keywords": ["修复", "治疗", "受伤"]
+		},
+		"human_creation": {
+			"title": "造人",
+			"text": "可以让主神造人，每人第一个免费，素质不超过常人两倍。造的人住在你的房间里。",
+			"group": "hub_tour",
+			"keywords": ["造人", "造物", "伴侣"]
+		},
+		"rest_days": {
+			"title": "休整与光柱",
+			"text": "每次回来有固定的休整天数。训练、休息耗天；最后一天黄昏光柱降下，必须走进去。",
+			"group": "hub_tour",
+			"keywords": ["休整", "光柱", "天数", "训练"]
+		},
+		"kill_teammate": {
+			"title": "杀队友扣分",
+			"text": "杀死同队的轮回者，主神扣一千点。",
+			"group": "hub_tour",
+			"keywords": ["杀队友", "内斗", "自相残杀"]
+		},
+		"ticket_split": {
+			"title": "支线拆分",
+			"text": "一个高一级的支线可以拆成三个低一级的：B 拆三个 C，C 拆三个 D。",
+			"group": "zhushen",
+			"keywords": ["拆分", "拆"]
+		},
+		"gift_once": {
+			"title": "代兑一次",
+			"text": "每次休整，每人只能用自己的点数或支线给别人兑换一次。",
+			"group": "zhushen",
+			"keywords": ["代兑", "给别人", "送"]
+		},
+		"bloodline_risk": {
+			"title": "双血统风险",
+			"text": "身上已经有一种血统再兑换另一种，七成会变成非人。",
+			"group": "zhushen",
+			"keywords": ["血统", "变异"]
+		},
+		"team_rating": {
+			"title": "队伍评价",
+			"text": "主神按队伍完成过的片和兑换的强弱评价队伍；评价越高，片越难、奖励折算越低。全队都死过，评价清零。",
+			"group": "zhushen",
+			"keywords": ["评价", "难度", "团灭"]
+		}
+	}
+}

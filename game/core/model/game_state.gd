@@ -4,6 +4,8 @@ extends RefCounted
 const Rng = preload("res://core/util/rng.gd")
 const Character = preload("res://core/model/character.gd")
 const Agenda = preload("res://core/director/agenda.gd")
+const Relations = preload("res://core/social/relations.gd")
+const Codex = preload("res://core/intel/codex.gd")
 
 const SAVE_VERSION := 1
 
@@ -18,6 +20,12 @@ var companions: Array = []
 var flags: Dictionary = {}
 ## 主神议程（设计规格 5.5）：课程阶段、异常、潜力突升、恶魔小队复制体和每个决定的理由。玩家看不见，随存档走。
 var agenda: RefCounted = Agenda.new()
+## 队友关系网（设计规格 7.4）：信任、好感、敬畏、怨恨。
+var relations: RefCounted = Relations.new()
+## 规则百科（设计规格 3.8）：已知的公开规则和智者发现的隐藏规则。
+var codex: RefCounted = Codex.new()
+## 拍板的人（扮演整队时就是主角）；队友对他的服从度决定战斗里听不听指挥。空字符串表示没有。
+var leader: String = ""
 
 
 func _init(seed_value: int = 0) -> void:
@@ -47,6 +55,9 @@ func to_dict() -> Dictionary:
 		"companions": companions.duplicate(true),
 		"flags": flags.duplicate(true),
 		"agenda": agenda.to_dict(),
+		"relations": relations.to_dict(),
+		"codex": codex.to_dict(),
+		"leader": leader,
 	}
 
 
@@ -67,3 +78,10 @@ func load_dict(d: Dictionary) -> void:
 	agenda = Agenda.new()
 	if d.has("agenda"):
 		agenda.load_dict(d["agenda"])
+	relations = Relations.new()
+	if d.has("relations"):
+		relations.load_dict(d["relations"])
+	codex = Codex.new()
+	if d.has("codex"):
+		codex.load_dict(d["codex"])
+	leader = String(d.get("leader", ""))

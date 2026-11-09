@@ -59,3 +59,13 @@ func test_tags_and_round_trip() -> void:
 	var copy := Relations.new()
 	copy.load_dict(JSON.parse_string(JSON.stringify(r.to_dict())))
 	assert_eq(copy.to_dict(), r.to_dict())
+
+
+## 一群人并肩作战：每两人之间互相 +5 信任、+3 好感；返回一条汇总事件。
+func test_bond() -> void:
+	var r := Relations.new()
+	var ev: Dictionary = r.bond("fought_together", ["a", "b", "c"])
+	assert_eq(ev, {"type": "bonded", "kind": "fought_together", "name": "并肩作战", "chars": ["a", "b", "c"]})
+	for pair in [["a", "b"], ["b", "a"], ["a", "c"], ["c", "b"]]:
+		assert_almost(r.value(pair[0], pair[1], "trust"), 55.0)
+		assert_almost(r.value(pair[0], pair[1], "affection"), 53.0)

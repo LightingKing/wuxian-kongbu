@@ -73,6 +73,14 @@ func apply_event(kind: String, actor: String, target: String, witnesses: Array =
 	return {"type": "relation_event", "kind": kind, "name": String(ev["name"]), "actor": actor, "target": target, "witnesses": witnesses.duplicate()}
 
 
+## 一群人一起经历了某事（例如并肩作战）：每两人之间按事件各算一次，返回一条汇总事件。
+func bond(kind: String, members: Array) -> Dictionary:
+	for i in members.size():
+		for j in range(i + 1, members.size()):
+			apply_event(kind, String(members[i]), String(members[j]))
+	return {"type": "bonded", "kind": kind, "name": String(data()["events"][kind]["name"]), "chars": members.duplicate()}
+
+
 func to_dict() -> Dictionary:
 	return {"pairs": pairs.duplicate(true)}
 

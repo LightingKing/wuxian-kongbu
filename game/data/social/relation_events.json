@@ -11,6 +11,10 @@
 		"left_to_die": {"name": "见死不救", "target_to_actor": {"trust": -35, "resentment": 30}, "witness_to_actor": {"trust": -10}},
 		"promise_broken": {"name": "违背承诺", "target_to_actor": {"trust": -20, "resentment": 10}},
 		"lied_to": {"name": "“我骗你的”", "target_to_actor": {"trust": -15, "awe": 5, "resentment": 5}},
-		"killed_innocent": {"name": "杀害无辜", "witness_to_actor": {"trust": -10, "affection": -5, "awe": 5}}
+		"killed_innocent": {"name": "杀害无辜", "witness_to_actor": {"trust": -10, "affection": -5, "awe": 5}},
+		"heeded_rules": {"name": "认真听讲", "target_to_actor": {"trust": 5}, "actor_to_target": {"awe": 10}},
+		"questioned": {"name": "当面质疑", "target_to_actor": {"trust": -5}},
+		"mocked": {"name": "当众嘲讽", "target_to_actor": {"trust": -10, "resentment": 15}},
+		"advice_ignored": {"name": "意见被驳回", "target_to_actor": {"trust": -5, "resentment": 3}}
 	}
 }
