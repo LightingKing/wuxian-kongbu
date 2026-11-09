@@ -19,6 +19,8 @@
 | `game/tests/` | Claude | 无界面测试 |
 | `game/ai/` | Claude | AI 接入层：服务商、意图校验、人设、兜底。不要修改，除非任务卡明确允许 |
 | `game/core/campaign/` | Claude | 章节装配：剧本 + 人物表 + 开局名单。不要修改，除非任务卡明确允许 |
+| `game/core/dialogue/` | Claude | 对话层：说话、说服评分、记忆与信任。不要修改，除非任务卡明确允许 |
+| `game/ui/dialogue/` | Codex | 对话框控件。不要修改，除非任务卡明确允许 |
 | `game/ui/` | Codex | 场景与界面 |
 | `game/art/`、`game/audio/` | Codex | 美术与音频资源 |
 | `game/tools/` | 双方 | 工具脚本，按任务卡分配 |
