@@ -22,6 +22,7 @@
 | `game/core/dialogue/` | Claude | 对话层：说话、说服评分、记忆与信任。不要修改，除非任务卡明确允许 |
 | `game/ui/dialogue/` | Codex | 对话框控件。不要修改，除非任务卡明确允许 |
 | `game/ui/` | Codex | 场景与界面 |
+| `game/ui/art/`、`game/ui/audio/` | 双方 | 运行时生成的像素图、立绘读取、合成音效（属于表现层，不放进 core） |
 | `game/art/`、`game/audio/` | Codex | 美术与音频资源 |
 | `game/tools/` | 双方 | 工具脚本，按任务卡分配 |
 | `_work/` | — | 阅读材料，含原著片段，**不要提交** |
@@ -31,11 +32,11 @@
 - `game/core/` 里不使用 `class_name`，一律用 `const X = preload("res://...")`。原因：无界面测试在不导入工程时，`class_name` 不会注册。`game/ui/` 里可以用 `class_name`。
 - Godot 为每个脚本生成的 `*.uid` 文件（如 `rng.gd.uid`）要和脚本一起提交，不要删除，也不要加进 `.gitignore`。
 - 界面只订阅 core 返回的事件来播放表现，并把玩家的选择交回 core；不要在界面里写规则判断。
-- 文本用中文，通过 `tr()` 包装，为以后的翻译留口。
+- 文本用中文，通过 `tr()` 包装，为以后的翻译留口。`UiTheme.label` / `UiTheme.button` 的字面文字必须写成 `tr("…")`，`game/tests/unit/ui/test_tr_lint.gd` 会检查。
 
 ## 界面约定
 - 基准分辨率 1920×1080，横屏，`canvas_items` 拉伸，保持宽高比。
-- PC（键鼠）和安卓（触屏）都要能操作；可点元素的触控尺寸不小于 48dp；没有悬停时用长按显示详情。
+- 现在只做 PC（键鼠）；安卓版和触屏交互暂缓（2026-11-09 用户决定）。但不要把信息藏在只有鼠标悬停才看得到的地方，以后补触屏时要能换成长按。
 
 ## 美术约定
 - **两套画风**：玩法画面（战斗、地点探索、主神空间）用 Q 版像素；剧情（对话立绘、剧情插图、过场）用日系动漫插画。规格见设计规格第 11 节，具体规范以 `docs/art/` 为准。
@@ -48,3 +49,4 @@
 
 ## 验证
 - 任何改动完成后都要在仓库根目录运行 `bash game/tools/run_tests.sh`，全部通过才算完成。
+- 整条流程的切片验收：`godot --headless --path game -s res://tools/verify_m1_slice.gd`。它会用到存档槽，开头把已有存档挪进 `user://verify_backup_*.json`，结束时放回。

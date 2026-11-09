@@ -5,6 +5,8 @@ extends SceneTree
 ## → 撑到回归 → 结算 → 主神空间（问主神）→ 暂停菜单存槽 → 回标题 → 从槽读回来。
 ## 用法：godot --headless --path game -s res://tools/verify_m1_slice.gd
 ## 加 --capture（不带 --headless）可以截一张结算后的图到 art_src/qa/。
+## 它要用存档槽和自动档，所以开始时把已有的存档挪到 user://verify_backup_<槽>.json，结束时原样放回；
+## 上次中途崩了留下的备份，开头会先放回去再备份，不会被覆盖。
 
 const Slots = preload("res://core/save/slots.gd")
 const PortraitSource = preload("res://ui/art/portrait_source.gd")
@@ -16,10 +18,13 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 
+const BACKUP := "user://verify_backup_%d.json"
+
+
 func _run() -> void:
-	# 上次跑测试可能留下存档，先清空，截图和断言才干净。
-	for i in range(1, Slots.COUNT + 1):
-		Slots.erase(i)
+	# 先把玩家的存档挪开，截图和断言才干净；_finish 再放回去。
+	_restore_slots()
+	_stash_slots()
 	root.size = Vector2i(1920, 1080)
 	var packed := load("res://ui/main.tscn") as PackedScene
 	_expect(packed != null, "主场景可以加载")
@@ -287,6 +292,33 @@ func _shot(name: String) -> void:
 	img.save_png(dir.path_join(name))
 
 
+## 自动档和三个手动槽。
+func _slots() -> Array[int]:
+	var out: Array[int] = [Slots.AUTO]
+	for i in range(1, Slots.COUNT + 1):
+		out.append(i)
+	return out
+
+
+## 把现有的存档复制进备份，再清空槽位。
+func _stash_slots() -> void:
+	for i in _slots():
+		if FileAccess.file_exists(Slots.path(i)):
+			DirAccess.copy_absolute(ProjectSettings.globalize_path(Slots.path(i)), ProjectSettings.globalize_path(BACKUP % i))
+		Slots.erase(i)
+
+
+## 有备份的槽：清掉槽里的档，把备份放回原位，删掉备份。开头调一次是为了接住上次中途崩掉留下的备份。
+func _restore_slots() -> void:
+	for i in _slots():
+		var backup := BACKUP % i
+		if not FileAccess.file_exists(backup):
+			continue
+		Slots.erase(i)
+		DirAccess.copy_absolute(ProjectSettings.globalize_path(backup), ProjectSettings.globalize_path(Slots.path(i)))
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(backup))
+
+
 func _expect(cond: bool, message: String) -> void:
 	if not cond:
 		failures += 1
@@ -325,8 +357,8 @@ func _find_button(node: Node, text: String) -> Button:
 
 
 func _finish() -> void:
-	for i in range(1, Slots.COUNT + 1):
+	for i in _slots():
 		Slots.erase(i)
-	Slots.erase(Slots.AUTO)
+	_restore_slots()
 	print("M1 切片验证：失败 %d 项" % failures)
 	quit(0 if failures == 0 else 1)
