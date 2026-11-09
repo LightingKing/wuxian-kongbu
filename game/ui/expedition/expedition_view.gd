@@ -70,6 +70,7 @@ func map() -> Array[Dictionary]:
 			"open": here_now or not adjacent or ex.st.is_path_open(here, loc_id),
 			"searched": ex.st.searched.has(loc_id),
 			"dark": Watch.is_dark(ex.st, loc_id),
+			"risk": info.has("search_encounter"),
 			"npcs": _npcs_at(loc_id),
 		})
 	return out
@@ -143,7 +144,14 @@ func pending() -> Dictionary:
 		return {"kind": "choice", "id": String(c["id"]), "prompt": String(c["prompt"]), "options": options}
 	if not ex.st.pending_check.is_empty():
 		var k: Dictionary = ex.st.pending_check
-		return {"kind": "check", "id": String(k["id"]), "npc": _name(String(k["npc"])), "goal": String(k["goal"]), "difficulty": int(k["difficulty"]), "keywords": (k.get("keywords", []) as Array).duplicate()}
+		var fact := String(k.get("requires_fact", ""))
+		var fact_status: String = ex.st.intel.status(fact) if fact != "" else ""
+		return {
+			"kind": "check", "id": String(k["id"]), "npc": _name(String(k["npc"])), "goal": String(k["goal"]),
+			"difficulty": int(k["difficulty"]), "keywords": (k.get("keywords", []) as Array).duplicate(),
+			"requires_fact": fact, "fact_name": _name(fact), "fact_ready": fact_status == "inferred" or fact_status == "confirmed",
+			"thinker": _name(best_thinker_id()),
+		}
 	if not ex.st.pending_battle.is_empty():
 		var b: Dictionary = ex.st.pending_battle
 		var enemies: Array = []
@@ -188,6 +196,47 @@ func choose(option_id: String) -> Array[Dictionary]:
 
 func persuade(level: int) -> Array[Dictionary]:
 	return ex.resolve_persuasion(level)
+
+
+## 用选中的关键词开口，说服力由离线裁决算。
+func persuade_with(keywords: Array) -> Array[Dictionary]:
+	return ex.persuade_with(keywords, best_thinker_id())
+
+
+## 队伍里最适合开口的人（智力最高）。
+func best_thinker_id() -> String:
+	var best := ""
+	var iq := -1.0
+	for c: String in ex.st.all_living():
+		var v := float(ex.st.characters[c].attributes.total("intelligence"))
+		if v > iq:
+			iq = v
+			best = c
+	return best
+
+
+## 现在能用的道具：感染的人用解毒剂、受伤的人用喷雾。先看自己的，再看分队共用的。
+func item_actions() -> Array[Dictionary]:
+	var sid := squad_id()
+	var out: Array[Dictionary] = []
+	if sid == "":
+		return out
+	var shared: Dictionary = ex.st.squads[sid]["items"]
+	for c: String in ex.st.squads[sid]["members"]:
+		if not ex.st.is_alive(c):
+			continue
+		var ch: RefCounted = ex.st.characters[c]
+		for item: String in ["antidote", "spray"]:
+			var count := float(ch.items.get(item, 0.0)) + float(shared.get(item, 0.0))
+			if count <= 0.0:
+				continue
+			if item == "antidote" and not ex.st.infected.has(c):
+				continue
+			if item == "spray" and ch.hp >= ch.hp_max():
+				continue
+			out.append({"char": c, "name": ch.display_name, "item": item,
+				"label": "给%s用%s" % [ch.display_name, "解毒剂" if item == "antidote" else "喷雾"]})
+	return out
 
 
 func use_item(char_id: String, item_id: String) -> Array[Dictionary]:

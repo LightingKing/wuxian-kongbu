@@ -70,6 +70,10 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 			return "%s 使用了道具。" % _name(e.get("char", ""), names)
 		"searched":
 			return "搜索完毕。"
+		"search_encounter":
+			return String(e.get("text", "搜索的声音引来了敌人。"))
+		"persuade_blocked":
+			return "你还没有把握开口——先想清楚%s。" % _name(e.get("fact", ""), names)
 		"already_searched":
 			return "这里已经搜过了。"
 		# ---- 战斗 ----
@@ -99,6 +103,16 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 			return "%s 换到第 %d 排。" % [_name(e.get("unit", ""), names), int(e.get("row", 0)) + 1]
 		"battle_end":
 			return "战斗结束。"
+		"gene_lock_awaken":
+			return "%s 解开了基因锁第 %d 阶！" % [_name(e.get("target", ""), names), int(e.get("stage", 0))]
+		"awaken_failed":
+			return "%s 在濒死边缘没能突破。" % _name(e.get("target", ""), names)
+		"fear_collapse":
+			return "%s 恐惧崩溃了。" % _name(e.get("target", ""), names)
+		"fear_endured":
+			return "%s 硬撑住了恐惧。" % _name(e.get("target", ""), names)
+		"infection_turned":
+			return "%s 在战斗中变成了丧尸。" % _name(e.get("target", ""), names)
 		"invalid_action":
 			return ""
 	return ""

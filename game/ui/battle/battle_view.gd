@@ -29,6 +29,38 @@ func outcome() -> String:
 	return b.outcome
 
 
+## 战斗目标：守门/撑时间，还是清场。
+func objective() -> String:
+	if b.survive_until >= 0.0:
+		return "守住这里：撑到时间轴 %d（现在 %d）" % [int(b.survive_until), int(b.ctb.now)]
+	return "消灭所有敌人"
+
+
+## 敌人下一步想干什么；判断力越高，看到得越多（0 只知道要动，1 知道技能，2 知道目标）。
+func intents() -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for u: RefCounted in b.field.units:
+		if u.side != "enemy" or not u.in_play():
+			continue
+		var v: Dictionary = b.intent_view(u.id, b.intel)
+		var text := "准备行动"
+		if bool(v.get("known", false)):
+			var kind := String(v.get("kind", ""))
+			if kind == "attack" or kind == "support":
+				text = String(v.get("skill_name", "攻击"))
+				if v.has("targets"):
+					var who: Array[String] = []
+					for t in v["targets"]:
+						who.append(_target_label(String(t)))
+					text += " → " + "、".join(who)
+			else:
+				text = "换位或防御"
+		out.append({"id": u.id, "name": _short_name(u.id), "text": text})
+		if out.size() >= 4:
+			break
+	return out
+
+
 func timeline() -> Array[String]:
 	var out: Array[String] = []
 	for id: String in b.timeline(8):
@@ -59,6 +91,7 @@ func units() -> Array[Dictionary]:
 			"fled": u.fled,
 			"current": b.current != null and b.current.id == u.id,
 			"statuses": _status_names(u),
+			"ammo": int(u.resources.get("ammo", -1)),
 		})
 	return out
 
@@ -135,9 +168,18 @@ func _label(a: Dictionary) -> String:
 	return t
 
 
+## 只带编号的名字，给意图面板用。
+func _short_name(id: String) -> String:
+	var name := String(names.get(id, id))
+	var tail := id.get_slice("_", id.get_slice_count("_") - 1)
+	if tail.is_valid_int():
+		name += "#" + tail
+	return name
+
+
 ## 目标标签：名字后面加编号和剩余生命，十个丧尸才分得清。
 func _target_label(id: String) -> String:
-	var name := String(names.get(id, id))
+	var name := _short_name(id)
 	var tail := id.get_slice("_", id.get_slice_count("_") - 1)
 	if tail.is_valid_int():
 		name += "#" + tail

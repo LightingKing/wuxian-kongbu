@@ -14,6 +14,7 @@ var enemy_grid: GridContainer
 var ally_grid: GridContainer
 var action_box: VBoxContainer
 var log_label: RichTextLabel
+var intent_label: Label
 var cards: Dictionary = {}
 var open_indices: Array = []
 var _done := false
@@ -73,13 +74,17 @@ func _build() -> void:
 	action_box.add_theme_constant_override("separation", 8)
 	scroll.add_child(action_box)
 
+	intent_label = UiTheme.label("", 19, UiTheme.ACCENT2)
+	intent_label.position = Vector2(40, 520)
+	intent_label.size = Vector2(1240, 44)
+	add_child(intent_label)
 	var log_title := UiTheme.label("战斗日志", 22, UiTheme.MUTED)
-	log_title.position = Vector2(40, 540)
+	log_title.position = Vector2(40, 570)
 	log_title.size = Vector2(300, 28)
 	add_child(log_title)
 	log_label = UiTheme.rich(19)
-	log_label.position = Vector2(40, 574)
-	log_label.size = Vector2(1240, 420)
+	log_label.position = Vector2(40, 604)
+	log_label.size = Vector2(1240, 390)
 	add_child(log_label)
 
 
@@ -95,8 +100,12 @@ func _card(u: Dictionary) -> PanelContainer:
 
 func refresh() -> void:
 	var cur: Dictionary = view.current()
-	header.text = "战斗" + ((" · 轮到 " + String(cur["name"])) if not cur.is_empty() else "")
+	header.text = "战斗" + ((" · 轮到 " + String(cur["name"])) if not cur.is_empty() else "") + " ｜ " + view.objective()
 	timeline_label.text = "时间轴：" + " → ".join(view.timeline())
+	var intents: Array[String] = []
+	for i: Dictionary in view.intents():
+		intents.append("%s：%s" % [String(i["name"]), String(i["text"])])
+	intent_label.text = "敌方意图（判断力 %d/2）：%s" % [int(view.b.intel), "；".join(intents)] if not intents.is_empty() else ""
 	for grid: GridContainer in [enemy_grid, ally_grid]:
 		for c in grid.get_children():
 			grid.remove_child(c)
@@ -107,8 +116,9 @@ func refresh() -> void:
 		var p := _card(u)
 		var l: Label = cards[u["id"]]
 		var status := "、".join(u["statuses"])
-		l.text = "%s\nHP %d/%d\n恐惧 %d%s" % [
+		l.text = "%s\nHP %d/%d\n恐惧 %d%s%s" % [
 			String(u["name"]), int(u["hp"]), int(u["hp_max"]), int(u["fear"]),
+			("\n弹 %d" % int(u["ammo"])) if int(u["ammo"]) >= 0 else "",
 			("\n" + status) if status != "" else "",
 		]
 		l.add_theme_color_override("font_color", UiTheme.TEXT if bool(u["alive"]) else UiTheme.MUTED)

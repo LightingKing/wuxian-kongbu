@@ -32,7 +32,11 @@ var member_label: RichTextLabel
 var log_label: RichTextLabel
 var pending_box: VBoxContainer
 var action_box: HBoxContainer
+var item_box: HBoxContainer
 var title_label: Label
+var search_button: Button
+var chosen_keywords: Array[String] = []
+var _pending_id := ""
 var _ended_sent := false
 
 
@@ -68,29 +72,35 @@ func _build() -> void:
 	member_label = UiTheme.rich(20)
 	member_label.bbcode_enabled = true
 	member_label.position = Vector2(1000, 240)
-	member_label.size = Vector2(880, 200)
+	member_label.size = Vector2(880, 180)
 	add_child(member_label)
 
 	pending_box = VBoxContainer.new()
-	pending_box.position = Vector2(1000, 450)
-	pending_box.size = Vector2(880, 230)
+	pending_box.position = Vector2(1000, 425)
+	pending_box.size = Vector2(880, 195)
 	pending_box.add_theme_constant_override("separation", 8)
 	add_child(pending_box)
 
+	item_box = HBoxContainer.new()
+	item_box.position = Vector2(1000, 625)
+	item_box.size = Vector2(880, 52)
+	item_box.add_theme_constant_override("separation", 10)
+	add_child(item_box)
+
 	action_box = HBoxContainer.new()
-	action_box.position = Vector2(1000, 700)
-	action_box.size = Vector2(880, 60)
+	action_box.position = Vector2(1000, 685)
+	action_box.size = Vector2(880, 56)
 	action_box.add_theme_constant_override("separation", 10)
 	add_child(action_box)
 
 	log_label = UiTheme.rich(19)
-	log_label.position = Vector2(1000, 780)
-	log_label.size = Vector2(880, 220)
+	log_label.position = Vector2(1000, 752)
+	log_label.size = Vector2(880, 250)
 	add_child(log_label)
 
-	var search_btn := UiTheme.button("搜索", 20)
-	search_btn.pressed.connect(_on_search)
-	action_box.add_child(search_btn)
+	search_button = UiTheme.button("搜索", 20)
+	search_button.pressed.connect(_on_search)
+	action_box.add_child(search_button)
 	var rest10 := UiTheme.button("休息 10 分钟", 20)
 	rest10.pressed.connect(_on_rest10)
 	action_box.add_child(rest10)
@@ -144,12 +154,17 @@ func refresh() -> void:
 			text = "  " + text
 		if (item.get("npcs", []) as Array).size() > 0:
 			text += " ·人"
+		if bool(item.get("risk", false)):
+			text += " ·险"
 		b.text = text
 		var reachable := bool(item.get("here", false)) or (bool(item.get("adjacent", false)) and bool(item.get("open", true)))
 		b.disabled = not reachable
 		b.modulate = Color(0.78, 0.84, 1.0, 1.0) if bool(item.get("dark", false)) else Color.WHITE
 
 	_build_pending()
+	_build_items()
+	var here_info: Dictionary = view.ex.st.scenario.location(view.location())
+	search_button.text = "搜索（有风险）" if here_info.has("search_encounter") else "搜索"
 	log_label.text = "\n".join(view.log_tail(12))
 	if view.pending().get("kind", "") == "battle":
 		battle_needed.emit.call_deferred()
@@ -176,15 +191,48 @@ func _build_pending() -> void:
 			row.add_child(b)
 		pending_box.add_child(row)
 	elif kind == "check":
+		if String(p["id"]) != _pending_id:
+			_pending_id = String(p["id"])
+			chosen_keywords.clear()
 		pending_box.add_child(UiTheme.label("%s：%s（难度 %d）" % [String(p["npc"]), String(p["goal"]), int(p["difficulty"])], 21, UiTheme.ACCENT2))
-		pending_box.add_child(UiTheme.label("关键词：" + "、".join(p["keywords"]), 18, UiTheme.MUTED))
+		if not bool(p["fact_ready"]):
+			pending_box.add_child(UiTheme.label("你还没有把握开口。先推理出：%s" % String(p["fact_name"]), 18, UiTheme.MUTED))
+			var row0 := HBoxContainer.new()
+			row0.add_theme_constant_override("separation", 10)
+			var think := UiTheme.button("推理（10 分钟）", 19)
+			think.pressed.connect(press_deduce)
+			row0.add_child(think)
+			var force := UiTheme.button("硬扛（放弃说服）", 19)
+			force.pressed.connect(press_persuade.bind(0))
+			row0.add_child(force)
+			pending_box.add_child(row0)
+			return
+		pending_box.add_child(UiTheme.label("让 %s 开口（已选 %d 个关键词）" % [String(p["thinker"]), chosen_keywords.size()], 18, UiTheme.MUTED))
 		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 10)
-		for i in 4:
-			var b := UiTheme.button(["很弱", "一般", "有力", "极强"][i], 19)
-			b.pressed.connect(press_persuade.bind(i))
+		row.add_theme_constant_override("separation", 8)
+		for k: String in p["keywords"]:
+			var on := chosen_keywords.has(k)
+			var b := UiTheme.button(("✓ " if on else "") + k, 18)
+			b.toggle_mode = true
+			b.button_pressed = on
+			b.toggled.connect(func(pressed: bool) -> void:
+				if pressed:
+					chosen_keywords.append(k)
+				else:
+					chosen_keywords.erase(k)
+				refresh())
 			row.add_child(b)
 		pending_box.add_child(row)
+		var row2 := HBoxContainer.new()
+		row2.add_theme_constant_override("separation", 10)
+		var talk := UiTheme.button("开口", 20)
+		talk.custom_minimum_size = Vector2(180, 46)
+		talk.pressed.connect(press_persuade_keywords)
+		row2.add_child(talk)
+		var force := UiTheme.button("硬扛（放弃说服）", 19)
+		force.pressed.connect(press_persuade.bind(0))
+		row2.add_child(force)
+		pending_box.add_child(row2)
 	elif kind == "battle":
 		pending_box.add_child(UiTheme.label("战斗：%s" % "、".join(p["enemies"]), 22, UiTheme.ACCENT))
 
@@ -211,6 +259,41 @@ func press_persuade(level: int) -> bool:
 	view.persuade(level)
 	refresh()
 	return true
+
+
+## 供验收脚本用：直接选中几个关键词。
+func select_keywords(keys: Array) -> void:
+	chosen_keywords.clear()
+	for k: String in keys:
+		chosen_keywords.append(k)
+	refresh()
+
+
+## 关键词说服用：不选关键词就开口等于没说。
+func press_persuade_keywords() -> bool:
+	if chosen_keywords.is_empty():
+		return false
+	view.persuade_with(chosen_keywords)
+	chosen_keywords.clear()
+	refresh()
+	return true
+
+
+func press_item(char_id: String, item_id: String) -> void:
+	view.use_item(char_id, item_id)
+	refresh()
+
+
+func _build_items() -> void:
+	for c in item_box.get_children():
+		item_box.remove_child(c)
+		c.queue_free()
+	var actions: Array[Dictionary] = view.item_actions()
+	for i in mini(actions.size(), 4):
+		var a: Dictionary = actions[i]
+		var b := UiTheme.button(String(a["label"]), 18)
+		b.pressed.connect(press_item.bind(String(a["char"]), String(a["item"])))
+		item_box.add_child(b)
 
 
 func press_rest(minutes: int) -> void:
