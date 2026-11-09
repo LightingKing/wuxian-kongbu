@@ -33,6 +33,18 @@
 bash game/tools/run_tests.sh
 ```
 
+## 安卓导出
+导出预设已经写好：横屏、arm64-v8a + armeabi-v7a、包名 `com.wuxiankongbu.game`、INTERNET 权限（AI 对话要用）。先看工具链齐不齐，再出包：
+
+```bash
+bash game/tools/check_export_env.sh   # 缺什么、去哪补，都写在输出里
+bash game/tools/export_android.sh     # 产物：game/build/wuxian-kongbu.apk
+```
+
+`game/build/` 不进版本控制。这台机器目前缺安卓导出模板和 JDK 17，补齐后即可出包。
+
+移动端注意：界面按 1920×1080 设计，`keep` 比例缩放、横屏全屏，19.5:9 的手机会有黑边；按钮按 PC 习惯做的，真机上偏小，移动布局要单独做一版。
+
 ## 欢迎提建议
 非常欢迎大家帮忙提建议：玩法、机制、对原著的理解、数值、剧情取舍、美术……什么都可以。直接在 [Issues](https://github.com/LightingKing/wuxian-kongbu/issues) 里提就好。
 
