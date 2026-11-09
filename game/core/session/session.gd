@@ -8,6 +8,7 @@ const Campaign = preload("res://core/campaign/campaign.gd")
 const Scenario = preload("res://core/expedition/scenario.gd")
 const Expedition = preload("res://core/expedition/expedition.gd")
 const SaveService = preload("res://core/save/save_service.gd")
+const Hub = preload("res://core/hub/hub.gd")
 
 const VERSION := 1
 const M1_CHAPTER := "res://data/scenarios/biohazard1/chapter.json"
@@ -16,6 +17,8 @@ const REST_DAYS := 9
 
 var game: RefCounted
 var expedition: RefCounted
+## 休整期的主神空间（settlement / hub 阶段才有）。
+var hub: RefCounted
 var phase: String = "expedition"
 var chapter_path: String = ""
 ## 休整第几天（settlement 时为 1）。
@@ -32,6 +35,7 @@ func start(chapter: String, seed_value: int = 0) -> bool:
 	if expedition == null:
 		return false
 	phase = "expedition"
+	hub = null
 	day = 0
 	settlement = {}
 	return true
@@ -69,8 +73,10 @@ func settle() -> Dictionary:
 	if phase != "expedition" or not expedition_over():
 		return {}
 	settlement = expedition.finish()
+	hub = Hub.new()
+	hub.start(game, REST_DAYS)
 	phase = "settlement"
-	day = 1
+	day = hub.day
 	return settlement
 
 
@@ -82,14 +88,15 @@ func enter_hub() -> bool:
 
 
 func advance_day() -> bool:
-	if phase != "hub" or day >= REST_DAYS:
+	if phase != "hub" or hub == null or hub.can_depart():
 		return false
-	day += 1
+	hub.rest(1)
+	day = hub.day
 	return true
 
 
 func can_depart() -> bool:
-	return phase == "hub" and day >= REST_DAYS
+	return phase == "hub" and hub != null and hub.can_depart()
 
 
 ## 走光柱出发；M2 的内容还没做，先把阶段停在 done。
@@ -108,6 +115,7 @@ func to_dict() -> Dictionary:
 		"day": day,
 		"game": game.to_dict() if game != null else {},
 		"expedition": expedition.to_dict() if expedition != null else {},
+		"hub": hub.to_dict() if hub != null else {},
 		"settlement": settlement.duplicate(true),
 	}
 
@@ -127,6 +135,11 @@ func load_dict(d: Dictionary) -> bool:
 		return false
 	day = int(d.get("day", 0))
 	settlement = (d.get("settlement", {}) as Dictionary).duplicate(true)
+	var h: Dictionary = d.get("hub", {})
+	if not h.is_empty():
+		hub = Hub.new()
+		hub.load_dict(h, game)
+		day = hub.day
 	var e: Dictionary = d.get("expedition", {})
 	if e.is_empty():
 		expedition = null

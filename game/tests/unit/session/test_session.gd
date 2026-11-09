@@ -49,11 +49,11 @@ func test_settle_and_rest_days() -> void:
 	s.expedition.st.outcome = "returned"
 	var results: Dictionary = s.settle()
 	assert_eq(s.phase, "settlement")
-	assert_eq(s.day, 1)
+	assert_eq(s.day, 0)
 	assert_eq(int(results["zheng_zha"]["final_points"]), 1000)
 	assert_eq(s.settle(), {})
 	assert_true(s.enter_hub())
-	for i in 8:
+	for i in 9:
 		assert_true(s.advance_day())
 	assert_eq(s.day, 9)
 	assert_true(s.can_depart())
@@ -75,7 +75,7 @@ func test_save_after_settlement() -> void:
 	var b := Session.load_from(SAVE_PATH)
 	assert_true(b != null)
 	assert_eq(b.phase, "hub")
-	assert_eq(b.day, 2)
+	assert_eq(b.day, 1)
 	assert_eq(int(b.game.characters["zheng_zha"].points), 1000)
 	assert_eq(int(b.settlement["zheng_zha"]["final_points"]), 1000)
 	assert_eq(b.to_dict()["expedition"], a.to_dict()["expedition"])
