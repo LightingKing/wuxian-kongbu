@@ -101,7 +101,7 @@ func _shot(name: String) -> void:
 		return
 	await RenderingServer.frame_post_draw
 	var img := root.get_texture().get_image()
-	var dir := ProjectSettings.globalize_path("res://").path_join("../../art_src/qa")
+	var dir := ProjectSettings.globalize_path("res://").path_join("../art_src/qa")
 	DirAccess.make_dir_recursive_absolute(dir)
 	img.save_png(dir.path_join(name))
 
