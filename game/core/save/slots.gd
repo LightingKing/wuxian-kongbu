@@ -1,20 +1,26 @@
 extends RefCounted
-## 存档槽：三个位，文件在 user://save_1.json ~ user://save_3.json（铁人模式不做无限存档）。
+## 存档槽：三个手动位（user://save_1.json ~ save_3.json）+ 一个自动位（user://save_auto.json）。
+## 自动位走同一个格式，换地点、战斗后、结算、休整每天由 main 落盘，标题画面可直接继续。
 ## 标题画面只要摘要，所以 summary() 直接读 JSON 顶层，不重建 Session（不然每次开标题都要加载剧本）。
 
 const SaveService = preload("res://core/save/save_service.gd")
 const Session = preload("res://core/session/session.gd")
 
 const COUNT := 3
+## 自动存档位，只能读不能手动写（写由 main 在关键节点触发）。
+const AUTO := 0
 const FILE_FORMAT := "user://save_%d.json"
+const AUTO_FILE := "user://save_auto.json"
 
 
 static func path(slot: int) -> String:
+	if slot == AUTO:
+		return AUTO_FILE
 	return FILE_FORMAT % slot
 
 
 static func valid(slot: int) -> bool:
-	return slot >= 1 and slot <= COUNT
+	return slot == AUTO or (slot >= 1 and slot <= COUNT)
 
 
 static func write(slot: int, session: RefCounted) -> Error:
@@ -47,6 +53,7 @@ static func summary(slot: int) -> Dictionary:
 	var ex: Dictionary = d.get("expedition", {})
 	return {
 		"slot": slot,
+		"auto": slot == AUTO,
 		"exists": true,
 		"phase": String(d.get("phase", "")),
 		"day": int(d.get("day", 0)),

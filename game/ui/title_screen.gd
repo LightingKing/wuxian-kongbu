@@ -225,22 +225,30 @@ func _refresh_slots() -> void:
 	for c in slot_box.get_children():
 		slot_box.remove_child(c)
 		c.queue_free()
+	# 自动存档放在最上面：换地点/战斗后自动落的盘，直接"继续"。
+	var auto := Slots.summary(Slots.AUTO)
+	if bool(auto["exists"]):
+		_add_slot_row(auto, "自动存档（继续）")
 	for row: Dictionary in slot_rows():
-		var line := HBoxContainer.new()
-		line.add_theme_constant_override("separation", 14)
-		var text := "存档 %d　%s" % [int(row["slot"]), String(row["label"])]
-		if bool(row["exists"]):
-			text += "　%d 点　%s" % [int(row["points"]), String(row["saved_at"])]
-		var l := UiTheme.label(text, 19, UiTheme.TEXT if bool(row["exists"]) else UiTheme.MUTED)
-		l.custom_minimum_size = Vector2(600, 76)
-		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		line.add_child(l)
-		var b := UiTheme.button("读取", 19)
-		b.custom_minimum_size = Vector2(140, 52)
-		b.disabled = not bool(row["exists"])
-		b.pressed.connect(press_slot.bind(int(row["slot"])))
-		line.add_child(b)
-		slot_box.add_child(line)
+		_add_slot_row(row, "存档 %d" % int(row["slot"]))
+
+
+func _add_slot_row(row: Dictionary, prefix: String) -> void:
+	var line := HBoxContainer.new()
+	line.add_theme_constant_override("separation", 14)
+	var text := "%s　%s" % [prefix, String(row["label"])]
+	if bool(row["exists"]):
+		text += "　%d 点　%s" % [int(row["points"]), String(row["saved_at"])]
+	var l := UiTheme.label(text, 19, UiTheme.TEXT if bool(row["exists"]) else UiTheme.MUTED)
+	l.custom_minimum_size = Vector2(600, 76)
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	line.add_child(l)
+	var b := UiTheme.button("读取", 19)
+	b.custom_minimum_size = Vector2(140, 52)
+	b.disabled = not bool(row["exists"])
+	b.pressed.connect(press_slot.bind(int(row["slot"])))
+	line.add_child(b)
+	slot_box.add_child(line)
 
 
 func press_slot(slot: int) -> void:

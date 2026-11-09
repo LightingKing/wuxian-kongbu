@@ -50,11 +50,26 @@ func test_erase_makes_slot_empty() -> void:
 
 
 func test_invalid_slot() -> void:
-	assert_eq(Slots.write(0, _session()), ERR_INVALID_PARAMETER)
+	assert_eq(Slots.write(-1, _session()), ERR_INVALID_PARAMETER)
 	assert_eq(Slots.write(4, _session()), ERR_INVALID_PARAMETER)
 	assert_true(Slots.read(9) == null)
 	assert_false(bool(Slots.summary(9)["exists"]))
 	Slots.erase(9)
+
+
+## 自动位跟手动槽共用格式，但只能由 main 在关键节点写；all_summaries 不含它。
+func test_auto_slot_roundtrip() -> void:
+	var s := _session()
+	assert_eq(Slots.write(Slots.AUTO, s), OK)
+	assert_true(bool(Slots.summary(Slots.AUTO)["exists"]))
+	assert_true(bool(Slots.summary(Slots.AUTO)["auto"]))
+	assert_eq(String(Slots.summary(Slots.AUTO)["label"]), "生化危机一 · 第 0 分钟")
+	var back := Slots.read(Slots.AUTO)
+	assert_true(back != null)
+	assert_eq(back.phase, "expedition")
+	assert_eq((Slots.all_summaries() as Array).size(), 3, "标题列表只列三个手动槽")
+	Slots.erase(Slots.AUTO)
+	assert_false(bool(Slots.summary(Slots.AUTO)["exists"]))
 
 
 func test_hub_label_and_points() -> void:
