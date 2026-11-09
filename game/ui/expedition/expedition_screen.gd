@@ -68,7 +68,7 @@ func _build() -> void:
 	map_canvas.custom_minimum_size = Vector2(900, 980)
 	left.add_child(map_canvas)
 
-	title_label = UiTheme.label("生化危机一 · 蜂巢", 30, UiTheme.ACCENT2)
+	title_label = UiTheme.label(tr("生化危机一 · 蜂巢"), 30, UiTheme.ACCENT2)
 	title_label.position = Vector2(1000, 26)
 	title_label.size = Vector2(880, 44)
 	add_child(title_label)
@@ -113,16 +113,16 @@ func _build() -> void:
 	log_label.size = Vector2(880, 242)
 	add_child(log_label)
 
-	search_button = UiTheme.button("搜索", 20)
+	search_button = UiTheme.button(tr("搜索"), 20)
 	search_button.pressed.connect(_on_search)
 	action_box.add_child(search_button)
-	var rest10 := UiTheme.button("休息 10 分钟", 20)
+	var rest10 := UiTheme.button(tr("休息 10 分钟"), 20)
 	rest10.pressed.connect(_on_rest10)
 	action_box.add_child(rest10)
-	var rest30 := UiTheme.button("休息 30 分钟", 20)
+	var rest30 := UiTheme.button(tr("休息 30 分钟"), 20)
 	rest30.pressed.connect(_on_rest30)
 	action_box.add_child(rest30)
-	var deduce_btn := UiTheme.button("推理", 20)
+	var deduce_btn := UiTheme.button(tr("推理"), 20)
 	deduce_btn.pressed.connect(_on_deduce)
 	action_box.add_child(deduce_btn)
 
@@ -214,20 +214,20 @@ func _build_pending() -> void:
 		if String(p["id"]) != _pending_id:
 			_pending_id = String(p["id"])
 			chosen_keywords.clear()
-		pending_box.add_child(UiTheme.label("%s：%s（难度 %d）" % [String(p["npc"]), String(p["goal"]), int(p["difficulty"])], 21, UiTheme.ACCENT2))
+		pending_box.add_child(UiTheme.label(tr("%s：%s（难度 %d）") % [String(p["npc"]), String(p["goal"]), int(p["difficulty"])], 21, UiTheme.ACCENT2))
 		if not bool(p["fact_ready"]):
-			pending_box.add_child(UiTheme.label("你还没有把握开口。先推理出：%s" % String(p["fact_name"]), 18, UiTheme.MUTED))
+			pending_box.add_child(UiTheme.label(tr("你还没有把握开口。先推理出：%s") % String(p["fact_name"]), 18, UiTheme.MUTED))
 			var row0 := HBoxContainer.new()
 			row0.add_theme_constant_override("separation", 10)
-			var think := UiTheme.button("推理（10 分钟）", 19)
+			var think := UiTheme.button(tr("推理（10 分钟）"), 19)
 			think.pressed.connect(press_deduce)
 			row0.add_child(think)
-			var force := UiTheme.button("硬扛（放弃说服）", 19)
+			var force := UiTheme.button(tr("硬扛（放弃说服）"), 19)
 			force.pressed.connect(press_persuade.bind(0))
 			row0.add_child(force)
 			pending_box.add_child(row0)
 			return
-		pending_box.add_child(UiTheme.label("让 %s 开口（已选 %d 个关键词）" % [String(p["thinker"]), chosen_keywords.size()], 18, UiTheme.MUTED))
+		pending_box.add_child(UiTheme.label(tr("让 %s 开口（已选 %d 个关键词）") % [String(p["thinker"]), chosen_keywords.size()], 18, UiTheme.MUTED))
 		var row := HBoxContainer.new()
 		row.add_theme_constant_override("separation", 8)
 		for k: String in p["keywords"]:
@@ -245,19 +245,19 @@ func _build_pending() -> void:
 		pending_box.add_child(row)
 		var row2 := HBoxContainer.new()
 		row2.add_theme_constant_override("separation", 10)
-		var talk := UiTheme.button("开口", 20)
+		var talk := UiTheme.button(tr("开口"), 20)
 		talk.custom_minimum_size = Vector2(180, 46)
 		talk.pressed.connect(press_persuade_keywords)
 		row2.add_child(talk)
-		var force := UiTheme.button("硬扛（放弃说服）", 19)
+		var force := UiTheme.button(tr("硬扛（放弃说服）"), 19)
 		force.pressed.connect(press_persuade.bind(0))
 		row2.add_child(force)
-		var free := UiTheme.button("自己说（AI 评分）", 19)
+		var free := UiTheme.button(tr("自己说（AI 评分）"), 19)
 		free.pressed.connect(press_persuade_free)
 		row2.add_child(free)
 		pending_box.add_child(row2)
 	elif kind == "battle":
-		pending_box.add_child(UiTheme.label("战斗：%s" % "、".join(p["enemies"]), 22, UiTheme.ACCENT))
+		pending_box.add_child(UiTheme.label(tr("战斗：%s") % "、".join(p["enemies"]), 22, UiTheme.ACCENT))
 
 
 ## 键盘：1~9 直接选当前待选项，PC 上不用把手从键盘挪到鼠标。
@@ -304,9 +304,9 @@ func _build_talk() -> void:
 		c.queue_free()
 	var targets: Array[Dictionary] = view.talk_targets()
 	if targets.is_empty():
-		talk_box.add_child(UiTheme.label("这里没有能说话的人。", 17, UiTheme.MUTED))
+		talk_box.add_child(UiTheme.label(tr("这里没有能说话的人。"), 17, UiTheme.MUTED))
 		return
-	var head := UiTheme.label("搭话：", 17, UiTheme.MUTED)
+	var head := UiTheme.label(tr("搭话："), 17, UiTheme.MUTED)
 	head.custom_minimum_size = Vector2(62, 44)
 	talk_box.add_child(head)
 	for i in mini(targets.size(), 4):

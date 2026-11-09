@@ -50,16 +50,16 @@ func build() -> void:
 	panel.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.PANEL, UiTheme.LINE, 10))
 	add_child(panel)
 
-	title_label = UiTheme.label("", 28, UiTheme.ACCENT2)
+	title_label = UiTheme.label(tr(""), 28, UiTheme.ACCENT2)
 	title_label.position = Vector2(28, 20)
 	title_label.size = Vector2(900, 38)
 	panel.add_child(title_label)
-	sub_label = UiTheme.label("", 16, UiTheme.MUTED)
+	sub_label = UiTheme.label(tr(""), 16, UiTheme.MUTED)
 	sub_label.position = Vector2(30, 58)
 	sub_label.size = Vector2(1000, 24)
 	panel.add_child(sub_label)
 
-	var close_button := UiTheme.button("×", 24)
+	var close_button := UiTheme.button(tr("×"), 24)
 	close_button.position = Vector2(1150, 18)
 	close_button.size = Vector2(60, 48)
 	close_button.pressed.connect(_on_close)
@@ -85,13 +85,13 @@ func build() -> void:
 	input.text_submitted.connect(func(_t: String) -> void: _on_send())
 	panel.add_child(input)
 
-	send_button = UiTheme.button("说", 21)
+	send_button = UiTheme.button(tr("说"), 21)
 	send_button.position = Vector2(644, 650)
 	send_button.size = Vector2(184, 54)
 	send_button.pressed.connect(_on_send)
 	panel.add_child(send_button)
 
-	status_label = UiTheme.label("", 16, UiTheme.MUTED)
+	status_label = UiTheme.label(tr(""), 16, UiTheme.MUTED)
 	status_label.position = Vector2(28, 722)
 	status_label.size = Vector2(800, 24)
 	panel.add_child(status_label)
@@ -108,7 +108,7 @@ func build() -> void:
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	frame.add_child(portrait)
-	portrait_caption = UiTheme.label("", 15, UiTheme.MUTED)
+	portrait_caption = UiTheme.label(tr(""), 15, UiTheme.MUTED)
 	portrait_caption.position = Vector2(14, 516)
 	portrait_caption.size = Vector2(328, 110)
 	frame.add_child(portrait_caption)

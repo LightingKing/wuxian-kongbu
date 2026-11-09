@@ -48,7 +48,7 @@ func build() -> void:
 	band.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(band)
 
-	caption = UiTheme.label("", 25, UiTheme.TEXT)
+	caption = UiTheme.label(tr(""), 25, UiTheme.TEXT)
 	caption.position = Vector2(160, 936)
 	caption.size = Vector2(1600, 76)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -56,7 +56,7 @@ func build() -> void:
 	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(caption)
 
-	hint = UiTheme.label("点击或按任意键继续", 17, UiTheme.MUTED)
+	hint = UiTheme.label(tr("点击或按任意键继续"), 17, UiTheme.MUTED)
 	hint.position = Vector2(1500, 1018)
 	hint.size = Vector2(360, 28)
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

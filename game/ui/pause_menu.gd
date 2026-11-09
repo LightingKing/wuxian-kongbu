@@ -48,24 +48,24 @@ func build() -> void:
 	box.size = Vector2(660, 512)
 	box.add_theme_constant_override("separation", 12)
 	panel.add_child(box)
-	box.add_child(UiTheme.label("暂停", 30, UiTheme.ACCENT2))
+	box.add_child(UiTheme.label(tr("暂停"), 30, UiTheme.ACCENT2))
 
-	var resume_button := UiTheme.button("继续游戏", 22)
+	var resume_button := UiTheme.button(tr("继续游戏"), 22)
 	resume_button.custom_minimum_size = Vector2(300, 56)
 	resume_button.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	resume_button.pressed.connect(press_resume)
 	box.add_child(resume_button)
 
-	iron_label = UiTheme.label("铁人模式：游戏自动保存，不能手动存档或读档。", 18, UiTheme.MUTED)
+	iron_label = UiTheme.label(tr("铁人模式：游戏自动保存，不能手动存档或读档。"), 18, UiTheme.MUTED)
 	iron_label.visible = false
 	box.add_child(iron_label)
-	var save_title := UiTheme.label("保存到", 18, UiTheme.MUTED)
+	var save_title := UiTheme.label(tr("保存到"), 18, UiTheme.MUTED)
 	box.add_child(save_title)
 	slot_section.append(save_title)
 	var save_row := HBoxContainer.new()
 	save_row.add_theme_constant_override("separation", 10)
 	for i in range(1, Slots.COUNT + 1):
-		var b := UiTheme.button("槽 %d" % i, 18)
+		var b := UiTheme.button(tr("槽 %d") % i, 18)
 		b.custom_minimum_size = Vector2(120, 48)
 		b.pressed.connect(press_save.bind(i))
 		save_row.add_child(b)
@@ -73,13 +73,13 @@ func build() -> void:
 	box.add_child(save_row)
 	slot_section.append(save_row)
 
-	var load_title := UiTheme.label("读取", 18, UiTheme.MUTED)
+	var load_title := UiTheme.label(tr("读取"), 18, UiTheme.MUTED)
 	box.add_child(load_title)
 	slot_section.append(load_title)
 	var load_row := HBoxContainer.new()
 	load_row.add_theme_constant_override("separation", 10)
 	for i in range(1, Slots.COUNT + 1):
-		var b := UiTheme.button("槽 %d" % i, 18)
+		var b := UiTheme.button(tr("槽 %d") % i, 18)
 		b.custom_minimum_size = Vector2(120, 48)
 		b.pressed.connect(press_load.bind(i))
 		load_row.add_child(b)
@@ -88,23 +88,23 @@ func build() -> void:
 	slot_section.append(load_row)
 
 	for i in range(1, Slots.COUNT + 1):
-		var l := UiTheme.label("", 16, UiTheme.MUTED)
+		var l := UiTheme.label(tr(""), 16, UiTheme.MUTED)
 		l.custom_minimum_size = Vector2(660, 22)
 		box.add_child(l)
 		slot_labels.append(l)
 		slot_section.append(l)
 
-	status_label = UiTheme.label("", 18, UiTheme.ACCENT2)
+	status_label = UiTheme.label(tr(""), 18, UiTheme.ACCENT2)
 	status_label.custom_minimum_size = Vector2(660, 26)
 	box.add_child(status_label)
 
 	var bottom := HBoxContainer.new()
 	bottom.add_theme_constant_override("separation", 10)
-	var title_button := UiTheme.button("回标题", 20)
+	var title_button := UiTheme.button(tr("回标题"), 20)
 	title_button.custom_minimum_size = Vector2(180, 52)
 	title_button.pressed.connect(press_title)
 	bottom.add_child(title_button)
-	var quit_button := UiTheme.button("退出游戏", 20)
+	var quit_button := UiTheme.button(tr("退出游戏"), 20)
 	quit_button.custom_minimum_size = Vector2(180, 52)
 	quit_button.pressed.connect(press_quit)
 	bottom.add_child(quit_button)

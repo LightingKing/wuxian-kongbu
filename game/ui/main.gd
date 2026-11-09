@@ -66,12 +66,12 @@ func _build_frame() -> void:
 	bar.position = Vector2(0, 0)
 	bar.size = Vector2(1920, 56)
 	add_child(bar)
-	header = UiTheme.label("无限恐怖", 24, UiTheme.ACCENT2)
+	header = UiTheme.label(tr("无限恐怖"), 24, UiTheme.ACCENT2)
 	header.position = Vector2(30, 12)
 	header.size = Vector2(1200, 34)
 	add_child(header)
 
-	menu_button = UiTheme.button("菜单（Esc）", 18)
+	menu_button = UiTheme.button(tr("菜单（Esc）"), 18)
 	menu_button.position = Vector2(1700, 6)
 	menu_button.size = Vector2(190, 44)
 	menu_button.pressed.connect(_open_pause)
@@ -176,16 +176,16 @@ func _show_lost() -> void:
 	box.size = Vector2(1320, 700)
 	box.add_theme_constant_override("separation", 16)
 	content.add_child(box)
-	box.add_child(UiTheme.label("任务失败：全员死亡。", 36, UiTheme.ACCENT))
+	box.add_child(UiTheme.label(tr("任务失败：全员死亡。"), 36, UiTheme.ACCENT))
 	for id: String in session.game.characters:
 		var ch: RefCounted = session.game.characters[id]
-		box.add_child(UiTheme.label("%s：%s" % [ch.display_name, String(ch.flags.get("death", ch.flags.get("erased", "死亡")))], 20, UiTheme.MUTED))
+		box.add_child(UiTheme.label(tr("%s：%s") % [ch.display_name, String(ch.flags.get("death", ch.flags.get("erased", "死亡")))], 20, UiTheme.MUTED))
 	if session.iron_man:
 		Slots.erase(Slots.AUTO)
-		box.add_child(UiTheme.label("铁人模式：失败就是失败。这一局的存档已经删除。", 22, UiTheme.TEXT))
+		box.add_child(UiTheme.label(tr("铁人模式：失败就是失败。这一局的存档已经删除。"), 22, UiTheme.TEXT))
 	else:
-		box.add_child(UiTheme.label("宽松模式：回到标题，从存档槽读回去再试一次。", 22, UiTheme.TEXT))
-	var back := UiTheme.button("回到标题", 24)
+		box.add_child(UiTheme.label(tr("宽松模式：回到标题，从存档槽读回去再试一次。"), 22, UiTheme.TEXT))
+	var back := UiTheme.button(tr("回到标题"), 24)
 	back.custom_minimum_size = Vector2(320, 60)
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(_show_title)
@@ -201,29 +201,29 @@ func _show_result(results: Dictionary) -> void:
 	box.add_theme_constant_override("separation", 14)
 	content.add_child(box)
 
-	var title := UiTheme.label("任务结束：%s" % String(session.expedition.st.outcome), 34, UiTheme.ACCENT2)
+	var title := UiTheme.label(tr("任务结束：%s") % String(session.expedition.st.outcome), 34, UiTheme.ACCENT2)
 	box.add_child(title)
-	box.add_child(UiTheme.label("倒计时 %d 分钟 · 存活结算" % int(session.expedition.st.clock), 20, UiTheme.MUTED))
+	box.add_child(UiTheme.label(tr("倒计时 %d 分钟 · 存活结算") % int(session.expedition.st.clock), 20, UiTheme.MUTED))
 	var fr: Dictionary = session.film_report
 	if not fr.is_empty():
-		box.add_child(UiTheme.label("幸存 %d/%d · 主神评价 %d → %d" % [int(fr["survivors"]), int(fr["members"]), int(fr["rating_before"]), int(fr["rating_after"])], 20, UiTheme.MUTED))
+		box.add_child(UiTheme.label(tr("幸存 %d/%d · 主神评价 %d → %d") % [int(fr["survivors"]), int(fr["members"]), int(fr["rating_before"]), int(fr["rating_after"])], 20, UiTheme.MUTED))
 		var guide := String(fr.get("tour_guide", ""))
 		if guide != "":
-			box.add_child(UiTheme.label("%s 带新人认识了光球和房间：规则百科新增 %d 条。" % [session.game.characters[guide].display_name, (fr.get("tour_entries", []) as Array).size()], 20, UiTheme.MUTED))
+			box.add_child(UiTheme.label(tr("%s 带新人认识了光球和房间：规则百科新增 %d 条。") % [session.game.characters[guide].display_name, (fr.get("tour_entries", []) as Array).size()], 20, UiTheme.MUTED))
 		else:
-			box.add_child(UiTheme.label("没有老手带你们认识主神空间，规矩只能自己去问主神。", 20, UiTheme.MUTED))
+			box.add_child(UiTheme.label(tr("没有老手带你们认识主神空间，规矩只能自己去问主神。"), 20, UiTheme.MUTED))
 	for id: String in results:
 		var r: Dictionary = results[id]
 		var name: String = session.game.characters[id].display_name if session.game.characters.has(id) else id
 		if bool(r.get("dead", false)):
-			box.add_child(UiTheme.label("%s：死亡（%s）" % [name, String(r.get("reason", ""))], 22, UiTheme.MUTED))
+			box.add_child(UiTheme.label(tr("%s：死亡（%s）") % [name, String(r.get("reason", ""))], 22, UiTheme.MUTED))
 			continue
 		var line := "%s：%d 点" % [name, int(r["final_points"])]
 		var tickets: Array = r.get("tickets", [])
 		if not tickets.is_empty():
 			line += " · " + "、".join(tickets) + " 级支线"
 		box.add_child(UiTheme.label(line, 24, UiTheme.TEXT))
-	var go := UiTheme.button("进入主神空间", 24)
+	var go := UiTheme.button(tr("进入主神空间"), 24)
 	go.custom_minimum_size = Vector2(320, 60)
 	go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	go.pressed.connect(_on_enter_hub)
@@ -256,10 +256,10 @@ func _show_done() -> void:
 	box.size = Vector2(1320, 600)
 	box.add_theme_constant_override("separation", 16)
 	content.add_child(box)
-	box.add_child(UiTheme.label("二十道光柱降下。", 36, UiTheme.ACCENT2))
+	box.add_child(UiTheme.label(tr("二十道光柱降下。"), 36, UiTheme.ACCENT2))
 	for f: Dictionary in session.farewells:
-		box.add_child(UiTheme.label("%s：「%s」" % [String(f["name"]), String(f["line"])], 24, UiTheme.TEXT))
-	box.add_child(UiTheme.label("下一部：异形一（内容与界面在后续计划里做）。", 22, UiTheme.TEXT))
+		box.add_child(UiTheme.label(tr("%s：「%s」") % [String(f["name"]), String(f["line"])], 24, UiTheme.TEXT))
+	box.add_child(UiTheme.label(tr("下一部：异形一（内容与界面在后续计划里做）。"), 22, UiTheme.TEXT))
 	_set_status("M1 结束")
 
 

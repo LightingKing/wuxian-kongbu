@@ -61,11 +61,11 @@ func _build(location: String, dark: bool) -> void:
 	var top_box := VBoxContainer.new()
 	top_box.add_theme_constant_override("separation", 2)
 	top.add_child(top_box)
-	header = UiTheme.label("战斗", 26, UiTheme.ACCENT)
+	header = UiTheme.label(tr("战斗"), 26, UiTheme.ACCENT)
 	top_box.add_child(header)
-	timeline_label = UiTheme.label("", 17, UiTheme.MUTED)
+	timeline_label = UiTheme.label(tr(""), 17, UiTheme.MUTED)
 	top_box.add_child(timeline_label)
-	intent_label = UiTheme.label("", 17, UiTheme.ACCENT2)
+	intent_label = UiTheme.label(tr(""), 17, UiTheme.ACCENT2)
 	top_box.add_child(intent_label)
 
 	var left := _glass(Vector2(20, 116), Vector2(300, 520))
@@ -109,7 +109,7 @@ func _card(u: Dictionary) -> PanelContainer:
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	box.add_theme_constant_override("separation", 2)
 	row.add_child(box)
-	var name_label := UiTheme.label("", 15)
+	var name_label := UiTheme.label(tr(""), 15)
 	name_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	name_label.clip_text = true
 	box.add_child(name_label)
@@ -117,7 +117,7 @@ func _card(u: Dictionary) -> PanelContainer:
 	box.add_child(hp)
 	var fear := UiTheme.bar(UiTheme.ACCENT2, 4)
 	box.add_child(fear)
-	var foot := UiTheme.label("", 12, UiTheme.MUTED)
+	var foot := UiTheme.label(tr(""), 12, UiTheme.MUTED)
 	foot.clip_text = true
 	foot.autowrap_mode = TextServer.AUTOWRAP_OFF
 	foot.visible = false
@@ -173,14 +173,14 @@ func refresh() -> void:
 		action_box.remove_child(c)
 		c.queue_free()
 	if view.finished():
-		action_box.add_child(UiTheme.label("战斗结束：" + view.outcome(), 24, UiTheme.ACCENT2))
+		action_box.add_child(UiTheme.label(tr("战斗结束：") + view.outcome(), 24, UiTheme.ACCENT2))
 		if not _done:
 			_done = true
 			finished.emit.call_deferred()
 		return
 	var actions: Array[Dictionary] = view.actions()
 	if not open_indices.is_empty():
-		var back := UiTheme.button("← 返回", 18)
+		var back := UiTheme.button(tr("← 返回"), 18)
 		back.pressed.connect(func() -> void:
 			open_indices = []
 			refresh())

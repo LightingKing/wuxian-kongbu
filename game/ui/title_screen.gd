@@ -38,13 +38,13 @@ func build() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	UiTheme.paint_bg(self)
 
-	var title := UiTheme.label("无限恐怖", 84, UiTheme.ACCENT2)
+	var title := UiTheme.label(tr("无限恐怖"), 84, UiTheme.ACCENT2)
 	title.position = Vector2(0, 200)
 	title.size = Vector2(1920, 110)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	add_child(title)
 
-	var sub := UiTheme.label("2D 回合制同人游戏 · 第一阶段《生化危机一》", 22, UiTheme.MUTED)
+	var sub := UiTheme.label(tr("2D 回合制同人游戏 · 第一阶段《生化危机一》"), 22, UiTheme.MUTED)
 	sub.position = Vector2(0, 312)
 	sub.size = Vector2(1920, 34)
 	sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -72,7 +72,7 @@ func build() -> void:
 	ver.size = Vector2(600, 24)
 	add_child(ver)
 
-	hint_label = UiTheme.label("", 16, UiTheme.MUTED)
+	hint_label = UiTheme.label(tr(""), 16, UiTheme.MUTED)
 	hint_label.position = Vector2(1260, 1012)
 	hint_label.size = Vector2(600, 24)
 	hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -100,12 +100,12 @@ func _build_slots() -> void:
 	box.size = Vector2(840, 500)
 	box.add_theme_constant_override("separation", 12)
 	slot_panel.add_child(box)
-	box.add_child(UiTheme.label("选择存档", 28, UiTheme.ACCENT2))
+	box.add_child(UiTheme.label(tr("选择存档"), 28, UiTheme.ACCENT2))
 	slot_box = VBoxContainer.new()
 	slot_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	slot_box.add_theme_constant_override("separation", 10)
 	box.add_child(slot_box)
-	var back := UiTheme.button("返回", 20)
+	var back := UiTheme.button(tr("返回"), 20)
 	back.custom_minimum_size = Vector2(140, 48)
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(close_slots)
@@ -120,16 +120,16 @@ func _build_mode() -> void:
 	box.size = Vector2(840, 360)
 	box.add_theme_constant_override("separation", 14)
 	mode_panel.add_child(box)
-	box.add_child(UiTheme.label("选择存档方式", 28, UiTheme.ACCENT2))
-	var iron := UiTheme.button("铁人模式（推荐）：只有一个自动存档，不能读档重来，全员死亡就删档", 20)
+	box.add_child(UiTheme.label(tr("选择存档方式"), 28, UiTheme.ACCENT2))
+	var iron := UiTheme.button(tr("铁人模式（推荐）：只有一个自动存档，不能读档重来，全员死亡就删档"), 20)
 	iron.custom_minimum_size = Vector2(840, 64)
 	iron.pressed.connect(press_mode.bind(true))
 	box.add_child(iron)
-	var loose := UiTheme.button("宽松模式：三个手动存档槽，随时存读，想看剧情选这个", 20)
+	var loose := UiTheme.button(tr("宽松模式：三个手动存档槽，随时存读，想看剧情选这个"), 20)
 	loose.custom_minimum_size = Vector2(840, 64)
 	loose.pressed.connect(press_mode.bind(false))
 	box.add_child(loose)
-	var back := UiTheme.button("返回", 20)
+	var back := UiTheme.button(tr("返回"), 20)
 	back.custom_minimum_size = Vector2(140, 48)
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(close_mode)
@@ -143,12 +143,12 @@ func _build_settings() -> void:
 	box.size = Vector2(700, 360)
 	box.add_theme_constant_override("separation", 16)
 	settings_panel.add_child(box)
-	box.add_child(UiTheme.label("设置", 28, UiTheme.ACCENT2))
+	box.add_child(UiTheme.label(tr("设置"), 28, UiTheme.ACCENT2))
 
 	var mode_row := HBoxContainer.new()
 	mode_row.add_theme_constant_override("separation", 12)
-	mode_row.add_child(UiTheme.label("窗口", 20))
-	mode_button = UiTheme.button("", 20)
+	mode_row.add_child(UiTheme.label(tr("窗口"), 20))
+	mode_button = UiTheme.button(tr(""), 20)
 	mode_button.custom_minimum_size = Vector2(220, 48)
 	mode_button.pressed.connect(toggle_mode)
 	mode_row.add_child(mode_button)
@@ -156,22 +156,22 @@ func _build_settings() -> void:
 
 	var vol_row := HBoxContainer.new()
 	vol_row.add_theme_constant_override("separation", 12)
-	vol_row.add_child(UiTheme.label("主音量", 20))
-	var down := UiTheme.button("−", 20)
+	vol_row.add_child(UiTheme.label(tr("主音量"), 20))
+	var down := UiTheme.button(tr("−"), 20)
 	down.custom_minimum_size = Vector2(64, 48)
 	down.pressed.connect(volume_down)
 	vol_row.add_child(down)
-	volume_label = UiTheme.label("", 20, UiTheme.ACCENT2)
+	volume_label = UiTheme.label(tr(""), 20, UiTheme.ACCENT2)
 	volume_label.custom_minimum_size = Vector2(120, 48)
 	volume_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vol_row.add_child(volume_label)
-	var up := UiTheme.button("+", 20)
+	var up := UiTheme.button(tr("+"), 20)
 	up.custom_minimum_size = Vector2(64, 48)
 	up.pressed.connect(volume_up)
 	vol_row.add_child(up)
 	box.add_child(vol_row)
 
-	var back := UiTheme.button("返回", 20)
+	var back := UiTheme.button(tr("返回"), 20)
 	back.custom_minimum_size = Vector2(140, 48)
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(close_settings)
@@ -281,7 +281,7 @@ func _add_slot_row(row: Dictionary, prefix: String) -> void:
 	l.custom_minimum_size = Vector2(600, 76)
 	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	line.add_child(l)
-	var b := UiTheme.button("读取", 19)
+	var b := UiTheme.button(tr("读取"), 19)
 	b.custom_minimum_size = Vector2(140, 52)
 	b.disabled = not bool(row["exists"])
 	b.pressed.connect(press_slot.bind(int(row["slot"])))
