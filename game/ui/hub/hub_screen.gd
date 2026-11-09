@@ -117,6 +117,8 @@ func refresh() -> void:
 				tickets += "%s×%d " % [g, int(ch["tickets"][g])]
 		if tickets != "":
 			t += "\n" + tickets
+		var woke: Array = ch["talents"]
+		t += "\n天赋：" + ("、".join(woke) if not woke.is_empty() else "未显露")
 		var b := UiTheme.button(t, 17)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.pressed.connect(select_char.bind(String(ch["id"])))
@@ -384,7 +386,14 @@ func session_depart() -> void:
 func _describe(events: Array[Dictionary]) -> String:
 	if events.is_empty():
 		return ""
-	var e: Dictionary = events[0]
+	var text := _describe_first(events[0])
+	for ev: Dictionary in events:
+		if String(ev["type"]) == "talent_awakened":
+			text += "；%s 的天赋觉醒：%s" % [view.game.characters[String(ev["char"])].display_name, String(ev["name"])]
+	return text
+
+
+func _describe_first(e: Dictionary) -> String:
 	match String(e["type"]):
 		"exchange_done":
 			return "兑换完成：" + String(e["entry"])

@@ -68,6 +68,8 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 			return "说服%s。" % ("成功" if bool(e.get("success", false)) else "失败")
 		"item_used":
 			return "%s 使用了道具。" % _name(e.get("char", ""), names)
+		"talent_awakened":
+			return "%s 的天赋觉醒了：%s。%s" % [_name(e.get("char", ""), names), String(e.get("name", "")), String(e.get("text", ""))]
 		"searched":
 			return "搜索完毕。"
 		"search_encounter":

@@ -175,6 +175,9 @@ func _show_result(results: Dictionary) -> void:
 	var title := UiTheme.label("任务结束：%s" % String(session.expedition.st.outcome), 34, UiTheme.ACCENT2)
 	box.add_child(title)
 	box.add_child(UiTheme.label("倒计时 %d 分钟 · 存活结算" % int(session.expedition.st.clock), 20, UiTheme.MUTED))
+	var fr: Dictionary = session.film_report
+	if not fr.is_empty():
+		box.add_child(UiTheme.label("幸存 %d/%d · 主神评价 %d → %d" % [int(fr["survivors"]), int(fr["members"]), int(fr["rating_before"]), int(fr["rating_after"])], 20, UiTheme.MUTED))
 	for id: String in results:
 		var r: Dictionary = results[id]
 		var name: String = session.game.characters[id].display_name if session.game.characters.has(id) else id

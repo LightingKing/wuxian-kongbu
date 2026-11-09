@@ -5,6 +5,7 @@ extends RefCounted
 const Exchange = preload("res://core/hub/exchange.gd")
 const Catalog = preload("res://core/hub/catalog.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
+const Talents = preload("res://core/model/talents.gd")
 
 ## 造人预设：萝丽（郑吒的青梅竹马），素质在常人的上限附近。
 const LORI_ATTRS := {"intelligence": 110, "spirit": 120, "cell_vitality": 120, "nerve_reaction": 120, "muscle": 100, "immunity": 110}
@@ -44,6 +45,7 @@ func characters() -> Array[Dictionary]:
 			"id": id, "name": ch.display_name, "points": ch.points,
 			"hp": ch.hp, "hp_max": ch.hp_max(), "fear": ch.fear,
 			"tickets": ch.tickets.counts.duplicate(), "alive": ch.alive,
+			"talents": Talents.awake_names(ch),
 		})
 	return out
 
