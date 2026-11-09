@@ -25,6 +25,19 @@
 			"scaling": "fixed",
 			"tags": ["physical", "bullet"]
 		},
+		"pistol_shot_limited": {
+			"name": "手枪射击",
+			"user_rows": [0, 1, 2],
+			"target_side": "enemy",
+			"reach": "ranged",
+			"target_rows": [0, 1, 2],
+			"target_type": "single",
+			"accuracy": 0.8,
+			"power": 16,
+			"scaling": "fixed",
+			"tags": ["physical", "bullet"],
+			"cost": {"ammo": 1}
+		},
 		"desert_eagle": {
 			"name": "沙漠之鹰",
 			"user_rows": [0, 1, 2],

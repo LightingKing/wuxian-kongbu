@@ -11,6 +11,7 @@ extends RefCounted
 
 const ExpeditionState = preload("res://core/expedition/expedition_state.gd")
 const Watch = preload("res://core/expedition/watch.gd")
+const Persuasion = preload("res://core/expedition/persuasion.gd")
 const PlotRunner = preload("res://core/expedition/plot_runner.gd")
 const BattleReport = preload("res://core/expedition/battle_report.gd")
 const ExpeditionSettlement = preload("res://core/expedition/expedition_settlement.gd")
@@ -78,6 +79,19 @@ func search(squad_id: String) -> Array[Dictionary]:
 			items[item] = float(items.get(item, 0.0)) + float(f["count"])
 			found.append({"item": item, "count": int(f["count"])})
 		events.append({"type": "searched", "squad": squad_id, "location": loc, "found": found})
+		var enc: Dictionary = info.get("search_encounter", {})
+		if st.pending_battle.is_empty() and not enc.is_empty() and game.rng.chance(float(enc.get("chance", 0.0))):
+			st.pending_battle = {
+				"location": loc,
+				"squad": squad_id,
+				"enemies": (enc["enemies"] as Array).duplicate(true),
+				"dark": Watch.is_dark(st, loc),
+				"survive_until": -1.0,
+				"after_victory": [],
+				"after_defeat": [],
+			}
+			events.append({"type": "search_encounter", "location": loc, "text": String(enc.get("intro", ""))})
+			events.append({"type": "battle_request", "location": loc, "squad": squad_id, "dark": bool(st.pending_battle["dark"])})
 	return _emit(events)
 
 
@@ -168,7 +182,22 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 
 
 func battle_options() -> Dictionary:
-	return {"dark": bool(st.pending_battle.get("dark", false))}
+	var out := {"dark": bool(st.pending_battle.get("dark", false)), "intel": _intel_level()}
+	if st.pending_battle.has("survive_until"):
+		out["survive_until"] = float(st.pending_battle["survive_until"])
+	return out
+
+
+## 队伍里最聪明的人能看穿多少敌人意图（0~2）。
+func _intel_level() -> int:
+	var best := 0.0
+	for c: String in st.all_living():
+		best = maxf(best, float(st.characters[c].attributes.total("intelligence")))
+	if best >= 160.0:
+		return 2
+	if best >= 110.0:
+		return 1
+	return 0
 
 
 ## 战斗打完后回报：写回轮回者的生命、恐惧、基因锁、生死和剩余道具（用掉的先扣分队共用的）；记击杀奖励；杀死新人扣 1000 点；
@@ -279,6 +308,27 @@ func choose(option_id: String) -> Array[Dictionary]:
 	st.pending_choice = {}
 	events.append({"type": "choice_made", "id": String(pending["id"]), "option": option_id})
 	PlotRunner.apply_effects(st, picked.get("effects", []), String(pending["location"]), events)
+	PlotRunner.run_conditional(st, events)
+	return _emit(events)
+
+
+## 用关键词说服：把"说了什么"交给 persuasion.gd 折算成 0~3 级，再走 resolve_persuasion。
+## 需要先推理出 requires_fact 指定的事实；没有推论时按失败处理，并报告 persuade_blocked。
+func persuade_with(keywords: Array, thinker_id: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = []
+	if st.outcome != "ongoing" or st.pending_check.is_empty():
+		events.append({"type": "invalid_action", "reason": "no_check"})
+		return _emit(events)
+	if not st.is_alive(thinker_id):
+		events.append({"type": "invalid_action", "reason": "no_thinker"})
+		return _emit(events)
+	var check: Dictionary = st.pending_check
+	var level := Persuasion.level(check, keywords, st.characters[thinker_id], st.intel)
+	if level >= 0:
+		return resolve_persuasion(level)
+	st.pending_check = {}
+	events.append({"type": "persuade_blocked", "id": String(check["id"]), "npc": String(check["npc"]), "fact": String(check.get("requires_fact", ""))})
+	PlotRunner.apply_effects(st, check.get("failure", []), String(check.get("location", "")), events)
 	PlotRunner.run_conditional(st, events)
 	return _emit(events)
 

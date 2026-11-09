@@ -205,6 +205,7 @@ static func _battle(st: RefCounted, spec: Dictionary, events: Array[Dictionary])
 		"squad": here[0],
 		"enemies": (spec["enemies"] as Array).duplicate(true),
 		"dark": dark,
+		"survive_until": float(spec.get("survive_until", -1.0)),
 		"after_victory": (spec.get("after_victory", []) as Array).duplicate(true),
 		"after_defeat": (spec.get("after_defeat", []) as Array).duplicate(true),
 	}

@@ -5,7 +5,7 @@
 			"name": "郑吒",
 			"attributes": {"intelligence": 100, "spirit": 110, "cell_vitality": 105, "nerve_reaction": 105, "muscle": 110, "immunity": 100},
 			"skills": ["punch"],
-			"items": {},
+			"items": {"ammo": 12},
 			"films_completed": 0,
 			"flags": {
 				"background": "普通公司职员，看过这部电影，记得激光通道和火焰女皇。",

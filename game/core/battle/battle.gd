@@ -23,6 +23,8 @@ var dark: bool = false
 var allow_retreat: bool = false
 ## 坚持到这个时刻（CTB 时间）就算撑过去；小于 0 表示不限时。
 var survive_until: float = -1.0
+## 队伍里智者的判断力（0~2）：0 只看得出对方要行动，1 看得出技能，2 看得出目标。
+var intel: int = 0
 var outcome: String = "ongoing"
 ## 正在等待玩家下令的单位；不在玩家回合时为 null。
 var current: RefCounted = null
@@ -40,6 +42,7 @@ func setup(units: Array[RefCounted], options: Dictionary, random: RefCounted) ->
 	dark = bool(options.get("dark", false))
 	allow_retreat = bool(options.get("allow_retreat", false))
 	survive_until = float(options.get("survive_until", -1.0))
+	intel = int(options.get("intel", 0))
 	max_actions = int(BattleData.rules()["max_actions"])
 	var events: Array[Dictionary] = []
 	var placed: Array[String] = []
