@@ -8,6 +8,7 @@ signal zhushen_requested
 
 const HubView = preload("res://ui/hub/hub_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
+const Sfx = preload("res://core/audio/sfx.gd")
 
 const ATTRS := {
 	"intelligence": "智力", "spirit": "精神力", "cell_vitality": "细胞活力",
@@ -297,27 +298,36 @@ func press_entry(entry_id: String) -> void:
 func _do_buy(entry_id: String, accept_risk: bool) -> void:
 	confirm_entry = ""
 	var events: Array[Dictionary] = view.buy(selected, entry_id, accept_risk)
+	Sfx.play_for_events(events)
 	status_label.text = _describe(events)
 	refresh()
 
 
 func press_attr(attr: String) -> void:
-	status_label.text = _describe(view.buy_attribute(selected, attr, 10))
+	var events: Array[Dictionary] = view.buy_attribute(selected, attr, 10)
+	Sfx.play_for_events(events)
+	status_label.text = _describe(events)
 	refresh()
 
 
 func press_repair(char_id: String) -> void:
-	status_label.text = _describe(view.repair(char_id))
+	var events: Array[Dictionary] = view.repair(char_id)
+	Sfx.play_for_events(events)
+	status_label.text = _describe(events)
 	refresh()
 
 
 func press_create(name: String) -> void:
-	status_label.text = _describe(view.create_human(selected, name))
+	var events: Array[Dictionary] = view.create_human(selected, name)
+	Sfx.play_for_events(events)
+	status_label.text = _describe(events)
 	refresh()
 
 
 func press_train(skill_id: String, days: int) -> void:
-	status_label.text = _describe(view.train(selected, skill_id, days))
+	var events: Array[Dictionary] = view.train(selected, skill_id, days)
+	Sfx.play_for_events(events)
+	status_label.text = _describe(events)
 	refresh()
 
 

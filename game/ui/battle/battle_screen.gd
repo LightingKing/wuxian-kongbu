@@ -7,6 +7,7 @@ signal finished
 const BattleView = preload("res://ui/battle/battle_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const PixelArt = preload("res://core/art/pixel_art.gd")
+const Sfx = preload("res://core/audio/sfx.gd")
 
 var view: RefCounted
 var header: Label
@@ -208,6 +209,8 @@ func _open(indices: Array) -> void:
 
 
 func press_action(index: int) -> void:
+	var before := (view.b.history as Array).size()
 	view.act(index)
+	Sfx.play_for_events((view.b.history as Array).slice(before))
 	open_indices = []
 	refresh()

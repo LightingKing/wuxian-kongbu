@@ -22,6 +22,7 @@ const Slots = preload("res://core/save/slots.gd")
 const Settings = preload("res://core/settings/settings.gd")
 const TitleScreen = preload("res://ui/title_screen.gd")
 const PauseMenu = preload("res://ui/pause_menu.gd")
+const Sfx = preload("res://core/audio/sfx.gd")
 
 const ZHSHEN_FAQ := "res://data/ai/zhushen_faq.json"
 ## 主神不许说出口的词（校验层会拦，泄露就换离线回答）。
@@ -46,6 +47,7 @@ var panel: Control = null
 func _ready() -> void:
 	theme = UiTheme.build()
 	_build_frame()
+	add_child(Sfx.new())
 	settings = Settings.load_settings()
 	Settings.apply(settings)
 	_show_title()
@@ -152,6 +154,7 @@ func _on_expedition_ended() -> void:
 	if session.phase != "expedition":
 		return
 	var results: Dictionary = session.settle()
+	Sfx.play("coin")
 	_show_result(results)
 
 

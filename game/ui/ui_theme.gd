@@ -13,6 +13,8 @@ const ACCENT2 := Color("e0a458")
 const OK := Color("6fbf73")
 const DARK := Color("0b0d12")
 
+const Sfx = preload("res://core/audio/sfx.gd")
+
 
 static func build() -> Theme:
 	var t := Theme.new()
@@ -51,6 +53,7 @@ static func button(text: String, size: int = 22) -> Button:
 	b.add_theme_font_size_override("font_size", size)
 	b.custom_minimum_size = Vector2(0, 52)
 	b.focus_mode = Control.FOCUS_NONE
+	b.pressed.connect(func() -> void: Sfx.play("click"))
 	return b
 
 
