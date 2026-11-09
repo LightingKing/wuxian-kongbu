@@ -7,7 +7,7 @@ extends SceneTree
 ## 加 --capture（不带 --headless）可以截一张结算后的图到 art_src/qa/。
 
 const Slots = preload("res://core/save/slots.gd")
-const PortraitSource = preload("res://core/art/portrait_source.gd")
+const PortraitSource = preload("res://ui/art/portrait_source.gd")
 
 var failures := 0
 

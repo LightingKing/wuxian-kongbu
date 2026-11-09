@@ -5,7 +5,7 @@ extends Control
 signal finished
 
 const UiTheme = preload("res://ui/ui_theme.gd")
-const PortraitSource = preload("res://core/art/portrait_source.gd")
+const PortraitSource = preload("res://ui/art/portrait_source.gd")
 
 var art: TextureRect
 var caption: Label

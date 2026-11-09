@@ -8,7 +8,7 @@ extends RefCounted
 ## .tres 是文本、进仓库，但它引用的 PNG 不进仓库，所以先查依赖是否都在，缺了就跳过，免得加载报错。
 ## 动作名统一成 idle / attack / hit / down；试验图里丧尸的倒地叫 death，按 down 用。
 
-const PixelArt = preload("res://core/art/pixel_art.gd")
+const PixelArt = preload("res://ui/art/pixel_art.gd")
 
 const ART_FRAMES := "res://art/battle/%s/sprite_frames.tres"
 const ART_BG := "res://art/battle/bg_%s.png"

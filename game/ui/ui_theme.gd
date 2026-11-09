@@ -13,7 +13,7 @@ const ACCENT2 := Color("e0a458")
 const OK := Color("6fbf73")
 const DARK := Color("0b0d12")
 
-const Sfx = preload("res://core/audio/sfx.gd")
+const Sfx = preload("res://ui/audio/sfx.gd")
 
 
 static func build() -> Theme:

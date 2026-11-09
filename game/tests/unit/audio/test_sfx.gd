@@ -1,7 +1,7 @@
 extends "res://tests/test_case.gd"
 ## 音效合成：波形长度、格式、缓存、未知 id、无宿主时不炸。
 
-const Sfx = preload("res://core/audio/sfx.gd")
+const Sfx = preload("res://ui/audio/sfx.gd")
 
 
 func _sfx() -> Node:

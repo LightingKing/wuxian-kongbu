@@ -8,8 +8,8 @@ signal finished
 const BattleView = preload("res://ui/battle/battle_view.gd")
 const BattleStage = preload("res://ui/battle/battle_stage.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
-const PixelArt = preload("res://core/art/pixel_art.gd")
-const Sfx = preload("res://core/audio/sfx.gd")
+const PixelArt = preload("res://ui/art/pixel_art.gd")
+const Sfx = preload("res://ui/audio/sfx.gd")
 
 ## 半透明面板：压在像素画面上，看得清字也不完全挡住背景。
 const GLASS := Color(0.04, 0.05, 0.08, 0.78)

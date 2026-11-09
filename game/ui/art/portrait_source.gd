@@ -4,7 +4,7 @@ extends RefCounted
 ## 正式图不进仓库（.gitignore 忽略 png），但导出时 `export_filter=all_resources` 会把它打进包。
 ## 刚放进来的图还没被 Godot 导入时，ResourceLoader 找不到，这里退回直接读文件（本地开发够用）。
 
-const PixelArt = preload("res://core/art/pixel_art.gd")
+const PixelArt = preload("res://ui/art/pixel_art.gd")
 
 const PORTRAIT_DIR := "res://art/portraits/"
 const CG_DIR := "res://art/cg/"

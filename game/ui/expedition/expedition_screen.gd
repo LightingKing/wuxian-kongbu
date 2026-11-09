@@ -14,7 +14,7 @@ signal cutscene_requested(name: String, text: String)
 const ExpeditionView = preload("res://ui/expedition/expedition_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
-const PixelArt = preload("res://core/art/pixel_art.gd")
+const PixelArt = preload("res://ui/art/pixel_art.gd")
 
 
 ## 画通路的小画布：地点按钮是它的子节点。

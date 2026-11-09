@@ -23,9 +23,9 @@ const Slots = preload("res://core/save/slots.gd")
 const Settings = preload("res://core/settings/settings.gd")
 const TitleScreen = preload("res://ui/title_screen.gd")
 const PauseMenu = preload("res://ui/pause_menu.gd")
-const Sfx = preload("res://core/audio/sfx.gd")
+const Sfx = preload("res://ui/audio/sfx.gd")
 const Cutscene = preload("res://ui/cutscene.gd")
-const PortraitSource = preload("res://core/art/portrait_source.gd")
+const PortraitSource = preload("res://ui/art/portrait_source.gd")
 const Companion = preload("res://core/hub/companion.gd")
 
 const ZHSHEN_FAQ := "res://data/ai/zhushen_faq.json"

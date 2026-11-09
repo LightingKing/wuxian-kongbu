@@ -10,7 +10,7 @@ signal companion_talk_requested(companion_id: String)
 
 const HubView = preload("res://ui/hub/hub_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
-const Sfx = preload("res://core/audio/sfx.gd")
+const Sfx = preload("res://ui/audio/sfx.gd")
 
 const ATTRS := {
 	"intelligence": "智力", "spirit": "精神力", "cell_vitality": "细胞活力",

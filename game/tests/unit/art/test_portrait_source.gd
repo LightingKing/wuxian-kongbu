@@ -2,7 +2,7 @@ extends "res://tests/test_case.gd"
 ## 立绘来源：有正式图就用、没有回退像素头像；CG 没有就返回 null。
 ## 图片不进仓库，所以"有图"的分支要看本机实际文件，没有就跳过（但仍记一次断言）。
 
-const PortraitSource = preload("res://core/art/portrait_source.gd")
+const PortraitSource = preload("res://ui/art/portrait_source.gd")
 
 
 func before_each() -> void:

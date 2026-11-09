@@ -9,8 +9,8 @@ signal reply_picked(text: String)
 signal closed
 
 const UiTheme = preload("res://ui/ui_theme.gd")
-const PixelArt = preload("res://core/art/pixel_art.gd")
-const PortraitSource = preload("res://core/art/portrait_source.gd")
+const PixelArt = preload("res://ui/art/pixel_art.gd")
+const PortraitSource = preload("res://ui/art/portrait_source.gd")
 
 var panel: Panel
 var title_label: Label
