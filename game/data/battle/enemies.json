@@ -25,6 +25,18 @@
 			"flags": ["fearless"],
 			"fear_aura": 5
 		},
+		"training_dummy": {
+			"name": "训练傀儡",
+			"hp": 240,
+			"speed": 55,
+			"attack_mult": 0.15,
+			"kill_base": 0,
+			"threat": 0,
+			"skills": ["zombie_bite"],
+			"ai": "wounded",
+			"flags": ["fearless"],
+			"fear_aura": 0
+		},
 		"licker": {
 			"name": "爬行者",
 			"hp": 200,

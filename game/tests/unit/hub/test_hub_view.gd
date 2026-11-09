@@ -88,6 +88,22 @@ func test_create_human() -> void:
 	assert_eq(second[0]["cost"], 500)
 
 
+## 对练：列全部战斗技能（不挑熟练度），打一场花 1 天，会话里的天数跟着走。
+func test_spar() -> void:
+	var v := _view()
+	var list: Array[Dictionary] = v.sparrable("zheng_zha")
+	assert_true(list.size() >= 1, "至少有拳脚")
+	var has_punch := false
+	for t: Dictionary in list:
+		if String(t["id"]) == "punch":
+			has_punch = true
+	assert_true(has_punch)
+	var events: Array[Dictionary] = v.spar("zheng_zha", "punch")
+	assert_eq(String(events[0]["type"]), "spar_done")
+	assert_eq(v.session.day, 2, "对练花 1 天，session 同步")
+	assert_true(float(events[0]["damage"]) > 0.0)
+
+
 ## 训练：熟练度低于 1 的能力才列出来；练一天涨 0.25，天数一起走。
 func test_train() -> void:
 	var v := _view()

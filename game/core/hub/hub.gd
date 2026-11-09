@@ -6,6 +6,12 @@ extends RefCounted
 const Exchange = preload("res://core/hub/exchange.gd")
 const Pricing = preload("res://core/hub/pricing.gd")
 const Rules = preload("res://core/util/rules.gd")
+const Battle = preload("res://core/battle/battle.gd")
+const UnitFactory = preload("res://core/battle/unit_factory.gd")
+const Rng = preload("res://core/util/rng.gd")
+
+## 对练用的傀儡血量，用来换算"打掉了多少"。
+const DUMMY_HP := 240.0
 
 var game: RefCounted
 var days_total: int = 10
@@ -147,6 +153,47 @@ func train(char_id: String, skill_id: String, days: int) -> Array[Dictionary]:
 	ch.proficiency[skill_id] = minf(1.0, float(ch.proficiency.get(skill_id, 1.0)) + gain)
 	var events: Array[Dictionary] = [{"type": "trained", "char": char_id, "skill": skill_id, "days": days, "proficiency": ch.proficiency[skill_id]}]
 	_pass_days(days, events)
+	return _emit(events)
+
+
+## 训练场对练：拿指定技能跟训练傀儡打一场，耗 1 天。
+## 目的是让玩家看见兑换前后的伤害差别；单位是副本，不写回，角色不会受伤、不会耗道具。
+func spar(char_id: String, skill_id: String) -> Array[Dictionary]:
+	var ch := _char(char_id)
+	if ch == null or not ch.alive:
+		return _refuse("bad_char")
+	if not ch.skills.has(skill_id):
+		return _refuse("unknown_skill")
+	if day + 1 > days_total - 1:
+		return _refuse("no_days")
+	var units: Array[RefCounted] = []
+	units.append(UnitFactory.from_character(ch, "ally", 0, [skill_id], "player", ch.battle_resources()))
+	units.append(UnitFactory.from_enemy("training_dummy", "dummy_1", 0))
+	var b := Battle.new()
+	b.setup(units, {"allow_retreat": false}, Rng.new(day * 37 + 11))
+	var rounds := 0
+	while b.outcome == "ongoing" and rounds < 40:
+		var acts: Array[Dictionary] = b.legal_actions()
+		if acts.is_empty():
+			break
+		var picked: Dictionary = acts[0]
+		for a: Dictionary in acts:
+			if String(a.get("type", "")) == "skill":
+				picked = a
+				break
+		b.act(picked)
+		rounds += 1
+	var dummy: RefCounted = b.field.get_unit("dummy_1")
+	var left := maxf(float(dummy.hp), 0.0) if dummy != null else 0.0
+	var dealt := clampf(DUMMY_HP - left, 0.0, DUMMY_HP)
+	var gain := float(Pricing.rules()["train"]["proficiency_per_day"]) * 0.5
+	ch.proficiency[skill_id] = minf(1.0, float(ch.proficiency.get(skill_id, 1.0)) + gain)
+	var events: Array[Dictionary] = [{
+		"type": "spar_done", "char": char_id, "skill": skill_id,
+		"damage": dealt, "rounds": rounds, "outcome": b.outcome,
+		"proficiency": ch.proficiency[skill_id],
+	}]
+	_pass_days(1, events)
 	return _emit(events)
 
 

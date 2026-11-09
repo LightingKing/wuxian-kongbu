@@ -76,7 +76,7 @@ func _build() -> void:
 	tab_box.size = Vector2(1420, 52)
 	tab_box.add_theme_constant_override("separation", 10)
 	add_child(tab_box)
-	for t in [["兑换", "exchange"], ["属性", "attr"], ["修复", "repair"], ["造人", "human"], ["训练", "train"]]:
+	for t in [["兑换", "exchange"], ["属性", "attr"], ["修复", "repair"], ["造人", "human"], ["训练", "train"], ["对练", "spar"]]:
 		var b := UiTheme.button(String(t[0]), 20)
 		b.pressed.connect(open_tab.bind(String(t[1])))
 		tab_box.add_child(b)
@@ -141,10 +141,11 @@ func refresh() -> void:
 		"repair": _build_repair()
 		"human": _build_human()
 		"train": _build_train()
+		"spar": _build_spar()
 
 
 func _tab_of(text: String) -> String:
-	var table := {"兑换": "exchange", "属性": "attr", "修复": "repair", "造人": "human", "训练": "train"}
+	var table := {"兑换": "exchange", "属性": "attr", "修复": "repair", "造人": "human", "训练": "train", "对练": "spar"}
 	return String(table.get(text, ""))
 
 
@@ -265,6 +266,34 @@ func _build_train() -> void:
 		content_box.add_child(row)
 
 
+## 对练：拿招式跟训练傀儡打一场，看伤害数字。耗 1 天，不伤人不耗道具。
+func _build_spar() -> void:
+	content_box.add_child(UiTheme.label("跟训练傀儡打一场（耗 1 天，不掉血、不耗弹药），用来看兑换前后的差别。", 18, UiTheme.MUTED))
+	var list: Array[Dictionary] = view.sparrable(selected)
+	if list.is_empty():
+		content_box.add_child(UiTheme.label("这个人还没有能上场的招式。", 19, UiTheme.MUTED))
+		return
+	for t: Dictionary in list:
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 10)
+		var l := UiTheme.label(String(t["name"]), 20)
+		l.custom_minimum_size = Vector2(420, 44)
+		row.add_child(l)
+		var b := UiTheme.button("打一场（1 天）", 18)
+		b.custom_minimum_size = Vector2(160, 44)
+		b.disabled = view.hub.day + 1 > view.hub.days_total - 1
+		b.pressed.connect(press_spar.bind(String(t["id"])))
+		row.add_child(b)
+		content_box.add_child(row)
+
+
+func press_spar(skill_id: String) -> void:
+	var events: Array[Dictionary] = view.spar(selected, skill_id)
+	Sfx.play_for_events(events)
+	status_label.text = _describe(events)
+	refresh()
+
+
 func _set_category(c: String) -> void:
 	category = c
 	refresh()
@@ -371,6 +400,11 @@ func _describe(events: Array[Dictionary]) -> String:
 			return "造人完成：%s" % String((e["companion"] as Dictionary)["name"])
 		"trained":
 			return "训练完成：%s 熟练度 %.0f%%" % [String(e["skill"]), float(e["proficiency"]) * 100.0]
+		"spar_done":
+			return "对练：%s 打出 %d 伤害（%d 回合，%s），熟练度 %.0f%%" % [
+				String(e["skill"]), int(float(e["damage"])), int(e["rounds"]),
+				"打赢" if String(e["outcome"]) == "victory" else "没打完",
+				float(e["proficiency"]) * 100.0]
 		"day_passed":
 			return "第 %d 天" % int(e["day"])
 		"hub_refused":

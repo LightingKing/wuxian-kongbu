@@ -119,6 +119,22 @@ func trainable(char_id: String) -> Array[Dictionary]:
 	return out
 
 
+## 对练能用的招式：只列战斗技能（被动能力不上场）。
+func sparrable(char_id: String) -> Array[Dictionary]:
+	var ch: RefCounted = game.characters[char_id]
+	var out: Array[Dictionary] = []
+	for s: String in ch.skills:
+		var info: Dictionary = BattleData.skills().get(s, {})
+		out.append({"id": s, "name": String(info.get("name", s)), "proficiency": float(ch.proficiency.get(s, 1.0))})
+	return out
+
+
+func spar(char_id: String, skill_id: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = hub.spar(char_id, skill_id)
+	session.day = hub.day
+	return events
+
+
 func train(char_id: String, skill_id: String, days: int) -> Array[Dictionary]:
 	var events: Array[Dictionary] = hub.train(char_id, skill_id, days)
 	session.day = hub.day
