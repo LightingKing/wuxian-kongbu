@@ -5,6 +5,7 @@ extends Control
 const Session = preload("res://core/session/session.gd")
 const ExpeditionScreen = preload("res://ui/expedition/expedition_screen.gd")
 const BattleScreen = preload("res://ui/battle/battle_screen.gd")
+const HubScreen = preload("res://ui/hub/hub_screen.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const Battle = preload("res://core/battle/battle.gd")
 
@@ -155,34 +156,14 @@ func _on_enter_hub() -> void:
 
 
 func _show_hub() -> void:
+	if session.hub == null:
+		return
 	_clear()
-	var box := VBoxContainer.new()
-	box.position = Vector2(300, 110)
-	box.size = Vector2(1320, 800)
-	box.add_theme_constant_override("separation", 16)
-	content.add_child(box)
-	box.add_child(UiTheme.label("主神空间 · 第 %d 天 / 9" % session.day, 36, UiTheme.ACCENT2))
-	box.add_child(UiTheme.label("回归当晚只结算和造人；兑换、修复、训练从第 2 天开始。M1 的休息期界面在后续计划里展开。", 20, UiTheme.MUTED))
-	var zheng: RefCounted = session.game.characters.get("zheng_zha")
-	if zheng != null:
-		box.add_child(UiTheme.label("郑吒：%d 点 · 支线 B×%d" % [zheng.points, int(zheng.tickets.counts["B"])], 24, UiTheme.TEXT))
-	if session.day < 9:
-		var next := UiTheme.button("推进一天", 22)
-		next.custom_minimum_size = Vector2(240, 56)
-		next.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		next.pressed.connect(func() -> void:
-			session.advance_day()
-			_show_hub())
-		box.add_child(next)
-	else:
-		var go := UiTheme.button("走光柱（下一部：异形）", 22)
-		go.custom_minimum_size = Vector2(360, 56)
-		go.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		go.pressed.connect(func() -> void:
-			session.depart()
-			_show_done())
-		box.add_child(go)
-	_set_status("主神空间 · 第 %d 天" % session.day)
+	var screen := HubScreen.new()
+	screen.setup(session)
+	screen.departed.connect(_show_done)
+	content.add_child(screen)
+	_set_status("主神空间")
 
 
 func _show_done() -> void:

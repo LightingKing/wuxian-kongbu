@@ -95,15 +95,54 @@ func _run() -> void:
 		hub_btn.emit_signal("pressed")
 		await process_frame
 	_expect(String(main.session.phase) == "hub", "进入主神空间")
-	_expect(_found_text(main.content, "第 1 天"), "休整第 1 天")
+	var hub: Control = main.content.get_child(0)
+	_expect(hub.has_method("press_entry"), "主神空间界面加载")
+	if not hub.has_method("press_entry"):
+		_finish()
+		return
+	_expect(_found_text(main.content, "回归当晚"), "回归当晚")
+
+	hub.press_entry("qigong_low")
+	_expect(not main.session.game.characters["zheng_zha"].owned.has("qigong_low"), "当晚不能兑换")
+	hub.press_rest()
+	_expect(int(main.session.hub.day) == 1, "休息到第 1 天")
+	_expect(_found_text(main.content, "第 1 天"), "界面显示第 1 天")
+
+	main.session.hub.split_ticket("zheng_zha", "B")
+	main.session.hub.split_ticket("zheng_zha", "C")
+	hub.press_entry("qigong_low")
+	var zz: RefCounted = main.session.game.characters["zheng_zha"]
+	_expect(zz.owned.has("qigong_low"), "兑换到低级气功")
+	_expect(zz.energy.has("neili"), "获得内力池")
+	hub.press_attr("muscle")
+	_expect(int(zz.points) == 5900, "买属性扣 100 点，剩 5900")
+	hub.press_create("萝丽")
+	_expect(main.session.game.companions.size() == 1, "造出萝丽")
+	await _shot("m1_slice_hub.png")
 
 	main._on_save()
 	main._on_load()
 	await process_frame
+	var loaded: Control = main.content.get_child(0)
 	_expect(String(main.session.phase) == "hub", "读档回到主神空间")
-	_expect(int(main.session.game.characters["zheng_zha"].points) == 6500, "读档后点数还在")
+	_expect(int(main.session.hub.day) == 1, "读档保留天数")
+	_expect(main.session.game.characters["zheng_zha"].owned.has("qigong_low"), "读档保留兑换")
+	_expect(main.session.game.companions.size() == 1, "读档保留造物")
 
-	await _shot("m1_slice_hub.png")
+	var hurt: Array[Dictionary] = loaded.view.repairs()
+	if not hurt.is_empty():
+		var before_hp: float = main.session.game.characters[String(hurt[0]["id"])].hp
+		loaded.press_repair(String(hurt[0]["id"]))
+		_expect(main.session.game.characters[String(hurt[0]["id"])].hp > before_hp, "修复回血")
+
+	for i in 8:
+		loaded.press_rest()
+	_expect(int(main.session.hub.day) == 9, "休息到第 9 天")
+	_expect(bool(loaded.view.can_depart()), "第 9 天可以出发")
+	loaded.press_depart()
+	await process_frame
+	_expect(String(main.session.phase) == "done", "走光柱后阶段结束")
+	_expect(_found_text(main.content, "二十道光柱"), "结尾画面")
 
 	_finish()
 
