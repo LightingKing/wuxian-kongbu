@@ -19,6 +19,8 @@ var view: RefCounted
 var selected: String = "zheng_zha"
 var tab: String = "exchange"
 var category: String = ""
+## 兑换页只列买得起的。
+var affordable_only: bool = false
 var confirm_entry: String = ""
 var status_label: Label
 var day_label: Label
@@ -166,6 +168,9 @@ func _build_exchange() -> void:
 		if category == String(c[1]):
 			b.modulate = Color(1.0, 0.82, 0.55, 1.0)
 		row.add_child(b)
+	var only := UiTheme.button("只看买得起的" if not affordable_only else "显示全部", 18)
+	only.pressed.connect(toggle_affordable)
+	row.add_child(only)
 	content_box.add_child(row)
 	if view.hub.day == 0:
 		content_box.add_child(UiTheme.label("回归当晚不兑换。先造人，或者直接休息到第 2 天。", 20, UiTheme.MUTED))
@@ -184,10 +189,12 @@ func _build_exchange() -> void:
 		warn.add_child(no)
 		content_box.add_child(warn)
 
-	for e: Dictionary in view.entries(selected, category):
+	for e: Dictionary in view.entries(selected, category, affordable_only):
 		var label := "%s   %d 点" % [String(e["name"]), int(e["points"])]
 		if String(e["tier"]) != "":
 			label += " · " + String(e["tier"]) + " 级"
+		if String(e["effect"]) != "":
+			label += "　｜" + String(e["effect"])
 		if bool(e["owned"]):
 			label += "  [已拥有]"
 		elif not bool(e["ok"]):
@@ -330,6 +337,11 @@ func press_spar(skill_id: String) -> void:
 	var events: Array[Dictionary] = view.spar(selected, skill_id)
 	Sfx.play_for_events(events)
 	status_label.text = _describe(events)
+	refresh()
+
+
+func toggle_affordable() -> void:
+	affordable_only = not affordable_only
 	refresh()
 
 
