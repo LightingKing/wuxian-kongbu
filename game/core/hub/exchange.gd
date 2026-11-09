@@ -1,11 +1,12 @@
 extends RefCounted
 ## 在主神处兑换（设计规格 6.2~6.3）。先核对门槛，不满足时主神说明原因；满足就扣点数和支线、把积木落到角色身上。
-## 门槛：点数、支线、前置（高一级要先有同系低一级）、能量类型（纳戒要内力）、素质门槛（天赋可绕过）、不能重复兑换。
+## 门槛：点数、支线、前置（高一级要先有同系低一级）、能量类型（纳戒要内力）、素质门槛（契合的天赋可绕过，见 talents.gd）、不能重复兑换。
 ## 代兑：可以用别人的点数和支线给自己兑换，每人每次休整只能给别人一次（由 hub.gd 记录，这里只看传进来的 gift_used）。
 ## 双血统：已有别的系列的血统再兑换血统，主神先警告；坚持兑换时 70% 变成非人（flags.mutated）。
 
 const Catalog = preload("res://core/hub/catalog.gd")
 const Pricing = preload("res://core/hub/pricing.gd")
+const Talents = preload("res://core/model/talents.gd")
 
 
 ## 返回 {"ok": bool, "reasons": [原因], "warnings": [警告]}。payer 为 null 表示自己付。
@@ -30,7 +31,7 @@ static func check(ch: RefCounted, entry_id: String, payer: RefCounted = null, gi
 		reasons.append("needs_energy:" + need_energy)
 	var gates: Dictionary = e.get("gates", {})
 	var bypass := String(gates.get("talent_bypass", ""))
-	var talented := bypass != "" and (ch.flags.get("talents", []) as Array).has(bypass)
+	var talented := Talents.has(ch, bypass)
 	for k: String in gates.get("attr_min", {}):
 		if not talented and ch.attributes.total(k) < float(gates["attr_min"][k]):
 			reasons.append("gate:" + k)

@@ -1,0 +1,49 @@
+{
+	"version": 1,
+	"near_death_ratio": 0.25,
+	"awaken_spike": 0.1,
+	"talents": {
+		"iron_will": {
+			"name": "不屈",
+			"triggers": ["near_death", "ally_died"],
+			"text": "眼看着同伴倒下，他反而稳住了。",
+			"effect": {"attr": {"spirit": 15, "nerve_reaction": 10}, "fear_relief": 30}
+		},
+		"half_guide": {
+			"name": "半引导者",
+			"triggers": ["team_peril"],
+			"text": "队伍快撑不住了，他终于不再藏着。",
+			"effect": {"attr": {"nerve_reaction": 15, "muscle": 15}, "fear_relief": 20}
+		},
+		"psychic": {
+			"name": "精神力天赋",
+			"triggers": ["bought_attr:spirit", "bought_series:psionic", "team_peril"],
+			"text": "精神力像被点着了，四周的动静一下子清楚起来。",
+			"effect": {"attr": {"spirit": 40}}
+		},
+		"quick_learner": {
+			"name": "学得快",
+			"triggers": ["trained"],
+			"text": "有人带着练过一遍，他就上手了。",
+			"effect": {"train_mult": 2.0}
+		},
+		"wheelman": {
+			"name": "老司机",
+			"triggers": ["near_death"],
+			"text": "被逼到绝路，他握拳的手反而稳了。",
+			"effect": {"attr": {"nerve_reaction": 15}, "fear_relief": 25}
+		},
+		"lucky": {
+			"name": "傻人有傻福",
+			"triggers": ["flag:helped_lagging"],
+			"text": "被人扶着走，他忽然觉得没那么怕了。",
+			"effect": {"attr": {"immunity": 15, "cell_vitality": 10}, "fear_relief": 15}
+		},
+		"calm_voice": {
+			"name": "稳住人心",
+			"triggers": ["flag:helped_lagging"],
+			"text": "队伍肯停下来等她，她开口把大家安抚住了。",
+			"effect": {"attr": {"spirit": 10}, "fear_relief": 15, "team_fear_relief": 10}
+		}
+	}
+}

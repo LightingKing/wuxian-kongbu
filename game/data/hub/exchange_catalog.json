@@ -80,9 +80,9 @@
 		},
 		"mind_scan": {
 			"name": "精神力扫描", "category": "enhance", "series": "psionic",
-			"gates": {"attr_min": {"spirit": 300}, "talent_bypass": "spirit_talent"},
+			"gates": {"attr_min": {"spirit": 300}, "talent_bypass": "psychic"},
 			"price": {"points": 4000, "tier": "C"}, "source": "L4740",
-			"note": "门槛数值是占位，计划 7 按原著核对",
+			"note": "门槛数值是占位；詹岚的精神力天赋可绕过（原著 L4740 附近）",
 			"blocks": [{"ability": "mind_scan", "value": 5400, "tier": "C"}]
 		},
 		"mind_focus": {

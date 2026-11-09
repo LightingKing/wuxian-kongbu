@@ -5,6 +5,7 @@ extends RefCounted
 ##   intelligence_min（发现者的智力）、talents（发现者的天赋）、flags（GameState.flags 里为真的旗标）、films_completed_min（发现者经历过的片数）。
 
 const DataLoader = preload("res://core/util/data_loader.gd")
+const Talents = preload("res://core/model/talents.gd")
 
 const PATH := "res://data/intel/hidden_rules.json"
 
@@ -28,9 +29,8 @@ static func unmet(rule_id: String, thinker: RefCounted, game_state: RefCounted) 
 	var out: Array[String] = []
 	if thinker.attributes.total("intelligence") < float(req.get("intelligence_min", 0.0)):
 		out.append("intelligence")
-	var talents: Array = thinker.flags.get("talents", [])
 	for t: String in req.get("talents", []):
-		if not talents.has(t):
+		if not Talents.has(thinker, t):
 			out.append("talent:" + t)
 	for f: String in req.get("flags", []):
 		if not bool(game_state.flags.get(f, false)):

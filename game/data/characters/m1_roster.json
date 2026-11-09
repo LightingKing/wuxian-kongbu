@@ -79,7 +79,7 @@
 				"background": "货运司机，开过长途，力气大、耐力好。",
 				"talent": "wheelman",
 				"talent_name": "老司机",
-				"talent_condition": "摸到方向盘",
+				"talent_condition": "摸到方向盘，或者被逼到绝路",
 				"demon": "怕死，越怕越慌",
 				"potential": 0.45,
 				"personality": "嗓门大、爱吹牛，真遇到事容易崩。",

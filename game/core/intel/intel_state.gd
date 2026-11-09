@@ -5,6 +5,8 @@ extends RefCounted
 ## 事实的定义来自剧本：{"statement", "domain", "truth", "difficulty", "clues": {线索 id: 权重}}。
 ## 随机数由调用方传入（roll 在 0~1 之间）。
 
+const Talents = preload("res://core/model/talents.gd")
+
 var facts: Dictionary = {}
 var clues_found: Dictionary = {}
 ## 事实 id → {"conclusion": bool, "confidence": float, "by": [角色 id], "contested": bool}
@@ -50,13 +52,13 @@ func add_clue(clue_id: String) -> Array[Dictionary]:
 
 
 ## 推理准确度：0.3 + (智力 − 100) / 400 + 线索 × 0.4 + 领域熟悉度 × 0.2 + 天才 0.1 − 难度 × 0.3，限制在 0.05~0.97。
-## 领域熟悉度在 flags.domains 里（0~1），天才是 flags.talents 里的 "genius"。
+## 领域熟悉度在 flags.domains 里（0~1），天才是天赋 "genius"（见 talents.gd）。
 static func accuracy(thinker: RefCounted, fact: Dictionary, clue_w: float) -> float:
 	var a := 0.3
 	a += (thinker.attributes.total("intelligence") - 100.0) / 400.0
 	a += clue_w * 0.4
 	a += float((thinker.flags.get("domains", {}) as Dictionary).get(String(fact.get("domain", "")), 0.0)) * 0.2
-	if (thinker.flags.get("talents", []) as Array).has("genius"):
+	if Talents.has(thinker, "genius"):
 		a += 0.1
 	a -= float(fact.get("difficulty", 0.0)) * 0.3
 	return clampf(a, 0.05, 0.97)

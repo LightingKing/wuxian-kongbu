@@ -61,8 +61,11 @@ func test_needs_energy() -> void:
 func test_gate_and_talent_bypass() -> void:
 	var c := _rich()
 	assert_eq(Exchange.check(c, "mind_scan")["reasons"], ["gate:spirit"])
-	c.flags["talents"] = ["spirit_talent"]
-	assert_true(bool(Exchange.check(c, "mind_scan")["ok"]))
+	c.flags["talent"] = "psychic"
+	assert_true(bool(Exchange.check(c, "mind_scan")["ok"]), "人物表写法：詹岚的精神力天赋绕过精神力门槛")
+	var d := _rich()
+	d.flags["talents"] = ["psychic"]
+	assert_true(bool(Exchange.check(d, "mind_scan")["ok"]), "数组写法也认")
 
 
 func test_no_duplicates_but_consumables_stack() -> void:
