@@ -8,6 +8,8 @@ signal ended
 signal talk_requested(npc_id: String)
 ## 想用自由说辞（交给 AI 评分）过当前的说服检定。
 signal persuade_requested
+## 剧情插图（CG）该出场了。
+signal cutscene_requested(name: String, text: String)
 
 const ExpeditionView = preload("res://ui/expedition/expedition_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
@@ -43,6 +45,7 @@ var title_label: Label
 var search_button: Button
 var chosen_keywords: Array[String] = []
 var _pending_id := ""
+var _cutscene_sent := ""
 var _ended_sent := false
 
 
@@ -176,6 +179,7 @@ func refresh() -> void:
 		b.disabled = not reachable
 		b.modulate = Color(0.78, 0.84, 1.0, 1.0) if bool(item.get("dark", false)) else Color.WHITE
 
+	_maybe_cutscene()
 	_build_talk()
 	_build_pending()
 	_build_items()
@@ -272,6 +276,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if press_choice(String(opts[idx]["id"])):
 		accept_event()
+
+
+## 有插图要播就通知一次；播完（pending 清空）后复位，下一次还能触发。
+func _maybe_cutscene() -> void:
+	var p: Dictionary = view.pending()
+	if String(p.get("kind", "")) != "cutscene":
+		_cutscene_sent = ""
+		return
+	var n := String(p["name"])
+	if n == _cutscene_sent:
+		return
+	_cutscene_sent = n
+	cutscene_requested.emit.call_deferred(n, String(p.get("text", "")))
+
+
+## 插图播完：交回 core 并刷新。
+func press_cutscene_done() -> void:
+	view.dismiss_cutscene()
+	refresh()
 
 
 ## 列出能搭话的人：最多四个，多的先不显示。

@@ -157,6 +157,9 @@ func members() -> Array[Dictionary]:
 
 ## 等待处理的事：选择、说服或战斗。
 func pending() -> Dictionary:
+	if not ex.st.pending_cutscene.is_empty():
+		var cg: Dictionary = ex.st.pending_cutscene
+		return {"kind": "cutscene", "name": String(cg.get("name", "")), "text": String(cg.get("text", ""))}
 	if not ex.st.pending_choice.is_empty():
 		var c: Dictionary = ex.st.pending_choice
 		var options: Array = []
@@ -266,6 +269,11 @@ func use_item(char_id: String, item_id: String) -> Array[Dictionary]:
 
 func deduce(fact_id: String, thinker_id: String) -> Array[Dictionary]:
 	return ex.deduce(fact_id, thinker_id)
+
+
+## 插图播完，交回 core 继续。
+func dismiss_cutscene() -> Array[Dictionary]:
+	return ex.dismiss_cutscene()
 
 
 func battle_units() -> Array[RefCounted]:

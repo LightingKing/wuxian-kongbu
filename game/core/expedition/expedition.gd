@@ -402,6 +402,18 @@ func deduce(fact_id: String, thinker_id: String) -> Array[Dictionary]:
 	return _emit(events)
 
 
+## 插图播完：清掉等待，继续条件事件。界面在没有这张图时也应调它，避免卡住。
+func dismiss_cutscene() -> Array[Dictionary]:
+	var events: Array[Dictionary] = []
+	if st.pending_cutscene.is_empty():
+		return _emit(events)
+	var name := String(st.pending_cutscene.get("name", ""))
+	st.pending_cutscene = {}
+	events.append({"type": "cutscene_dismissed", "name": name})
+	PlotRunner.run_conditional(st, events)
+	return _emit(events)
+
+
 ## 远征结束（回归、全灭或剧本给的结局）后结算，只能结算一次。返回 角色 id → 结算结果。
 func finish() -> Dictionary:
 	if st.outcome == "ongoing" or st.settled:
@@ -436,6 +448,8 @@ func _can_act(squad_id: String, events: Array[Dictionary]) -> bool:
 	var reason := ""
 	if st.outcome != "ongoing":
 		reason = "ended"
+	elif not st.pending_cutscene.is_empty():
+		reason = "cutscene_pending"
 	elif not st.pending_battle.is_empty():
 		reason = "battle_pending"
 	elif not st.pending_choice.is_empty():

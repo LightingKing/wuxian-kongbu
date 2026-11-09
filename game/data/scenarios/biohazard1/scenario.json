@@ -143,6 +143,7 @@
 			"location": "laser",
 			"inertia": 2,
 			"effects": [
+				{"cg": {"name": "cg_laser", "text": "激光网正在合拢，只有贴着大门的一小块地方是安全的。"}},
 				{"say": {"speaker": "matthew", "text": "郑吒、牟钢，你们两个跟我进来。"}},
 				{"give": {"recipients": ["zheng_zha"], "skill": "pistol_shot_limited"}},
 				{"choice": {"id": "laser_choice", "prompt": "激光网正在合拢，只有贴着大门的一小块地方是安全的。", "options": [

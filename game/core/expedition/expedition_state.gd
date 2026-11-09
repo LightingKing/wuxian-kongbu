@@ -40,6 +40,8 @@ var pending_battle: Dictionary = {}
 var pending_choice: Dictionary = {}
 ## 等待对话层评估的说服 {"id", "npc", "goal", "difficulty", "keywords", "success", "failure", "location"}。
 var pending_check: Dictionary = {}
+## 待播的剧情插图（CG）：{"name", "text"}；非空时挡着其他行动，等界面播完再 dismiss。
+var pending_cutscene: Dictionary = {}
 ## 这部片的隐藏事实与线索（剧本的 facts）。
 var intel: RefCounted = IntelState.new()
 ## 感染者 id → 已感染多少分钟（战斗里被咬、没解毒，带出了战斗）。
@@ -62,9 +64,9 @@ func setup(sc: RefCounted, chars: Dictionary, member_ids: Array[String]) -> void
 	intel.load_facts(sc.data.get("facts", {}))
 
 
-## 有等待处理的战斗、选择或说服时，其他行动都要等。
+## 有等待处理的战斗、选择、说服或插图时，其他行动都要等。
 func is_blocked() -> bool:
-	return not (pending_battle.is_empty() and pending_choice.is_empty() and pending_check.is_empty())
+	return not (pending_battle.is_empty() and pending_choice.is_empty() and pending_check.is_empty() and pending_cutscene.is_empty())
 
 
 func is_path_open(a: String, b: String) -> bool:
@@ -195,6 +197,7 @@ func to_dict() -> Dictionary:
 		"pending_battle": pending_battle.duplicate(true),
 		"pending_choice": pending_choice.duplicate(true),
 		"pending_check": pending_check.duplicate(true),
+		"pending_cutscene": pending_cutscene.duplicate(true),
 		"intel": intel.to_dict(),
 		"infected": infected.duplicate(),
 		"outcome": outcome,
@@ -228,6 +231,7 @@ func load_dict(d: Dictionary, sc: RefCounted, chars: Dictionary) -> void:
 	pending_battle = (d["pending_battle"] as Dictionary).duplicate(true)
 	pending_choice = (d.get("pending_choice", {}) as Dictionary).duplicate(true)
 	pending_check = (d.get("pending_check", {}) as Dictionary).duplicate(true)
+	pending_cutscene = (d.get("pending_cutscene", {}) as Dictionary).duplicate(true)
 	if d.has("intel"):
 		intel.load_dict(d["intel"])
 	infected = {}

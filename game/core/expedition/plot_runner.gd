@@ -70,6 +70,12 @@ static func recipients(st: RefCounted, spec: Variant, location: String) -> Array
 
 
 static func apply_effect(st: RefCounted, e: Dictionary, location: String, events: Array[Dictionary]) -> void:
+	if e.has("cg"):
+		var cg: Dictionary = e["cg"]
+		var cg_name := String(cg.get("name", ""))
+		var cg_text := String(cg.get("text", ""))
+		st.pending_cutscene = {"name": cg_name, "text": cg_text}
+		events.append({"type": "cutscene", "name": cg_name, "text": cg_text})
 	if e.has("say"):
 		events.append({"type": "dialogue", "speaker": String(e["say"]["speaker"]), "text": String(e["say"]["text"])})
 	if e.has("set_flag"):

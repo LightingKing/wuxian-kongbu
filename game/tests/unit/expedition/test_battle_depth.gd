@@ -14,6 +14,7 @@ func _at_control() -> RefCounted:
 	ex.move("s1", "stairs")
 	ex.choose("help")
 	ex.move("s1", "laser")
+	ex.dismiss_cutscene()
 	ex.choose("save_matthew")
 	ex.move("s1", "control")
 	return s

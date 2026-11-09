@@ -51,6 +51,7 @@ func _to_laser() -> RefCounted:
 	ex.move("s1", "stairs")
 	ex.choose("help")
 	ex.move("s1", "laser")
+	ex.dismiss_cutscene()
 	return ex
 
 
@@ -196,6 +197,7 @@ func test_canon_route_to_return() -> void:
 	ex.move("s1", "stairs")
 	ex.choose("help")
 	ex.move("s1", "laser")
+	ex.dismiss_cutscene()
 	ex.choose("save_matthew")
 	ex.move("s1", "control")
 	assert_eq(ex.st.clock, 45)

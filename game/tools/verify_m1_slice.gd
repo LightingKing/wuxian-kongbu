@@ -47,6 +47,18 @@ func _run() -> void:
 	_expect(screen.press_move("stairs"), "走到楼梯井")
 	_expect(screen.press_choice("help"), "扶掉队的新人")
 	_expect(screen.press_move("laser"), "走进激光通道")
+	await process_frame
+	await process_frame
+	var cs: Control = main.get_node_or_null("Cutscene")
+	_expect(cs != null, "走进激光通道弹出剧情 CG")
+	if cs != null:
+		_expect(cs.art.texture != null, "CG 图已加载")
+		_expect(String(cs.caption.text).contains("激光网"), "CG 带字幕")
+		await create_timer(0.45).timeout
+		await _shot("m1_cutscene.png")
+		cs.press_continue()
+		await process_frame
+	_expect(main.session.expedition.st.pending_cutscene.is_empty(), "插图播完自动继续")
 	_expect(screen.press_choice("save_matthew"), "拖着马修贴门")
 	_expect(screen.press_move("control"), "进入主机房")
 	_expect(int(main.session.expedition.st.clock) == 45, "第 45 分钟到达主机房")

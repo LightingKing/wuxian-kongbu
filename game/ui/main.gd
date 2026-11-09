@@ -23,6 +23,8 @@ const Settings = preload("res://core/settings/settings.gd")
 const TitleScreen = preload("res://ui/title_screen.gd")
 const PauseMenu = preload("res://ui/pause_menu.gd")
 const Sfx = preload("res://core/audio/sfx.gd")
+const Cutscene = preload("res://ui/cutscene.gd")
+const PortraitSource = preload("res://core/art/portrait_source.gd")
 
 const ZHSHEN_FAQ := "res://data/ai/zhushen_faq.json"
 ## 主神不许说出口的词（校验层会拦，泄露就换离线回答）。
@@ -117,6 +119,7 @@ func _show_expedition() -> void:
 	screen.ended.connect(_on_expedition_ended)
 	screen.talk_requested.connect(_on_talk)
 	screen.persuade_requested.connect(_on_persuade_free)
+	screen.cutscene_requested.connect(_on_cutscene)
 	content.add_child(screen)
 	_set_status("生化危机一")
 
@@ -402,6 +405,24 @@ func _model_name() -> String:
 	if ai == null:
 		return ""
 	return String((ai.settings["tiers"]["fast"] as Dictionary).get("model", ""))
+
+
+## 有图就播，没图直接跳过——不能因为缺一张 CG 把流程卡死。
+func _on_cutscene(cg_name: String, text: String) -> void:
+	var screen := _expedition_screen()
+	if not PortraitSource.has_cg(cg_name):
+		if screen != null:
+			screen.press_cutscene_done()
+		return
+	var c := Cutscene.new()
+	c.name = "Cutscene"
+	add_child(c)
+	c.open_for(cg_name, text)
+	c.finished.connect(func() -> void:
+		c.queue_free()
+		if screen != null and is_instance_valid(screen):
+			screen.press_cutscene_done()
+	)
 
 
 func _on_talk(npc_id: String) -> void:

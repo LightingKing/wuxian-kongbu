@@ -62,6 +62,8 @@ func blocked_reason() -> String:
 		return "ended"
 	if expedition.st.outcome != "ongoing":
 		return "ended"
+	if not expedition.st.pending_cutscene.is_empty():
+		return "cutscene"
 	if not expedition.st.pending_battle.is_empty():
 		return "battle"
 	if not expedition.st.pending_choice.is_empty():
