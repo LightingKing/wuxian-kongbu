@@ -1,6 +1,8 @@
 extends RefCounted
 ## 章节装配（设计规格 9、10.1）：一份章节 JSON 把剧本、人物表和开局名单拼成一次远征。
 ## 章节 JSON：{"id", "name", "scenario", "roster", "members"}，两个路径都是 res:// 下的 JSON。
+## 可选的 "agenda"：这部片开场时主神议程的状态——{"expected_wipe": 按团灭安排, "anomalies": [{"kind", "char", "note", "reason"}],
+##   "decisions": [{"kind", "payload", "reason"}]}。开局时写进 GameState.agenda（同一异常不重复记）。
 ## 人物表 JSON：{"version", "characters": {id: {"name", "attributes", "skills", "items", "films_completed", "flags"}}}。
 ## 这里只做装配和校验；远征本身的规则在 expedition/ 里。
 
@@ -81,6 +83,18 @@ static func validate_chapter(ch: Dictionary) -> Array[String]:
 	return errors
 
 
+## 把章节的议程块写进主神议程：异常（已经开着的不重复记）和开场决定，每条都带主神理由。
+static func apply_agenda(game_state: RefCounted, ch: Dictionary, film: String) -> void:
+	var ag: Dictionary = ch.get("agenda", {})
+	var agenda: RefCounted = game_state.agenda
+	for a: Dictionary in ag.get("anomalies", []):
+		var who := String(a.get("char", ""))
+		if agenda.open_anomaly(String(a["kind"]), who) == "":
+			agenda.add_anomaly(String(a["kind"]), film, String(a.get("note", "")), String(a.get("reason", "")), who)
+	for d: Dictionary in ag.get("decisions", []):
+		agenda.record(film, String(d["kind"]), d.get("payload", {}), String(d.get("reason", "")))
+
+
 ## 开局：把名单上的人加进 GameState（已有同名角色则覆盖），按主神评价战力开一部片。
 ## 返回 Expedition；章节数据有误时返回 null（错误已经 push_error）。
 static func start(game_state: RefCounted, path: String) -> RefCounted:
@@ -96,6 +110,7 @@ static func start(game_state: RefCounted, path: String) -> RefCounted:
 	for id: String in members:
 		game_state.add_character(roster[id])
 	var sc := Scenario.load_file(String(ch["scenario"]))
+	apply_agenda(game_state, ch, sc.id)
 	var ex := Expedition.new()
 	ex.start(game_state, sc, members, {"rating_power": Agenda.rating_power(game_state, members)})
 	return ex

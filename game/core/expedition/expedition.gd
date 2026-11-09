@@ -8,6 +8,7 @@ extends RefCounted
 ##   outcome 不再是 ongoing 时：ex.finish() 结算
 ## 时间是全局的：任何分队的行动都推进同一个时钟，期间到点的剧情事件依次发生。
 ## 行动途中发生战斗时，行动被打断（移动没到达、搜索没完成），剩下的时间作废。
+## 天赋觉醒（talents.gd）在这里判：剧情旗标、同伴死在面前、只剩一半人、战后濒死。觉醒事件追加在同一批事件后面。
 
 const ExpeditionState = preload("res://core/expedition/expedition_state.gd")
 const Watch = preload("res://core/expedition/watch.gd")
@@ -20,6 +21,7 @@ const UnitFactory = preload("res://core/battle/unit_factory.gd")
 const Statuses = preload("res://core/battle/statuses.gd")
 const KillReward = preload("res://core/economy/kill_reward.gd")
 const Rules = preload("res://core/util/rules.gd")
+const Talents = preload("res://core/model/talents.gd")
 
 var game: RefCounted
 var st: RefCounted
@@ -209,6 +211,7 @@ func report_battle(b: RefCounted) -> Array[Dictionary]:
 		return _emit(events)
 	var sid := String(st.pending_battle["squad"])
 	var carrier := String(st.pending_battle.get("carrier", ""))
+	var loc := String(st.pending_battle["location"])
 	for u: RefCounted in b.field.units:
 		if u.side != "ally" or not st.characters.has(u.character_id):
 			continue
@@ -219,6 +222,15 @@ func report_battle(b: RefCounted) -> Array[Dictionary]:
 			st.infected[ch.id] = 0
 			events.append({"type": "infected", "char": ch.id})
 	var summary := BattleReport.summarize(b.history, b.field.units)
+	var near := float(Talents.data()["near_death_ratio"])
+	for u: RefCounted in b.field.units:
+		if u.side == "ally" and st.is_alive(u.character_id):
+			var ch: RefCounted = st.characters[u.character_id]
+			if ch.hp <= ch.hp_max() * near:
+				_trigger(ch.id, "near_death", events)
+	for d: Dictionary in summary["deaths"]:
+		if st.characters.has(String(d["id"])):
+			_on_death(loc, events)
 	for k: Dictionary in summary["kills"]:
 		var killer := String(k["killer"])
 		if not st.characters.has(killer):
@@ -237,7 +249,6 @@ func report_battle(b: RefCounted) -> Array[Dictionary]:
 	for f: String in summary["fled"]:
 		if st.is_alive(f):
 			_flee(f, events)
-	var loc := String(st.pending_battle["location"])
 	var won := ["victory", "survived"].has(String(b.outcome))
 	var after: Array = st.pending_battle.get("after_victory" if won else "after_defeat", [])
 	st.pending_battle = {}
@@ -443,8 +454,50 @@ func load_dict(d: Dictionary, game_state: RefCounted, sc: RefCounted) -> void:
 
 
 func _emit(events: Array[Dictionary]) -> Array[Dictionary]:
+	_talent_hooks(events)
 	history.append_array(events)
 	return events
+
+
+## 天赋觉醒的触发：剧情旗标被设上、同伴死了或被抹杀（同地点的人看在眼里）、活着的只剩一半。
+## 只看这批原有的事件；追加进来的觉醒事件不再触发别的。战斗里的死亡在 report_battle 里单独处理。
+func _talent_hooks(events: Array[Dictionary]) -> void:
+	if st == null:
+		return
+	var n := events.size()
+	for i in n:
+		var ev: Dictionary = events[i]
+		match String(ev.get("type", "")):
+			"flag_set":
+				for c in st.all_living():
+					_trigger(c, "flag:" + String(ev["flag"]), events)
+			"char_died", "erased":
+				_on_death(st.location_of(String(ev["char"])), events)
+
+
+## 有人死在 where：同地点活着的人触发 ally_died；活着的轮回者只剩一半或更少时，所有人触发 team_peril。
+func _on_death(where: String, events: Array[Dictionary]) -> void:
+	for c in st.members_at(where):
+		_trigger(c, "ally_died", events)
+	var living: Array[String] = st.all_living()
+	if living.size() * 2 <= st.roster.size():
+		for c in living:
+			_trigger(c, "team_peril", events)
+
+
+## 让 char_id 身上的天赋按 trigger_id 判一次觉醒；觉醒了记进主神议程，带 team_fear_relief 的安抚同地点的其他人。
+func _trigger(char_id: String, trigger_id: String, events: Array[Dictionary]) -> void:
+	for t in Talents.trigger(st.characters[char_id], trigger_id, events):
+		Talents.record(game.agenda, char_id, t, st.scenario.id)
+		var relief := float((Talents.def(t).get("effect", {}) as Dictionary).get("team_fear_relief", 0.0))
+		if relief <= 0.0:
+			continue
+		for m in st.members_at(st.location_of(char_id)):
+			if m == char_id:
+				continue
+			var d := Watch.add_fear(st.characters[m], -relief)
+			if d != 0.0:
+				events.append({"type": "fear_changed", "char": m, "amount": d, "fear": st.characters[m].fear, "reason": "talent"})
 
 
 func _can_act(squad_id: String, events: Array[Dictionary]) -> bool:

@@ -82,6 +82,63 @@ func test_save_after_settlement() -> void:
 	_clean()
 
 
+## 主神议程随存档走：开局的半引导者异常读档后还在。
+func test_agenda_saved() -> void:
+	_clean()
+	var a := Session.new()
+	a.start_m1(3)
+	assert_true(a.game.agenda.open_anomaly("half_guide", "zhang_jie") != "")
+	assert_eq(a.save_to(SAVE_PATH), OK)
+	var b := Session.load_from(SAVE_PATH)
+	assert_eq(b.game.agenda.to_dict(), a.game.agenda.to_dict())
+	_clean()
+
+
+## 结算时主神调整评价：七人全活（本该团灭）→ +1；只活三人（原著）→ 不变。总评随存档走。
+func test_film_report_rating() -> void:
+	var s := Session.new()
+	s.start_m1(1)
+	s.expedition.st.outcome = "returned"
+	s.settle()
+	assert_eq(s.film_report["survivors"], 7)
+	assert_eq(s.film_report["rating_before"], 0)
+	assert_eq(s.film_report["rating_after"], 1)
+	assert_eq(s.game.team_rating, 1)
+	var t := Session.new()
+	t.start_m1(1)
+	for c in ["li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"]:
+		t.game.characters[c].alive = false
+	t.expedition.st.outcome = "returned"
+	t.settle()
+	assert_eq(t.film_report["survivors"], 3)
+	assert_eq(t.film_report["rating_after"], 0)
+	var kinds: Array = []
+	for d: Dictionary in t.game.agenda.decisions:
+		kinds.append(String(d["kind"]))
+	assert_true(kinds.has("rating"))
+	assert_true(kinds.has("keep_pressure"), "半引导者异常没解除，主神记一条继续加压")
+	assert_eq(Session.new().load_dict(t.to_dict()), true)
+	var u := Session.new()
+	u.load_dict(t.to_dict())
+	assert_eq(u.film_report, t.film_report)
+
+
+## 郑吒造萝丽：潜力突升 → 主神悄悄把他复制进恶魔小队；第二个造物不再突升。
+func test_human_creation_demon_copy() -> void:
+	var s := Session.new()
+	s.start_m1(1)
+	s.expedition.st.outcome = "returned"
+	s.settle()
+	var events: Array[Dictionary] = s.hub.create_human("zheng_zha", "萝丽", {"spirit": 120})
+	assert_eq(String(events[0]["type"]), "human_created")
+	assert_eq(events.size(), 1, "复制进恶魔小队是隐藏的，不给玩家发事件")
+	assert_eq(s.game.agenda.demon_copies, ["zheng_zha"])
+	assert_true(bool(s.game.flags["seen_human_creation"]))
+	s.game.characters["zheng_zha"].points = 600
+	s.hub.create_human("zheng_zha", "二号", {})
+	assert_almost(float(s.game.agenda.potentials["zheng_zha"]), 0.25)
+
+
 func test_reject_bad_save() -> void:
 	assert_false(Session.new().load_dict({"version": 99}))
 	assert_false(Session.new().load_dict({"version": 1, "chapter": "res://nope.json", "game": {}}))

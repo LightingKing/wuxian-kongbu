@@ -5,6 +5,7 @@ const GameState = preload("res://core/model/game_state.gd")
 const Scenario = preload("res://core/expedition/scenario.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
 const Persona = preload("res://ai/persona.gd")
+const Talents = preload("res://core/model/talents.gd")
 
 const CHAPTER := "res://data/scenarios/biohazard1/chapter.json"
 const ROSTER := "res://data/characters/m1_roster.json"
@@ -41,6 +42,21 @@ func _types(events: Array[Dictionary]) -> Array[String]:
 	for e in events:
 		out.append(String(e["type"]))
 	return out
+
+
+## 章节的议程块：开局就记下张杰的半引导者异常和"按张杰定难度"的决定，各带主神理由。
+func test_chapter_agenda() -> void:
+	var g := GameState.new(1)
+	Campaign.start(g, CHAPTER)
+	var id: String = g.agenda.open_anomaly("half_guide", "zhang_jie")
+	assert_eq(id, "anomaly_1")
+	var kinds: Array = []
+	for d: Dictionary in g.agenda.decisions:
+		kinds.append(String(d["kind"]))
+		assert_true(String(d["reason"]) != "", "每个决定都要有主神理由")
+	assert_eq(kinds, ["add_anomaly", "difficulty_anchor"])
+	Campaign.apply_agenda(g, Campaign.load_chapter(CHAPTER), "biohazard1")
+	assert_eq(g.agenda.open_anomalies().size(), 1, "同一异常不重复记")
 
 
 ## 走到激光通道门口：听规则 → 大厅 → 楼梯井（扶掉队的人）→ 激光通道。
@@ -130,7 +146,10 @@ func test_lagging_help() -> void:
 	assert_true(ex.st.characters["xiao_pang_zi"].alive)
 	assert_true(ex.st.characters["zhong_nian_fu_nv"].alive)
 	assert_true(bool(ex.st.flags["helped_lagging"]))
-	assert_almost(ex.st.characters["zheng_zha"].fear, 14.5 * 100.0 / 110.0)
+	# 队伍肯停下来等：小胖子"傻人有傻福"、中年妇女"稳住人心"觉醒，后者让同地点其他人恐惧 −10。
+	assert_true(Talents.is_awake(ex.st.characters["xiao_pang_zi"], "lucky"))
+	assert_true(Talents.is_awake(ex.st.characters["zhong_nian_fu_nv"], "calm_voice"))
+	assert_almost(ex.st.characters["zheng_zha"].fear, 14.5 * 100.0 / 110.0 - 10.0)
 
 
 ## 不扶：两个人超出百米被抹杀，队伍不停。
@@ -145,6 +164,8 @@ func test_lagging_leave() -> void:
 	assert_false(ex.st.characters["zhong_nian_fu_nv"].alive)
 	assert_eq(ex.st.characters["xiao_pang_zi"].flags["erased"], "tether")
 	assert_false(bool(ex.st.flags.get("helped_lagging", false)))
+	# 同伴在面前被抹杀：郑吒的"不屈"觉醒。
+	assert_true(Talents.is_awake(ex.st.characters["zheng_zha"], "iron_will"))
 
 
 ## 激光通道：按记忆拖着马修贴门 → B 级支线 + 5000、精神临界值突破 +500、绑定解除、门开了。

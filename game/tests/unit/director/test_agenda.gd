@@ -37,6 +37,18 @@ func test_anomaly_lifecycle() -> void:
 	assert_eq(a.open_anomalies().size(), 0)
 
 
+## 异常记在谁身上：同种异常按人区分，解除后查不到。
+func test_open_anomaly_by_char() -> void:
+	var a := Agenda.new()
+	var id: String = a.add_anomaly("half_guide", "biohazard1", "半引导者", "加难", "zhang_jie")
+	assert_eq(String(a.anomalies[0]["char"]), "zhang_jie")
+	assert_eq(a.decisions[0]["payload"], {"id": id, "kind": "half_guide", "char": "zhang_jie"})
+	assert_eq(a.open_anomaly("half_guide", "zhang_jie"), id)
+	assert_eq(a.open_anomaly("half_guide", "zheng_zha"), "")
+	a.resolve_anomaly(id, "final_destination2", "考验完成")
+	assert_eq(a.open_anomaly("half_guide", "zhang_jie"), "")
+
+
 ## 潜力突升够大，主神考虑复制进恶魔小队。
 func test_potential_spike() -> void:
 	var a := Agenda.new()

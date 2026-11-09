@@ -3,5 +3,23 @@
 	"name": "生化危机一",
 	"scenario": "res://data/scenarios/biohazard1/scenario.json",
 	"roster": "res://data/characters/m1_roster.json",
-	"members": ["zheng_zha", "zhang_jie", "zhan_lan", "li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"]
+	"members": ["zheng_zha", "zhang_jie", "zhan_lan", "li_xiao_yi", "mu_gang", "xiao_pang_zi", "zhong_nian_fu_nv"],
+	"agenda": {
+		"expected_wipe": true,
+		"anomalies": [
+			{
+				"kind": "half_guide",
+				"char": "zhang_jie",
+				"note": "张杰活过三部片、实力够当引导者，却一直不肯接受引导者考验（半引导者）。",
+				"reason": "异常不纠正，整支队伍的课程推不动：刻意加难，难度按队里最强的张杰来定，逼他表态（原著 L5595）。"
+			}
+		],
+		"decisions": [
+			{
+				"kind": "difficulty_anchor",
+				"payload": {"anchor": "zhang_jie"},
+				"reason": "生化危机一的安排按张杰的实力定，新人只是陪跑；按差一点团灭来设计（设计规格 5.5）。"
+			}
+		]
+	}
 }

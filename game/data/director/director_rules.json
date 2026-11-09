@@ -10,5 +10,6 @@
 		"base": 120,
 		"per_rating": 0.5
 	},
-	"demon_copy_spike": 0.2
+	"demon_copy_spike": 0.2,
+	"human_creation_spike": 0.25
 }

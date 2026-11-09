@@ -9,6 +9,7 @@ const Scenario = preload("res://core/expedition/scenario.gd")
 const Expedition = preload("res://core/expedition/expedition.gd")
 const SaveService = preload("res://core/save/save_service.gd")
 const Hub = preload("res://core/hub/hub.gd")
+const Agenda = preload("res://core/director/agenda.gd")
 
 const VERSION := 1
 const M1_CHAPTER := "res://data/scenarios/biohazard1/chapter.json"
@@ -27,6 +28,8 @@ var day: int = 0
 var settlement: Dictionary = {}
 ## 对话记忆与信任：npc_id → {"memories": [...], "trust": 0~5}。core/dialogue 直接读写这个字典。
 var dialogues: Dictionary = {}
+## 上一部片的总评（结算界面用）：{"film", "members", "survivors", "rating_before", "rating_after", "reasons"}。
+var film_report: Dictionary = {}
 
 
 ## 开一局：建 GameState、按章节装配七名轮回者、开始第一部片。
@@ -41,6 +44,7 @@ func start(chapter: String, seed_value: int = 0) -> bool:
 	day = 0
 	settlement = {}
 	dialogues = {}
+	film_report = {}
 	return true
 
 
@@ -78,11 +82,39 @@ func settle() -> Dictionary:
 	if phase != "expedition" or not expedition_over():
 		return {}
 	settlement = expedition.finish()
+	film_report = _rate_film()
 	hub = Hub.new()
 	hub.start(game, REST_DAYS)
 	phase = "settlement"
 	day = hub.day
 	return settlement
+
+
+## 主神按这部片的结果调整评价（设计规格 7.3）：本该团灭的片活下来七成以上 +1、所有人都死过清零。
+## 半引导者这类异常没解除时，主神记一条"继续加压"的决定。
+func _rate_film() -> Dictionary:
+	var st: RefCounted = expedition.st
+	var film: String = st.scenario.id
+	var ag: Dictionary = Campaign.load_chapter(chapter_path).get("agenda", {})
+	var survivors := 0
+	for c: String in st.roster:
+		if st.is_alive(c):
+			survivors += 1
+	var result := {
+		"expected_wipe": bool(ag.get("expected_wipe", false)),
+		"members": st.roster.size(),
+		"survivors": survivors,
+		"captain_died": false,
+		"all_died": survivors == 0,
+	}
+	var r := Agenda.update_rating(game, result)
+	game.agenda.record(film, "rating", r, "幸存 %d/%d：%s" % [survivors, st.roster.size(), "、".join(r["reasons"]) if not (r["reasons"] as Array).is_empty() else "评价不变"])
+	for a: Dictionary in game.agenda.open_anomalies():
+		game.agenda.record(film, "keep_pressure", {"anomaly": a["id"]}, "异常（%s）还没解除，下一部继续按最强者定难度。" % String(a["kind"]))
+	return {
+		"film": film, "members": st.roster.size(), "survivors": survivors,
+		"rating_before": int(r["before"]), "rating_after": int(r["after"]), "reasons": (r["reasons"] as Array).duplicate(),
+	}
 
 
 func enter_hub() -> bool:
@@ -123,6 +155,7 @@ func to_dict() -> Dictionary:
 		"hub": hub.to_dict() if hub != null else {},
 		"settlement": settlement.duplicate(true),
 		"dialogues": dialogues.duplicate(true),
+		"film_report": film_report.duplicate(true),
 	}
 
 
@@ -142,6 +175,7 @@ func load_dict(d: Dictionary) -> bool:
 	day = int(d.get("day", 0))
 	settlement = (d.get("settlement", {}) as Dictionary).duplicate(true)
 	dialogues = (d.get("dialogues", {}) as Dictionary).duplicate(true)
+	film_report = (d.get("film_report", {}) as Dictionary).duplicate(true)
 	var h: Dictionary = d.get("hub", {})
 	if not h.is_empty():
 		hub = Hub.new()

@@ -13,7 +13,7 @@ const PATH := "res://data/director/director_rules.json"
 static var _cache: Dictionary = {}
 
 var stage: String = "guide"
-## {"id", "kind", "since_film", "note", "resolved_film"}
+## {"id", "kind", "char", "since_film", "note", "resolved_film"}；char 是异常落在谁身上（可为空）。
 var anomalies: Array = []
 var next_anomaly_no: int = 1
 ## {"kind", "deadline_film", "note"}；空字典表示没有
@@ -49,12 +49,20 @@ func advance_stage(film: String, reason: String) -> bool:
 	return true
 
 
-func add_anomaly(kind: String, film: String, note: String, reason: String) -> String:
+func add_anomaly(kind: String, film: String, note: String, reason: String, char_id: String = "") -> String:
 	var id := "anomaly_%d" % next_anomaly_no
 	next_anomaly_no += 1
-	anomalies.append({"id": id, "kind": kind, "since_film": film, "note": note, "resolved_film": ""})
-	record(film, "add_anomaly", {"id": id, "kind": kind}, reason)
+	anomalies.append({"id": id, "kind": kind, "char": char_id, "since_film": film, "note": note, "resolved_film": ""})
+	record(film, "add_anomaly", {"id": id, "kind": kind, "char": char_id}, reason)
 	return id
+
+
+## 同一种异常（落在同一个人身上）还开着吗？返回它的 id，没有返回空字符串。
+func open_anomaly(kind: String, char_id: String = "") -> String:
+	for a: Dictionary in open_anomalies():
+		if a["kind"] == kind and String(a.get("char", "")) == char_id:
+			return String(a["id"])
+	return ""
 
 
 func resolve_anomaly(id: String, film: String, reason: String) -> bool:

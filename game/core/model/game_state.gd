@@ -3,6 +3,7 @@ extends RefCounted
 
 const Rng = preload("res://core/util/rng.gd")
 const Character = preload("res://core/model/character.gd")
+const Agenda = preload("res://core/director/agenda.gd")
 
 const SAVE_VERSION := 1
 
@@ -15,6 +16,8 @@ var iron_man: bool = true
 ## 造物（人造人）：{"id", "name", "creator", "attributes"}。制造者死亡，造物随之消失（设计规格 6.6）。
 var companions: Array = []
 var flags: Dictionary = {}
+## 主神议程（设计规格 5.5）：课程阶段、异常、潜力突升、恶魔小队复制体和每个决定的理由。玩家看不见，随存档走。
+var agenda: RefCounted = Agenda.new()
 
 
 func _init(seed_value: int = 0) -> void:
@@ -43,6 +46,7 @@ func to_dict() -> Dictionary:
 		"iron_man": iron_man,
 		"companions": companions.duplicate(true),
 		"flags": flags.duplicate(true),
+		"agenda": agenda.to_dict(),
 	}
 
 
@@ -60,3 +64,6 @@ func load_dict(d: Dictionary) -> void:
 	iron_man = bool(d["iron_man"])
 	companions = (d.get("companions", []) as Array).duplicate(true)
 	flags = (d["flags"] as Dictionary).duplicate(true)
+	agenda = Agenda.new()
+	if d.has("agenda"):
+		agenda.load_dict(d["agenda"])

@@ -2,6 +2,8 @@ extends RefCounted
 ## 主神空间的一次休整（设计规格 6.2~6.4）。休整天数是行动点：兑换、结算、造人、修复不耗天；训练、休息耗天。
 ## 原著惯例：回归当晚（第 0 天）不兑换，只结算和造人；最后一天强制休息，不能训练；每天恐惧自然下降。
 ## 代兑：每人每次休整只能用自己的点数或支线给别人兑换一次（设计规格 6.3）。
+## 天赋：兑换契合的强化、训练或对练会触发觉醒（talents.gd）；觉醒的"学得快"让训练熟练度翻倍。
+## 造人：每个制造者的第一个造物让他的潜力突升；突升够大，主神悄悄把他复制进恶魔小队（议程里记着，玩家不知道）。
 
 const Exchange = preload("res://core/hub/exchange.gd")
 const Pricing = preload("res://core/hub/pricing.gd")
@@ -9,6 +11,9 @@ const Rules = preload("res://core/util/rules.gd")
 const Battle = preload("res://core/battle/battle.gd")
 const UnitFactory = preload("res://core/battle/unit_factory.gd")
 const Rng = preload("res://core/util/rng.gd")
+const Catalog = preload("res://core/hub/catalog.gd")
+const Talents = preload("res://core/model/talents.gd")
+const Agenda = preload("res://core/director/agenda.gd")
 
 ## 对练用的傀儡血量，用来换算"打掉了多少"。
 const DUMMY_HP := 240.0
@@ -62,8 +67,14 @@ func exchange(char_id: String, entry_id: String, opts: Dictionary = {}) -> Array
 		"accept_risk": bool(opts.get("accept_risk", false)),
 		"gift_used": gift and gifts.has(payer_id),
 	})
-	if gift and events[0]["type"] == "exchange_done":
-		gifts[payer_id] = true
+	if events[0]["type"] == "exchange_done":
+		if gift:
+			gifts[payer_id] = true
+		var e := Catalog.entry(entry_id)
+		_talent(char_id, "bought_series:" + String(e["series"]), events)
+		for b: Dictionary in e["blocks"]:
+			for k: String in b.get("attr", {}):
+				_talent(char_id, "bought_attr:" + k, events)
 	return _emit(events)
 
 
@@ -77,7 +88,9 @@ func buy_attribute(char_id: String, attr: String, amount: int) -> Array[Dictiona
 		return _refuse("not_enough_points")
 	ch.points -= cost
 	ch.attributes.add_enhanced(attr, float(amount))
-	return _emit([{"type": "attribute_bought", "char": char_id, "attr": attr, "amount": amount, "cost": cost}])
+	var events: Array[Dictionary] = [{"type": "attribute_bought", "char": char_id, "attr": attr, "amount": amount, "cost": cost}]
+	_talent(char_id, "bought_attr:" + attr, events)
+	return _emit(events)
 
 
 ## 支线拆分（1 个高一级 → 3 个低一级）与合成（3 个 → 1 个高一级）。
@@ -139,6 +152,11 @@ func create_human(creator_id: String, name: String, attrs: Dictionary) -> Array[
 		clamped[k] = minf(float(attrs[k]), float(h["attr_max"]))
 	var companion := {"id": "%s_human_%d" % [creator_id, made + 1], "name": name, "creator": creator_id, "attributes": clamped}
 	game.companions.append(companion)
+	game.flags["seen_human_creation"] = true
+	if made == 0:
+		var film := _film()
+		if game.agenda.potential_spike(creator_id, float(Agenda.rules()["human_creation_spike"]), film, "造人：%s 按自己的记忆造出了 %s" % [ch.display_name, name]):
+			game.agenda.copy_to_demon_team(creator_id, film, "潜力突升够大：复制一份放进恶魔小队，做对照实验（M7 才揭晓）。")
 	return _emit([{"type": "human_created", "creator": creator_id, "companion": companion, "cost": cost}])
 
 
@@ -149,9 +167,10 @@ func train(char_id: String, skill_id: String, days: int) -> Array[Dictionary]:
 		return _refuse("unknown_skill")
 	if days <= 0 or day + days > days_total - 1:
 		return _refuse("no_days")
-	var gain := float(Pricing.rules()["train"]["proficiency_per_day"]) * days
+	var gain := float(Pricing.rules()["train"]["proficiency_per_day"]) * days * Talents.train_mult(ch)
 	ch.proficiency[skill_id] = minf(1.0, float(ch.proficiency.get(skill_id, 1.0)) + gain)
 	var events: Array[Dictionary] = [{"type": "trained", "char": char_id, "skill": skill_id, "days": days, "proficiency": ch.proficiency[skill_id]}]
+	_talent(char_id, "trained", events)
 	_pass_days(days, events)
 	return _emit(events)
 
@@ -186,13 +205,14 @@ func spar(char_id: String, skill_id: String) -> Array[Dictionary]:
 	var dummy: RefCounted = b.field.get_unit("dummy_1")
 	var left := maxf(float(dummy.hp), 0.0) if dummy != null else 0.0
 	var dealt := clampf(DUMMY_HP - left, 0.0, DUMMY_HP)
-	var gain := float(Pricing.rules()["train"]["proficiency_per_day"]) * 0.5
+	var gain := float(Pricing.rules()["train"]["proficiency_per_day"]) * 0.5 * Talents.train_mult(ch)
 	ch.proficiency[skill_id] = minf(1.0, float(ch.proficiency.get(skill_id, 1.0)) + gain)
 	var events: Array[Dictionary] = [{
 		"type": "spar_done", "char": char_id, "skill": skill_id,
 		"damage": dealt, "rounds": rounds, "outcome": b.outcome,
 		"proficiency": ch.proficiency[skill_id],
 	}]
+	_talent(char_id, "trained", events)
 	_pass_days(1, events)
 	return _emit(events)
 
@@ -213,6 +233,17 @@ func _pass_days(days: int, events: Array[Dictionary]) -> void:
 			if ch.alive:
 				ch.fear = maxf(0.0, ch.fear - relief)
 		events.append({"type": "day_passed", "day": day, "days_left": days_left()})
+
+
+## 天赋触发：觉醒的事件追加进 events，同时记进主神议程。
+func _talent(char_id: String, trigger_id: String, events: Array[Dictionary]) -> void:
+	for t in Talents.trigger(_char(char_id), trigger_id, events):
+		Talents.record(game.agenda, char_id, t, _film())
+
+
+## 这次休整接在哪部片后面（议程记录用）。
+func _film() -> String:
+	return String(game.films_record.back()) if not game.films_record.is_empty() else ""
 
 
 func to_dict() -> Dictionary:
