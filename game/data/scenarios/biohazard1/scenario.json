@@ -5,14 +5,14 @@
 	"duration_minutes": 187,
 	"main_task": "存活 3 小时 07 分；不得离开马修 100 米",
 	"locations": {
-		"car": {"name": "高速车厢", "search": [{"item": "grenade", "count": 1}]},
-		"hall": {"name": "蜂巢入口大厅"},
-		"stairs": {"name": "楼梯井", "dark": true},
-		"laser": {"name": "激光通道"},
-		"control": {"name": "火焰女皇主机房", "search": [{"item": "spray", "count": 2}, {"item": "antidote", "count": 1}], "search_minutes": 20},
-		"corridor": {"name": "实验区走廊"},
-		"freezer": {"name": "冷冻仓库", "dark": true, "search": [{"item": "antidote", "count": 1}]},
-		"sewer": {"name": "下水道", "dark": true}
+		"car": {"name": "高速车厢", "pos": [60, 520], "search": [{"item": "grenade", "count": 1}]},
+		"hall": {"name": "蜂巢入口大厅", "pos": [220, 440]},
+		"stairs": {"name": "楼梯井", "pos": [380, 350], "dark": true},
+		"laser": {"name": "激光通道", "pos": [520, 290]},
+		"control": {"name": "火焰女皇主机房", "pos": [680, 210], "search": [{"item": "spray", "count": 2}, {"item": "antidote", "count": 1}], "search_minutes": 20},
+		"corridor": {"name": "实验区走廊", "pos": [680, 390]},
+		"freezer": {"name": "冷冻仓库", "pos": [680, 550], "dark": true, "search": [{"item": "antidote", "count": 1}]},
+		"sewer": {"name": "下水道", "pos": [380, 600], "dark": true}
 	},
 	"paths": [
 		{"a": "car", "b": "hall", "minutes": 10},
@@ -64,6 +64,7 @@
 	"events": [
 		{
 			"id": "opening",
+			"label": "张杰讲规则",
 			"at": 0,
 			"location": "car",
 			"effects": [
@@ -80,6 +81,7 @@
 		},
 		{
 			"id": "mercs_board",
+			"label": "雇佣兵登场",
 			"at": 10,
 			"location": "hall",
 			"effects": [
@@ -98,6 +100,7 @@
 		},
 		{
 			"id": "control_console",
+			"label": "卡普兰介绍火焰女皇",
 			"when": {"party_at": "control"},
 			"location": "control",
 			"effects": [
@@ -107,6 +110,7 @@
 		},
 		{
 			"id": "stairs_lag",
+			"label": "新人掉队",
 			"when": {"party_at": "stairs"},
 			"location": "stairs",
 			"effects": [
@@ -128,6 +132,7 @@
 		},
 		{
 			"id": "laser_corridor",
+			"label": "激光通道",
 			"when": {"party_at": "laser"},
 			"location": "laser",
 			"inertia": 2,
@@ -161,6 +166,7 @@
 		},
 		{
 			"id": "queen_shutdown",
+			"label": "火焰女皇被关闭",
 			"at": 70,
 			"location": "control",
 			"effects": [
@@ -172,6 +178,7 @@
 		},
 		{
 			"id": "divergence",
+			"label": "詹岚的提议",
 			"when": {"all": [{"time_at_least": 90}, {"party_at": "control"}]},
 			"location": "control",
 			"effects": [
@@ -198,6 +205,7 @@
 		},
 		{
 			"id": "sewer_dogs",
+			"label": "下水道遇袭",
 			"when": {"all": [{"time_at_least": 100}, {"party_at": "sewer"}]},
 			"location": "sewer",
 			"effects": [
@@ -207,6 +215,7 @@
 		},
 		{
 			"id": "lickers_outer",
+			"label": "爬行者破外门",
 			"when": {"all": [{"time_at_least": 120}, {"party_at": "control"}]},
 			"location": "control",
 			"effects": [
@@ -223,6 +232,7 @@
 		},
 		{
 			"id": "sewer_licker",
+			"label": "爬行者堵路",
 			"when": {"all": [{"time_at_least": 150}, {"party_at": "sewer"}]},
 			"location": "sewer",
 			"effects": [
@@ -232,6 +242,7 @@
 		},
 		{
 			"id": "power_out",
+			"label": "断电",
 			"at": 160,
 			"effects": [
 				{"set_flag": "power_out"},
@@ -241,6 +252,7 @@
 		},
 		{
 			"id": "lickers_inner",
+			"label": "爬行者破内门",
 			"when": {"all": [{"time_at_least": 170}, {"party_at": "control"}]},
 			"location": "control",
 			"inertia": 1,
@@ -255,6 +267,7 @@
 		},
 		{
 			"id": "sewer_escape",
+			"label": "下水道出口",
 			"when": {"all": [{"time_at_least": 175}, {"party_at": "sewer"}]},
 			"location": "sewer",
 			"effects": [
