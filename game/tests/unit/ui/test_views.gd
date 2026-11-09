@@ -90,3 +90,22 @@ func test_battle_view() -> void:
 		guard += 1
 	assert_true(bv.finished())
 	assert_true(bv.log_tail(10).size() > 0)
+
+
+## 不听指挥的队友（AI 接管）在单位卡的状态里第一个标出来。
+func test_battle_view_marks_disobedient() -> void:
+	var hero := Character.new("hero", "英雄", {})
+	var mate := Character.new("mate", "队友", {})
+	var units: Array[RefCounted] = [
+		UnitFactory.from_character(hero, "ally", 0, ["punch"], "player"),
+		UnitFactory.from_character(mate, "ally", 0, ["punch"], "ai"),
+		UnitFactory.from_enemy("zombie", "zombie_1", 0),
+	]
+	var b := Battle.new()
+	b.setup(units, {}, Rng.new(3))
+	var bv := BattleView.new(b)
+	for u: Dictionary in bv.units():
+		if String(u["id"]) == "mate":
+			assert_eq(String((u["statuses"] as Array)[0]), "不听指挥")
+		elif String(u["id"]) == "hero":
+			assert_false((u["statuses"] as Array).has("不听指挥"))

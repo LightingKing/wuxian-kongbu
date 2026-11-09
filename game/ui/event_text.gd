@@ -3,6 +3,7 @@ extends RefCounted
 ## 只负责"能看懂"，不做规则判断；认不出的事件返回空字符串（界面跳过）。
 
 const BattleData = preload("res://core/battle/battle_data.gd")
+const Codex = preload("res://core/intel/codex.gd")
 
 
 static func describe(e: Dictionary, names: Dictionary = {}) -> String:
@@ -68,6 +69,19 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 			return "说服%s。" % ("成功" if bool(e.get("success", false)) else "失败")
 		"item_used":
 			return "%s 使用了道具。" % _name(e.get("char", ""), names)
+		"relation_event":
+			return "关系变化：%s（%s → %s）。" % [String(e.get("name", "")), _name(e.get("actor", ""), names), _name(e.get("target", ""), names)]
+		"bonded":
+			return "%s：活下来的人之间信任加深了。" % String(e.get("name", ""))
+		"relation_talk":
+			return "%s 对你更信任了一点（%.0f）。" % [_name(e.get("char", ""), names), float(e.get("trust", 0.0))]
+		"codex_unlocked":
+			var titles: Array[String] = []
+			for id in e.get("entries", []):
+				titles.append(String(Codex.entry(String(id)).get("title", id)))
+			return "规则百科新增：%s。" % "、".join(titles)
+		"rule_discovered":
+			return "%s 推出了一条隐藏规则：%s。" % [_name(e.get("by", ""), names), String(e.get("name", ""))]
 		"talent_awakened":
 			return "%s 的天赋觉醒了：%s。%s" % [_name(e.get("char", ""), names), String(e.get("name", "")), String(e.get("text", ""))]
 		"searched":

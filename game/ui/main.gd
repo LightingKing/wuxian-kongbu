@@ -178,6 +178,11 @@ func _show_result(results: Dictionary) -> void:
 	var fr: Dictionary = session.film_report
 	if not fr.is_empty():
 		box.add_child(UiTheme.label("幸存 %d/%d · 主神评价 %d → %d" % [int(fr["survivors"]), int(fr["members"]), int(fr["rating_before"]), int(fr["rating_after"])], 20, UiTheme.MUTED))
+		var guide := String(fr.get("tour_guide", ""))
+		if guide != "":
+			box.add_child(UiTheme.label("%s 带新人认识了光球和房间：规则百科新增 %d 条。" % [session.game.characters[guide].display_name, (fr.get("tour_entries", []) as Array).size()], 20, UiTheme.MUTED))
+		else:
+			box.add_child(UiTheme.label("没有老手带你们认识主神空间，规矩只能自己去问主神。", 20, UiTheme.MUTED))
 	for id: String in results:
 		var r: Dictionary = results[id]
 		var name: String = session.game.characters[id].display_name if session.game.characters.has(id) else id
@@ -491,11 +496,12 @@ func _on_said(text: String, npc_id: String) -> void:
 	)
 
 
-## 说过话就涨信任；到剧本给的门槛，对方会说一句实话，可能给线索。
+## 说过话就涨信任；到剧本给的门槛，对方会说一句实话，可能给线索。队友还会对拍板的人多一点信任（关系网，有上限）。
 func _after_said(npc_id: String, p: Control) -> void:
 	var screen := _expedition_screen()
 	if screen == null:
 		return
+	_push_events(session.talked(npc_id), p)
 	var def: Dictionary = screen.view.trust_def(npc_id)
 	if def.is_empty():
 		return
@@ -591,6 +597,8 @@ func _on_zhushen_question(text: String) -> void:
 			return
 		p.push("主神", String(res["answer"]))
 		p.set_status(_source_text(String(res["source"])))
+		# 问到哪条规则，规则百科就记下哪条（主神只答规则，所以按关键词判，不看 AI 怎么措辞）。
+		_push_events(session.game.codex.unlock_by_question(text), p)
 	)
 
 

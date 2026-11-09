@@ -1,5 +1,5 @@
 extends Control
-## 主神空间（M1 休整）：兑换、属性、修复、造人、训练、休息与出发。
+## 主神空间（M1 休整）：兑换、属性、修复、造人、训练、对练、队伍关系、规则百科、休息与出发。
 ## 只调用 HubView；规则在 core/hub。
 
 signal departed
@@ -76,7 +76,7 @@ func _build() -> void:
 	tab_box.size = Vector2(1420, 52)
 	tab_box.add_theme_constant_override("separation", 10)
 	add_child(tab_box)
-	for t in [["兑换", "exchange"], ["属性", "attr"], ["修复", "repair"], ["造人", "human"], ["训练", "train"], ["对练", "spar"]]:
+	for t in [["兑换", "exchange"], ["属性", "attr"], ["修复", "repair"], ["造人", "human"], ["训练", "train"], ["对练", "spar"], ["队伍", "team"], ["百科", "codex"]]:
 		var b := UiTheme.button(String(t[0]), 20)
 		b.pressed.connect(open_tab.bind(String(t[1])))
 		tab_box.add_child(b)
@@ -144,10 +144,12 @@ func refresh() -> void:
 		"human": _build_human()
 		"train": _build_train()
 		"spar": _build_spar()
+		"team": _build_team()
+		"codex": _build_codex()
 
 
 func _tab_of(text: String) -> String:
-	var table := {"兑换": "exchange", "属性": "attr", "修复": "repair", "造人": "human", "训练": "train", "对练": "spar"}
+	var table := {"兑换": "exchange", "属性": "attr", "修复": "repair", "造人": "human", "训练": "train", "对练": "spar", "队伍": "team", "百科": "codex"}
 	return String(table.get(text, ""))
 
 
@@ -289,6 +291,41 @@ func _build_spar() -> void:
 		content_box.add_child(row)
 
 
+## 队伍：队友怎么看拍板的人。服从度不到 40 的人，下一场战斗里不听指挥（AI 接管）。
+const STAGE_NAMES := {
+	"none": "相安无事", "discontent": "不满", "talk_back": "顶撞", "disobey": "抗命",
+	"act_alone": "擅自行动", "hoard": "私藏", "defect": "想叛逃", "betray": "起了杀心",
+}
+
+
+func _build_team() -> void:
+	var t: Dictionary = view.team()
+	if String(t["leader"]) == "":
+		content_box.add_child(UiTheme.label("这支队伍还没有拍板的人。", 19, UiTheme.MUTED))
+		return
+	content_box.add_child(UiTheme.label("全队凝聚力 %.0f。下面是每个人怎么看%s：服从度 = 信任×0.5 + 敬畏×0.4 + 忠诚×0.2 − 怨恨×0.5，不到 40 的人战斗里不听指挥。" % [float(t["cohesion"]), String(t["leader"])], 18, UiTheme.MUTED))
+	for r: Dictionary in t["rows"]:
+		var line := "%s　信任 %.0f · 好感 %.0f · 敬畏 %.0f · 怨恨 %.0f　服从 %.0f（%s）　%s" % [
+			String(r["name"]), float(r["trust"]), float(r["affection"]), float(r["awe"]), float(r["resentment"]),
+			float(r["obedience"]), "听指挥" if bool(r["obeys"]) else "不听指挥", String(STAGE_NAMES.get(String(r["stage"]), r["stage"]))]
+		content_box.add_child(UiTheme.label(line, 19, UiTheme.TEXT if bool(r["obeys"]) else UiTheme.ACCENT2))
+
+
+## 规则百科：张杰讲的、回归当晚带着认识的、问主神问出来的，加上智者自己推出来的隐藏规则。
+func _build_codex() -> void:
+	var c: Dictionary = view.codex()
+	var entries: Array = c["entries"]
+	if entries.is_empty():
+		content_box.add_child(UiTheme.label("你们对主神的规则一无所知。", 19, UiTheme.MUTED))
+	for e: Dictionary in entries:
+		if bool(e["hidden"]):
+			content_box.add_child(UiTheme.label("【隐藏规则】%s（%s 推出来的）" % [String(e["title"]), String(e["source_name"])], 20, UiTheme.ACCENT2))
+		else:
+			content_box.add_child(UiTheme.label("%s（%s）：%s" % [String(e["title"]), String(e["source_name"]), String(e["text"])], 19))
+	if int(c["locked"]) > 0:
+		content_box.add_child(UiTheme.label("还有 %d 条规则没人告诉过你们，可以去问主神。" % int(c["locked"]), 18, UiTheme.MUTED))
+
+
 func press_spar(skill_id: String) -> void:
 	var events: Array[Dictionary] = view.spar(selected, skill_id)
 	Sfx.play_for_events(events)
@@ -390,6 +427,8 @@ func _describe(events: Array[Dictionary]) -> String:
 	for ev: Dictionary in events:
 		if String(ev["type"]) == "talent_awakened":
 			text += "；%s 的天赋觉醒：%s" % [view.game.characters[String(ev["char"])].display_name, String(ev["name"])]
+		elif String(ev["type"]) == "rule_discovered":
+			text += "；%s 推出了一条隐藏规则：%s" % [view.game.characters[String(ev["by"])].display_name, String(ev["name"])]
 	return text
 
 

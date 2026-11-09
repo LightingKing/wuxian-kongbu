@@ -79,6 +79,9 @@ func units() -> Array[Dictionary]:
 		return a.id < c.id)
 	var out: Array[Dictionary] = []
 	for u: RefCounted in list:
+		var statuses := _status_names(u)
+		if u.side == "ally" and u.controller == "ai":
+			statuses.insert(0, "不听指挥")
 		out.append({
 			"id": u.id,
 			"name": _short_name(u.id),
@@ -90,7 +93,7 @@ func units() -> Array[Dictionary]:
 			"alive": u.alive,
 			"fled": u.fled,
 			"current": b.current != null and b.current.id == u.id,
-			"statuses": _status_names(u),
+			"statuses": statuses,
 			"ammo": int(u.resources.get("ammo", -1)),
 		})
 	return out

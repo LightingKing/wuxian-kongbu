@@ -1,11 +1,12 @@
 extends RefCounted
-## 主神空间界面的取数层：兑换、属性、修复、造人、训练、休息。
+## 主神空间界面的取数层：兑换、属性、修复、造人、训练、休息、队伍关系、规则百科。
 ## 规则在 core/hub；这里只把状态整理成界面能画的东西，并把点击交回去。
 
 const Exchange = preload("res://core/hub/exchange.gd")
 const Catalog = preload("res://core/hub/catalog.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
 const Talents = preload("res://core/model/talents.gd")
+const Cohesion = preload("res://core/social/cohesion.gd")
 
 ## 造人预设：萝丽（郑吒的青梅竹马），素质在常人的上限附近。
 const LORI_ATTRS := {"intelligence": 110, "spirit": 120, "cell_vitality": 120, "nerve_reaction": 120, "muscle": 100, "immunity": 110}
@@ -147,6 +148,42 @@ func rest(days: int = 1) -> Array[Dictionary]:
 	var events: Array[Dictionary] = hub.rest(days)
 	session.day = hub.day
 	return events
+
+
+## 队伍：每个活着的队友怎么看拍板的人（信任、好感、敬畏、怨恨）、服从度、听不听指挥、冲突到了哪一级。
+## 返回 {"leader": 名字, "cohesion": 全队凝聚力, "rows": [...]}；没有拍板的人时 rows 为空。
+func team() -> Dictionary:
+	var leader: String = game.leader
+	var living: Array = []
+	for id: String in game.characters:
+		if game.characters[id].alive:
+			living.append(id)
+	var out := {"leader": "", "cohesion": Cohesion.cohesion(game.relations, living), "rows": []}
+	if leader == "" or not game.characters.has(leader):
+		return out
+	out["leader"] = game.characters[leader].display_name
+	for id: String in living:
+		if id == leader:
+			continue
+		var rel: Dictionary = game.relations.get_rel(id, leader)
+		var ob: float = Cohesion.obedience(game.relations, id, leader)
+		(out["rows"] as Array).append({
+			"id": id, "name": game.characters[id].display_name,
+			"trust": float(rel["trust"]), "affection": float(rel["affection"]),
+			"awe": float(rel["awe"]), "resentment": float(rel["resentment"]),
+			"obedience": ob, "obeys": ob >= 40.0,
+			"stage": Cohesion.conflict_stage(game.relations, id, leader),
+		})
+	return out
+
+
+## 规则百科：已知条目（公开规则在前，智者发现的隐藏规则在后）和还没听说过的条数。
+func codex() -> Dictionary:
+	var entries: Array[Dictionary] = game.codex.entries()
+	for e: Dictionary in entries:
+		var src := String(e["source"])
+		e["source_name"] = "主神" if src == "zhushen" else (game.characters[src].display_name if game.characters.has(src) else src)
+	return {"entries": entries, "locked": game.codex.locked_count()}
 
 
 ## 提示文字：把 core 的原因码翻成中文。

@@ -116,3 +116,26 @@ func test_train() -> void:
 	v.train("zheng_zha", "red_flame", 1)
 	assert_almost(float(zz.proficiency["red_flame"]), 0.55)
 	assert_eq(v.session.day, 2)
+
+
+## 队伍页：六个队友怎么看郑吒；默认关系下都听指挥（服从 43）。
+func test_team() -> void:
+	var v := _view()
+	var t: Dictionary = v.team()
+	assert_eq(t["leader"], "郑吒")
+	var rows: Array = t["rows"]
+	assert_eq(rows.size(), 6)
+	for r: Dictionary in rows:
+		assert_almost(float(r["obedience"]), 43.0)
+		assert_true(bool(r["obeys"]))
+		assert_eq(String(r["stage"]), "none")
+
+
+## 百科页：开场三条 + 回归当晚张杰带着认识的六条；来源显示成中文名。
+func test_codex() -> void:
+	var v := _view()
+	var c: Dictionary = v.codex()
+	var entries: Array = c["entries"]
+	assert_eq(entries.size(), 9)
+	assert_eq(String(entries[0]["source_name"]), "张杰")
+	assert_eq(int(c["locked"]), 18 - 9)
