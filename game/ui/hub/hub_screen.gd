@@ -113,6 +113,7 @@ func refresh() -> void:
 		b.pressed.connect(select_char.bind(String(ch["id"])))
 		if not bool(ch["alive"]):
 			t += "\n（死亡）"
+			b.text = t
 			b.modulate = Color(0.6, 0.62, 0.68, 1.0)
 		elif String(ch["id"]) == selected:
 			b.modulate = Color(1.0, 0.82, 0.55, 1.0)
