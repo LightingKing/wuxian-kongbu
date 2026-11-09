@@ -85,6 +85,8 @@ func units() -> Array[Dictionary]:
 		out.append({
 			"id": u.id,
 			"name": _short_name(u.id),
+			"character_id": u.character_id,
+			"def_id": u.def_id,
 			"side": u.side,
 			"row": u.row,
 			"hp": u.hp,

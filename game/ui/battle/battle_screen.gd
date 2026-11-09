@@ -1,19 +1,25 @@
 extends Control
-## 战斗界面（M1 可玩层）：按排显示战场、行动时间轴、先选技能再选目标、战斗日志。
-## 只调用 BattleView；规则和 AI 在 core/battle。
+## 战斗界面（M1 可玩层）：铺满全屏的像素战斗舞台（battle_stage.gd），上面叠原生分辨率的界面——
+## 顶栏（轮到谁、时间轴、敌方意图）、左右两列名单（血、恐惧、弹药、状态）、中间的行动列表和战斗日志。
+## 先选技能再选目标；只调用 BattleView；规则和 AI 在 core/battle。
 
 signal finished
 
 const BattleView = preload("res://ui/battle/battle_view.gd")
+const BattleStage = preload("res://ui/battle/battle_stage.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const PixelArt = preload("res://core/art/pixel_art.gd")
 const Sfx = preload("res://core/audio/sfx.gd")
 
+## 半透明面板：压在像素画面上，看得清字也不完全挡住背景。
+const GLASS := Color(0.04, 0.05, 0.08, 0.78)
+
 var view: RefCounted
+var stage: Control
 var header: Label
 var timeline_label: Label
-var enemy_grid: GridContainer
-var ally_grid: GridContainer
+var enemy_list: VBoxContainer
+var ally_list: VBoxContainer
 var action_box: VBoxContainer
 var log_label: RichTextLabel
 var intent_label: Label
@@ -22,105 +28,96 @@ var open_indices: Array = []
 var _done := false
 
 
-func setup(battle: RefCounted) -> void:
+## location：战斗地点（选像素背景）。
+func setup(battle: RefCounted, location: String = "") -> void:
 	view = BattleView.new(battle)
-	_build()
+	_build(location, bool(battle.dark))
 	refresh()
 
 
-func _build() -> void:
+func _glass(pos: Vector2, size: Vector2) -> PanelContainer:
+	var p := PanelContainer.new()
+	p.position = pos
+	p.size = size
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = GLASS
+	sb.set_corner_radius_all(8)
+	sb.content_margin_left = 12
+	sb.content_margin_right = 12
+	sb.content_margin_top = 8
+	sb.content_margin_bottom = 8
+	p.add_theme_stylebox_override("panel", sb)
+	add_child(p)
+	return p
+
+
+func _build(location: String, dark: bool) -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
-	UiTheme.paint_bg(self)
-	header = UiTheme.label("战斗", 30, UiTheme.ACCENT)
-	header.position = Vector2(40, 18)
-	header.size = Vector2(1200, 40)
-	add_child(header)
-	timeline_label = UiTheme.label("", 20, UiTheme.MUTED)
-	timeline_label.position = Vector2(40, 60)
-	timeline_label.size = Vector2(1240, 30)
-	add_child(timeline_label)
+	stage = BattleStage.new()
+	stage.setup(view.units(), location, dark)
+	add_child(stage)
 
-	var enemy_title := UiTheme.label("敌方", 22, UiTheme.ACCENT)
-	enemy_title.position = Vector2(40, 98)
-	enemy_title.size = Vector2(200, 28)
-	add_child(enemy_title)
-	enemy_grid = GridContainer.new()
-	enemy_grid.columns = 5
-	enemy_grid.position = Vector2(40, 130)
-	enemy_grid.size = Vector2(1240, 210)
-	enemy_grid.add_theme_constant_override("h_separation", 10)
-	enemy_grid.add_theme_constant_override("v_separation", 8)
-	add_child(enemy_grid)
+	var top := _glass(Vector2(20, 12), Vector2(1880, 92))
+	var top_box := VBoxContainer.new()
+	top_box.add_theme_constant_override("separation", 2)
+	top.add_child(top_box)
+	header = UiTheme.label("战斗", 26, UiTheme.ACCENT)
+	top_box.add_child(header)
+	timeline_label = UiTheme.label("", 17, UiTheme.MUTED)
+	top_box.add_child(timeline_label)
+	intent_label = UiTheme.label("", 17, UiTheme.ACCENT2)
+	top_box.add_child(intent_label)
 
-	var ally_title := UiTheme.label("我方", 22, UiTheme.OK)
-	ally_title.position = Vector2(40, 356)
-	ally_title.size = Vector2(200, 28)
-	add_child(ally_title)
-	ally_grid = GridContainer.new()
-	ally_grid.columns = 7
-	ally_grid.position = Vector2(40, 388)
-	ally_grid.size = Vector2(1240, 116)
-	ally_grid.add_theme_constant_override("h_separation", 10)
-	add_child(ally_grid)
+	var left := _glass(Vector2(20, 116), Vector2(300, 520))
+	ally_list = VBoxContainer.new()
+	ally_list.add_theme_constant_override("separation", 4)
+	left.add_child(ally_list)
+	var right := _glass(Vector2(1600, 116), Vector2(300, 520))
+	enemy_list = VBoxContainer.new()
+	enemy_list.add_theme_constant_override("separation", 4)
+	right.add_child(enemy_list)
 
-	var action_panel := PanelContainer.new()
-	action_panel.position = Vector2(1300, 90)
-	action_panel.size = Vector2(580, 620)
-	action_panel.add_theme_stylebox_override("panel", UiTheme.panel_style())
-	add_child(action_panel)
+	var action_panel := _glass(Vector2(340, 116), Vector2(1240, 300))
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	action_panel.add_child(scroll)
 	action_box = VBoxContainer.new()
 	action_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	action_box.add_theme_constant_override("separation", 8)
+	action_box.add_theme_constant_override("separation", 6)
 	scroll.add_child(action_box)
 
-	intent_label = UiTheme.label("", 19, UiTheme.ACCENT2)
-	intent_label.position = Vector2(40, 520)
-	intent_label.size = Vector2(1240, 44)
-	add_child(intent_label)
-	var log_title := UiTheme.label("战斗日志", 22, UiTheme.MUTED)
-	log_title.position = Vector2(40, 570)
-	log_title.size = Vector2(300, 28)
-	add_child(log_title)
-	log_label = UiTheme.rich(19)
-	log_label.position = Vector2(40, 604)
-	log_label.size = Vector2(1240, 390)
-	add_child(log_label)
+	var log_panel := _glass(Vector2(340, 426), Vector2(1240, 210))
+	log_label = UiTheme.rich(17)
+	log_panel.add_child(log_label)
 
 
-## 一张卡：像素头像 + 名字 + 血条 + 恐惧条 + 脚注（弹药/状态）。
-## 格子宽度是按列算死的（敌人 5 列 / 我方 7 列），所以高度要压住，别撑破。
+## 名单里的一行：像素头像 + 名字 + 血条 + 恐惧条 + 脚注（弹药/状态）。
 func _card(u: Dictionary) -> PanelContainer:
-	var enemy := String(u["side"]) == "enemy"
 	var p := PanelContainer.new()
-	p.custom_minimum_size = Vector2(232, 96) if enemy else Vector2(164, 104)
+	p.custom_minimum_size = Vector2(276, 56)
 	p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.PANEL_LIGHT))
-	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 3)
-	p.add_child(box)
-	var top := HBoxContainer.new()
-	top.add_theme_constant_override("separation", 6)
-	box.add_child(top)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	p.add_child(row)
 	var face := TextureRect.new()
 	face.texture = PixelArt.unit(String(u["id"]), String(u["side"]))
-	face.custom_minimum_size = Vector2(34, 34)
+	face.custom_minimum_size = Vector2(30, 30)
 	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	top.add_child(face)
-	var name_label := UiTheme.label("", 16)
-	name_label.custom_minimum_size = Vector2(0, 34)
-	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	row.add_child(face)
+	var box := VBoxContainer.new()
+	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	box.add_theme_constant_override("separation", 2)
+	row.add_child(box)
+	var name_label := UiTheme.label("", 15)
 	name_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	name_label.clip_text = true
-	top.add_child(name_label)
-	var hp := UiTheme.bar(UiTheme.OK)
+	box.add_child(name_label)
+	var hp := UiTheme.bar(UiTheme.OK, 6)
 	box.add_child(hp)
-	var fear := UiTheme.bar(UiTheme.ACCENT2, 6)
+	var fear := UiTheme.bar(UiTheme.ACCENT2, 4)
 	box.add_child(fear)
-	var foot := UiTheme.label("", 13, UiTheme.MUTED)
+	var foot := UiTheme.label("", 12, UiTheme.MUTED)
 	foot.clip_text = true
 	foot.autowrap_mode = TextServer.AUTOWRAP_OFF
 	foot.visible = false
@@ -137,17 +134,18 @@ func refresh() -> void:
 	for i: Dictionary in view.intents():
 		intents.append("%s：%s" % [String(i["name"]), String(i["text"])])
 	intent_label.text = "敌方意图（判断力 %d/2）：%s" % [int(view.b.intel), "；".join(intents)] if not intents.is_empty() else ""
-	for grid: GridContainer in [enemy_grid, ally_grid]:
-		for c in grid.get_children():
-			grid.remove_child(c)
+	for list: VBoxContainer in [enemy_list, ally_list]:
+		for c in list.get_children():
+			list.remove_child(c)
 			c.queue_free()
 	var units: Array[Dictionary] = view.units()
+	stage.sync(units)
 	for u: Dictionary in units:
-		var grid: GridContainer = ally_grid if String(u["side"]) == "ally" else enemy_grid
+		var list: VBoxContainer = ally_list if String(u["side"]) == "ally" else enemy_list
 		var p := _card(u)
 		var c: Dictionary = cards[u["id"]]
 		var name_label: Label = c["name"]
-		name_label.text = String(u["name"])
+		name_label.text = "%s  %d/%d" % [String(u["name"]), int(maxf(float(u["hp"]), 0.0)), int(float(u["hp_max"]))]
 		name_label.add_theme_color_override("font_color", UiTheme.TEXT if bool(u["alive"]) else UiTheme.MUTED)
 		var hp_bar: ProgressBar = c["hp"]
 		hp_bar.max_value = maxf(float(u["hp_max"]), 1.0)
@@ -169,7 +167,7 @@ func refresh() -> void:
 			p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.PANEL_LIGHT, UiTheme.ACCENT, 8))
 		elif not bool(u["alive"]):
 			p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.DARK, UiTheme.DARK, 8))
-		grid.add_child(p)
+		list.add_child(p)
 
 	for c in action_box.get_children():
 		action_box.remove_child(c)
@@ -200,7 +198,7 @@ func refresh() -> void:
 			else:
 				b.pressed.connect(_open.bind(indices))
 			action_box.add_child(b)
-	log_label.text = "\n".join(view.log_tail(14))
+	log_label.text = "\n".join(view.log_tail(9))
 
 
 func _open(indices: Array) -> void:
@@ -211,6 +209,8 @@ func _open(indices: Array) -> void:
 func press_action(index: int) -> void:
 	var before := (view.b.history as Array).size()
 	view.act(index)
-	Sfx.play_for_events((view.b.history as Array).slice(before))
+	var events: Array = (view.b.history as Array).slice(before)
+	Sfx.play_for_events(events)
+	stage.play(events)
 	open_indices = []
 	refresh()

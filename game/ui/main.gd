@@ -137,7 +137,7 @@ func _on_battle_needed() -> void:
 	var b := Battle.new()
 	b.setup(units, session.expedition.battle_options(), session.game.rng)
 	var screen := BattleScreen.new()
-	screen.setup(b)
+	screen.setup(b, String(session.expedition.st.pending_battle.get("location", "")))
 	screen.finished.connect(_on_battle_finished.bind(b))
 	_clear()
 	content.add_child(screen)
