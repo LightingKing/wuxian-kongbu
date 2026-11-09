@@ -252,6 +252,24 @@ func _build_pending() -> void:
 		pending_box.add_child(UiTheme.label("战斗：%s" % "、".join(p["enemies"]), 22, UiTheme.ACCENT))
 
 
+## 键盘：1~9 直接选当前待选项，PC 上不用把手从键盘挪到鼠标。
+func _unhandled_input(event: InputEvent) -> void:
+	var k := event as InputEventKey
+	if k == null or not k.pressed or k.echo:
+		return
+	var idx := int(k.keycode) - int(KEY_1)
+	if idx < 0 or idx > 8:
+		return
+	var p: Dictionary = view.pending()
+	if String(p.get("kind", "")) != "choice":
+		return
+	var opts: Array = p["options"]
+	if idx >= opts.size():
+		return
+	if press_choice(String(opts[idx]["id"])):
+		accept_event()
+
+
 ## 列出能搭话的人：最多四个，多的先不显示。
 func _build_talk() -> void:
 	for c in talk_box.get_children():

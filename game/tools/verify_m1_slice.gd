@@ -1,12 +1,12 @@
 extends SceneTree
 ## M1 可玩切片的无头验收：加载主场景，按真实界面路径走一遍
-## 听规则 → 大厅 → 楼梯井（扶人）→ 激光通道（救马修）→ 主机房（跟詹岚搭话）
-## → 推理 → 丧尸战 → 留守 → 自由说辞逼火焰女皇 → 断电 → 撑到回归 → 结算
-## → 主神空间（问主神）→ 存档/读档。
+## 标题 → 新游戏 → 听规则 → 大厅 → 楼梯井（扶人）→ 激光通道（救马修）
+## → 主机房（跟詹岚搭话）→ 推理 → 丧尸战 → 留守 → 自由说辞逼火焰女皇 → 断电
+## → 撑到回归 → 结算 → 主神空间（问主神）→ 暂停菜单存槽 → 回标题 → 从槽读回来。
 ## 用法：godot --headless --path game -s res://tools/verify_m1_slice.gd
 ## 加 --capture（不带 --headless）可以截一张结算后的图到 art_src/qa/。
 
-const SAVE_PATH := "user://verify_m1_slice.json"
+const Slots = preload("res://core/save/slots.gd")
 
 var failures := 0
 
@@ -16,6 +16,9 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	# 上次跑测试可能留下存档，先清空，截图和断言才干净。
+	for i in range(1, Slots.COUNT + 1):
+		Slots.erase(i)
 	root.size = Vector2i(1920, 1080)
 	var packed := load("res://ui/main.tscn") as PackedScene
 	_expect(packed != null, "主场景可以加载")
@@ -27,8 +30,14 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 
+	var title: Control = main.content.get_child(0)
+	_expect(title.has_method("press_new"), "启动进标题画面")
+	_expect((title.slot_rows() as Array).size() == 3, "标题画面列出三个存档槽")
+	await _shot("m1_title.png")
+	title.press_new()
+	await process_frame
 	var screen: Control = main.content.get_child(0)
-	_expect(screen.has_method("press_choice"), "开局显示地点图界面")
+	_expect(screen.has_method("press_choice"), "新游戏进入地点图")
 	_expect(String(main.session.phase) == "expedition", "开局在远征阶段")
 	_expect(int(main.session.game.characters.size()) == 7, "七名轮回者")
 
@@ -147,8 +156,16 @@ func _run() -> void:
 	_expect(main.session.game.companions.size() == 1, "造出萝丽")
 	await _shot("m1_slice_hub.png")
 
-	main._on_save()
-	main._on_load()
+	main._open_pause()
+	await process_frame
+	_expect(main.pause != null, "Esc 打开暂停菜单")
+	await _shot("m1_pause.png")
+	if main.pause != null:
+		main.pause.press_save(1)
+		_expect(bool(Slots.summary(1)["exists"]), "存到槽 1")
+		_expect(String(Slots.summary(1)["label"]).contains("主神空间"), "槽 1 摘要写着主神空间")
+		main._close_pause()
+	main._on_load_slot(1)
 	await process_frame
 	var loaded: Control = main.content.get_child(0)
 	_expect(String(main.session.phase) == "hub", "读档回到主神空间")
@@ -184,6 +201,14 @@ func _run() -> void:
 	await process_frame
 	_expect(String(main.session.phase) == "done", "走光柱后阶段结束")
 	_expect(_found_text(main.content, "二十道光柱"), "结尾画面")
+
+	main._show_title()
+	await process_frame
+	var back: Control = main.content.get_child(0)
+	_expect(back.has_method("press_new"), "回到标题画面")
+	back.press_slot(1)
+	await process_frame
+	_expect(String(main.session.phase) == "hub", "从标题读槽 1 回到主神空间")
 
 	_finish()
 
@@ -227,7 +252,7 @@ func _find_button(node: Node, text: String) -> Button:
 
 
 func _finish() -> void:
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+	for i in range(1, Slots.COUNT + 1):
+		Slots.erase(i)
 	print("M1 切片验证：失败 %d 项" % failures)
 	quit(0 if failures == 0 else 1)

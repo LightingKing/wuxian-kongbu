@@ -1,7 +1,8 @@
 extends Control
-## M1 可玩切片的入口：新游戏 → 远征 → 战斗 → 结算 → 主神空间休整。
+## 游戏入口：标题画面 → 新游戏/读档 → 远征 → 战斗 → 结算 → 主神空间休整。
 ## 只做流程和换屏；远征与战斗的状态都在 Session / Expedition / Battle 里。
 ## 对话也在这里接线：AiService → Dialogue → 对话框，没配密钥就自动走离线兜底。
+## PC 版外壳：标题画面、三个存档槽、设置、Esc 暂停菜单都在这里挂。
 
 const Session = preload("res://core/session/session.gd")
 const ExpeditionScreen = preload("res://ui/expedition/expedition_screen.gd")
@@ -17,18 +18,25 @@ const Dialogue = preload("res://core/dialogue/dialogue.gd")
 const DialoguePanel = preload("res://ui/dialogue/dialogue_panel.gd")
 const EventText = preload("res://ui/event_text.gd")
 const DataLoader = preload("res://core/util/data_loader.gd")
+const Slots = preload("res://core/save/slots.gd")
+const Settings = preload("res://core/settings/settings.gd")
+const TitleScreen = preload("res://ui/title_screen.gd")
+const PauseMenu = preload("res://ui/pause_menu.gd")
 
-const SAVE_PATH := "user://m1_save.json"
 const ZHSHEN_FAQ := "res://data/ai/zhushen_faq.json"
 ## 主神不许说出口的词（校验层会拦，泄露就换离线回答）。
 const ZHSHEN_FORBIDDEN: Array[String] = ["下一部", "剧情", "原著", "郑吒会"]
 
 var session: RefCounted
 var content: Control
+var bar: ColorRect
 var header: Label
-var save_button: Button
-var load_button: Button
+var menu_button: Button
 var battle_screen: Control = null
+var title_screen: Control = null
+var pause: Control = null
+## 窗口模式与主音量，存 user://settings.json。
+var settings: Dictionary = Settings.defaults()
 ## AI 接入层与对话层；离线时 ai.online() 为 false，全部走脚本兜底。
 var ai: RefCounted
 var dialogue: RefCounted
@@ -38,39 +46,44 @@ var panel: Control = null
 func _ready() -> void:
 	theme = UiTheme.build()
 	_build_frame()
-	session = Session.new()
-	session.start_m1(1)
-	_setup_ai()
-	_show_expedition()
+	settings = Settings.load_settings()
+	Settings.apply(settings)
+	_show_title()
 
 
 func _build_frame() -> void:
 	UiTheme.paint_bg(self)
-	var bar := ColorRect.new()
+	bar = ColorRect.new()
 	bar.color = UiTheme.PANEL
 	bar.position = Vector2(0, 0)
 	bar.size = Vector2(1920, 56)
 	add_child(bar)
-	header = UiTheme.label("无限恐怖 · M1 可玩切片", 24, UiTheme.ACCENT2)
+	header = UiTheme.label("无限恐怖", 24, UiTheme.ACCENT2)
 	header.position = Vector2(30, 12)
-	header.size = Vector2(900, 34)
+	header.size = Vector2(1200, 34)
 	add_child(header)
 
-	save_button = UiTheme.button("保存", 18)
-	save_button.position = Vector2(1560, 6)
-	save_button.size = Vector2(150, 44)
-	save_button.pressed.connect(_on_save)
-	add_child(save_button)
-	load_button = UiTheme.button("读档", 18)
-	load_button.position = Vector2(1720, 6)
-	load_button.size = Vector2(150, 44)
-	load_button.pressed.connect(_on_load)
-	add_child(load_button)
+	menu_button = UiTheme.button("菜单（Esc）", 18)
+	menu_button.position = Vector2(1700, 6)
+	menu_button.size = Vector2(190, 44)
+	menu_button.pressed.connect(_open_pause)
+	add_child(menu_button)
 
 	content = Control.new()
 	content.position = Vector2(0, 56)
 	content.size = Vector2(1920, 1024)
 	add_child(content)
+
+	_show_frame(false)
+
+
+## 标题画面要整屏，游戏里让出顶部 56px 的状态栏。
+func _show_frame(playing: bool) -> void:
+	bar.visible = playing
+	header.visible = playing
+	menu_button.visible = playing
+	content.position = Vector2(0, 56) if playing else Vector2(0, 0)
+	content.size = Vector2(1920, 1024) if playing else Vector2(1920, 1080)
 
 
 func _clear() -> void:
@@ -201,25 +214,113 @@ func _show_done() -> void:
 	_set_status("M1 结束")
 
 
-func _on_save() -> void:
-	var err: int = session.save_to(SAVE_PATH)
-	_set_status("已保存" if err == OK else "保存失败（%d）" % err)
+## ---- 标题与存档槽 ----
+
+func _show_title() -> void:
+	session = null
+	battle_screen = null
+	_close_pause()
+	_clear()
+	_show_frame(false)
+	var t := TitleScreen.new()
+	t.set_settings(settings)
+	t.new_game.connect(_new_game)
+	t.load_slot.connect(_load_slot)
+	t.quit_game.connect(_quit_game)
+	t.settings_changed.connect(_on_settings_changed)
+	content.add_child(t)
+	title_screen = t
 
 
-func _on_load() -> void:
-	var s := Session.load_from(SAVE_PATH)
+func _new_game() -> void:
+	title_screen = null
+	session = Session.new()
+	session.start_m1(1)
+	_setup_ai()
+	_show_frame(true)
+	_show_expedition()
+
+
+func _load_slot(slot: int) -> void:
+	var s := Slots.read(slot)
 	if s == null:
-		_set_status("没有可读的存档")
+		_set_status("存档位 %d 读不出来" % slot)
 		return
+	title_screen = null
 	session = s
 	battle_screen = null
 	_setup_ai()
+	_show_frame(true)
 	if session.phase == "expedition":
 		_show_expedition()
 	elif session.phase == "done":
 		_show_done()
 	else:
 		_show_hub()
+
+
+func _on_settings_changed(next: Dictionary) -> void:
+	settings = next
+	Settings.save_settings(settings)
+
+
+## ---- 暂停菜单 ----
+
+func _open_pause() -> void:
+	if session == null or pause != null:
+		return
+	pause = PauseMenu.new()
+	pause.resume.connect(_close_pause)
+	pause.save_slot.connect(_on_save_slot)
+	pause.load_slot.connect(_on_load_slot)
+	pause.to_title.connect(_show_title)
+	pause.quit_game.connect(_quit_game)
+	add_child(pause)
+	pause.open_for("")
+
+
+func _close_pause() -> void:
+	if pause == null:
+		return
+	pause.queue_free()
+	pause = null
+
+
+func _on_save_slot(slot: int) -> void:
+	if session == null:
+		return
+	var err: int = Slots.write(slot, session)
+	if pause != null:
+		pause.set_status("已保存到槽 %d" % slot if err == OK else "保存失败（%d）" % err)
+
+
+func _on_load_slot(slot: int) -> void:
+	_close_pause()
+	_load_slot(slot)
+
+
+func _quit_game() -> void:
+	get_tree().quit()
+
+
+## Esc：标题画面先关覆盖层；游戏里先关对话框，再关暂停菜单，最后打开暂停菜单。
+func _unhandled_input(event: InputEvent) -> void:
+	var k := event as InputEventKey
+	if k == null or not k.pressed or k.echo or k.keycode != KEY_ESCAPE:
+		return
+	if title_screen != null and is_instance_valid(title_screen):
+		if title_screen.handle_escape():
+			accept_event()
+		return
+	if panel != null and is_instance_valid(panel):
+		panel.press_close()
+		accept_event()
+		return
+	if pause != null:
+		_close_pause()
+	else:
+		_open_pause()
+	accept_event()
 
 
 ## 建 AI 接入层（HTTP 节点挂在自己身上才能联网）和对话层；读档后重调一次即可换掉 store。
