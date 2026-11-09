@@ -44,6 +44,22 @@ func _run() -> void:
 
 	_expect(screen.press_choice("listen"), "开场选择：听规则")
 	_expect(screen.press_move("hall"), "走到大厅")
+	await process_frame
+	await process_frame
+	_expect(bool(Slots.summary(Slots.AUTO)["exists"]), "换地点后自动存档落盘")
+	_expect(String(Slots.summary(Slots.AUTO)["label"]).contains("生化危机一"), "自动档摘要写着片名")
+
+	# 禁言：当着剧情人物（马修）提"主神"，当场扣 10 点。
+	_expect(screen.press_talk("matthew"), "在大厅跟马修搭话")
+	var gag_panel: Control = main.panel
+	if gag_panel != null:
+		var before := _penalty_count(main)
+		gag_panel.press_send("主神到底想让我们干什么")
+		_expect(_penalty_count(main) == before + 1, "当着马修提主神被记一次泄密")
+		_expect(gag_panel.log_label.text.contains("说漏了嘴"), "对话框里当场提示")
+		gag_panel.press_close()
+		await process_frame
+
 	_expect(screen.press_move("stairs"), "走到楼梯井")
 	_expect(screen.press_choice("help"), "扶掉队的新人")
 	_expect(screen.press_move("laser"), "走进激光通道")
@@ -59,6 +75,17 @@ func _run() -> void:
 		cs.press_continue()
 		await process_frame
 	_expect(main.session.expedition.st.pending_cutscene.is_empty(), "插图播完自动继续")
+
+	# 说服马修：先过检定，才轮到救人选择。
+	var pend: Dictionary = screen.view.pending()
+	_expect(String(pend.get("kind", "")) == "check", "插图之后先等说服马修")
+	_expect(String(pend.get("id", "")) == "convince_matthew", "检定是说服马修")
+	_expect(screen.press_choice("save_matthew") == false or not main.session.expedition.st.pending_check.is_empty(), "没过说服不能直接选")
+	screen.select_keywords(["最后", "盯着", "激光"])
+	await _shot("m1_persuade_matthew.png")
+	_expect(screen.press_persuade_keywords(), "用关键词说服马修")
+	await process_frame
+	_expect(main.session.expedition.st.pending_check.is_empty(), "说服结算后清空")
 	_expect(screen.press_choice("save_matthew"), "拖着马修贴门")
 	_expect(screen.press_move("control"), "进入主机房")
 	_expect(int(main.session.expedition.st.clock) == 45, "第 45 分钟到达主机房")
@@ -139,7 +166,8 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	_expect(String(main.session.phase) == "settlement", "撑到 3:07 后进入结算")
-	_expect(_found_text(main.content, "6500"), "郑吒结算 6500 点")
+	# 原著 6500 = 存活 1000 + 救马修 5000 + 精神突破 500；这一趟当着马修说漏嘴一次，扣 10。
+	_expect(_found_text(main.content, "6490"), "郑吒结算 6490 点（6500 − 禁言 10）")
 	_expect(_found_text(main.content, "B 级支线"), "B 级支线入账")
 
 	var hub_btn := _find_button(main.content, "进入主神空间")
@@ -168,9 +196,20 @@ func _run() -> void:
 	_expect(zz.owned.has("qigong_low"), "兑换到低级气功")
 	_expect(zz.energy.has("neili"), "获得内力池")
 	hub.press_attr("muscle")
-	_expect(int(zz.points) == 5900, "买属性扣 100 点，剩 5900")
+	_expect(int(zz.points) == 5890, "买属性扣 100 点，剩 5890")
 	hub.press_create("萝丽")
 	_expect(main.session.game.companions.size() == 1, "造出萝丽")
+
+	# 对练：兑换完气功，拿它跟训练傀儡打一场，看得见伤害数字。
+	var day_before: int = main.session.hub.day
+	var hp_before: float = zz.hp
+	hub.open_tab("spar")
+	await process_frame
+	await _shot("m1_spar.png")
+	hub.press_spar("qigong_low" if zz.skills.has("qigong_low") else "punch")
+	_expect(int(main.session.hub.day) == day_before + 1, "对练耗 1 天")
+	_expect(_found_text(hub.status_label, "打出"), "状态行给出对练伤害")
+	_expect(absf(zz.hp - hp_before) < 0.01, "对练不伤角色")
 	await _shot("m1_slice_hub.png")
 
 	main._open_pause()
@@ -186,7 +225,7 @@ func _run() -> void:
 	await process_frame
 	var loaded: Control = main.content.get_child(0)
 	_expect(String(main.session.phase) == "hub", "读档回到主神空间")
-	_expect(int(main.session.hub.day) == 1, "读档保留天数")
+	_expect(int(main.session.hub.day) == 2, "读档保留天数（休息 1 天 + 对练 1 天）")
 	_expect(main.session.game.characters["zheng_zha"].owned.has("qigong_low"), "读档保留兑换")
 	_expect(main.session.game.companions.size() == 1, "读档保留造物")
 	_expect(main.session.dialogues.has("zhan_lan"), "读档保留对话记忆")
@@ -247,6 +286,16 @@ func _expect(cond: bool, message: String) -> void:
 		printerr("FAIL " + message)
 
 
+## 结算账本里的罚分条数（禁言每中一句加一条）。
+func _penalty_count(main: Node) -> int:
+	var st: RefCounted = main.session.expedition.st
+	var n := 0
+	for row: Dictionary in st.ledger:
+		if String(row["kind"]) == "penalty":
+			n += 1
+	return n
+
+
 func _found_text(node: Node, needle: String) -> bool:
 	if node is Label and String(node.text).contains(needle):
 		return true
@@ -271,5 +320,6 @@ func _find_button(node: Node, text: String) -> Button:
 func _finish() -> void:
 	for i in range(1, Slots.COUNT + 1):
 		Slots.erase(i)
+	Slots.erase(Slots.AUTO)
 	print("M1 切片验证：失败 %d 项" % failures)
 	quit(0 if failures == 0 else 1)

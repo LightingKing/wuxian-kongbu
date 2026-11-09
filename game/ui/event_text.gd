@@ -113,6 +113,10 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 			return "%s 硬撑住了恐惧。" % _name(e.get("target", ""), names)
 		"infection_turned":
 			return "%s 在战斗中变成了丧尸。" % _name(e.get("target", ""), names)
+		"gag_penalty":
+			return "说漏了嘴——%s 就在旁边，扣 %.0f 点。" % [_name(e.get("witness", ""), names), float(e.get("points", 0.0))]
+		"leak_unwitnessed":
+			return "差点说漏嘴。旁边没有剧情人物，没人听见。"
 		"invalid_action":
 			return ""
 	return ""

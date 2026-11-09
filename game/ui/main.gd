@@ -15,6 +15,7 @@ const AiSettings = preload("res://ai/ai_settings.gd")
 const HttpTransport = preload("res://ai/http_transport.gd")
 const Persona = preload("res://ai/persona.gd")
 const Dialogue = preload("res://core/dialogue/dialogue.gd")
+const Gag = preload("res://core/dialogue/gag.gd")
 const DialoguePanel = preload("res://ui/dialogue/dialogue_panel.gd")
 const EventText = preload("res://ui/event_text.gd")
 const DataLoader = preload("res://core/util/data_loader.gd")
@@ -40,6 +41,8 @@ var title_screen: Control = null
 var pause: Control = null
 ## 窗口模式与主音量，存 user://settings.json。
 var settings: Dictionary = Settings.defaults()
+## 自动存档：阶段/地点/天数一变就落盘，退出后"继续游戏"能接着玩。
+var _auto_key := ""
 ## AI 接入层与对话层；离线时 ai.online() 为 false，全部走脚本兜底。
 var ai: RefCounted
 var dialogue: RefCounted
@@ -309,6 +312,32 @@ func _quit_game() -> void:
 	get_tree().quit()
 
 
+## 自动存档：阶段、所在地点、休整天数任何一项变了就落一次盘。
+## 只在远征/结算/休整里存，第一部结束（done）不覆盖旧档。
+func _process(_delta: float) -> void:
+	_autosave_tick()
+
+
+func _autosave_tick() -> void:
+	if session == null or String(session.phase) == "done":
+		return
+	var key := auto_key()
+	if key == _auto_key:
+		return
+	_auto_key = key
+	Slots.write(Slots.AUTO, session)
+
+
+## 当前应该落在自动档上的状态指纹（验收脚本与测试也用它）。
+func auto_key() -> String:
+	if session == null:
+		return ""
+	var loc := ""
+	if String(session.phase) == "expedition":
+		loc = _location_id()
+	return "%s|%s|%d" % [String(session.phase), loc, int(session.day)]
+
+
 ## Esc：标题画面先关覆盖层；游戏里先关对话框，再关暂停菜单，最后打开暂停菜单。
 func _unhandled_input(event: InputEvent) -> void:
 	var k := event as InputEventKey
@@ -445,6 +474,9 @@ func _on_said(text: String, npc_id: String) -> void:
 	if p == null:
 		return
 	p.push("我", text)
+	# 禁言：说漏了就在这句话下面当场结算，玩家立刻知道哪句中招。
+	if Gag.is_leak(text):
+		_push_events(session.expedition.leak("zheng_zha"), p)
 	p.set_status("……")
 	p.set_replies([])
 	dialogue.say(npc_id, text, _situation(), func(res: Dictionary) -> void:
