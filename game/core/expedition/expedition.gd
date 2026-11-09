@@ -158,6 +158,7 @@ func apply_effects(effects: Array, location: String = "") -> Array[Dictionary]:
 
 ## 为待打的战斗生成单位。loadouts：角色 id → 技能 id 数组（没给的用角色自己的技能，什么都没有就只会拳脚）。
 ## 每个人带着自己的能量和道具；分队共用的道具交给第一个人携带；每排最多 4 人，多出来的往后排。
+## 带着手榴弹、止血喷雾这类消耗品的人，自动多出对应的技能（battle_data.item_skills）。
 func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[RefCounted]:
 	var units: Array[RefCounted] = []
 	if st.pending_battle.is_empty():
@@ -175,6 +176,9 @@ func battle_units(loadouts: Dictionary, controller: String = "player") -> Array[
 		if i == 0:
 			for k: String in st.squads[sid]["items"]:
 				res[k] = float(res.get(k, 0.0)) + float(st.squads[sid]["items"][k])
+		for s in BattleData.item_skills(res):
+			if not skills.has(s):
+				skills.append(s)
 		units.append(UnitFactory.from_character(ch, "ally", mini(floori(i / 4.0), 2), skills, controller if obeys(c) else "ai", res))
 	st.pending_battle["carrier"] = members[0] if not members.is_empty() else ""
 	var n := 0

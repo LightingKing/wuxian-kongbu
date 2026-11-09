@@ -1,0 +1,199 @@
+{
+	"version": 1,
+	"entries": {
+		"beretta": {
+			"name": "伯莱塔手枪（带三十发）", "category": "tech", "series": "pistol",
+			"price": {"points": 100, "tier": ""}, "source": "游戏扩充",
+			"blocks": [
+				{"skill": "pistol_shot_limited", "value": 40},
+				{"item": "ammo", "count": 30, "unit_value": 2}
+			]
+		},
+		"beretta_unlimited": {
+			"name": "无限弹药伯莱塔", "category": "tech", "series": "pistol",
+			"price": {"points": 80, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"skill": "pistol_shot", "value": 4, "unlimited": true}]
+		},
+		"uzi": {
+			"name": "无限弹药冲锋枪", "category": "tech", "series": "smg",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "smg_spray", "value": 30, "unlimited": true, "tier": "D"}]
+		},
+		"ak47": {
+			"name": "无限弹药突击步枪", "category": "tech", "series": "rifle",
+			"price": {"points": 500, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "rifle_burst", "value": 50, "unlimited": true, "tier": "D"}]
+		},
+		"shotgun": {
+			"name": "无限弹药霰弹枪", "category": "tech", "series": "shotgun",
+			"price": {"points": 400, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "shotgun_blast", "value": 45, "unlimited": true, "tier": "D"}]
+		},
+		"sniper": {
+			"name": "无限弹药狙击步枪", "category": "tech", "series": "sniper",
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "sniper_shot", "value": 90, "unlimited": true, "tier": "C"}]
+		},
+		"grenade_launcher": {
+			"name": "无限弹药榴弹发射器", "category": "tech", "series": "launcher",
+			"price": {"points": 600, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "grenade_launch", "value": 100, "unlimited": true, "tier": "C"}]
+		},
+		"rocket_launcher": {
+			"name": "火箭筒（附三发）", "category": "tech", "series": "launcher",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [
+				{"skill": "rocket_shot", "value": 1200, "tier": "C"},
+				{"item": "rocket", "count": 3, "unit_value": 100}
+			]
+		},
+		"laser_rifle": {
+			"name": "无限能量激光步枪", "category": "tech", "series": "energy_weapon",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "laser_shot", "value": 80, "unlimited": true, "tier": "C"}]
+		},
+		"plasma_rifle": {
+			"name": "等离子步枪", "category": "tech", "series": "energy_weapon",
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "plasma_shot", "value": 130, "unlimited": true, "tier": "B"}]
+		},
+		"taser": {
+			"name": "电击枪", "category": "tech", "series": "energy_weapon",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "taser_shot", "value": 30, "unlimited": true, "tier": "D"}]
+		},
+		"sonic_gun": {
+			"name": "声波枪", "category": "tech", "series": "energy_weapon",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "sonic_blast", "value": 75, "unlimited": true, "tier": "C"}]
+		},
+		"freeze_ray": {
+			"name": "冷冻射线枪", "category": "tech", "series": "energy_weapon",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "freeze_ray", "value": 80, "unlimited": true, "tier": "C"}]
+		},
+		"railgun": {
+			"name": "电磁轨道炮", "category": "tech", "series": "energy_weapon",
+			"price": {"points": 400, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "railgun", "value": 140, "unlimited": true, "tier": "B"}]
+		},
+		"minigun": {
+			"name": "无限弹药加特林", "category": "tech", "series": "heavy",
+			"price": {"points": 100, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "minigun", "value": 125, "unlimited": true, "tier": "B"}]
+		},
+		"flamethrower": {
+			"name": "喷火器", "category": "tech", "series": "heavy",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "flame_spray", "value": 75, "unlimited": true, "tier": "C"}]
+		},
+		"crossbow": {
+			"name": "复合弩", "category": "tech", "series": "bow",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "crossbow_shot", "value": 30, "unlimited": true, "tier": "D"}]
+		},
+		"katana": {
+			"name": "武士刀", "category": "tech", "series": "blade",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "katana_slash", "value": 600, "tier": "D"}]
+		},
+		"combat_knife": {
+			"name": "战术匕首", "category": "tech", "series": "blade",
+			"price": {"points": 150, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"skill": "knife_stab", "value": 150}]
+		},
+		"vibro_blade": {
+			"name": "高频振动刀", "category": "tech", "series": "blade",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "vibro_slash", "value": 1600, "tier": "C"}]
+		},
+		"light_saber": {
+			"name": "光剑", "category": "tech", "series": "blade",
+			"price": {"points": 400, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "light_blade", "value": 2800, "tier": "B"}]
+		},
+		"chainsaw": {
+			"name": "电锯", "category": "tech", "series": "heavy_melee",
+			"price": {"points": 400, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "chainsaw_rip", "value": 900, "tier": "D"}]
+		},
+		"war_axe": {
+			"name": "合金战斧", "category": "tech", "series": "heavy_melee",
+			"price": {"points": 300, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "axe_cleave", "value": 800, "tier": "D"}]
+		},
+		"spear": {
+			"name": "合金长矛", "category": "tech", "series": "heavy_melee",
+			"price": {"points": 150, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "spear_thrust", "value": 650, "tier": "D"}]
+		},
+		"riot_shield": {
+			"name": "防暴盾", "category": "tech", "series": "armor",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "shield_bash", "value": 700, "tier": "D"}]
+		},
+		"body_armor": {
+			"name": "防弹插板", "category": "tech", "series": "armor",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "armor_guard", "value": 600, "tier": "D"}]
+		},
+		"exoskeleton": {
+			"name": "军用外骨骼", "category": "tech", "series": "armor",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 100, "nerve_reaction": 50}, "tier": "C"}]
+		},
+		"power_armor": {
+			"name": "动力装甲", "category": "tech", "series": "armor",
+			"price": {"points": 500, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"muscle": 120, "cell_vitality": 100, "immunity": 40}, "tier": "B"},
+				{"skill": "armor_guard", "value": 300}
+			]
+		},
+		"med_drone": {
+			"name": "医疗无人机", "category": "tech", "series": "drone",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "drone_heal", "value": 1500, "tier": "C"}]
+		},
+		"nano_bots": {
+			"name": "纳米修复机器人", "category": "tech", "series": "cyber",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 120, "immunity": 40}, "tier": "C"}]
+		},
+		"neural_chip": {
+			"name": "神经反应芯片", "category": "tech", "series": "cyber",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 150}, "tier": "C"}]
+		},
+		"titanium_bones": {
+			"name": "钛合金骨骼", "category": "tech", "series": "cyber",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 80, "muscle": 80}, "tier": "C"}]
+		},
+		"bionic_eye": {
+			"name": "电子义眼", "category": "tech", "series": "cyber",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 30, "nerve_reaction": 30}, "tier": "D"}]
+		},
+		"subdermal_armor": {
+			"name": "皮下装甲", "category": "tech", "series": "cyber",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 60}, "tier": "D"}]
+		},
+		"pain_block": {
+			"name": "痛觉屏蔽芯片", "category": "tech", "series": "cyber",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 60}, "tier": "D"}]
+		},
+		"synthetic_muscle": {
+			"name": "合成肌肉纤维", "category": "tech", "series": "cyber",
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 200, "nerve_reaction": 60}, "tier": "B"}]
+		},
+		"brain_interface": {
+			"name": "脑机接口", "category": "tech", "series": "cyber",
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 160, "spirit": 100}, "tier": "B"}]
+		}
+	}
+}

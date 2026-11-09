@@ -1,0 +1,120 @@
+{
+	"version": 1,
+	"entries": {
+		"ammo_box": {
+			"name": "弹药箱（三十发）", "category": "item", "series": "ammo", "consumable": true,
+			"price": {"points": 60, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "ammo", "count": 30, "unit_value": 2}]
+		},
+		"ammo_crate": {
+			"name": "大号弹药箱（一百发）", "category": "item", "series": "ammo", "consumable": true,
+			"price": {"points": 200, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "ammo", "count": 100, "unit_value": 2}]
+		},
+		"grenade_pack": {
+			"name": "手榴弹（五枚）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 250, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "grenade", "count": 5, "unit_value": 50}]
+		},
+		"grenade_crate": {
+			"name": "手榴弹补给箱（十枚）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 500, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "grenade", "count": 10, "unit_value": 50}]
+		},
+		"flashbang": {
+			"name": "闪光弹（两枚）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 120, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "flashbang", "count": 2, "unit_value": 60}]
+		},
+		"smoke_grenade": {
+			"name": "烟雾弹（两枚）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 80, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "smoke", "count": 2, "unit_value": 40}]
+		},
+		"molotov": {
+			"name": "燃烧瓶（三个）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 120, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "molotov", "count": 3, "unit_value": 40}]
+		},
+		"rocket_pack": {
+			"name": "火箭弹（三发）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 300, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "rocket", "count": 3, "unit_value": 100}]
+		},
+		"c4": {
+			"name": "C4 炸药", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"item": "c4", "count": 1, "unit_value": 600, "tier": "D"}]
+		},
+		"caltrops": {
+			"name": "铁蒺藜（两包）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 100, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "caltrops", "count": 2, "unit_value": 50}]
+		},
+		"poison_dart": {
+			"name": "毒镖（五支）", "category": "item", "series": "explosive", "consumable": true,
+			"price": {"points": 150, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "poison_dart", "count": 5, "unit_value": 30}]
+		},
+		"medkit": {
+			"name": "医疗包", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 150, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "medkit", "count": 1, "unit_value": 150}]
+		},
+		"spray_pack": {
+			"name": "止血喷雾（三瓶）", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 150, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "spray", "count": 3, "unit_value": 50}]
+		},
+		"antidote_pack": {
+			"name": "解毒剂（三支）", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 300, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "antidote", "count": 3, "unit_value": 100}]
+		},
+		"bandage": {
+			"name": "绷带（五卷）", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 75, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "bandage", "count": 5, "unit_value": 15}]
+		},
+		"sedative": {
+			"name": "镇静剂（两支）", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 120, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "sedative", "count": 2, "unit_value": 60}]
+		},
+		"stim": {
+			"name": "兴奋剂（两支）", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 160, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "stim", "count": 2, "unit_value": 80}]
+		},
+		"adrenaline": {
+			"name": "肾上腺素针", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 150, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "adrenaline", "count": 1, "unit_value": 150}]
+		},
+		"energy_drink": {
+			"name": "能量饮料（三罐）", "category": "item", "series": "medical", "consumable": true,
+			"price": {"points": 90, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "energy_drink", "count": 3, "unit_value": 30}]
+		},
+		"huandan": {
+			"name": "小还丹（两颗）", "category": "item", "series": "elixir", "consumable": true,
+			"price": {"points": 200, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "huandan", "count": 2, "unit_value": 100}]
+		},
+		"scroll_fire": {
+			"name": "火球卷轴（两张）", "category": "item", "series": "scroll", "consumable": true,
+			"price": {"points": 240, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "scroll_fire", "count": 2, "unit_value": 120}]
+		},
+		"scroll_heal": {
+			"name": "治疗卷轴（两张）", "category": "item", "series": "scroll", "consumable": true,
+			"price": {"points": 240, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "scroll_heal", "count": 2, "unit_value": 120}]
+		},
+		"holy_water": {
+			"name": "圣水（三瓶）", "category": "item", "series": "scroll", "consumable": true,
+			"price": {"points": 180, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "holy_water", "count": 3, "unit_value": 60}]
+		}
+	}
+}

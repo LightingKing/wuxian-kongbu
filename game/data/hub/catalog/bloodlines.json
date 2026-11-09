@@ -1,0 +1,123 @@
+{
+	"version": 1,
+	"entries": {
+		"werewolf_low": {
+			"name": "低级狼人血统", "category": "enhance", "series": "werewolf", "bloodline": true,
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 40, "nerve_reaction": 20}, "tier": "D"}]
+		},
+		"werewolf_mid": {
+			"name": "中级狼人血统", "category": "enhance", "series": "werewolf", "bloodline": true, "requires": ["werewolf_low"],
+			"price": {"points": 600, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"muscle": 60, "nerve_reaction": 40, "cell_vitality": 40}, "tier": "C"},
+				{"skill": "wolf_rend", "value": 600, "tier": "C"}
+			]
+		},
+		"dragon_low": {
+			"name": "亚龙血统", "category": "enhance", "series": "dragon", "bloodline": true,
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 60, "muscle": 60, "immunity": 40}, "tier": "C"}]
+		},
+		"dragon_high": {
+			"name": "龙血战士", "category": "enhance", "series": "dragon", "bloodline": true, "requires": ["dragon_low"],
+			"price": {"points": 600, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"muscle": 80, "cell_vitality": 80}, "tier": "B"},
+				{"skill": "dragon_breath", "value": 1400, "tier": "B"}
+			]
+		},
+		"giant_low": {
+			"name": "巨人血统", "category": "enhance", "series": "giant", "bloodline": true,
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 100, "cell_vitality": 60}, "tier": "C"}]
+		},
+		"giant_high": {
+			"name": "泰坦血统", "category": "enhance", "series": "giant", "bloodline": true, "requires": ["giant_low"],
+			"price": {"points": 700, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"muscle": 120, "cell_vitality": 100}, "tier": "B"},
+				{"skill": "giant_stomp", "value": 900, "tier": "B"}
+			]
+		},
+		"orc": {
+			"name": "兽人血统", "category": "enhance", "series": "orc", "bloodline": true,
+			"price": {"points": 400, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"muscle": 50, "cell_vitality": 20}, "tier": "D"},
+				{"skill": "encourage", "value": 200}
+			]
+		},
+		"orc_chief": {
+			"name": "兽人酋长", "category": "enhance", "series": "orc", "bloodline": true, "requires": ["orc"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 80, "cell_vitality": 40, "immunity": 30}, "tier": "C"}]
+		},
+		"elf_nature": {
+			"name": "精灵族自然之子", "category": "enhance", "series": "elf", "bloodline": true,
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"intelligence": 40, "spirit": 60}, "tier": "C"},
+				{"skill": "nature_heal", "value": 600, "tier": "C"},
+				{"energy": "mana", "amount": 40, "value": 0}
+			]
+		},
+		"elf_moon": {
+			"name": "精灵族月影", "category": "enhance", "series": "elf", "bloodline": true,
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 90, "spirit": 60}, "tier": "C"}]
+		},
+		"angel": {
+			"name": "天使血统", "category": "enhance", "series": "angel", "bloodline": true,
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"spirit": 100, "intelligence": 40}, "tier": "B"},
+				{"skill": "holy_light", "value": 800, "tier": "B"},
+				{"energy": "mana", "amount": 60, "value": 400}
+			]
+		},
+		"demon": {
+			"name": "恶魔血统", "category": "enhance", "series": "demon", "bloodline": true,
+			"price": {"points": 400, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"muscle": 80, "spirit": 40}, "tier": "B"},
+				{"skill": "fire_blast", "value": 1200, "tier": "B"},
+				{"energy": "mana", "amount": 60, "value": 400}
+			]
+		},
+		"merman": {
+			"name": "人鱼血统", "category": "enhance", "series": "merman", "bloodline": true,
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"immunity": 40, "cell_vitality": 30}, "tier": "D"}]
+		},
+		"tengu": {
+			"name": "天狗血统", "category": "enhance", "series": "tengu", "bloodline": true,
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"nerve_reaction": 120}, "tier": "C"},
+				{"skill": "wind_kick", "value": 400}
+			]
+		},
+		"zombie_king": {
+			"name": "尸王血统", "category": "enhance", "series": "undead", "bloodline": true,
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"cell_vitality": 100, "immunity": 100}, "tier": "C"},
+				{"side_effect": "dull_mind", "discount": 0.8}
+			]
+		},
+		"gorgon": {
+			"name": "蛇发女妖血统", "category": "enhance", "series": "gorgon", "bloodline": true,
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [
+				{"attr": {"spirit": 80, "intelligence": 60}, "tier": "B"},
+				{"skill": "gorgon_gaze", "value": 1200, "tier": "B"}
+			]
+		},
+		"spider_sense": {
+			"name": "蜘蛛感应", "category": "enhance", "series": "spider", "bloodline": true, "requires": ["spider_gene"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 110, "intelligence": 40}, "tier": "C"}]
+		}
+	}
+}

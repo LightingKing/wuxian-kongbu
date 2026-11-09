@@ -1,0 +1,55 @@
+{
+	"version": 1,
+	"entries": {
+		"mind_blast": {
+			"name": "精神冲击", "category": "enhance", "series": "psionic", "gates": {"attr_min": {"spirit": 200}, "talent_bypass": "psychic"},
+			"price": {"points": 300, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "mind_blast", "value": 1700, "tier": "C"}]
+		},
+		"psi_storm": {
+			"name": "精神风暴", "category": "enhance", "series": "psionic", "requires": ["mind_blast"], "gates": {"attr_min": {"spirit": 300}, "talent_bypass": "psychic"},
+			"price": {"points": 500, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "psi_storm", "value": 2900, "tier": "B"}]
+		},
+		"psi_barrier": {
+			"name": "精神屏障", "category": "enhance", "series": "psionic",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 60}, "tier": "D"}]
+		},
+		"telepathy": {
+			"name": "心灵感应", "category": "enhance", "series": "psionic",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 80, "intelligence": 80}, "tier": "C"}]
+		},
+		"precognition": {
+			"name": "危险预知", "category": "enhance", "series": "psionic",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 60, "nerve_reaction": 100}, "tier": "C"}]
+		},
+		"exorcism": {
+			"name": "驱魔经文", "category": "magic", "series": "occult", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "exorcise", "value": 800, "tier": "C"}]
+		},
+		"ghost_eye": {
+			"name": "阴阳眼", "category": "magic", "series": "occult",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 40, "intelligence": 20}, "tier": "D"}]
+		},
+		"soul_bell": {
+			"name": "摄魂铃", "category": "magic", "series": "occult",
+			"price": {"points": 300, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "soul_bell", "value": 400, "tier": "D"}]
+		},
+		"curse_doll": {
+			"name": "诅咒人偶", "category": "magic", "series": "occult",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "curse_doll", "value": 800, "tier": "C"}]
+		},
+		"talisman": {
+			"name": "镇邪符（三张）", "category": "magic", "series": "occult", "consumable": true,
+			"price": {"points": 480, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"item": "talisman", "count": 3, "unit_value": 80}]
+		}
+	}
+}

@@ -1,31 +1,34 @@
 {
 	"version": 1,
+	"includes": ["res://data/hub/catalog/serums.json", "res://data/hub/catalog/bloodlines.json", "res://data/hub/catalog/martial.json", "res://data/hub/catalog/magic.json", "res://data/hub/catalog/occult.json", "res://data/hub/catalog/weapons.json", "res://data/hub/catalog/consumables.json"],
 	"entries": {
 		"qigong_low": {
 			"name": "低级气功", "category": "enhance", "series": "qigong",
 			"price": {"points": 500, "tier": "D"}, "source": "L403、L597",
 			"blocks": [
 				{"attr": {"spirit": 10, "cell_vitality": 20, "nerve_reaction": 20, "muscle": 30, "immunity": 20}, "tier": "D"},
-				{"energy": "neili", "amount": 30, "value": 0}
+				{"energy": "neili", "amount": 30, "value": 0},
+				{"skill": "qigong_palm", "value": 0}
 			]
 		},
 		"qigong_mid": {
 			"name": "中级气功", "category": "enhance", "series": "qigong", "requires": ["qigong_low"],
 			"price": {"points": 1200, "tier": "C"}, "source": "L597",
-			"blocks": [{"energy": "neili", "amount": 60, "value": 2600, "tier": "C"}]
+			"blocks": [{"energy": "neili", "amount": 60, "value": 2600, "tier": "C"}, {"skill": "qi_shield", "value": 0}]
 		},
 		"qigong_high": {
 			"name": "高级气功", "category": "enhance", "series": "qigong", "requires": ["qigong_mid"],
 			"price": {"points": 2500, "tier": "B"}, "source": "L588、L6251",
 			"blocks": [
 				{"energy": "neili", "amount": 120, "value": 4400, "tier": "B"},
-				{"passive": "qi_burst", "value": 500}
+				{"passive": "qi_burst", "value": 500},
+				{"skill": "qi_burst", "value": 0}
 			]
 		},
 		"vampire_baron": {
 			"name": "血族男爵", "category": "enhance", "series": "vampire", "bloodline": true,
 			"price": {"points": 800, "tier": "D"}, "source": "L597",
-			"blocks": [{"energy": "blood", "amount": 30, "value": 1300, "tier": "D"}]
+			"blocks": [{"energy": "blood", "amount": 30, "value": 1300, "tier": "D"}, {"skill": "blood_claw", "value": 0}]
 		},
 		"vampire_viscount": {
 			"name": "血族子爵", "category": "enhance", "series": "vampire", "bloodline": true, "requires": ["vampire_baron"],
@@ -56,7 +59,7 @@
 		"werewolf_high": {
 			"name": "高级狼人血统", "category": "enhance", "series": "werewolf", "bloodline": true,
 			"price": {"points": 2700, "tier": "B"}, "source": "L589",
-			"blocks": [{"passive": "werewolf_form", "value": 5100, "tier": "B"}]
+			"blocks": [{"passive": "werewolf_form", "value": 5100, "tier": "B"}, {"skill": "wolf_rend", "value": 0}]
 		},
 		"eagle_eye": {
 			"name": "德鲁依苍鹰眼固化", "category": "enhance", "series": "druid",
@@ -66,12 +69,12 @@
 		"elf_wind_archer": {
 			"name": "精灵族风系射手", "category": "enhance", "series": "elf", "bloodline": true,
 			"price": {"points": 2000, "tier": "C"}, "source": "L4765",
-			"blocks": [{"ability": "wind_arrow", "value": 3400, "tier": "C"}]
+			"blocks": [{"ability": "wind_arrow", "value": 3400, "tier": "C"}, {"skill": "wind_arrow", "value": 0}]
 		},
 		"red_flame": {
 			"name": "红炎", "category": "enhance", "series": "vampire_skill", "requires_energy": "blood",
 			"price": {"points": 2000, "tier": "C"}, "source": "L2787、L3406",
-			"blocks": [{"ability": "red_flame", "value": 3400, "tier": "C"}]
+			"blocks": [{"ability": "red_flame", "value": 3400, "tier": "C"}, {"skill": "red_flame", "value": 0}]
 		},
 		"light_kungfu": {
 			"name": "轻功", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
@@ -98,17 +101,17 @@
 		"gauss_pistol": {
 			"name": "无限弹药高斯手枪", "category": "tech", "series": "gauss",
 			"price": {"points": 1500, "tier": "D"}, "source": "L8334",
-			"blocks": [{"ability": "gauss_pistol", "value": 100, "unlimited": true, "tier": "D"}]
+			"blocks": [{"ability": "gauss_pistol", "value": 100, "unlimited": true, "tier": "D"}, {"skill": "gauss_pistol_shot", "value": 0}]
 		},
 		"gauss_sniper": {
 			"name": "无限弹药高斯离子狙击步枪", "category": "tech", "series": "gauss",
 			"price": {"points": 5000, "tier": "D"}, "source": "L1583",
-			"blocks": [{"ability": "gauss_sniper", "value": 275, "unlimited": true, "tier": "D"}]
+			"blocks": [{"ability": "gauss_sniper", "value": 275, "unlimited": true, "tier": "D"}, {"skill": "gauss_sniper_shot", "value": 0}]
 		},
 		"shield_plate": {
 			"name": "防护盾", "category": "tech", "series": "shield",
 			"price": {"points": 1500, "tier": "D"}, "source": "L5689",
-			"blocks": [{"passive": "shield_plate", "value": 2000, "tier": "D"}]
+			"blocks": [{"passive": "shield_plate", "value": 2000, "tier": "D"}, {"skill": "armor_guard", "value": 0}]
 		},
 		"na_ring": {
 			"name": "纳戒", "category": "magic", "series": "storage", "requires_energy": "neili",
@@ -118,7 +121,7 @@
 		"purifying_sword": {
 			"name": "净化之光（长剑）", "category": "magic", "series": "holy_blade",
 			"price": {"points": 1000, "tier": ""}, "source": "L623",
-			"blocks": [{"ability": "purifying_light_sword", "value": 500}]
+			"blocks": [{"ability": "purifying_light_sword", "value": 500}, {"skill": "purifying_slash", "value": 0}]
 		},
 		"grenade": {
 			"name": "手榴弹", "category": "item", "series": "explosive", "consumable": true,

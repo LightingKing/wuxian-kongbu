@@ -1,0 +1,130 @@
+{
+	"version": 1,
+	"entries": {
+		"mana_1": {
+			"name": "魔力源泉Ⅰ", "category": "magic", "series": "arcane",
+			"price": {"points": 300, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"energy": "mana", "amount": 40, "value": 400, "tier": "D"}]
+		},
+		"mana_2": {
+			"name": "魔力源泉Ⅱ", "category": "magic", "series": "arcane", "requires": ["mana_1"],
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"energy": "mana", "amount": 80, "value": 900, "tier": "C"}]
+		},
+		"mana_3": {
+			"name": "魔力源泉Ⅲ", "category": "magic", "series": "arcane", "requires": ["mana_2"],
+			"price": {"points": 600, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"energy": "mana", "amount": 150, "value": 1500, "tier": "B"}]
+		},
+		"fire_bolt": {
+			"name": "火球术", "category": "magic", "series": "fire_magic", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "fire_bolt", "value": 350, "tier": "D"}]
+		},
+		"fire_blast": {
+			"name": "炎爆术", "category": "magic", "series": "fire_magic", "requires": ["fire_bolt"], "requires_energy": "mana",
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "fire_blast", "value": 900, "tier": "C"}]
+		},
+		"meteor": {
+			"name": "陨石术", "category": "magic", "series": "fire_magic", "requires": ["fire_blast"], "requires_energy": "mana",
+			"price": {"points": 800, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "meteor", "value": 1600, "tier": "B"}]
+		},
+		"ice_shard": {
+			"name": "冰锥术", "category": "magic", "series": "ice_magic", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "ice_shard", "value": 350, "tier": "D"}]
+		},
+		"frost_nova": {
+			"name": "冰封术", "category": "magic", "series": "ice_magic", "requires": ["ice_shard"], "requires_energy": "mana",
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "frost_nova", "value": 900, "tier": "C"}]
+		},
+		"lightning_bolt": {
+			"name": "雷击术", "category": "magic", "series": "storm_magic", "requires_energy": "mana",
+			"price": {"points": 300, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "lightning_bolt", "value": 400, "tier": "D"}]
+		},
+		"chain_lightning": {
+			"name": "连锁闪电", "category": "magic", "series": "storm_magic", "requires": ["lightning_bolt"], "requires_energy": "mana",
+			"price": {"points": 500, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "chain_lightning", "value": 950, "tier": "C"}]
+		},
+		"holy_light": {
+			"name": "圣光术", "category": "magic", "series": "holy_magic", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "holy_light", "value": 350, "tier": "D"}]
+		},
+		"mass_heal": {
+			"name": "群体治疗", "category": "magic", "series": "holy_magic", "requires": ["holy_light"], "requires_energy": "mana",
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "mass_heal", "value": 900, "tier": "C"}]
+		},
+		"purify": {
+			"name": "驱散术", "category": "magic", "series": "holy_magic", "requires_energy": "mana",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "purify", "value": 300, "tier": "D"}]
+		},
+		"holy_shield": {
+			"name": "神圣护盾", "category": "magic", "series": "holy_magic", "requires_energy": "mana",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "holy_shield", "value": 750, "tier": "C"}]
+		},
+		"holy_flame": {
+			"name": "净化之焰", "category": "magic", "series": "holy_magic", "requires": ["holy_light"], "requires_energy": "mana",
+			"price": {"points": 400, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "holy_flame", "value": 1400, "tier": "B"}]
+		},
+		"blind_curse": {
+			"name": "致盲术", "category": "magic", "series": "dark_magic", "requires_energy": "mana",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "blind_curse", "value": 300, "tier": "D"}]
+		},
+		"fear_curse": {
+			"name": "恐惧术", "category": "magic", "series": "dark_magic", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "fear_curse", "value": 800, "tier": "C"}]
+		},
+		"acid_cloud": {
+			"name": "酸雾术", "category": "magic", "series": "dark_magic", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "acid_cloud", "value": 800, "tier": "C"}]
+		},
+		"nature_heal": {
+			"name": "自然治愈", "category": "magic", "series": "druid", "requires_energy": "mana",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "nature_heal", "value": 350, "tier": "D"}]
+		},
+		"vine_bind": {
+			"name": "藤蔓缠绕", "category": "magic", "series": "druid", "requires_energy": "mana",
+			"price": {"points": 300, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "vine_bind", "value": 850, "tier": "C"}]
+		},
+		"thorn_lash": {
+			"name": "荆棘鞭", "category": "magic", "series": "druid", "requires_energy": "mana",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "thorn_lash", "value": 300, "tier": "D"}]
+		},
+		"bear_form": {
+			"name": "熊形态", "category": "magic", "series": "druid",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 80, "cell_vitality": 80}, "tier": "C"}]
+		},
+		"wolf_form": {
+			"name": "狼形态", "category": "magic", "series": "druid",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 100, "muscle": 60}, "tier": "C"}]
+		},
+		"amulet": {
+			"name": "护身符", "category": "magic", "series": "charm",
+			"price": {"points": 200, "tier": ""}, "source": "设计规格 9.6 首批清单",
+			"blocks": [{"attr": {"spirit": 20}}]
+		},
+		"cross_pendant": {
+			"name": "圣十字架", "category": "magic", "series": "charm",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 40, "immunity": 20}, "tier": "D"}]
+		}
+	}
+}

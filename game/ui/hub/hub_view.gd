@@ -8,6 +8,12 @@ const BattleData = preload("res://core/battle/battle_data.gd")
 const Talents = preload("res://core/model/talents.gd")
 const Cohesion = preload("res://core/social/cohesion.gd")
 
+## 兑换项效果一句话里用的中文名。
+const ATTR_NAMES := {
+	"intelligence": "智力", "spirit": "精神", "cell_vitality": "细胞", "nerve_reaction": "神经", "muscle": "肌肉", "immunity": "免疫",
+}
+const ENERGY_NAMES := {"neili": "内力", "blood": "血能", "mana": "魔力"}
+
 ## 造人预设：萝丽（郑吒的青梅竹马），素质在常人的上限附近。
 const LORI_ATTRS := {"intelligence": 110, "spirit": 120, "cell_vitality": 120, "nerve_reaction": 120, "muscle": 100, "immunity": 110}
 
@@ -51,8 +57,9 @@ func characters() -> Array[Dictionary]:
 	return out
 
 
-## 兑换目录；category 为空时给全部。ok 表示现在能买，reasons 是买不了的原因。
-func entries(char_id: String, category: String = "") -> Array[Dictionary]:
+## 兑换目录；category 为空时给全部。ok 表示现在能买，reasons 是买不了的原因，effect 是一句话效果。
+## affordable_only：只列现在买得起的（目录有两百条，翻起来太长）。
+func entries(char_id: String, category: String = "", affordable_only: bool = false) -> Array[Dictionary]:
 	var ch: RefCounted = game.characters[char_id]
 	var out: Array[Dictionary] = []
 	for id: String in Catalog.entries():
@@ -60,6 +67,8 @@ func entries(char_id: String, category: String = "") -> Array[Dictionary]:
 		if category != "" and String(e["category"]) != category:
 			continue
 		var check: Dictionary = Exchange.check(ch, id)
+		if affordable_only and not bool(check["ok"]):
+			continue
 		var reasons: Array[String] = []
 		for r: String in check["reasons"]:
 			reasons.append(reason_text(r))
@@ -69,8 +78,37 @@ func entries(char_id: String, category: String = "") -> Array[Dictionary]:
 			"tier": String(e["price"].get("tier", "")), "owned": ch.owned.has(id),
 			"ok": bool(check["ok"]), "reasons": reasons,
 			"warnings": (check["warnings"] as Array).duplicate(),
+			"effect": effect_text(e),
 		})
 	return out
+
+
+## 兑换项的效果，一句话：属性加多少、给什么技能、加多少能量、几件道具。只描述真能用上的积木。
+static func effect_text(e: Dictionary) -> String:
+	var parts: Array[String] = []
+	for b: Dictionary in e["blocks"]:
+		if b.has("attr"):
+			for k: String in b["attr"]:
+				parts.append("%s+%d" % [String(ATTR_NAMES.get(k, k)), int(b["attr"][k])])
+		elif b.has("skill"):
+			parts.append("技能：" + String(BattleData.skills().get(String(b["skill"]), {}).get("name", b["skill"])))
+		elif b.has("energy"):
+			parts.append("%s+%d" % [String(ENERGY_NAMES.get(String(b["energy"]), b["energy"])), int(b["amount"])])
+		elif b.has("item"):
+			parts.append("%s×%d" % [_item_name(String(b["item"])), int(b["count"])])
+	return "，".join(parts)
+
+
+## 道具的中文名：用得上它的技能叫什么，道具就叫什么（弹药、重生十字章单独说）。
+static func _item_name(item: String) -> String:
+	if item == "ammo":
+		return "子弹"
+	if item == "rebirth_cross":
+		return "重生十字章"
+	for s: String in BattleData.skills():
+		if (BattleData.skills()[s].get("cost", {}) as Dictionary).has(item) and bool(BattleData.skills()[s].get("item", false)):
+			return String(BattleData.skills()[s]["name"])
+	return item
 
 
 func buy(char_id: String, entry_id: String, accept_risk: bool = false) -> Array[Dictionary]:

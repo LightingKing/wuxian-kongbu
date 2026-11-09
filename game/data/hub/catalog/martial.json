@@ -1,0 +1,150 @@
+{
+	"version": 1,
+	"entries": {
+		"neigong_basic": {
+			"name": "内功心法", "category": "enhance", "series": "neigong",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"energy": "neili", "amount": 40, "value": 600, "tier": "D"}]
+		},
+		"jiuyang": {
+			"name": "九阳内劲", "category": "enhance", "series": "neigong", "requires": ["neigong_basic"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"energy": "neili", "amount": 150, "value": 2600, "tier": "B"}]
+		},
+		"qigong_palm_book": {
+			"name": "气功掌", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "qigong_palm", "value": 600, "tier": "D"}]
+		},
+		"iron_palm": {
+			"name": "铁砂掌", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "iron_palm", "value": 700, "tier": "D"}]
+		},
+		"wind_kick": {
+			"name": "疾风腿", "category": "enhance", "series": "kungfu",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "wind_kick", "value": 600, "tier": "D"}]
+		},
+		"staff_sweep": {
+			"name": "少林棍法", "category": "enhance", "series": "kungfu",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "staff_sweep", "value": 700, "tier": "D"}]
+		},
+		"lion_roar": {
+			"name": "狮子吼", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 300, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "lion_roar", "value": 1700, "tier": "C"}]
+		},
+		"golden_bell": {
+			"name": "金钟罩", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "qi_shield", "value": 1600, "tier": "C"}]
+		},
+		"pressure_point": {
+			"name": "点穴手", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "pressure_point", "value": 1800, "tier": "C"}]
+		},
+		"sword_qi": {
+			"name": "剑气", "category": "enhance", "series": "kungfu", "requires_energy": "neili",
+			"price": {"points": 400, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "sword_qi", "value": 2800, "tier": "B"}]
+		},
+		"dragon_palm": {
+			"name": "降龙掌", "category": "enhance", "series": "kungfu", "requires": ["iron_palm"], "requires_energy": "neili",
+			"price": {"points": 800, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "dragon_palm", "value": 3200, "tier": "B"}]
+		},
+		"iron_body": {
+			"name": "铁布衫", "category": "enhance", "series": "kungfu",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 40, "immunity": 30}, "tier": "D"}]
+		},
+		"grapple": {
+			"name": "擒拿术", "category": "enhance", "series": "skill",
+			"price": {"points": 150, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "grapple", "value": 650, "tier": "D"}]
+		},
+		"military_boxing": {
+			"name": "军体拳", "category": "enhance", "series": "skill",
+			"price": {"points": 300, "tier": ""}, "source": "游戏扩充",
+			"blocks": [{"skill": "iron_fist", "value": 300}]
+		},
+		"first_aid_training": {
+			"name": "战地急救", "category": "enhance", "series": "skill",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "field_medic", "value": 700, "tier": "D"}]
+		},
+		"leadership": {
+			"name": "领导力", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "encourage", "value": 600, "tier": "D"}]
+		},
+		"marksmanship": {
+			"name": "射击训练", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 40, "intelligence": 20}, "tier": "D"}]
+		},
+		"knife_throw": {
+			"name": "飞刀术", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "knife_throw", "value": 600, "tier": "D"}]
+		},
+		"double_shot": {
+			"name": "双枪射击", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "double_shot", "value": 1500, "tier": "C"}]
+		},
+		"rapid_fire": {
+			"name": "快速射击", "category": "enhance", "series": "skill", "requires": ["double_shot"],
+			"price": {"points": 300, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "rapid_fire", "value": 2700, "tier": "B"}]
+		},
+		"berserk": {
+			"name": "狂战士之怒", "category": "enhance", "series": "skill",
+			"price": {"points": 400, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "berserk", "value": 1800, "tier": "C"}]
+		},
+		"whirlwind": {
+			"name": "旋风斩", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "whirlwind", "value": 1500, "tier": "C"}]
+		},
+		"execute": {
+			"name": "致命一击", "category": "enhance", "series": "skill",
+			"price": {"points": 300, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"skill": "execute", "value": 2700, "tier": "B"}]
+		},
+		"second_wind": {
+			"name": "第二口气", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "second_wind", "value": 1500, "tier": "C"}]
+		},
+		"tracking": {
+			"name": "追踪术", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 30, "nerve_reaction": 30}, "tier": "D"}]
+		},
+		"meditation": {
+			"name": "冥想术", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 60}, "tier": "D"}]
+		},
+		"endurance": {
+			"name": "耐力训练法", "category": "enhance", "series": "skill",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 40, "muscle": 20}, "tier": "D"}]
+		},
+		"blood_claw": {
+			"name": "血爪", "category": "enhance", "series": "vampire_skill", "requires_energy": "blood",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"skill": "blood_claw", "value": 600, "tier": "D"}]
+		},
+		"bat_swarm": {
+			"name": "蝙蝠群", "category": "enhance", "series": "vampire_skill", "requires_energy": "blood",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"skill": "bat_swarm", "value": 1600, "tier": "C"}]
+		}
+	}
+}

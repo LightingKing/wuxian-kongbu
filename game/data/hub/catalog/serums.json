@@ -1,0 +1,170 @@
+{
+	"version": 1,
+	"entries": {
+		"muscle_serum_1": {
+			"name": "肌肉强化剂Ⅰ", "category": "enhance", "series": "serum_muscle",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 60}, "tier": "D"}]
+		},
+		"muscle_serum_2": {
+			"name": "肌肉强化剂Ⅱ", "category": "enhance", "series": "serum_muscle", "requires": ["muscle_serum_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 150}, "tier": "C"}]
+		},
+		"muscle_serum_3": {
+			"name": "肌肉强化剂Ⅲ", "category": "enhance", "series": "serum_muscle", "requires": ["muscle_serum_2"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 260}, "tier": "B"}]
+		},
+		"nerve_serum_1": {
+			"name": "神经加速剂Ⅰ", "category": "enhance", "series": "serum_nerve",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 60}, "tier": "D"}]
+		},
+		"nerve_serum_2": {
+			"name": "神经加速剂Ⅱ", "category": "enhance", "series": "serum_nerve", "requires": ["nerve_serum_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 150}, "tier": "C"}]
+		},
+		"nerve_serum_3": {
+			"name": "神经加速剂Ⅲ", "category": "enhance", "series": "serum_nerve", "requires": ["nerve_serum_2"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 260}, "tier": "B"}]
+		},
+		"cell_serum_1": {
+			"name": "细胞活化剂Ⅰ", "category": "enhance", "series": "serum_cell",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 60}, "tier": "D"}]
+		},
+		"cell_serum_2": {
+			"name": "细胞活化剂Ⅱ", "category": "enhance", "series": "serum_cell", "requires": ["cell_serum_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 150}, "tier": "C"}]
+		},
+		"cell_serum_3": {
+			"name": "细胞活化剂Ⅲ", "category": "enhance", "series": "serum_cell", "requires": ["cell_serum_2"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 260}, "tier": "B"}]
+		},
+		"immune_serum_1": {
+			"name": "免疫血清Ⅰ", "category": "enhance", "series": "serum_immune",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"immunity": 60}, "tier": "D"}]
+		},
+		"immune_serum_2": {
+			"name": "免疫血清Ⅱ", "category": "enhance", "series": "serum_immune", "requires": ["immune_serum_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"immunity": 150}, "tier": "C"}]
+		},
+		"immune_serum_3": {
+			"name": "免疫血清Ⅲ", "category": "enhance", "series": "serum_immune", "requires": ["immune_serum_2"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"immunity": 260}, "tier": "B"}]
+		},
+		"brain_serum_1": {
+			"name": "智力开发药剂Ⅰ", "category": "enhance", "series": "serum_brain",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 60}, "tier": "D"}]
+		},
+		"brain_serum_2": {
+			"name": "智力开发药剂Ⅱ", "category": "enhance", "series": "serum_brain", "requires": ["brain_serum_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 150}, "tier": "C"}]
+		},
+		"brain_serum_3": {
+			"name": "智力开发药剂Ⅲ", "category": "enhance", "series": "serum_brain", "requires": ["brain_serum_2"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 260}, "tier": "B"}]
+		},
+		"spirit_serum_1": {
+			"name": "精神集中药剂Ⅰ", "category": "enhance", "series": "serum_spirit",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 60}, "tier": "D"}]
+		},
+		"spirit_serum_2": {
+			"name": "精神集中药剂Ⅱ", "category": "enhance", "series": "serum_spirit", "requires": ["spirit_serum_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 150}, "tier": "C"}]
+		},
+		"spirit_serum_3": {
+			"name": "精神集中药剂Ⅲ", "category": "enhance", "series": "serum_spirit", "requires": ["spirit_serum_2"],
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 260}, "tier": "B"}]
+		},
+		"eagle_gene": {
+			"name": "鹰眼基因", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 30, "nerve_reaction": 40}, "tier": "D"}]
+		},
+		"cockroach_gene": {
+			"name": "蟑螂抗性基因", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"immunity": 40, "cell_vitality": 30}, "tier": "D"}]
+		},
+		"calm_mind": {
+			"name": "冷静头脑", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"spirit": 40, "intelligence": 30}, "tier": "D"}]
+		},
+		"leopard_gene": {
+			"name": "猎豹基因", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 100, "muscle": 60}, "tier": "C"}]
+		},
+		"bear_gene": {
+			"name": "灰熊基因", "category": "enhance", "series": "gene",
+			"price": {"points": 300, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 90, "cell_vitality": 80}, "tier": "C"}]
+		},
+		"gecko_gene": {
+			"name": "壁虎再生基因", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 100, "immunity": 60}, "tier": "C"}]
+		},
+		"rhino_skin": {
+			"name": "犀牛皮层", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 120, "muscle": 40}, "tier": "C"}]
+		},
+		"battle_instinct": {
+			"name": "战斗本能", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"nerve_reaction": 80, "spirit": 80}, "tier": "C"}]
+		},
+		"super_soldier": {
+			"name": "超级士兵血清", "category": "enhance", "series": "gene",
+			"price": {"points": 600, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 20, "spirit": 30, "cell_vitality": 60, "nerve_reaction": 70, "muscle": 70, "immunity": 50}, "tier": "B"}]
+		},
+		"octopus_neuron": {
+			"name": "章鱼神经元", "category": "enhance", "series": "gene",
+			"price": {"points": 200, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 120, "nerve_reaction": 140}, "tier": "B"}]
+		},
+		"phoenix_cell": {
+			"name": "不死鸟细胞", "category": "enhance", "series": "gene",
+			"price": {"points": 300, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"cell_vitality": 150, "immunity": 120}, "tier": "B"}]
+		},
+		"all_round_1": {
+			"name": "全能强化剂Ⅰ", "category": "enhance", "series": "all_round",
+			"price": {"points": 100, "tier": "D"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 10, "spirit": 10, "cell_vitality": 10, "nerve_reaction": 10, "muscle": 10, "immunity": 10}, "tier": "D"}]
+		},
+		"all_round_2": {
+			"name": "全能强化剂Ⅱ", "category": "enhance", "series": "all_round", "requires": ["all_round_1"],
+			"price": {"points": 100, "tier": "C"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 25, "spirit": 25, "cell_vitality": 25, "nerve_reaction": 25, "muscle": 25, "immunity": 25}, "tier": "C"}]
+		},
+		"all_round_3": {
+			"name": "全能强化剂Ⅲ", "category": "enhance", "series": "all_round", "requires": ["all_round_2"],
+			"price": {"points": 300, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"intelligence": 45, "spirit": 45, "cell_vitality": 45, "nerve_reaction": 45, "muscle": 45, "immunity": 45}, "tier": "B"}]
+		},
+		"t_virus_2": {
+			"name": "T 病毒强化型", "category": "enhance", "series": "t_virus", "requires": ["t_virus"],
+			"price": {"points": 600, "tier": "B"}, "source": "游戏扩充",
+			"blocks": [{"attr": {"muscle": 80, "cell_vitality": 80, "immunity": 100, "nerve_reaction": 40}, "tier": "B"}]
+		}
+	}
+}

@@ -23,14 +23,14 @@ func test_day_and_catalog() -> void:
 	assert_eq(v.days_left(), 8)
 	assert_eq(v.characters().size(), 7)
 	var all: Array[Dictionary] = v.entries("zheng_zha")
-	assert_eq(all.size(), 26)
+	assert_eq(all.size(), 200)
 	var qigong := {}
 	for e: Dictionary in all:
 		if e["id"] == "qigong_low":
 			qigong = e
 	assert_eq(qigong["points"], 500)
 	assert_true(bool(qigong["ok"]))
-	assert_eq((v.entries("zheng_zha", "item") as Array).size(), 5)
+	assert_eq((v.entries("zheng_zha", "item") as Array).size(), 28)
 
 
 ## 兑换扣点数和支线、记到 owned；再买一次会被拒。
@@ -139,3 +139,20 @@ func test_codex() -> void:
 	assert_eq(entries.size(), 9)
 	assert_eq(String(entries[0]["source_name"]), "张杰")
 	assert_eq(int(c["locked"]), 18 - 9)
+
+
+## 兑换项的一句话效果：属性、技能、能量、道具；"只看买得起的"把买不起的筛掉。
+func test_entry_effects_and_affordable_filter() -> void:
+	var v := _view()
+	var by_id := {}
+	for e: Dictionary in v.entries("zheng_zha"):
+		by_id[String(e["id"])] = e
+	assert_true(String(by_id["qigong_low"]["effect"]).contains("技能：气功掌"))
+	assert_true(String(by_id["qigong_low"]["effect"]).contains("内力+30"))
+	assert_eq(String(by_id["muscle_serum_1"]["effect"]), "肌肉+60")
+	assert_eq(String(by_id["grenade_pack"]["effect"]), "手榴弹×5")
+	assert_eq(String(by_id["ammo_box"]["effect"]), "子弹×30")
+	var cheap: Array[Dictionary] = v.entries("zheng_zha", "", true)
+	assert_true(cheap.size() > 0 and cheap.size() < 200)
+	for e: Dictionary in cheap:
+		assert_true(bool(e["ok"]), String(e["id"]))

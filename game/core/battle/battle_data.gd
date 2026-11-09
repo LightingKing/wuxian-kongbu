@@ -44,6 +44,22 @@ static func enemies() -> Dictionary:
 	return _load(ENEMIES_PATH, "enemies")
 
 
+## 消耗品技能（item: true）：身上带着它要用掉的东西，就能在战斗里用。返回带着的东西能解锁的技能 id。
+static func item_skills(resources: Dictionary) -> Array[String]:
+	var out: Array[String] = []
+	for id: String in skills():
+		var s: Dictionary = skills()[id]
+		if not bool(s.get("item", false)):
+			continue
+		var ok := not (s.get("cost", {}) as Dictionary).is_empty()
+		for k: String in s.get("cost", {}):
+			if float(resources.get(k, 0.0)) < float(s["cost"][k]):
+				ok = false
+		if ok:
+			out.append(id)
+	return out
+
+
 static func skill(id: String) -> Dictionary:
 	return skills()[id]
 
