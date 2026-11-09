@@ -184,6 +184,7 @@ func test_altered_plot_and_settlement() -> void:
 	assert_eq(ex.st.clock, 120)
 	var results: Dictionary = ex.finish()
 	assert_eq(int(results["zheng_zha"]["final_points"]), 1000 + 5000 + 500)
+	# 夹具这里写的是 recipients: "present"，验证的就是"发给在场所有人"这条规则。
 	assert_eq(int(results["zhang_jie"]["final_points"]), 1000 + 5000 + 500 + 100)
 	assert_true(g.characters["zheng_zha"].tickets.has_at_least("B"))
 	assert_eq(g.films_record, ["mini_hive"])

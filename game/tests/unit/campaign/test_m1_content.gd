@@ -227,7 +227,8 @@ func test_canon_route_to_return() -> void:
 	assert_eq(ex.st.outcome, "returned")
 	var results: Dictionary = ex.finish()
 	assert_eq(int(results["zheng_zha"]["final_points"]), 6500)
-	assert_eq(int(results["zhang_jie"]["final_points"]), 6600)
+	assert_eq(int(results["zhang_jie"]["final_points"]), 1100, "张杰只拿存活 1000 和自己的讲解奖励 100")
+	assert_eq(int(results["mu_gang"]["final_points"]), 1000, "个人支线不发给别人")
 	assert_true(g.characters["zheng_zha"].tickets.has_at_least("B"))
 	assert_eq(g.films_record, ["biohazard1"])
 

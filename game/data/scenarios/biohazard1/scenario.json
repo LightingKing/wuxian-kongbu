@@ -148,8 +148,8 @@
 				{"choice": {"id": "laser_choice", "prompt": "激光网正在合拢，只有贴着大门的一小块地方是安全的。", "options": [
 					{"id": "save_matthew", "text": "扑倒，拖着马修贴到门上", "effects": [
 						{"open_path": ["laser", "control"]},
-						{"side_plot": {"id": "save_matthew", "grade": "B", "points": 5000, "label": "救下马修"}},
-						{"bonus": {"points": 500, "label": "精神临界值突破", "attributes": {"spirit": 20, "nerve_reaction": 30}}},
+						{"side_plot": {"id": "save_matthew", "grade": "B", "points": 5000, "label": "救下马修", "recipients": ["zheng_zha"]}},
+						{"bonus": {"points": 500, "label": "精神临界值突破", "recipients": ["zheng_zha"], "attributes": {"spirit": 20, "nerve_reaction": 30}}},
 						{"tether_release": true},
 						{"clue": "laser_survived"},
 						{"say": {"speaker": "matthew", "text": "你救了我。为什么？"}}
