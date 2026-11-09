@@ -26,6 +26,7 @@ const PauseMenu = preload("res://ui/pause_menu.gd")
 const Sfx = preload("res://core/audio/sfx.gd")
 const Cutscene = preload("res://ui/cutscene.gd")
 const PortraitSource = preload("res://core/art/portrait_source.gd")
+const Companion = preload("res://core/hub/companion.gd")
 
 const ZHSHEN_FAQ := "res://data/ai/zhushen_faq.json"
 ## 主神不许说出口的词（校验层会拦，泄露就换离线回答）。
@@ -160,8 +161,36 @@ func _on_expedition_ended() -> void:
 	if session.phase != "expedition":
 		return
 	var results: Dictionary = session.settle()
+	if session.phase == "lost":
+		_show_lost()
+		return
 	Sfx.play("coin")
 	_show_result(results)
+
+
+## 全员死亡：没有主神空间可回。铁人模式删档（失败就是失败）；宽松模式可以回标题读档。
+func _show_lost() -> void:
+	_clear()
+	var box := VBoxContainer.new()
+	box.position = Vector2(300, 160)
+	box.size = Vector2(1320, 700)
+	box.add_theme_constant_override("separation", 16)
+	content.add_child(box)
+	box.add_child(UiTheme.label("任务失败：全员死亡。", 36, UiTheme.ACCENT))
+	for id: String in session.game.characters:
+		var ch: RefCounted = session.game.characters[id]
+		box.add_child(UiTheme.label("%s：%s" % [ch.display_name, String(ch.flags.get("death", ch.flags.get("erased", "死亡")))], 20, UiTheme.MUTED))
+	if session.iron_man:
+		Slots.erase(Slots.AUTO)
+		box.add_child(UiTheme.label("铁人模式：失败就是失败。这一局的存档已经删除。", 22, UiTheme.TEXT))
+	else:
+		box.add_child(UiTheme.label("宽松模式：回到标题，从存档槽读回去再试一次。", 22, UiTheme.TEXT))
+	var back := UiTheme.button("回到标题", 24)
+	back.custom_minimum_size = Vector2(320, 60)
+	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	back.pressed.connect(_show_title)
+	box.add_child(back)
+	_set_status("任务失败")
 
 
 func _show_result(results: Dictionary) -> void:
@@ -215,6 +244,7 @@ func _show_hub() -> void:
 	screen.setup(session)
 	screen.departed.connect(_show_done)
 	screen.zhushen_requested.connect(_on_ask_zhushen)
+	screen.companion_talk_requested.connect(_on_companion_talk)
 	content.add_child(screen)
 	_set_status("主神空间")
 
@@ -227,6 +257,8 @@ func _show_done() -> void:
 	box.add_theme_constant_override("separation", 16)
 	content.add_child(box)
 	box.add_child(UiTheme.label("二十道光柱降下。", 36, UiTheme.ACCENT2))
+	for f: Dictionary in session.farewells:
+		box.add_child(UiTheme.label("%s：「%s」" % [String(f["name"]), String(f["line"])], 24, UiTheme.TEXT))
 	box.add_child(UiTheme.label("下一部：异形一（内容与界面在后续计划里做）。", 22, UiTheme.TEXT))
 	_set_status("M1 结束")
 
@@ -249,10 +281,10 @@ func _show_title() -> void:
 	title_screen = t
 
 
-func _new_game() -> void:
+func _new_game(iron: bool = false) -> void:
 	title_screen = null
 	session = Session.new()
-	session.start_m1(1)
+	session.start_m1(1, iron)
 	_setup_ai()
 	_show_frame(true)
 	_show_expedition()
@@ -293,6 +325,7 @@ func _open_pause() -> void:
 	pause.to_title.connect(_show_title)
 	pause.quit_game.connect(_quit_game)
 	add_child(pause)
+	pause.set_iron_man(session.iron_man)
 	pause.open_for("")
 
 
@@ -304,7 +337,7 @@ func _close_pause() -> void:
 
 
 func _on_save_slot(slot: int) -> void:
-	if session == null:
+	if session == null or not session.can_save_manually():
 		return
 	var err: int = Slots.write(slot, session)
 	if pause != null:
@@ -327,7 +360,7 @@ func _process(_delta: float) -> void:
 
 
 func _autosave_tick() -> void:
-	if session == null or String(session.phase) == "done":
+	if session == null or String(session.phase) == "done" or String(session.phase) == "lost":
 		return
 	var key := auto_key()
 	if key == _auto_key:
@@ -600,6 +633,50 @@ func _on_zhushen_question(text: String) -> void:
 		# 问到哪条规则，规则百科就记下哪条（主神只答规则，所以按关键词判，不看 AI 怎么措辞）。
 		_push_events(session.game.codex.unlock_by_question(text), p)
 	)
+
+
+## 在房间里跟造物说话：人设来自造人时的设定（萝丽是 luo_li）；每天第一次说话涨亲密。
+func _on_companion_talk(companion_id: String) -> void:
+	var c := Companion.find(session.game, companion_id)
+	var persona := String(c.get("persona", ""))
+	if c.is_empty() or persona == "" or not dialogue.has_persona(persona):
+		return
+	_open_panel(String(c["name"]), "主神空间 · %s的房间" % session.game.characters[String(c["creator"])].display_name, "talk")
+	var p: Control = panel
+	p.set_portrait(persona)
+	p.set_status("……")
+	dialogue.say(persona, "", _room_situation(c), func(res: Dictionary) -> void:
+		if panel != p:
+			return
+		p.push(String(c["name"]), String(res["say"]))
+		p.set_status(_source_text(String(res["source"])))
+	)
+	p.submitted.connect(_on_companion_said.bind(companion_id))
+
+
+func _on_companion_said(text: String, companion_id: String) -> void:
+	var p: Control = panel
+	var c := Companion.find(session.game, companion_id)
+	if p == null or c.is_empty():
+		return
+	p.push("我", text)
+	p.set_status("……")
+	dialogue.say(String(c["persona"]), text, _room_situation(c), func(res: Dictionary) -> void:
+		if panel != p:
+			return
+		p.push(String(c["name"]), String(res["say"]))
+		p.set_status(_source_text(String(res["source"])))
+		_push_events(session.hub.companion_talked(companion_id), p)
+		var screen := content.get_child(0) if content.get_child_count() > 0 else null
+		if screen != null and screen.has_method("press_visit"):
+			screen.refresh()
+	)
+
+
+func _room_situation(c: Dictionary) -> String:
+	return "主神空间，%s的房间。休整第 %d 天，再过 %d 天就要进下一部片。她现在的心情 %d、亲密 %d，她想：%s。" % [
+		session.game.characters[String(c["creator"])].display_name, int(session.hub.day), int(session.hub.days_left()),
+		int(float(c["mood"])), int(float(c["intimacy"])), Companion.wish(c)]
 
 
 func _zhushen_faq() -> Array:

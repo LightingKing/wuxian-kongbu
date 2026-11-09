@@ -49,14 +49,22 @@ func test_filled_slot_emits() -> void:
 	t.free()
 
 
+## 新游戏先弹出存档方式；选了才发信号，带着是不是铁人模式。Esc 先关这个面板。
 func test_new_game_and_quit_signals() -> void:
 	var t := _title()
 	var events: Array = []
-	t.new_game.connect(func() -> void: events.append("new"))
+	t.new_game.connect(func(iron: bool) -> void: events.append("new:%s" % iron))
 	t.quit_game.connect(func() -> void: events.append("quit"))
 	t.press_new()
+	assert_true(t.mode_panel.visible)
+	assert_eq(events, [])
+	assert_true(t.handle_escape())
+	assert_false(t.mode_panel.visible)
+	t.press_new()
+	t.press_mode(true)
+	assert_false(t.mode_panel.visible)
 	t.press_quit()
-	assert_eq(events, ["new", "quit"])
+	assert_eq(events, ["new:true", "quit"])
 	t.free()
 
 
@@ -100,4 +108,23 @@ func test_pause_saves_to_slot_and_reloads() -> void:
 	p.refresh()
 	p.press_load(1)
 	assert_eq(loaded, [1])
+	p.free()
+
+
+## 铁人模式的暂停菜单：存读档整块藏起来，按了也不发信号。
+func test_pause_iron_man_hides_slots() -> void:
+	var p := PauseMenu.new()
+	p.build()
+	p.set_iron_man(true)
+	p.open_for("")
+	assert_true(p.iron_label.visible)
+	assert_false(p.save_buttons[0].get_parent().visible)
+	var saved: Array = []
+	p.save_slot.connect(func(slot: int) -> void: saved.append(slot))
+	p.press_save(1)
+	assert_eq(saved, [])
+	p.set_iron_man(false)
+	assert_false(p.iron_label.visible)
+	p.press_save(1)
+	assert_eq(saved, [1])
 	p.free()

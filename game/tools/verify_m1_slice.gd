@@ -36,7 +36,10 @@ func _run() -> void:
 	_expect((title.slot_rows() as Array).size() == 3, "标题画面列出三个存档槽")
 	await _shot("m1_title.png")
 	title.press_new()
+	_expect(title.mode_panel.visible, "新游戏先选存档方式")
+	title.press_mode(false)
 	await process_frame
+	_expect(not main.session.iron_man, "选了宽松模式")
 	var screen: Control = main.content.get_child(0)
 	_expect(screen.has_method("press_choice"), "新游戏进入地点图")
 	_expect(String(main.session.phase) == "expedition", "开局在远征阶段")
@@ -187,6 +190,9 @@ func _run() -> void:
 	_expect(not main.session.game.characters["zheng_zha"].owned.has("qigong_low"), "当晚不能兑换")
 	hub.press_rest()
 	_expect(int(main.session.hub.day) == 1, "休息到第 1 天")
+	_expect(not hub.view.morning().is_empty(), "第 1 天早上有晨会")
+	hub.press_morning("accept")
+	_expect(hub.view.morning().is_empty(), "晨会回答完就收起")
 	_expect(_found_text(main.content, "第 1 天"), "界面显示第 1 天")
 
 	main.session.hub.split_ticket("zheng_zha", "B")
@@ -257,6 +263,7 @@ func _run() -> void:
 	await process_frame
 	_expect(String(main.session.phase) == "done", "走光柱后阶段结束")
 	_expect(_found_text(main.content, "二十道光柱"), "结尾画面")
+	_expect(_found_text(main.content, "萝丽："), "走光柱时萝丽说了一句话")
 
 	main._show_title()
 	await process_frame

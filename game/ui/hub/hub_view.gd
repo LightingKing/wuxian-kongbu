@@ -7,6 +7,7 @@ const Catalog = preload("res://core/hub/catalog.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
 const Talents = preload("res://core/model/talents.gd")
 const Cohesion = preload("res://core/social/cohesion.gd")
+const Companion = preload("res://core/hub/companion.gd")
 
 ## 兑换项效果一句话里用的中文名。
 const ATTR_NAMES := {
@@ -137,13 +138,51 @@ func repair(char_id: String) -> Array[Dictionary]:
 	return hub.repair(char_id)
 
 
+## 造物：原样字段，加上制造者的名字和她现在想要什么。
 func companions() -> Array:
-	return game.companions.duplicate(true)
+	var out: Array = []
+	for c: Dictionary in game.companions:
+		var d := c.duplicate(true)
+		var creator := String(c["creator"])
+		d["creator_name"] = game.characters[creator].display_name if game.characters.has(creator) else creator
+		d["wish"] = Companion.wish(c)
+		out.append(d)
+	return out
 
 
-## 造人：M1 固定郑吒造萝丽，素质取预设（不超过常人两倍）。
+## 造人：M1 固定郑吒造萝丽，素质取预设（不超过常人两倍），人设用 luo_li。
 func create_human(creator_id: String, name: String) -> Array[Dictionary]:
-	return hub.create_human(creator_id, name, LORI_ATTRS)
+	return hub.create_human(creator_id, name, LORI_ATTRS, "luo_li")
+
+
+func visit_companion(companion_id: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = hub.visit_companion(companion_id)
+	session.day = hub.day
+	return events
+
+
+func train_with_companion(companion_id: String) -> Array[Dictionary]:
+	var events: Array[Dictionary] = hub.train_with_companion(companion_id)
+	session.day = hub.day
+	return events
+
+
+func companion_talked(companion_id: String) -> Array[Dictionary]:
+	return hub.companion_talked(companion_id)
+
+
+## 今天的晨会：{"event", "prompt", "options": [{"id", "text"}]}；没有返回空字典。
+func morning() -> Dictionary:
+	if hub == null or hub.morning.is_empty():
+		return {}
+	var options: Array = []
+	for o: Dictionary in hub.morning["options"]:
+		options.append({"id": String(o["id"]), "text": String(o["text"])})
+	return {"event": String(hub.morning["id"]), "prompt": String(hub.morning["prompt"]), "options": options}
+
+
+func answer_morning(option_id: String) -> Array[Dictionary]:
+	return hub.answer_morning(option_id)
 
 
 ## 还有熟练度可练的技能/能力（低于 1.0 的）。
@@ -238,5 +277,6 @@ static func reason_text(code: String) -> String:
 		"unknown_entry": "目录里没有这一项", "return_night": "回归当晚不兑换",
 		"not_injured": "没有受伤", "cannot_split": "拆不了", "cannot_merge": "合不了",
 		"no_days": "天数不够", "unknown_skill": "没有这个技能",
+		"no_companion": "没有这个造物", "no_morning": "今天没有晨会",
 	}
 	return String(table.get(code, code))

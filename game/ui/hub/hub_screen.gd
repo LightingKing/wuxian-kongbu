@@ -5,6 +5,8 @@ extends Control
 signal departed
 ## 想向主神提问。
 signal zhushen_requested
+## 想跟造物说话（main 打开对话框）。
+signal companion_talk_requested(companion_id: String)
 
 const HubView = preload("res://ui/hub/hub_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
@@ -139,6 +141,8 @@ func refresh() -> void:
 	for c in content_box.get_children():
 		content_box.remove_child(c)
 		c.queue_free()
+	if not view.morning().is_empty():
+		_build_morning()
 	match tab:
 		"exchange": _build_exchange()
 		"attr": _build_attr()
@@ -236,11 +240,52 @@ func _build_repair() -> void:
 		content_box.add_child(b)
 
 
+## 晨会：每天早上广场上的事。不回答也行，第二天早上按默认的了结。
+func _build_morning() -> void:
+	var m: Dictionary = view.morning()
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 6)
+	box.add_child(UiTheme.label("【晨会】" + String(m["prompt"]), 20, UiTheme.ACCENT2))
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 10)
+	for o: Dictionary in m["options"]:
+		var b := UiTheme.button(String(o["text"]), 18)
+		b.custom_minimum_size = Vector2(0, 44)
+		b.pressed.connect(press_morning.bind(String(o["id"])))
+		row.add_child(b)
+	box.add_child(row)
+	content_box.add_child(box)
+
+
+func press_morning(option_id: String) -> void:
+	var events: Array[Dictionary] = view.answer_morning(option_id)
+	status_label.text = _describe(events)
+	refresh()
+
+
 func _build_human() -> void:
 	var made: Array = view.companions()
 	content_box.add_child(UiTheme.label("造人：第一个免费，之后 500 点；素质最多约常人两倍，回归当晚就能造。", 19, UiTheme.MUTED))
+	var last_day: bool = view.hub.day + 1 > view.hub.days_total - 1
 	for c: Dictionary in made:
-		content_box.add_child(UiTheme.label("已有造物：%s（制造者 %s）" % [String(c["name"]), String(c["creator"])], 20))
+		content_box.add_child(UiTheme.label("%s（%s 造的）　心情 %d · 亲密 %d · 依赖 %d · 安心 %d　她想：%s" % [
+			String(c["name"]), String(c["creator_name"]), int(float(c["mood"])), int(float(c["intimacy"])),
+			int(float(c["dependence"])), int(float(c["security"])), String(c["wish"])], 20))
+		var acts := HBoxContainer.new()
+		acts.add_theme_constant_override("separation", 10)
+		var visit := UiTheme.button("陪她一天（1 天）", 18)
+		visit.disabled = last_day
+		visit.pressed.connect(press_visit.bind(String(c["id"])))
+		acts.add_child(visit)
+		var train := UiTheme.button("一起训练（1 天）", 18)
+		train.disabled = last_day
+		train.pressed.connect(press_train_companion.bind(String(c["id"])))
+		acts.add_child(train)
+		var talk := UiTheme.button("说说话", 18)
+		talk.disabled = String(c.get("persona", "")) == ""
+		talk.pressed.connect(press_talk_companion.bind(String(c["id"])))
+		acts.add_child(talk)
+		content_box.add_child(acts)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 10)
 	name_edit = LineEdit.new()
@@ -397,6 +442,22 @@ func press_repair(char_id: String) -> void:
 	refresh()
 
 
+func press_visit(companion_id: String) -> void:
+	var events: Array[Dictionary] = view.visit_companion(companion_id)
+	status_label.text = _describe(events)
+	refresh()
+
+
+func press_train_companion(companion_id: String) -> void:
+	var events: Array[Dictionary] = view.train_with_companion(companion_id)
+	status_label.text = _describe(events)
+	refresh()
+
+
+func press_talk_companion(companion_id: String) -> void:
+	companion_talk_requested.emit(companion_id)
+
+
 func press_create(name: String) -> void:
 	var events: Array[Dictionary] = view.create_human(selected, name)
 	Sfx.play_for_events(events)
@@ -446,6 +507,14 @@ func _describe(events: Array[Dictionary]) -> String:
 
 func _describe_first(e: Dictionary) -> String:
 	match String(e["type"]):
+		"companion_visited":
+			return "陪%s待了一天（心情 %d，亲密 %d）" % [String(e["name"]), int(float(e["mood"])), int(float(e["intimacy"]))]
+		"companion_trained":
+			return "和%s一起练了一天，她觉得自己帮上了忙" % String(e["name"])
+		"morning_answered":
+			return "晨会：" + String(e["text"])
+		"morning_refused":
+			return "晨会：没有这个选项"
 		"exchange_done":
 			return "兑换完成：" + String(e["entry"])
 		"exchange_refused":

@@ -156,3 +156,20 @@ func test_entry_effects_and_affordable_filter() -> void:
 	assert_true(cheap.size() > 0 and cheap.size() < 200)
 	for e: Dictionary in cheap:
 		assert_true(bool(e["ok"]), String(e["id"]))
+
+
+## 造物页：造了萝丽之后能看到她的四项数值、她想要什么、制造者的名字；晨会取数。
+func test_companions_and_morning() -> void:
+	var v := _view()
+	v.create_human("zheng_zha", "萝丽")
+	var list: Array = v.companions()
+	assert_eq(list.size(), 1)
+	var c: Dictionary = list[0]
+	assert_eq(String(c["creator_name"]), "郑吒")
+	assert_eq(String(c["persona"]), "luo_li")
+	assert_eq(String(c["wish"]), "想知道你每天在练什么")
+	var m: Dictionary = v.morning()
+	assert_eq(String(m["event"]), "zhang_jie_alliance")
+	assert_eq((m["options"] as Array).size(), 2)
+	v.answer_morning("accept")
+	assert_eq(v.morning(), {})

@@ -82,6 +82,8 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 			return "规则百科新增：%s。" % "、".join(titles)
 		"rule_discovered":
 			return "%s 推出了一条隐藏规则：%s。" % [_name(e.get("by", ""), names), String(e.get("name", ""))]
+		"companion_talked":
+			return "%s 跟你更亲近了（亲密 %d）。" % [String(e.get("name", "")), int(float(e.get("intimacy", 0.0)))]
 		"talent_awakened":
 			return "%s 的天赋觉醒了：%s。%s" % [_name(e.get("char", ""), names), String(e.get("name", "")), String(e.get("text", ""))]
 		"searched":

@@ -17,6 +17,9 @@ var save_buttons: Array[Button] = []
 var load_buttons: Array[Button] = []
 var panel: Panel
 var _built := false
+## 存读档那一块（铁人模式整块藏起来）。
+var slot_section: Array[Control] = []
+var iron_label: Label
 
 
 func _ready() -> void:
@@ -53,7 +56,12 @@ func build() -> void:
 	resume_button.pressed.connect(press_resume)
 	box.add_child(resume_button)
 
-	box.add_child(UiTheme.label("保存到", 18, UiTheme.MUTED))
+	iron_label = UiTheme.label("铁人模式：游戏自动保存，不能手动存档或读档。", 18, UiTheme.MUTED)
+	iron_label.visible = false
+	box.add_child(iron_label)
+	var save_title := UiTheme.label("保存到", 18, UiTheme.MUTED)
+	box.add_child(save_title)
+	slot_section.append(save_title)
 	var save_row := HBoxContainer.new()
 	save_row.add_theme_constant_override("separation", 10)
 	for i in range(1, Slots.COUNT + 1):
@@ -63,8 +71,11 @@ func build() -> void:
 		save_row.add_child(b)
 		save_buttons.append(b)
 	box.add_child(save_row)
+	slot_section.append(save_row)
 
-	box.add_child(UiTheme.label("读取", 18, UiTheme.MUTED))
+	var load_title := UiTheme.label("读取", 18, UiTheme.MUTED)
+	box.add_child(load_title)
+	slot_section.append(load_title)
 	var load_row := HBoxContainer.new()
 	load_row.add_theme_constant_override("separation", 10)
 	for i in range(1, Slots.COUNT + 1):
@@ -74,12 +85,14 @@ func build() -> void:
 		load_row.add_child(b)
 		load_buttons.append(b)
 	box.add_child(load_row)
+	slot_section.append(load_row)
 
 	for i in range(1, Slots.COUNT + 1):
 		var l := UiTheme.label("", 16, UiTheme.MUTED)
 		l.custom_minimum_size = Vector2(660, 22)
 		box.add_child(l)
 		slot_labels.append(l)
+		slot_section.append(l)
 
 	status_label = UiTheme.label("", 18, UiTheme.ACCENT2)
 	status_label.custom_minimum_size = Vector2(660, 26)
@@ -118,6 +131,14 @@ func refresh() -> void:
 		load_buttons[i].disabled = not bool(row["exists"])
 
 
+## 铁人模式：藏起存读档，只留继续、回标题、退出。
+func set_iron_man(on: bool) -> void:
+	build()
+	for c in slot_section:
+		c.visible = not on
+	iron_label.visible = on
+
+
 func set_status(text: String) -> void:
 	if status_label != null:
 		status_label.text = text
@@ -129,14 +150,14 @@ func press_resume() -> void:
 
 
 func press_save(slot: int) -> void:
-	if not Slots.valid(slot):
+	if not Slots.valid(slot) or iron_label.visible:
 		return
 	save_slot.emit(slot)
 	refresh()
 
 
 func press_load(slot: int) -> void:
-	if not bool(Slots.summary(slot)["exists"]):
+	if iron_label.visible or not bool(Slots.summary(slot)["exists"]):
 		return
 	visible = false
 	load_slot.emit(slot)

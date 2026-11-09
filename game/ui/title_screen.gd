@@ -1,8 +1,9 @@
 extends Control
-## PC 版标题画面：新游戏 / 继续（三个存档槽）/ 设置 / 退出。
+## PC 版标题画面：新游戏（先选铁人或宽松）/ 继续（三个存档槽）/ 设置 / 退出。
 ## 只发信号，不碰 Session；开新游戏、读档、退出的实做在 main.gd。
 
-signal new_game
+## iron_man：铁人模式（一个自动存档，不能手动存读，全灭删档）。
+signal new_game(iron_man: bool)
 signal load_slot(slot: int)
 signal quit_game
 signal settings_changed(settings: Dictionary)
@@ -17,6 +18,7 @@ var menu_box: VBoxContainer
 var slot_panel: Control
 var slot_box: VBoxContainer
 var settings_panel: Control
+var mode_panel: Control
 var mode_button: Button
 var volume_label: Label
 var hint_label: Label
@@ -78,6 +80,7 @@ func build() -> void:
 
 	_build_slots()
 	_build_settings()
+	_build_mode()
 	set_hint("Enter 确认 · Esc 返回")
 
 
@@ -106,6 +109,30 @@ func _build_slots() -> void:
 	back.custom_minimum_size = Vector2(140, 48)
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(close_slots)
+	box.add_child(back)
+
+
+## 新游戏先选存档方式（设计规格 7.7：推荐铁人模式，另给想体验剧情的人一个宽松选项）。
+func _build_mode() -> void:
+	mode_panel = _overlay(900, 420)
+	var box := VBoxContainer.new()
+	box.position = Vector2(30, 24)
+	box.size = Vector2(840, 360)
+	box.add_theme_constant_override("separation", 14)
+	mode_panel.add_child(box)
+	box.add_child(UiTheme.label("选择存档方式", 28, UiTheme.ACCENT2))
+	var iron := UiTheme.button("铁人模式（推荐）：只有一个自动存档，不能读档重来，全员死亡就删档", 20)
+	iron.custom_minimum_size = Vector2(840, 64)
+	iron.pressed.connect(press_mode.bind(true))
+	box.add_child(iron)
+	var loose := UiTheme.button("宽松模式：三个手动存档槽，随时存读，想看剧情选这个", 20)
+	loose.custom_minimum_size = Vector2(840, 64)
+	loose.pressed.connect(press_mode.bind(false))
+	box.add_child(loose)
+	var back := UiTheme.button("返回", 20)
+	back.custom_minimum_size = Vector2(140, 48)
+	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	back.pressed.connect(close_mode)
 	box.add_child(back)
 
 
@@ -187,7 +214,18 @@ func _refresh_settings() -> void:
 ## ---- 供界面与验收脚本调用 ----
 
 func press_new() -> void:
-	new_game.emit()
+	mode_panel.visible = true
+	set_hint("选择存档方式 · Esc 返回")
+
+
+func press_mode(iron: bool) -> void:
+	mode_panel.visible = false
+	new_game.emit(iron)
+
+
+func close_mode() -> void:
+	mode_panel.visible = false
+	set_hint("Enter 确认 · Esc 返回")
 
 
 func press_quit() -> void:
@@ -283,6 +321,9 @@ func _bump_volume(delta: float) -> void:
 
 ## Esc：先关覆盖层，都不开就什么都不做（标题画面不退出）。
 func handle_escape() -> bool:
+	if mode_panel != null and mode_panel.visible:
+		close_mode()
+		return true
 	if slot_panel.visible:
 		close_slots()
 		return true
