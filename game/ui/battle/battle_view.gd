@@ -81,7 +81,7 @@ func units() -> Array[Dictionary]:
 	for u: RefCounted in list:
 		out.append({
 			"id": u.id,
-			"name": u.display_name,
+			"name": _short_name(u.id),
 			"side": u.side,
 			"row": u.row,
 			"hp": u.hp,

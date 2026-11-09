@@ -58,7 +58,7 @@ static func button(text: String, size: int = 22) -> Button:
 static func map_button(text: String) -> Button:
 	var b := Button.new()
 	b.text = text
-	b.add_theme_font_size_override("font_size", 18)
+	b.add_theme_font_size_override("font_size", 16)
 	b.add_theme_stylebox_override("normal", panel_style(PANEL_LIGHT, LINE, 6))
 	b.add_theme_stylebox_override("hover", panel_style(PANEL, ACCENT2, 6))
 	b.add_theme_stylebox_override("pressed", panel_style(ACCENT, ACCENT, 6))
@@ -68,6 +68,23 @@ static func map_button(text: String) -> Button:
 	b.add_theme_color_override("font_disabled_color", MUTED)
 	b.focus_mode = Control.FOCUS_NONE
 	return b
+
+
+## 血量/恐惧这类细条：背景深、填充色可换。
+static func bar(color: Color, height: int = 8) -> ProgressBar:
+	var pb := ProgressBar.new()
+	pb.show_percentage = false
+	pb.custom_minimum_size = Vector2(0, height)
+	pb.add_theme_stylebox_override("background", panel_style(DARK, DARK, 3))
+	pb.add_theme_stylebox_override("fill", bar_fill(color))
+	return pb
+
+
+static func bar_fill(color: Color) -> StyleBoxFlat:
+	var f := StyleBoxFlat.new()
+	f.bg_color = color
+	f.set_corner_radius_all(3)
+	return f
 
 
 static func label(text: String, size: int = 22, color: Color = TEXT) -> Label:

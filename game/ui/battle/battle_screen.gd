@@ -6,6 +6,7 @@ signal finished
 
 const BattleView = preload("res://ui/battle/battle_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
+const PixelArt = preload("res://core/art/pixel_art.gd")
 
 var view: RefCounted
 var header: Label
@@ -88,13 +89,42 @@ func _build() -> void:
 	add_child(log_label)
 
 
+## 一张卡：像素头像 + 名字 + 血条 + 恐惧条 + 脚注（弹药/状态）。
+## 格子宽度是按列算死的（敌人 5 列 / 我方 7 列），所以高度要压住，别撑破。
 func _card(u: Dictionary) -> PanelContainer:
+	var enemy := String(u["side"]) == "enemy"
 	var p := PanelContainer.new()
-	p.custom_minimum_size = Vector2(160, 100)
+	p.custom_minimum_size = Vector2(232, 96) if enemy else Vector2(164, 104)
 	p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.PANEL_LIGHT))
-	var l := UiTheme.label("", 17)
-	p.add_child(l)
-	cards[u["id"]] = l
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 3)
+	p.add_child(box)
+	var top := HBoxContainer.new()
+	top.add_theme_constant_override("separation", 6)
+	box.add_child(top)
+	var face := TextureRect.new()
+	face.texture = PixelArt.unit(String(u["id"]), String(u["side"]))
+	face.custom_minimum_size = Vector2(34, 34)
+	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	top.add_child(face)
+	var name_label := UiTheme.label("", 16)
+	name_label.custom_minimum_size = Vector2(0, 34)
+	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	name_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	name_label.clip_text = true
+	top.add_child(name_label)
+	var hp := UiTheme.bar(UiTheme.OK)
+	box.add_child(hp)
+	var fear := UiTheme.bar(UiTheme.ACCENT2, 6)
+	box.add_child(fear)
+	var foot := UiTheme.label("", 13, UiTheme.MUTED)
+	foot.clip_text = true
+	foot.autowrap_mode = TextServer.AUTOWRAP_OFF
+	foot.visible = false
+	box.add_child(foot)
+	cards[String(u["id"])] = {"name": name_label, "hp": hp, "fear": fear, "foot": foot}
 	return p
 
 
@@ -114,18 +144,31 @@ func refresh() -> void:
 	for u: Dictionary in units:
 		var grid: GridContainer = ally_grid if String(u["side"]) == "ally" else enemy_grid
 		var p := _card(u)
-		var l: Label = cards[u["id"]]
-		var status := "、".join(u["statuses"])
-		l.text = "%s\nHP %d/%d\n恐惧 %d%s%s" % [
-			String(u["name"]), int(u["hp"]), int(u["hp_max"]), int(u["fear"]),
-			("\n弹 %d" % int(u["ammo"])) if int(u["ammo"]) >= 0 else "",
-			("\n" + status) if status != "" else "",
-		]
-		l.add_theme_color_override("font_color", UiTheme.TEXT if bool(u["alive"]) else UiTheme.MUTED)
+		var c: Dictionary = cards[u["id"]]
+		var name_label: Label = c["name"]
+		name_label.text = String(u["name"])
+		name_label.add_theme_color_override("font_color", UiTheme.TEXT if bool(u["alive"]) else UiTheme.MUTED)
+		var hp_bar: ProgressBar = c["hp"]
+		hp_bar.max_value = maxf(float(u["hp_max"]), 1.0)
+		hp_bar.value = maxf(float(u["hp"]), 0.0)
+		var hp_ratio := float(u["hp"]) / maxf(float(u["hp_max"]), 1.0)
+		hp_bar.add_theme_stylebox_override("fill", UiTheme.bar_fill(UiTheme.ACCENT if hp_ratio < 0.3 else UiTheme.OK))
+		var fear_bar: ProgressBar = c["fear"]
+		fear_bar.max_value = 100.0
+		fear_bar.value = clampf(float(u["fear"]), 0.0, 100.0)
+		var foot: Label = c["foot"]
+		var bits: Array[String] = []
+		if int(u["ammo"]) >= 0:
+			bits.append("弹 %d" % int(u["ammo"]))
+		for st in u["statuses"]:
+			bits.append(String(st))
+		foot.text = " ".join(bits)
+		foot.visible = foot.text != ""
 		if bool(u["current"]):
-			p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.ACCENT, UiTheme.ACCENT, 8))
+			p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.PANEL_LIGHT, UiTheme.ACCENT, 8))
+		elif not bool(u["alive"]):
+			p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.DARK, UiTheme.DARK, 8))
 		grid.add_child(p)
-		cards[u["id"]] = l
 
 	for c in action_box.get_children():
 		action_box.remove_child(c)
@@ -156,7 +199,7 @@ func refresh() -> void:
 			else:
 				b.pressed.connect(_open.bind(indices))
 			action_box.add_child(b)
-	log_label.text = "\n".join(view.log_tail(8))
+	log_label.text = "\n".join(view.log_tail(14))
 
 
 func _open(indices: Array) -> void:
