@@ -1,0 +1,153 @@
+extends RefCounted
+## 一局游戏（设计规格 2、10.2）：把 GameState、当前远征、阶段和休整天数装在一起。
+## 阶段：expedition（在片子里）→ settlement（刚回归，结算完）→ hub（主神空间休整 9 天）→ done（下一次出发，M2 未做）。
+## 界面只读这里的 game / expedition，并调用这里的方法推进；存档就是 to_dict()。
+
+const GameState = preload("res://core/model/game_state.gd")
+const Campaign = preload("res://core/campaign/campaign.gd")
+const Scenario = preload("res://core/expedition/scenario.gd")
+const Expedition = preload("res://core/expedition/expedition.gd")
+const SaveService = preload("res://core/save/save_service.gd")
+
+const VERSION := 1
+const M1_CHAPTER := "res://data/scenarios/biohazard1/chapter.json"
+const PHASES: Array[String] = ["expedition", "settlement", "hub", "done"]
+const REST_DAYS := 9
+
+var game: RefCounted
+var expedition: RefCounted
+var phase: String = "expedition"
+var chapter_path: String = ""
+## 休整第几天（settlement 时为 1）。
+var day: int = 0
+## 上一次结算的结果（角色 id → 结算条目），给结算界面用。
+var settlement: Dictionary = {}
+
+
+## 开一局：建 GameState、按章节装配七名轮回者、开始第一部片。
+func start(chapter: String, seed_value: int = 0) -> bool:
+	chapter_path = chapter
+	game = GameState.new(seed_value)
+	expedition = Campaign.start(game, chapter)
+	if expedition == null:
+		return false
+	phase = "expedition"
+	day = 0
+	settlement = {}
+	return true
+
+
+func start_m1(seed_value: int = 0) -> bool:
+	return start(M1_CHAPTER, seed_value)
+
+
+func in_expedition() -> bool:
+	return phase == "expedition" and expedition != null
+
+
+func expedition_over() -> bool:
+	return expedition != null and String(expedition.st.outcome) != "ongoing"
+
+
+## 现在为什么不能行动："" 表示可以，否则是 battle / choice / check / ended。
+func blocked_reason() -> String:
+	if not in_expedition():
+		return "ended"
+	if expedition.st.outcome != "ongoing":
+		return "ended"
+	if not expedition.st.pending_battle.is_empty():
+		return "battle"
+	if not expedition.st.pending_choice.is_empty():
+		return "choice"
+	if not expedition.st.pending_check.is_empty():
+		return "check"
+	return ""
+
+
+## 片子结束（回归、全灭或剧本结局）后结算一次，进入 settlement 阶段。
+func settle() -> Dictionary:
+	if phase != "expedition" or not expedition_over():
+		return {}
+	settlement = expedition.finish()
+	phase = "settlement"
+	day = 1
+	return settlement
+
+
+func enter_hub() -> bool:
+	if phase != "settlement":
+		return false
+	phase = "hub"
+	return true
+
+
+func advance_day() -> bool:
+	if phase != "hub" or day >= REST_DAYS:
+		return false
+	day += 1
+	return true
+
+
+func can_depart() -> bool:
+	return phase == "hub" and day >= REST_DAYS
+
+
+## 走光柱出发；M2 的内容还没做，先把阶段停在 done。
+func depart() -> bool:
+	if not can_depart():
+		return false
+	phase = "done"
+	return true
+
+
+func to_dict() -> Dictionary:
+	return {
+		"version": VERSION,
+		"phase": phase,
+		"chapter": chapter_path,
+		"day": day,
+		"game": game.to_dict() if game != null else {},
+		"expedition": expedition.to_dict() if expedition != null else {},
+		"settlement": settlement.duplicate(true),
+	}
+
+
+## 读档失败返回 false（版本不对、字段缺失、剧本读不到）。
+func load_dict(d: Dictionary) -> bool:
+	if int(d.get("version", 0)) != VERSION or not d.has("game") or not d.has("chapter"):
+		return false
+	chapter_path = String(d["chapter"])
+	var chapter := Campaign.load_chapter(chapter_path)
+	if chapter.is_empty():
+		return false
+	game = GameState.new()
+	game.load_dict(d["game"])
+	phase = String(d.get("phase", "expedition"))
+	if not PHASES.has(phase):
+		return false
+	day = int(d.get("day", 0))
+	settlement = (d.get("settlement", {}) as Dictionary).duplicate(true)
+	var e: Dictionary = d.get("expedition", {})
+	if e.is_empty():
+		expedition = null
+		return phase != "expedition"
+	var sc := Scenario.load_file(String(chapter["scenario"]))
+	if sc == null:
+		return false
+	expedition = Expedition.new()
+	expedition.load_dict(e, game, sc)
+	return true
+
+
+func save_to(path: String) -> Error:
+	return SaveService.write_dict(path, to_dict())
+
+
+static func load_from(path: String) -> RefCounted:
+	var d := SaveService.read_dict(path)
+	if d.is_empty():
+		return null
+	var s := new()
+	if not s.load_dict(d):
+		return null
+	return s

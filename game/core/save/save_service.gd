@@ -23,3 +23,23 @@ static func load_from(path: String) -> RefCounted:
 	var state := GameState.new()
 	state.load_dict(data)
 	return state
+
+
+## 整局存档（GameState + 远征 + 阶段）：写一个 JSON 对象，读不到返回空字典。
+static func write_dict(path: String, data: Dictionary) -> Error:
+	var f := FileAccess.open(path, FileAccess.WRITE)
+	if f == null:
+		return FileAccess.get_open_error()
+	f.store_string(JSON.stringify(data, "\t"))
+	f.close()
+	return OK
+
+
+static func read_dict(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		return {}
+	var text := FileAccess.get_file_as_string(path)
+	var data: Variant = JSON.parse_string(text)
+	if typeof(data) != TYPE_DICTIONARY:
+		return {}
+	return data
