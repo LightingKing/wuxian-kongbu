@@ -37,6 +37,11 @@ func take_failures() -> Array[String]:
 	return out
 
 
+## 场景树（runner 已经等过一帧，root 在树里）：要测镜头、打字这类需要节点在树里的东西时用。
+func tree() -> SceneTree:
+	return Engine.get_main_loop() as SceneTree
+
+
 func take_assert_count() -> int:
 	var n := _assert_count
 	_assert_count = 0
