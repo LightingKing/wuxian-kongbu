@@ -20,6 +20,8 @@ const PixelArt = preload("res://ui/art/pixel_art.gd")
 ## 画通路的小画布：地点按钮是它的子节点。
 class MapCanvas extends Control:
 	var ex: RefCounted
+	## 剧本里的坐标整体平移多少，地图才居中。
+	var shift := Vector2.ZERO
 
 	func _draw() -> void:
 		if ex == null:
@@ -29,7 +31,18 @@ class MapCanvas extends Control:
 			var b: Array = ex.st.scenario.location(String(p["b"])).get("pos", [0, 0])
 			var open: bool = ex.st.is_path_open(String(p["a"]), String(p["b"]))
 			var color := Color("39414f") if open else Color("0b0d12")
-			draw_line(Vector2(float(a[0]) + 88, float(a[1]) + 30), Vector2(float(b[0]) + 88, float(b[1]) + 30), color, 5.0, true)
+			draw_line(Vector2(float(a[0]) + 88, float(a[1]) + 30) + shift, Vector2(float(b[0]) + 88, float(b[1]) + 30) + shift, color, 5.0, true)
+
+	## 让所有地点按钮（196×62）的外框落在 area 的正中。
+	func center_in(area: Vector2) -> void:
+		var lo := Vector2(INF, INF)
+		var hi := Vector2(-INF, -INF)
+		for id: String in ex.st.scenario.data["locations"]:
+			var pos: Array = ex.st.scenario.location(id).get("pos", [0, 0])
+			var v := Vector2(float(pos[0]), float(pos[1]))
+			lo = Vector2(minf(lo.x, v.x), minf(lo.y, v.y))
+			hi = Vector2(maxf(hi.x, v.x + 196.0), maxf(hi.y, v.y + 62.0))
+		shift = ((area - (hi - lo)) / 2.0 - lo).round()
 
 var view: RefCounted
 var map_canvas: MapCanvas
@@ -56,7 +69,7 @@ func setup(expedition: RefCounted, char_names: Dictionary) -> void:
 
 
 func _build() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	UiTheme.paint_bg(self)
 	var left := PanelContainer.new()
 	left.position = Vector2(30, 30)
@@ -66,6 +79,7 @@ func _build() -> void:
 	map_canvas = MapCanvas.new()
 	map_canvas.ex = view.ex
 	map_canvas.custom_minimum_size = Vector2(900, 980)
+	map_canvas.center_in(Vector2(900, 920))
 	left.add_child(map_canvas)
 
 	title_label = UiTheme.label(tr("生化危机一 · 蜂巢"), 30, UiTheme.ACCENT2)
@@ -78,21 +92,22 @@ func _build() -> void:
 	watch_label.size = Vector2(880, 150)
 	add_child(watch_label)
 
-	member_label = UiTheme.rich(20)
+	member_label = UiTheme.rich(18)
 	member_label.bbcode_enabled = true
-	member_label.position = Vector2(1000, 236)
-	member_label.size = Vector2(880, 160)
+	member_label.scroll_active = false
+	member_label.position = Vector2(1000, 232)
+	member_label.size = Vector2(880, 176)
 	add_child(member_label)
 
 	talk_box = HBoxContainer.new()
-	talk_box.position = Vector2(1000, 402)
+	talk_box.position = Vector2(1000, 410)
 	talk_box.size = Vector2(880, 48)
 	talk_box.add_theme_constant_override("separation", 8)
 	add_child(talk_box)
 
 	pending_box = VBoxContainer.new()
-	pending_box.position = Vector2(1000, 456)
-	pending_box.size = Vector2(880, 182)
+	pending_box.position = Vector2(1000, 464)
+	pending_box.size = Vector2(880, 176)
 	pending_box.add_theme_constant_override("separation", 8)
 	add_child(pending_box)
 
@@ -132,11 +147,15 @@ func _build() -> void:
 		btn.add_theme_constant_override("icon_max_width", 22)
 		btn.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var pos: Array = view.ex.st.scenario.location(loc_id).get("pos", [0, 0])
-		btn.position = Vector2(float(pos[0]), float(pos[1]))
+		btn.position = Vector2(float(pos[0]), float(pos[1])) + map_canvas.shift
 		btn.size = Vector2(196, 62)
 		btn.pressed.connect(_on_location.bind(loc_id))
 		map_canvas.add_child(btn)
 		location_buttons[loc_id] = btn
+	var legend := UiTheme.label(tr("● 你在这里　→ 点一下就过去（走路要花时间）　人：有剧情人物　险：搜索可能遇敌"), 16, UiTheme.MUTED)
+	legend.position = Vector2(16, 936)
+	legend.size = Vector2(880, 30)
+	map_canvas.add_child(legend)
 
 
 func refresh() -> void:
@@ -166,9 +185,12 @@ func refresh() -> void:
 		var b: Button = location_buttons[loc_id]
 		var item: Dictionary = items.get(loc_id, {})
 		var text: String = String(item.get("name", loc_id))
+		var go := bool(item.get("adjacent", false)) and bool(item.get("open", true)) and not bool(item.get("here", false))
 		if bool(item.get("here", false)):
 			text = "● " + text
-		elif not bool(item.get("adjacent", false)):
+		elif go:
+			text = "→ " + text
+		else:
 			text = "  " + text
 		if (item.get("npcs", []) as Array).size() > 0:
 			text += " 人"
@@ -177,7 +199,9 @@ func refresh() -> void:
 		b.text = text
 		var reachable := bool(item.get("here", false)) or (bool(item.get("adjacent", false)) and bool(item.get("open", true)))
 		b.disabled = not reachable
-		b.modulate = Color(0.78, 0.84, 1.0, 1.0) if bool(item.get("dark", false)) else Color.WHITE
+		b.add_theme_color_override("font_color", UiTheme.ACCENT2 if go else UiTheme.TEXT)
+		var tint := Color(0.78, 0.84, 1.0, 1.0) if bool(item.get("dark", false)) else Color.WHITE
+		b.modulate = tint if reachable else tint * Color(0.75, 0.75, 0.75, 1.0)
 
 	_maybe_cutscene()
 	_build_talk()
@@ -199,6 +223,11 @@ func _build_pending() -> void:
 		c.queue_free()
 	var p: Dictionary = view.pending()
 	if p.is_empty():
+		if not view.ended():
+			pending_box.add_child(UiTheme.label(tr("现在没有要你决定的事。"), 21, UiTheme.ACCENT2))
+			pending_box.add_child(UiTheme.label(tr("点地图上标 → 的地点前进，或者搜索、休息让时间往前走；剧情到点会自己发生。"), 18, UiTheme.MUTED))
+			if String(view.watch()["tether"]) != "":
+				pending_box.add_child(UiTheme.label(tr("手表绑定着人：别离他太远，他走了你也得跟上。"), 18, UiTheme.MUTED))
 		return
 	var kind := String(p["kind"])
 	if kind == "choice":

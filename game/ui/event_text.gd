@@ -6,6 +6,33 @@ const BattleData = preload("res://core/battle/battle_data.gd")
 const Codex = preload("res://core/intel/codex.gd")
 
 
+## 战斗结果的中文说法。
+const OUTCOME_TEXT := {"victory": "胜利", "defeat": "全军覆没", "survived": "撑住了", "fled": "撤出了战斗", "timeout": "拖成了僵局"}
+
+
+static func outcome_text(o: String) -> String:
+	return String(OUTCOME_TEXT.get(o, o))
+
+
+## 一部片的结局。
+const ENDING_TEXT := {"returned": "倒计时结束，活着回来了", "wiped": "全员死亡", "ongoing": "还在进行"}
+
+
+static func ending_text(o: String) -> String:
+	return String(ENDING_TEXT.get(o, o))
+
+
+## 死因（角色 flags 里的 death / erased）。
+const DEATH_TEXT := {
+	"killed": "战死", "laser": "死在激光里", "tether": "超出绑定范围被抹杀", "infection": "尸变",
+	"plot": "剧情", "test": "测试", "gag": "被主神抹杀", "": "死亡",
+}
+
+
+static func death_text(r: String) -> String:
+	return String(DEATH_TEXT.get(r, r))
+
+
 static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 	var t := String(e.get("type", ""))
 	match t:
@@ -40,7 +67,7 @@ static func describe(e: Dictionary, names: Dictionary = {}) -> String:
 		"battle_request":
 			return "战斗！%s 出现了敌人。" % _name(e.get("location", ""), names)
 		"battle_resolved":
-			return "战斗结束：%s。" % String(e.get("outcome", ""))
+			return "战斗结束：%s。" % outcome_text(String(e.get("outcome", "")))
 		"kill_recorded":
 			return "%s 击杀 %s（+%.1f 点）。" % [_name(e.get("char", ""), names), _enemy(e.get("enemy", "")), float(e.get("points", 0.0))]
 		"side_plot_done":

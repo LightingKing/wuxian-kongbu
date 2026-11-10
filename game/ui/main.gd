@@ -179,7 +179,7 @@ func _show_lost() -> void:
 	box.add_child(UiTheme.label(tr("任务失败：全员死亡。"), 36, UiTheme.ACCENT))
 	for id: String in session.game.characters:
 		var ch: RefCounted = session.game.characters[id]
-		box.add_child(UiTheme.label(tr("%s：%s") % [ch.display_name, String(ch.flags.get("death", ch.flags.get("erased", "死亡")))], 20, UiTheme.MUTED))
+		box.add_child(UiTheme.label(tr("%s：%s") % [ch.display_name, EventText.death_text(String(ch.flags.get("death", ch.flags.get("erased", ""))))], 20, UiTheme.MUTED))
 	if session.iron_man:
 		Slots.erase(Slots.AUTO)
 		box.add_child(UiTheme.label(tr("铁人模式：失败就是失败。这一局的存档已经删除。"), 22, UiTheme.TEXT))
@@ -201,7 +201,7 @@ func _show_result(results: Dictionary) -> void:
 	box.add_theme_constant_override("separation", 14)
 	content.add_child(box)
 
-	var title := UiTheme.label(tr("任务结束：%s") % String(session.expedition.st.outcome), 34, UiTheme.ACCENT2)
+	var title := UiTheme.label(tr("任务结束：%s") % EventText.ending_text(String(session.expedition.st.outcome)), 34, UiTheme.ACCENT2)
 	box.add_child(title)
 	box.add_child(UiTheme.label(tr("倒计时 %d 分钟 · 存活结算") % int(session.expedition.st.clock), 20, UiTheme.MUTED))
 	var fr: Dictionary = session.film_report
@@ -216,7 +216,7 @@ func _show_result(results: Dictionary) -> void:
 		var r: Dictionary = results[id]
 		var name: String = session.game.characters[id].display_name if session.game.characters.has(id) else id
 		if bool(r.get("dead", false)):
-			box.add_child(UiTheme.label(tr("%s：死亡（%s）") % [name, String(r.get("reason", ""))], 22, UiTheme.MUTED))
+			box.add_child(UiTheme.label(tr("%s：死亡（%s）") % [name, EventText.death_text(String(r.get("reason", "")))], 22, UiTheme.MUTED))
 			continue
 		var line := "%s：%d 点" % [name, int(r["final_points"])]
 		var tickets: Array = r.get("tickets", [])
@@ -260,6 +260,11 @@ func _show_done() -> void:
 	for f: Dictionary in session.farewells:
 		box.add_child(UiTheme.label(tr("%s：「%s」") % [String(f["name"]), String(f["line"])], 24, UiTheme.TEXT))
 	box.add_child(UiTheme.label(tr("下一部：异形一（内容与界面在后续计划里做）。"), 22, UiTheme.TEXT))
+	var back := UiTheme.button(tr("回到标题"), 24)
+	back.custom_minimum_size = Vector2(320, 60)
+	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	back.pressed.connect(_show_title)
+	box.add_child(back)
 	_set_status("M1 结束")
 
 

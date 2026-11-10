@@ -10,6 +10,7 @@ const BattleStage = preload("res://ui/battle/battle_stage.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const PixelArt = preload("res://ui/art/pixel_art.gd")
 const Sfx = preload("res://ui/audio/sfx.gd")
+const EventText = preload("res://ui/event_text.gd")
 
 ## 半透明面板：压在像素画面上，看得清字也不完全挡住背景。
 const GLASS := Color(0.04, 0.05, 0.08, 0.78)
@@ -52,7 +53,7 @@ func _glass(pos: Vector2, size: Vector2) -> PanelContainer:
 
 
 func _build(location: String, dark: bool) -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	stage = BattleStage.new()
 	stage.setup(view.units(), location, dark)
 	add_child(stage)
@@ -173,7 +174,7 @@ func refresh() -> void:
 		action_box.remove_child(c)
 		c.queue_free()
 	if view.finished():
-		action_box.add_child(UiTheme.label(tr("战斗结束：") + view.outcome(), 24, UiTheme.ACCENT2))
+		action_box.add_child(UiTheme.label(tr("战斗结束：") + EventText.outcome_text(view.outcome()), 24, UiTheme.ACCENT2))
 		if not _done:
 			_done = true
 			finished.emit.call_deferred()

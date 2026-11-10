@@ -11,6 +11,8 @@ signal companion_talk_requested(companion_id: String)
 const HubView = preload("res://ui/hub/hub_view.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const Sfx = preload("res://ui/audio/sfx.gd")
+const Catalog = preload("res://core/hub/catalog.gd")
+const BattleData = preload("res://core/battle/battle_data.gd")
 
 const ATTRS := {
 	"intelligence": "智力", "spirit": "精神力", "cell_vitality": "细胞活力",
@@ -41,7 +43,7 @@ func setup(session: RefCounted) -> void:
 
 
 func _build() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	UiTheme.paint_bg(self)
 	day_label = UiTheme.label(tr(""), 30, UiTheme.ACCENT2)
 	day_label.position = Vector2(30, 20)
@@ -52,11 +54,15 @@ func _build() -> void:
 	sub.size = Vector2(380, 44)
 	add_child(sub)
 
+	var char_scroll := ScrollContainer.new()
+	char_scroll.position = Vector2(30, 120)
+	char_scroll.size = Vector2(380, 584)
+	char_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	add_child(char_scroll)
 	char_box = VBoxContainer.new()
-	char_box.position = Vector2(30, 120)
-	char_box.size = Vector2(380, 560)
+	char_box.custom_minimum_size = Vector2(368, 0)
 	char_box.add_theme_constant_override("separation", 6)
-	add_child(char_box)
+	char_scroll.add_child(char_box)
 
 	rest_button = UiTheme.button(tr("休息一天"), 20)
 	rest_button.position = Vector2(30, 720)
@@ -114,21 +120,20 @@ func refresh() -> void:
 		char_box.remove_child(c)
 		c.queue_free()
 	for ch: Dictionary in view.characters():
-		var t := "%s\n%d 点 · 生命 %d/%d · 恐惧 %d" % [String(ch["name"]), int(ch["points"]), int(ch["hp"]), int(ch["hp_max"]), int(ch["fear"])]
+		var woke: Array = ch["talents"]
+		var t := "%s · %d 点 · 天赋：%s" % [String(ch["name"]), int(ch["points"]), "、".join(woke) if not woke.is_empty() else "未显露"]
 		var tickets := ""
 		for g: String in ["D", "C", "B", "A", "S"]:
 			if int((ch["tickets"] as Dictionary).get(g, 0)) > 0:
-				tickets += "%s×%d " % [g, int(ch["tickets"][g])]
-		if tickets != "":
-			t += "\n" + tickets
-		var woke: Array = ch["talents"]
-		t += "\n天赋：" + ("、".join(woke) if not woke.is_empty() else "未显露")
-		var b := UiTheme.button(t, 17)
+				tickets += " %s×%d" % [g, int(ch["tickets"][g])]
+		if bool(ch["alive"]):
+			t += "\n生命 %d/%d · 恐惧 %d%s" % [int(ch["hp"]), int(ch["hp_max"]), int(ch["fear"]), tickets]
+		else:
+			t += "\n（死亡）"
+		var b := UiTheme.button(t, 16)
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.pressed.connect(select_char.bind(String(ch["id"])))
 		if not bool(ch["alive"]):
-			t += "\n（死亡）"
-			b.text = t
 			b.modulate = Color(0.6, 0.62, 0.68, 1.0)
 		elif String(ch["id"]) == selected:
 			b.modulate = Color(1.0, 0.82, 0.55, 1.0)
@@ -493,6 +498,10 @@ func session_depart() -> void:
 		departed.emit()
 
 
+func _skill_name(id: String) -> String:
+	return String(BattleData.skills().get(id, {}).get("name", id))
+
+
 func _describe(events: Array[Dictionary]) -> String:
 	if events.is_empty():
 		return ""
@@ -516,9 +525,12 @@ func _describe_first(e: Dictionary) -> String:
 		"morning_refused":
 			return "晨会：没有这个选项"
 		"exchange_done":
-			return "兑换完成：" + String(e["entry"])
+			return "兑换完成：" + String(Catalog.entry(String(e["entry"])).get("name", e["entry"]))
 		"exchange_refused":
-			return "主神拒绝了：" + "、".join(e["reasons"])
+			var why: Array[String] = []
+			for r in e["reasons"]:
+				why.append(HubView.reason_text(String(r)))
+			return "主神拒绝了：" + "、".join(why)
 		"exchange_warning":
 			return "需要确认血统风险"
 		"attribute_bought":
@@ -528,10 +540,10 @@ func _describe_first(e: Dictionary) -> String:
 		"human_created":
 			return "造人完成：%s" % String((e["companion"] as Dictionary)["name"])
 		"trained":
-			return "训练完成：%s 熟练度 %.0f%%" % [String(e["skill"]), float(e["proficiency"]) * 100.0]
+			return "训练完成：%s 熟练度 %.0f%%" % [_skill_name(String(e["skill"])), float(e["proficiency"]) * 100.0]
 		"spar_done":
 			return "对练：%s 打出 %d 伤害（%d 回合，%s），熟练度 %.0f%%" % [
-				String(e["skill"]), int(float(e["damage"])), int(e["rounds"]),
+				_skill_name(String(e["skill"])), int(float(e["damage"])), int(e["rounds"]),
 				"打赢" if String(e["outcome"]) == "victory" else "没打完",
 				float(e["proficiency"]) * 100.0]
 		"day_passed":

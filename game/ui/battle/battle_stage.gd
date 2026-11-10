@@ -40,7 +40,7 @@ var _tween: Tween
 
 ## units：BattleView.units() 的结果；location：战斗地点（选背景）；dark：黑暗中的战斗整体压暗。
 func setup(units: Array[Dictionary], location: String = "", dark: bool = false) -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	viewport = SubViewport.new()
 	viewport.size = PIXEL_SIZE
@@ -67,7 +67,7 @@ func setup(units: Array[Dictionary], location: String = "", dark: bool = false) 
 	display.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(display)
 	overlay = Control.new()
-	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(overlay)
 	_place_units(units)

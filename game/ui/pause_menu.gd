@@ -30,10 +30,10 @@ func build() -> void:
 	if _built:
 		return
 	_built = true
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var mask := ColorRect.new()
 	mask.color = Color(0, 0, 0, 0.62)
-	mask.set_anchors_preset(Control.PRESET_FULL_RECT)
+	mask.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mask.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(mask)
 
@@ -137,6 +137,8 @@ func set_iron_man(on: bool) -> void:
 	for c in slot_section:
 		c.visible = not on
 	iron_label.visible = on
+	panel.size = Vector2(720, 300) if on else Vector2(720, 560)
+	panel.position = Vector2(600, 390) if on else Vector2(600, 250)
 
 
 func set_status(text: String) -> void:

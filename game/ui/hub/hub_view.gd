@@ -266,11 +266,14 @@ func codex() -> Dictionary:
 ## 提示文字：把 core 的原因码翻成中文。
 static func reason_text(code: String) -> String:
 	if code.begins_with("missing_prerequisite:"):
-		return "缺前置：" + code.get_slice(":", 1)
+		var pre := code.get_slice(":", 1)
+		return "缺前置：" + (String(Catalog.entry(pre)["name"]) if Catalog.has(pre) else pre)
 	if code.begins_with("gate:"):
-		return "属性不够：" + code.get_slice(":", 1)
+		var attr := code.get_slice(":", 1)
+		return "%s不够" % String(ATTR_NAMES.get(attr, attr))
 	if code.begins_with("needs_energy:"):
-		return "需要能量：" + code.get_slice(":", 1)
+		var pool := code.get_slice(":", 1)
+		return "需要%s" % String(ENERGY_NAMES.get(pool, pool))
 	var table := {
 		"not_enough_points": "点数不够", "missing_ticket": "支线不够",
 		"already_owned": "已经拥有", "gift_used": "这次休整已经代兑过",

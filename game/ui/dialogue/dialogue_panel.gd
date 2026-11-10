@@ -37,10 +37,10 @@ func build() -> void:
 	if _built:
 		return
 	_built = true
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var mask := ColorRect.new()
 	mask.color = Color(0, 0, 0, 0.78)
-	mask.set_anchors_preset(Control.PRESET_FULL_RECT)
+	mask.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mask.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(mask)
 
@@ -196,10 +196,9 @@ func set_portrait(id: String) -> void:
 	portrait.texture = PortraitSource.portrait(id)
 	if PortraitSource.has_portrait(id):
 		portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-		portrait_caption.text = "%s\n\n半身立绘 512×768" % id
 	else:
 		portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		portrait_caption.text = "%s\n\n立绘位（%d×%d 像素头像占位）\n正式立绘 512×768 · 待生成" % [id, PixelArt.UNIT_SIZE, PixelArt.UNIT_SIZE]
+	portrait_caption.text = ""
 
 
 ## 供测试与验收脚本用：等于点了"说"。

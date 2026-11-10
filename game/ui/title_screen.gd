@@ -35,7 +35,7 @@ func build() -> void:
 	if _built:
 		return
 	_built = true
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	UiTheme.paint_bg(self)
 
 	var title := UiTheme.label(tr("无限恐怖"), 84, UiTheme.ACCENT2)
@@ -99,7 +99,7 @@ func _build_slots() -> void:
 	box.position = Vector2(30, 24)
 	box.size = Vector2(840, 500)
 	box.add_theme_constant_override("separation", 12)
-	slot_panel.add_child(box)
+	_body(slot_panel).add_child(box)
 	box.add_child(UiTheme.label(tr("选择存档"), 28, UiTheme.ACCENT2))
 	slot_box = VBoxContainer.new()
 	slot_box.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -119,7 +119,7 @@ func _build_mode() -> void:
 	box.position = Vector2(30, 24)
 	box.size = Vector2(840, 360)
 	box.add_theme_constant_override("separation", 14)
-	mode_panel.add_child(box)
+	_body(mode_panel).add_child(box)
 	box.add_child(UiTheme.label(tr("选择存档方式"), 28, UiTheme.ACCENT2))
 	var iron := UiTheme.button(tr("铁人模式（推荐）：只有一个自动存档，不能读档重来，全员死亡就删档"), 20)
 	iron.custom_minimum_size = Vector2(840, 64)
@@ -137,17 +137,20 @@ func _build_mode() -> void:
 
 
 func _build_settings() -> void:
-	settings_panel = _overlay(760, 420)
+	settings_panel = _overlay(760, 300)
 	var box := VBoxContainer.new()
 	box.position = Vector2(30, 24)
 	box.size = Vector2(700, 360)
 	box.add_theme_constant_override("separation", 16)
-	settings_panel.add_child(box)
+	_body(settings_panel).add_child(box)
 	box.add_child(UiTheme.label(tr("设置"), 28, UiTheme.ACCENT2))
 
 	var mode_row := HBoxContainer.new()
 	mode_row.add_theme_constant_override("separation", 12)
-	mode_row.add_child(UiTheme.label(tr("窗口"), 20))
+	var mode_name := UiTheme.label(tr("窗口"), 20)
+	mode_name.custom_minimum_size = Vector2(110, 48)
+	mode_name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	mode_row.add_child(mode_name)
 	mode_button = UiTheme.button(tr(""), 20)
 	mode_button.custom_minimum_size = Vector2(220, 48)
 	mode_button.pressed.connect(toggle_mode)
@@ -156,7 +159,10 @@ func _build_settings() -> void:
 
 	var vol_row := HBoxContainer.new()
 	vol_row.add_theme_constant_override("separation", 12)
-	vol_row.add_child(UiTheme.label(tr("主音量"), 20))
+	var vol_name := UiTheme.label(tr("主音量"), 20)
+	vol_name.custom_minimum_size = Vector2(110, 48)
+	vol_name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	vol_row.add_child(vol_name)
 	var down := UiTheme.button(tr("−"), 20)
 	down.custom_minimum_size = Vector2(64, 48)
 	down.pressed.connect(volume_down)
@@ -181,7 +187,7 @@ func _build_settings() -> void:
 func _overlay(w: int, h: int) -> Control:
 	var mask := ColorRect.new()
 	mask.color = Color(0, 0, 0, 0.62)
-	mask.set_anchors_preset(Control.PRESET_FULL_RECT)
+	mask.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mask.mouse_filter = Control.MOUSE_FILTER_STOP
 	mask.visible = false
 	add_child(mask)
@@ -191,6 +197,11 @@ func _overlay(w: int, h: int) -> Control:
 	p.add_theme_stylebox_override("panel", UiTheme.panel_style(UiTheme.PANEL, UiTheme.LINE, 10))
 	mask.add_child(p)
 	return mask
+
+
+## 弹层里真正放内容的面板（遮罩的第一个子节点，居中）。
+func _body(overlay: Control) -> Control:
+	return overlay.get_child(0)
 
 
 func set_hint(text: String) -> void:

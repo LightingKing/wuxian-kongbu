@@ -111,6 +111,6 @@ static func rich(size: int = 20) -> RichTextLabel:
 static func paint_bg(node: Control) -> void:
 	var bg := ColorRect.new()
 	bg.color = BG
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	node.add_child(bg)
