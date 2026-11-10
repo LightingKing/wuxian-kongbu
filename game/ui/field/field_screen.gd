@@ -3,7 +3,9 @@ extends Control
 ## 像素层 480×256（30×16 格，每格 16 像素），整数放大 4 倍正好铺满顶栏下面的 1920×1024；
 ## 主角（拍板的人）用方向键 / WASD 走，队友跟在后面；对着人按 Enter 说话，对着柜子按 Enter 搜索；
 ## 走进门就去隔壁地点（时间照规则推进）；点地面会自己走过去。
-## 剧情事件不再堆在日志里：台词一句一句出在底部的对话框里（带立绘），选择弹选项窗口，说服弹说服窗口，
+## 画面：有 Codex 画好的整张地图和行走图就用（field_art.gd），没有用占位图块；
+## 每个地点有环境光和灯（data/maps 里的 ambient / lights / glows），黑暗地点只剩主角手里的手电筒；人物脚下有影子。
+## 剧情事件不堆在日志里：台词一句一句打字出在底部的对话框里（左边是立绘），选择弹选项窗口，说服弹说服窗口，
 ## 其他结果在右边飘一条提示；完整记录按 L 看。规则全在 core，这里只调 ExpeditionView。
 ## 对外的 press_* 方法和信号跟旧的地点图界面一样，main.gd 和切片验收不用改。
 
@@ -25,7 +27,15 @@ const PIXEL := Vector2i(480, 256)
 const SCALE := 4
 const TILE := 16
 const STEP_TIME := 0.13
+## 脚底离格子下沿几像素（站在格子中间偏下，看起来踩在地上）。
+const FOOT_LIFT := 2
+## 打字速度：每秒几个字。
+const REVEAL_CPS := 45.0
 const GLASS := Color(0.04, 0.05, 0.08, 0.82)
+const BOX_BG := Color(0.03, 0.04, 0.07, 0.94)
+## 黑暗地点的环境光：几乎全黑，只看得到手电筒照到的地方。
+const DARK_AMBIENT := Color("0b0e16")
+const FACING_ANGLE := {"right": 0.0, "down": PI / 2.0, "left": PI, "up": -PI / 2.0}
 ## 这些结果算"剧情"，放进对话框让玩家看清楚；其余的飘提示。
 const STORY_TYPES: Array[String] = [
 	"erased", "char_died", "tether_warning", "tether_transferred", "tether_released", "side_plot_done",
@@ -42,13 +52,13 @@ const KEYS := {
 	"left": [KEY_LEFT, KEY_A], "right": [KEY_RIGHT, KEY_D], "up": [KEY_UP, KEY_W], "down": [KEY_DOWN, KEY_S],
 }
 
-## 换屏（打完仗回来、关掉对话框）以后还站在原地、已经播过的事件不再播：按远征对象记住。
+## 换屏（打完仗回来、关掉对话框）以后还站在原地、队友还在身后、已经播过的事件不再播：按远征对象记住。
 static var _memory: Dictionary = {}
 ## 只给验收脚本用：台词不进对话框，直接跳到"等玩家做的事"（脚本直接读 core 的结果，不点对话框）。
 static var skip_messages := false
 
 
-## 画地图的一层。
+## 占位图块拼的地图（没有整张画好的地图时用）。墙下面是屋里的画成墙面，有立体感。
 class TileLayer extends Node2D:
 	var fmap: RefCounted
 
@@ -58,7 +68,7 @@ class TileLayer extends Node2D:
 		for y in fmap.size.y:
 			for x in fmap.size.x:
 				var c := Vector2i(x, y)
-				draw_texture(FieldArt.tile(fmap.theme(), fmap.char_at(c)), Vector2(x * TILE, y * TILE))
+				draw_texture(FieldArt.tile(fmap.theme(), fmap.char_at(c), fmap.wall_face(c)), Vector2(x * TILE, y * TILE))
 
 
 var view: RefCounted
@@ -66,9 +76,15 @@ var fmap: RefCounted
 var loc: String = ""
 var viewport: SubViewport
 var display: TextureRect
+var ground: Sprite2D
 var tiles: TileLayer
+var light_root: Node2D
+var glow_layer: CanvasLayer
+var canvas_mod: CanvasModulate
 var actors: Node2D
-var dark: Sprite2D
+var dark: Node2D
+var flash: PointLight2D
+var aura: PointLight2D
 var player: Sprite2D
 var player_id: String = ""
 var followers: Array[Sprite2D] = []
@@ -85,17 +101,25 @@ var path_then: Dictionary = {}
 var messages: Array[Dictionary] = []
 var seen := 0
 var chosen_keywords: Array[String] = []
+var flickers: Array[Dictionary] = []
 var _pending_id := ""
 var _cutscene_sent := ""
 var _ended_sent := false
 var _battle_sent := false
+var _time := 0.0
+var _reveal := 0.0
+var _additive: CanvasItemMaterial
 
+var hud: PanelContainer
 var hud_label: RichTextLabel
+var party: PanelContainer
 var party_label: RichTextLabel
 var box: PanelContainer
 var box_face: TextureRect
+var box_margin: MarginContainer
 var box_name: Label
 var box_text: Label
+var box_more: Label
 var choice_panel: PanelContainer
 var choice_box: VBoxContainer
 var check_panel: PanelContainer
@@ -106,6 +130,9 @@ var item_box: VBoxContainer
 var log_panel: PanelContainer
 var log_label: RichTextLabel
 var hint_label: Label
+var prompt: PanelContainer
+var prompt_label: Label
+var banner: Label
 
 
 func setup(expedition: RefCounted, char_names: Dictionary) -> void:
@@ -117,27 +144,31 @@ func setup(expedition: RefCounted, char_names: Dictionary) -> void:
 	refresh()
 
 
-## 记住现在站哪、播到第几条事件。
+## 记住现在站哪、队友站哪、播到第几条事件。
 func _remember() -> void:
-	_memory[view.ex.get_instance_id()] = {"loc": loc, "cell": cell, "facing": facing, "seen": seen}
+	_memory[view.ex.get_instance_id()] = {"loc": loc, "cell": cell, "facing": facing, "seen": seen, "trail": trail.duplicate()}
 
 
 # ---------------------------------------------------------------- 搭界面
+
+func _style(bg: Color, radius: int, mx: int, my: int) -> StyleBoxFlat:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = bg
+	sb.border_color = UiTheme.LINE
+	sb.set_border_width_all(1)
+	sb.set_corner_radius_all(radius)
+	sb.content_margin_left = mx
+	sb.content_margin_right = mx
+	sb.content_margin_top = my
+	sb.content_margin_bottom = my
+	return sb
+
 
 func _glass(pos: Vector2, size: Vector2) -> PanelContainer:
 	var p := PanelContainer.new()
 	p.position = pos
 	p.size = size
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = GLASS
-	sb.border_color = UiTheme.LINE
-	sb.set_border_width_all(1)
-	sb.set_corner_radius_all(8)
-	sb.content_margin_left = 16
-	sb.content_margin_right = 16
-	sb.content_margin_top = 10
-	sb.content_margin_bottom = 10
-	p.add_theme_stylebox_override("panel", sb)
+	p.add_theme_stylebox_override("panel", _style(GLASS, 8, 16, 10))
 	add_child(p)
 	return p
 
@@ -145,6 +176,9 @@ func _glass(pos: Vector2, size: Vector2) -> PanelContainer:
 func _build() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	UiTheme.paint_bg(self)
+	_additive = CanvasItemMaterial.new()
+	_additive.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	_additive.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
 	viewport = SubViewport.new()
 	viewport.size = PIXEL
 	viewport.disable_3d = true
@@ -153,17 +187,36 @@ func _build() -> void:
 	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	viewport.snap_2d_transforms_to_pixel = true
 	add_child(viewport)
+	ground = Sprite2D.new()
+	ground.centered = false
+	viewport.add_child(ground)
 	tiles = TileLayer.new()
 	viewport.add_child(tiles)
+	light_root = Node2D.new()
+	viewport.add_child(light_root)
 	actors = Node2D.new()
 	actors.y_sort_enabled = true
 	viewport.add_child(actors)
-	dark = Sprite2D.new()
-	dark.texture = FieldArt.flashlight()
-	dark.scale = Vector2(2, 2)
-	dark.z_index = 100
+	dark = Node2D.new()
 	dark.visible = false
 	viewport.add_child(dark)
+	flash = PointLight2D.new()
+	flash.texture = FieldArt.cone_texture()
+	flash.offset = Vector2(FieldArt.LIGHT_SIZE / 2.0, 0)
+	flash.color = Color("fff1c8")
+	flash.energy = 1.35
+	dark.add_child(flash)
+	aura = PointLight2D.new()
+	aura.texture = FieldArt.light_texture()
+	aura.texture_scale = 0.8
+	aura.color = Color("ffe9b8")
+	aura.energy = 0.5
+	dark.add_child(aura)
+	canvas_mod = CanvasModulate.new()
+	viewport.add_child(canvas_mod)
+	glow_layer = CanvasLayer.new()
+	glow_layer.layer = 1
+	viewport.add_child(glow_layer)
 	display = TextureRect.new()
 	display.texture = viewport.get_texture()
 	display.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -172,25 +225,48 @@ func _build() -> void:
 	display.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(display)
 
-	var hud := _glass(Vector2(16, 12), Vector2(820, 118))
+	hud = _glass(Vector2(16, 12), Vector2(560, 0))
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	hud_label = UiTheme.rich(18)
+	hud_label = UiTheme.rich(17)
 	hud_label.bbcode_enabled = true
 	hud_label.scroll_active = false
+	hud_label.fit_content = true
+	hud_label.custom_minimum_size = Vector2(528, 0)
 	hud.add_child(hud_label)
-	var party := _glass(Vector2(1544, 12), Vector2(360, 196))
+	party = _glass(Vector2(1664, 12), Vector2(240, 0))
 	party.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	party_label = UiTheme.rich(16)
+	party_label = UiTheme.rich(15)
 	party_label.bbcode_enabled = true
 	party_label.scroll_active = false
+	party_label.fit_content = true
+	party_label.custom_minimum_size = Vector2(208, 0)
 	party.add_child(party_label)
 
 	toast_box = VBoxContainer.new()
-	toast_box.position = Vector2(1384, 222)
+	toast_box.position = Vector2(1384, 240)
 	toast_box.size = Vector2(520, 400)
 	toast_box.add_theme_constant_override("separation", 6)
 	toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(toast_box)
+
+	banner = UiTheme.label(tr(""), 34, UiTheme.ACCENT2)
+	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	banner.position = Vector2(560, 120)
+	banner.size = Vector2(800, 50)
+	banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.85))
+	banner.add_theme_constant_override("outline_size", 8)
+	banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	banner.modulate.a = 0.0
+	add_child(banner)
+
+	prompt = PanelContainer.new()
+	prompt.add_theme_stylebox_override("panel", _style(GLASS, 6, 10, 4))
+	prompt.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	prompt_label = UiTheme.label(tr(""), 17, UiTheme.TEXT)
+	prompt_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	prompt.add_child(prompt_label)
+	prompt.visible = false
+	add_child(prompt)
 
 	hint_label = UiTheme.label(tr("方向键 / WASD 走动 · Enter 说话、调查 · 点地面自动走过去 · L 记录 · Esc 菜单"), 16, UiTheme.MUTED)
 	hint_label.position = Vector2(20, 990)
@@ -215,25 +291,36 @@ func _build() -> void:
 	item_box.visible = false
 	add_child(item_box)
 
-	box = _glass(Vector2(140, 742), Vector2(1640, 262))
-	var row := HBoxContainer.new()
-	row.add_theme_constant_override("separation", 18)
-	box.add_child(row)
+	# 对话框：底部整条；有立绘时立绘站在左边、下半身藏在对话框后面（视觉小说的摆法）。
 	box_face = TextureRect.new()
-	box_face.custom_minimum_size = Vector2(160, 240)
+	box_face.position = Vector2(64, 236)
+	box_face.size = Vector2(480, 720)
 	box_face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	box_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	row.add_child(box_face)
+	box_face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box_face.visible = false
+	add_child(box_face)
+	box = PanelContainer.new()
+	box.position = Vector2(40, 784)
+	box.size = Vector2(1840, 228)
+	var bsb := _style(BOX_BG, 12, 28, 18)
+	bsb.border_color = Color("3a4a78")
+	bsb.set_border_width_all(2)
+	box.add_theme_stylebox_override("panel", bsb)
+	add_child(box)
+	box_margin = MarginContainer.new()
+	box.add_child(box_margin)
 	var col := VBoxContainer.new()
-	col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	col.add_theme_constant_override("separation", 8)
-	row.add_child(col)
-	box_name = UiTheme.label(tr(""), 24, UiTheme.ACCENT2)
+	col.add_theme_constant_override("separation", 6)
+	box_margin.add_child(col)
+	box_name = UiTheme.label(tr(""), 26, UiTheme.ACCENT2)
 	col.add_child(box_name)
-	box_text = UiTheme.label(tr(""), 24)
+	box_text = UiTheme.label(tr(""), 26)
 	box_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	col.add_child(box_text)
-	col.add_child(UiTheme.label(tr("Enter / 空格 / 点击 继续 ▼"), 15, UiTheme.MUTED))
+	box_more = UiTheme.label(tr("▼"), 18, UiTheme.MUTED)
+	box_more.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	col.add_child(box_more)
 	box.gui_input.connect(_on_box_input)
 	box.visible = false
 
@@ -255,15 +342,22 @@ func _build() -> void:
 	log_panel.visible = false
 
 
-# ---------------------------------------------------------------- 进地点、摆人
+# ---------------------------------------------------------------- 进地点、摆人、打光
 
-## 进入（或刷新）一个地点：读图、摆主角、队友、剧情人物。from_loc 是从哪个地点走来的；mem 是换屏前记住的位置。
+## 进入（或刷新）一个地点：读图、打光、摆剧情人物、主角和队友。from_loc 是从哪个地点走来的；mem 是换屏前记住的位置。
 func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
+	var first_time := loc != new_loc
 	loc = new_loc
 	fmap = FieldMap.make(MAPS, loc)
+	var painted := FieldArt.map_image(loc)
+	ground.texture = painted
+	ground.visible = painted != null
+	tiles.visible = painted == null
 	tiles.fmap = fmap
 	tiles.queue_redraw()
-	if String(mem.get("loc", "")) == loc and fmap.walkable(mem["cell"]):
+	_build_lights()
+	var restored: bool = String(mem.get("loc", "")) == loc and fmap.walkable(mem["cell"])
+	if restored:
 		cell = mem["cell"]
 		facing = String(mem.get("facing", "down"))
 	elif from_loc != "":
@@ -271,7 +365,12 @@ func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 		facing = _facing_from(from_loc)
 	else:
 		cell = fmap.start_cell()
-	trail.clear()
+		# 开场点（车厢）面朝第一扇门；没有开场点时站在第一扇门里面，面朝屋里。
+		for dest: String in fmap.data.get("doors", {}):
+			var doors: Array[Vector2i] = fmap.door_cells(dest)
+			if not doors.is_empty():
+				facing = _dir_between(cell, doors[0]) if fmap.data.has("start") else _facing_from(dest)
+			break
 	path_queue.clear()
 	for c in actors.get_children():
 		actors.remove_child(c)
@@ -280,17 +379,64 @@ func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 	follower_ids.clear()
 	npc_sprites.clear()
 	npc_cells.clear()
+	_place_npcs()
 	var squad: Array[String] = _squad()
 	player_id = squad[0] if not squad.is_empty() else ""
 	player = _walker(player_id)
 	for i in range(1, squad.size()):
 		follower_ids.append(squad[i])
 		followers.append(_walker(squad[i]))
-	for i in squad.size():
-		trail.append(cell)
-	_place_npcs()
+	var old: Array = mem.get("trail", []) if restored else []
+	trail = _initial_trail(cell, squad.size(), old)
 	_draw_actors()
 	_remember()
+	if first_time and not restored:
+		_show_banner(String(view.names.get(loc, loc)))
+
+
+## 队友站的位置：换屏回来按记住的；否则站在主角身后（走得到的格子里，越靠主角正后方越优先；
+## 身后没地方就站两边，不站到主角正前方；避开墙、门和剧情人物）。
+## 第一步时各自挪到前一个人原来的位置，之后就排成一路跟着走。
+func _initial_trail(start: Vector2i, count: int, old: Array) -> Array[Vector2i]:
+	var out: Array[Vector2i] = []
+	if old.size() == count and not old.is_empty() and Vector2i(old[0]) == start:
+		for c in old:
+			out.append(Vector2i(c))
+		return out
+	out.append(start)
+	var blocked := _blocked()
+	var back: Vector2i = -FieldMap.DIRS[facing]
+	var side := Vector2i(back.y, back.x)
+	var dist := {start: 0}
+	var queue: Array[Vector2i] = [start]
+	var cands: Array[Vector2i] = []
+	while not queue.is_empty():
+		var c: Vector2i = queue.pop_front()
+		if int(dist[c]) >= 5:
+			continue
+		for d: Vector2i in FieldMap.DIRS.values():
+			var n: Vector2i = c + d
+			if dist.has(n) or not fmap.walkable(n) or fmap.is_door(n) or blocked.has(n):
+				continue
+			dist[n] = int(dist[c]) + 1
+			queue.append(n)
+			cands.append(n)
+	var score := func(c: Vector2i) -> float:
+		var off := c - start
+		var along := off.x * back.x + off.y * back.y
+		var across := absi(off.x * side.x + off.y * side.y)
+		var s := across * 2.5 + (float(along) if along > 0 else 4.0 - along * 3.0)
+		if along < 0 and across == 0:
+			s += 4.0
+		return s + c.y * 0.001 + c.x * 0.00001
+	cands.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: return score.call(a) < score.call(b))
+	for c in cands:
+		if out.size() >= count:
+			break
+		out.append(c)
+	while out.size() < count:
+		out.append(start)
+	return out
 
 
 ## 进门后面朝屋里。
@@ -318,16 +464,58 @@ func _squad() -> Array[String]:
 	return out
 
 
+## 一个行走小人：脚底中点对齐格子，脚下有影子。
 func _walker(key: String) -> Sprite2D:
 	var s := Sprite2D.new()
 	s.centered = false
+	var size := FieldArt.walker_size(key)
+	s.offset = Vector2(-floorf(size.x / 2.0), -size.y)
 	s.texture = FieldArt.walker(key, "down", 0)
 	s.set_meta("key", key)
+	var sh := Sprite2D.new()
+	sh.texture = FieldArt.shadow_texture()
+	sh.show_behind_parent = true
+	s.add_child(sh)
 	actors.add_child(s)
 	return s
 
 
-## 这个地点上活着的剧情人物，按地图的站位摆。火焰女皇是全息投影，半透明。
+## 这个地点的灯和自发光光晕（光晕在环境光管不到的那一层，黑暗里也亮）。
+func _build_lights() -> void:
+	for holder: Node in [light_root, glow_layer]:
+		for c in holder.get_children():
+			holder.remove_child(c)
+			c.queue_free()
+	flickers.clear()
+	var k := 0
+	for l: Dictionary in fmap.lights():
+		var p := _light(Color(String(l.get("color", "#ffffff"))), float(l.get("radius", 4.0)), float(l.get("energy", 1.0)))
+		p.position = _center(Vector2i(int(l["at"][0]), int(l["at"][1])))
+		light_root.add_child(p)
+		if bool(l.get("flicker", false)):
+			flickers.append({"node": p, "base": p.energy, "phase": 1.7 * k})
+		k += 1
+	for g: Dictionary in fmap.glows():
+		var s := Sprite2D.new()
+		s.texture = FieldArt.light_texture()
+		s.material = _additive
+		s.modulate = Color(String(g.get("color", "#ffffff")))
+		s.scale = Vector2.ONE * float(g.get("radius", 1.0)) * TILE * 2.0 / FieldArt.LIGHT_SIZE
+		s.position = _center(Vector2i(int(g["at"][0]), int(g["at"][1])))
+		glow_layer.add_child(s)
+
+
+## 一盏点光：radius 是格数。
+func _light(color: Color, radius: float, energy: float) -> PointLight2D:
+	var p := PointLight2D.new()
+	p.texture = FieldArt.light_texture()
+	p.texture_scale = radius * TILE * 2.0 / FieldArt.LIGHT_SIZE
+	p.color = color
+	p.energy = energy
+	return p
+
+
+## 这个地点上活着的剧情人物，按地图的站位摆。火焰女皇是全息投影：半透明、发红光、没有影子。
 func _place_npcs() -> void:
 	var i := 0
 	for npc_id: String in view.ex.st.npcs:
@@ -339,7 +527,12 @@ func _place_npcs() -> void:
 			i += 1
 		var s := _walker(npc_id)
 		if npc_id == "red_queen":
-			s.modulate = Color(1.0, 0.45, 0.45, 0.7)
+			s.modulate = Color(1.0, 0.45, 0.45, 0.72)
+			s.get_child(0).visible = false
+			var glow := _light(Color("ff5a5a"), 3.5, 0.9)
+			glow.position = Vector2(0, -10)
+			s.add_child(glow)
+			flickers.append({"node": glow, "base": glow.energy, "phase": 0.4})
 		npc_sprites[npc_id] = s
 		npc_cells[npc_id] = c
 
@@ -352,12 +545,22 @@ func _sync_npcs() -> void:
 		s.queue_free()
 	npc_sprites.clear()
 	npc_cells.clear()
+	var kept: Array[Dictionary] = []
+	for f: Dictionary in flickers:
+		if is_instance_valid(f["node"]) and (f["node"] as Node).get_parent() == light_root:
+			kept.append(f)
+	flickers = kept
 	_place_npcs()
 	_draw_actors()
 
 
+## 格子的脚底中点（行走小人的位置）。
 func _pixel(c: Vector2i) -> Vector2:
-	return Vector2(c.x * TILE, c.y * TILE - (FieldArt.WALK_H - TILE))
+	return Vector2(c.x * TILE + TILE / 2.0, c.y * TILE + TILE - FOOT_LIFT)
+
+
+func _center(c: Vector2i) -> Vector2:
+	return Vector2(c.x * TILE + TILE / 2.0, c.y * TILE + TILE / 2.0)
 
 
 func _draw_actors() -> void:
@@ -374,7 +577,8 @@ func _draw_actors() -> void:
 		var c: Vector2i = npc_cells[id]
 		s.position = _pixel(c)
 		s.texture = FieldArt.walker(id, _dir_between(c, cell), 0)
-	_update_dark()
+	_update_lighting()
+	_update_prompt()
 
 
 func _dir_between(a: Vector2i, b: Vector2i) -> String:
@@ -386,11 +590,32 @@ func _dir_between(a: Vector2i, b: Vector2i) -> String:
 	return "down"
 
 
-func _update_dark() -> void:
+## 环境光：黑暗地点几乎全黑、打开手电筒；其余按地图的环境光。
+func _update_lighting() -> void:
 	var w: Dictionary = view.watch()
-	dark.visible = bool(w["dark"])
-	if player != null:
-		dark.position = player.position + Vector2(TILE / 2.0, FieldArt.WALK_H - 6)
+	var is_dark := bool(w["dark"])
+	dark.visible = is_dark
+	canvas_mod.color = DARK_AMBIENT if is_dark else fmap.ambient()
+	_follow_flashlight()
+
+
+func _follow_flashlight() -> void:
+	if player == null:
+		return
+	dark.position = player.position + Vector2(0, -8)
+	flash.rotation = float(FACING_ANGLE.get(facing, PI / 2.0))
+
+
+## 进新地点时屏幕上方淡入淡出一下地名。
+func _show_banner(text: String) -> void:
+	banner.text = text
+	if not is_inside_tree():
+		return
+	banner.modulate.a = 0.0
+	var tw := create_tween()
+	tw.tween_property(banner, "modulate:a", 1.0, 0.35)
+	tw.tween_interval(1.4)
+	tw.tween_property(banner, "modulate:a", 0.0, 0.6)
 
 
 # ---------------------------------------------------------------- 刷新：事件 → 对话框、提示、窗口
@@ -405,6 +630,7 @@ func refresh() -> void:
 	_update_hud()
 	if not box.visible:
 		_show_next()
+	_update_prompt()
 	_remember()
 
 
@@ -439,14 +665,7 @@ func _toast(text: String) -> void:
 	var l := UiTheme.label(text, 17, UiTheme.TEXT)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var p := PanelContainer.new()
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = GLASS
-	sb.set_corner_radius_all(6)
-	sb.content_margin_left = 10
-	sb.content_margin_right = 10
-	sb.content_margin_top = 6
-	sb.content_margin_bottom = 6
-	p.add_theme_stylebox_override("panel", sb)
+	p.add_theme_stylebox_override("panel", _style(GLASS, 6, 10, 6))
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.add_child(l)
 	toast_box.add_child(p)
@@ -455,17 +674,18 @@ func _toast(text: String) -> void:
 		toast_box.remove_child(old)
 		old.queue_free()
 	if is_inside_tree():
-		get_tree().create_timer(5.0).timeout.connect(func() -> void:
-			if is_instance_valid(p):
-				p.queue_free())
+		var tw := p.create_tween()
+		tw.tween_interval(4.2)
+		tw.tween_property(p, "modulate:a", 0.0, 0.8)
+		tw.tween_callback(p.queue_free)
 
 
-## 对话框里放下一句；没有了就处理等着玩家的事（插图、选择、说服、战斗、结束）。
+## 对话框里放下一句（一个字一个字打出来）；没有了就处理等着玩家的事（插图、选择、说服、战斗、结束）。
 ## 有插图要播时先播插图（剧本里插图总是那件事的第一个效果），播完（press_cutscene_done）再接着出台词。
 func _show_next() -> void:
 	var p: Dictionary = view.pending()
 	if String(p.get("kind", "")) == "cutscene":
-		box.visible = false
+		_hide_box()
 		action_bar.visible = false
 		var n := String(p["name"])
 		if n != _cutscene_sent:
@@ -475,7 +695,7 @@ func _show_next() -> void:
 	if skip_messages:
 		messages.clear()
 	if messages.is_empty():
-		box.visible = false
+		_hide_box()
 		hint_label.visible = true
 		_after_messages()
 		return
@@ -483,13 +703,31 @@ func _show_next() -> void:
 	box.visible = true
 	action_bar.visible = false
 	hint_label.visible = false
+	prompt.visible = false
 	choice_panel.visible = false
 	check_panel.visible = false
 	var id := String(m["id"])
 	box_name.text = String(m["name"]) if String(m["name"]) != "" else tr("——")
 	box_text.text = String(m["text"])
-	box_face.texture = PortraitSource.portrait(id) if id != "" and id != "narrator" else null
-	box_face.visible = box_face.texture != null
+	_reveal = 0.0
+	box_text.visible_characters = 0 if is_inside_tree() else -1
+	var has_face := id != "" and id != "narrator" and PortraitSource.has_portrait(id)
+	box_face.texture = PortraitSource.portrait(id) if has_face else null
+	box_face.visible = has_face
+	box_margin.add_theme_constant_override("margin_left", 500 if has_face else 0)
+
+
+func _hide_box() -> void:
+	box.visible = false
+	box_face.visible = false
+
+
+## 确认键 / 点击：字还没打完就一下子显示完，打完了就下一句。
+func _advance() -> void:
+	if box_text.visible_characters >= 0:
+		box_text.visible_characters = -1
+		return
+	_show_next()
 
 
 func _after_messages() -> void:
@@ -597,12 +835,16 @@ func _clear(c: Control) -> void:
 		n.queue_free()
 
 
+## 左上角：地点、时间、任务；右上角：队伍。都按内容收紧大小。
 func _update_hud() -> void:
 	var w: Dictionary = view.watch()
 	var left := int(w["remaining_minutes"])
 	var lines: Array[String] = []
-	lines.append("[color=#e8a33d]%s[/color]　第 %d 分钟 · 剩余 %d:%02d · 击杀 %d（%.1f 点）" % [String(view.names.get(loc, loc)), int(view.ex.st.clock), left / 60, left % 60, int(w["kills"]), float(w["kill_points"])])
-	lines.append(String(w["main_task"]))
+	var top := "[color=#e8a33d][font_size=20]%s[/font_size][/color]　第 %d 分钟 · 剩余 [color=#e8a33d]%d:%02d[/color]" % [String(view.names.get(loc, loc)), int(view.ex.st.clock), left / 60, left % 60]
+	if int(w["kills"]) > 0:
+		top += " · 击杀 %d（%.1f 点）" % [int(w["kills"]), float(w["kill_points"])]
+	lines.append(top)
+	lines.append("[color=#aab2c0]%s[/color]" % String(w["main_task"]))
 	var extra: Array[String] = []
 	if String(w["tether"]) != "":
 		extra.append("绑定：" + String(w["tether"]))
@@ -611,13 +853,27 @@ func _update_hud() -> void:
 	if bool(w["dark"]):
 		extra.append("[color=#d8534f]全黑，恐惧持续上升[/color]")
 	if not extra.is_empty():
-		lines.append(" · ".join(extra))
+		lines.append("[color=#aab2c0]%s[/color]" % " · ".join(extra))
 	hud_label.text = "\n".join(lines)
 	var plines: Array[String] = []
 	for m: Dictionary in view.members():
-		var color := "#e6e9ef" if bool(m["alive"]) else "#5a6270"
-		plines.append("[color=%s]%s  %d/%d  恐惧 %d%s[/color]" % [color, String(m["name"]), int(m["hp"]), int(m["hp_max"]), int(m["fear"]), "  感染" if bool(m["infected"]) else ""])
+		if not bool(m["alive"]):
+			plines.append("[color=#5a6270]%s　阵亡[/color]" % String(m["name"]))
+			continue
+		var hp_ratio := float(m["hp"]) / maxf(1.0, float(m["hp_max"]))
+		var hp_color := "#7fd08a" if hp_ratio > 0.6 else ("#e8a33d" if hp_ratio > 0.3 else "#d8534f")
+		var fear := int(m["fear"])
+		var fear_text := "　[color=#b48ad8]恐惧 %d[/color]" % fear if fear > 0 else ""
+		plines.append("%s　[color=%s]%d/%d[/color]%s%s" % [String(m["name"]), hp_color, int(m["hp"]), int(m["hp_max"]), fear_text, "　[color=#d8534f]感染[/color]" if bool(m["infected"]) else ""])
 	party_label.text = "\n".join(plines)
+	if is_inside_tree():
+		_fit_panels.call_deferred()
+
+
+func _fit_panels() -> void:
+	hud.reset_size()
+	party.reset_size()
+	party.position.x = 1904 - party.size.x
 
 
 # ---------------------------------------------------------------- 输入与走动
@@ -635,8 +891,11 @@ func busy() -> bool:
 	return false
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	_time += delta
+	_animate(delta)
 	if moving or busy():
+		prompt.visible = false
 		return
 	if not path_queue.is_empty():
 		var next: Vector2i = path_queue.pop_front()
@@ -655,13 +914,35 @@ func _process(_delta: float) -> void:
 			if Input.is_physical_key_pressed(k):
 				step(d)
 				return
+	_update_prompt()
+
+
+## 每帧的小动画：打字、灯闪、手电筒跟着人、对话框的继续箭头。
+func _animate(delta: float) -> void:
+	if box.visible and box_text.visible_characters >= 0:
+		_reveal += delta * REVEAL_CPS
+		box_text.visible_characters = int(_reveal)
+		if box_text.visible_characters >= box_text.text.length():
+			box_text.visible_characters = -1
+	box_more.modulate.a = 0.0 if box_text.visible_characters >= 0 else 0.55 + 0.45 * sin(_time * 5.0)
+	for f: Dictionary in flickers:
+		var node: PointLight2D = f["node"]
+		if not is_instance_valid(node):
+			continue
+		var ph: float = f["phase"]
+		var e: float = float(f["base"]) * (0.88 + 0.12 * sin(_time * 11.0 + ph) * sin(_time * 4.3 + ph * 2.0))
+		if fmod(_time + ph, 5.0) < 0.14:
+			e *= 0.3
+		node.energy = e
+	if dark.visible:
+		_follow_flashlight()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	var k := event as InputEventKey
 	if k != null and k.pressed and not k.echo:
 		if box.visible and (k.keycode == KEY_ENTER or k.keycode == KEY_KP_ENTER or k.keycode == KEY_SPACE or k.keycode == KEY_Z):
-			_show_next()
+			_advance()
 			accept_event()
 			return
 		if choice_panel.visible:
@@ -687,7 +968,7 @@ func _gui_input(event: InputEvent) -> void:
 	if mb == null or not mb.pressed or mb.button_index != MOUSE_BUTTON_LEFT:
 		return
 	if box.visible:
-		_show_next()
+		_advance()
 	elif not busy():
 		click_cell(Vector2i(floori(mb.position.x / (TILE * SCALE)), floori(mb.position.y / (TILE * SCALE))))
 	accept_event()
@@ -696,8 +977,46 @@ func _gui_input(event: InputEvent) -> void:
 func _on_box_input(event: InputEvent) -> void:
 	var mb := event as InputEventMouseButton
 	if mb != null and mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
-		_show_next()
+		_advance()
 		accept_event()
+
+
+## 面前一格能做什么：调查柜子、跟谁说话、去哪个地点；什么都没有返回空字符串。
+func prompt_text() -> String:
+	var t: Vector2i = cell + FieldMap.DIRS[facing]
+	if fmap.is_search(t):
+		return tr("Enter 调查（搜过了）") if view.ex.st.searched.has(loc) else tr("Enter 调查")
+	for id: String in npc_cells:
+		if npc_cells[id] == t and _can_talk(id):
+			return tr("Enter 说话：%s") % String(view.names.get(id, id))
+	for i in follower_ids.size():
+		if trail[mini(i + 1, trail.size() - 1)] == t and _can_talk(follower_ids[i]):
+			return tr("Enter 说话：%s") % String(view.names.get(follower_ids[i], follower_ids[i]))
+	if fmap.is_door(t):
+		var dest: String = fmap.door_dest(t)
+		return tr("前往：%s") % String(view.names.get(dest, dest))
+	return ""
+
+
+func _can_talk(id: String) -> bool:
+	for t: Dictionary in view.talk_targets():
+		if String(t["id"]) == id:
+			return true
+	return false
+
+
+## 面前有能互动的东西时，在它头顶上提示一下。
+func _update_prompt() -> void:
+	var text := prompt_text() if fmap != null else ""
+	if text == "" or moving or busy():
+		prompt.visible = false
+		return
+	prompt_label.text = text
+	prompt.reset_size()
+	var t: Vector2i = cell + FieldMap.DIRS[facing]
+	var at := Vector2((t.x * TILE + TILE / 2.0) * SCALE, (t.y * TILE - 14) * SCALE)
+	prompt.position = Vector2(clampf(at.x - prompt.size.x / 2.0, 8.0, 1912.0 - prompt.size.x), clampf(at.y - prompt.size.y, 8.0, 960.0))
+	prompt.visible = true
 
 
 ## 别人占着的格子（剧情人物）。队友不挡路。
@@ -728,6 +1047,7 @@ func step(d: String) -> void:
 		_draw_actors()
 		return
 	moving = true
+	prompt.visible = false
 	var tw := create_tween().set_parallel(true)
 	player.texture = FieldArt.walker(player_id, facing, walk_frame)
 	tw.tween_property(player, "position", _pixel(cell), STEP_TIME)
@@ -849,7 +1169,7 @@ func _toggle_items() -> void:
 ## 把还没看的台词直接跳过（脚本和测试用；玩家是一句句点过去的）。
 func flush_messages() -> void:
 	messages.clear()
-	box.visible = false
+	_hide_box()
 
 
 func press_move(loc_id: String) -> bool:
@@ -905,11 +1225,10 @@ func press_persuade_free() -> bool:
 
 
 func press_talk(npc_id: String) -> bool:
-	for t: Dictionary in view.talk_targets():
-		if String(t["id"]) == npc_id:
-			talk_requested.emit(npc_id)
-			return true
-	return false
+	if not _can_talk(npc_id):
+		return false
+	talk_requested.emit(npc_id)
+	return true
 
 
 func press_rest(minutes: int) -> void:

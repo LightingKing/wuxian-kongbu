@@ -9,6 +9,17 @@
 			"doors": {"hall": "right"},
 			"start": [3, 7],
 			"npc_spots": [[8, 5], [12, 5], [16, 5], [20, 5], [8, 9], [12, 9], [16, 9], [20, 9]],
+			"ambient": "#a3abbd",
+			"lights": [
+				{"at": [5, 7], "color": "#eef3ff", "radius": 6.0, "energy": 0.45},
+				{"at": [12, 7], "color": "#eef3ff", "radius": 6.0, "energy": 0.45},
+				{"at": [19, 7], "color": "#eef3ff", "radius": 6.0, "energy": 0.45, "flicker": true},
+				{"at": [26, 7], "color": "#eef3ff", "radius": 6.0, "energy": 0.45}
+			],
+			"glows": [
+				{"at": [28, 6], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [28, 9], "color": "#7fd0ff88", "radius": 0.8}
+			],
 			"rows": [
 				"##############################",
 				"##############################",
@@ -32,6 +43,14 @@
 			"theme": "hall",
 			"doors": {"stairs": "top", "car": "left", "sewer": "bottom"},
 			"npc_spots": [[10, 5], [12, 5], [14, 5], [16, 5], [18, 5], [11, 9], [17, 9], [14, 10]],
+			"ambient": "#7a7264",
+			"lights": [
+				{"at": [8, 4], "color": "#ffd49a", "radius": 7.0, "energy": 0.85},
+				{"at": [21, 4], "color": "#ffd49a", "radius": 7.0, "energy": 0.85},
+				{"at": [8, 11], "color": "#ffd49a", "radius": 7.0, "energy": 0.85},
+				{"at": [21, 11], "color": "#ffd49a", "radius": 7.0, "energy": 0.85, "flicker": true}
+			],
+			"glows": [],
 			"rows": [
 				"##############DD##############",
 				"#............................#",
@@ -55,6 +74,15 @@
 			"theme": "stairs",
 			"doors": {"laser": "top", "hall": "bottom"},
 			"npc_spots": [[11, 3], [13, 3], [15, 3], [17, 3], [12, 6], [14, 6], [16, 6], [18, 6]],
+			"ambient": "#2a3040",
+			"lights": [
+				{"at": [10, 2], "color": "#ff4a3a", "radius": 4.0, "energy": 0.8, "flicker": true},
+				{"at": [19, 12], "color": "#ff4a3a", "radius": 3.0, "energy": 0.5}
+			],
+			"glows": [
+				{"at": [10, 2], "color": "#ff4a3a99", "radius": 1.0},
+				{"at": [19, 12], "color": "#ff4a3a77", "radius": 0.8}
+			],
 			"rows": [
 				"##############DD##############",
 				"#########............#########",
@@ -78,6 +106,26 @@
 			"theme": "laser",
 			"doors": {"stairs": "left", "control": "right"},
 			"npc_spots": [[24, 6], [22, 6], [24, 9], [22, 9], [20, 6], [20, 9], [26, 6], [26, 9]],
+			"ambient": "#c4cad2",
+			"lights": [
+				{"at": [7, 7], "color": "#f2f6ff", "radius": 7.0, "energy": 0.28},
+				{"at": [15, 7], "color": "#f2f6ff", "radius": 7.0, "energy": 0.28},
+				{"at": [23, 7], "color": "#f2f6ff", "radius": 7.0, "energy": 0.28}
+			],
+			"glows": [
+				{"at": [2, 4], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [7, 4], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [12, 4], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [17, 4], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [22, 4], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [27, 4], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [2, 11], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [7, 11], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [12, 11], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [17, 11], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [22, 11], "color": "#ff3b3bbb", "radius": 1.1},
+				{"at": [27, 11], "color": "#ff3b3bbb", "radius": 1.1}
+			],
 			"rows": [
 				"##############################",
 				"##############################",
@@ -102,6 +150,27 @@
 			"doors": {"laser": "left", "corridor": "right"},
 			"npc_fixed": {"red_queen": [14, 7]},
 			"npc_spots": [[8, 3], [10, 3], [12, 3], [17, 3], [19, 3], [8, 11], [10, 11], [19, 11]],
+			"ambient": "#3c4a68",
+			"lights": [
+				{"at": [6, 4], "color": "#7fd0ff", "radius": 4.0, "energy": 0.6},
+				{"at": [21, 4], "color": "#7fd0ff", "radius": 4.0, "energy": 0.6},
+				{"at": [6, 10], "color": "#7fd0ff", "radius": 4.0, "energy": 0.6},
+				{"at": [21, 10], "color": "#7fd0ff", "radius": 4.0, "energy": 0.6}
+			],
+			"glows": [
+				{"at": [3, 1], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [7, 1], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [11, 1], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [16, 1], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [20, 1], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [24, 1], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [3, 14], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [7, 14], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [11, 14], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [16, 14], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [20, 14], "color": "#7fd0ff88", "radius": 0.8},
+				{"at": [24, 14], "color": "#7fd0ff88", "radius": 0.8}
+			],
 			"rows": [
 				"##############################",
 				"#o.o.o.o.o.o..o.o.o.o.o.o.o.o#",
@@ -125,6 +194,15 @@
 			"theme": "corridor",
 			"doors": {"control": "left", "freezer": "right", "sewer": "bottom"},
 			"npc_spots": [[6, 6], [9, 6], [12, 6], [15, 6], [18, 6], [21, 6], [6, 9], [9, 9]],
+			"ambient": "#56645e",
+			"lights": [
+				{"at": [5, 7], "color": "#e6ffe9", "radius": 5.0, "energy": 0.8},
+				{"at": [12, 7], "color": "#e6ffe9", "radius": 5.0, "energy": 0.8, "flicker": true},
+				{"at": [19, 7], "color": "#e6ffe9", "radius": 5.0, "energy": 0.8},
+				{"at": [26, 7], "color": "#e6ffe9", "radius": 5.0, "energy": 0.8},
+				{"at": [15, 12], "color": "#e6ffe9", "radius": 3.0, "energy": 0.5}
+			],
+			"glows": [],
 			"rows": [
 				"##############################",
 				"##############################",
@@ -148,6 +226,19 @@
 			"theme": "freezer",
 			"doors": {"corridor": "left"},
 			"npc_spots": [[10, 5], [14, 5], [18, 5], [22, 5], [10, 10], [14, 10], [18, 10], [22, 10]],
+			"ambient": "#203040",
+			"lights": [
+				{"at": [8, 3], "color": "#a8eaff", "radius": 3.0, "energy": 0.45},
+				{"at": [18, 3], "color": "#a8eaff", "radius": 3.0, "energy": 0.45},
+				{"at": [8, 12], "color": "#a8eaff", "radius": 3.0, "energy": 0.4, "flicker": true}
+			],
+			"glows": [
+				{"at": [3, 2], "color": "#a8eaff66", "radius": 0.9},
+				{"at": [8, 2], "color": "#a8eaff66", "radius": 0.9},
+				{"at": [13, 2], "color": "#a8eaff66", "radius": 0.9},
+				{"at": [18, 2], "color": "#a8eaff66", "radius": 0.9},
+				{"at": [23, 2], "color": "#a8eaff66", "radius": 0.9}
+			],
 			"rows": [
 				"##############################",
 				"##############################",
@@ -171,6 +262,11 @@
 			"theme": "sewer",
 			"doors": {"hall": "left", "corridor": "right"},
 			"npc_spots": [[8, 5], [11, 5], [14, 5], [17, 5], [20, 5], [8, 10], [11, 10], [14, 10]],
+			"ambient": "#182024",
+			"lights": [
+				{"at": [14, 5], "color": "#9ab89a", "radius": 3.5, "energy": 0.4, "flicker": true}
+			],
+			"glows": [],
 			"rows": [
 				"##############################",
 				"##############################",

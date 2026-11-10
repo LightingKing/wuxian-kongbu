@@ -2,7 +2,9 @@ extends RefCounted
 ## 一个地点的可行走地图（RPG 式探索，设计规格 5.1、11）。数据在 data/maps/<剧本>.json：
 ##   每张图 30×16 格，rows 是一行一个字符串；图例：# 墙　. = 地面　~ 浅水　o x 家具设备　S 可搜索的柜子　D 门；
 ##   doors：隔壁地点 → 门在哪条边（left / right / top / bottom）；start：开场站的格子；
-##   npc_fixed：某个剧情人物固定站的格子；npc_spots：其余剧情人物按顺序站的格子。
+##   npc_fixed：某个剧情人物固定站的格子；npc_spots：其余剧情人物按顺序站的格子；
+##   ambient：环境光颜色（压暗整个画面）；lights：灯 [{at, color, radius（格）, energy, flicker}]；
+##   glows：自发光的小光晕（激光发射器、屏幕、指示灯），不照亮别的东西 [{at, color, radius}]。
 ## 这里只管格子：能不能走、门通向哪、从哪个门进来站哪、寻路。走动、画面在 field_screen.gd。
 
 const DataLoader = preload("res://core/util/data_loader.gd")
@@ -10,6 +12,8 @@ const DataLoader = preload("res://core/util/data_loader.gd")
 const DIRS := {"left": Vector2i(-1, 0), "right": Vector2i(1, 0), "up": Vector2i(0, -1), "down": Vector2i(0, 1)}
 const WALKABLE := ".=~D"
 const SIDE_IN := {"left": Vector2i(1, 0), "right": Vector2i(-1, 0), "top": Vector2i(0, 1), "bottom": Vector2i(0, -1)}
+## 一张图最多几盏灯：兼容渲染器里一个物体最多受 8 盏灯影响，要给手电筒（两盏）和火焰女皇的投影留位置。
+const MAX_LIGHTS := 5
 
 static var _cache: Dictionary = {}
 
@@ -65,6 +69,25 @@ func is_door(c: Vector2i) -> bool:
 
 func is_search(c: Vector2i) -> bool:
 	return char_at(c) == "S"
+
+
+## 墙的正面：这格是墙、下面一格不是墙（站在屋里看得到这面墙的高度）。
+func wall_face(c: Vector2i) -> bool:
+	var below := c + Vector2i(0, 1)
+	return char_at(c) == "#" and inside(below) and char_at(below) != "#"
+
+
+## 环境光颜色（没写就是不压暗）。
+func ambient() -> Color:
+	return Color(String(data.get("ambient", "#ffffff")))
+
+
+func lights() -> Array:
+	return data.get("lights", [])
+
+
+func glows() -> Array:
+	return data.get("glows", [])
 
 
 ## 门在哪条边。
@@ -224,6 +247,17 @@ static func validate(path_json: String, scenario: RefCounted) -> Array[String]:
 		for npc_id: String in m.data.get("npc_fixed", {}):
 			if not m.walkable(m.npc_cell(npc_id, 0)):
 				errors.append("%s 的 %s 站位不能走" % [loc_id, npc_id])
+		if m.data.has("ambient") and not Color.html_is_valid(String(m.data["ambient"])):
+			errors.append("%s 的环境光颜色写错了" % loc_id)
+		if m.lights().size() > MAX_LIGHTS:
+			errors.append("%s 的灯超过 %d 盏" % [loc_id, MAX_LIGHTS])
+		for key: String in ["lights", "glows"]:
+			for l: Dictionary in m.data.get(key, []):
+				var at := Vector2i(int(l["at"][0]), int(l["at"][1]))
+				if not m.inside(at):
+					errors.append("%s 的 %s 位置 %s 在图外" % [loc_id, key, at])
+				if not Color.html_is_valid(String(l.get("color", "#ffffff"))):
+					errors.append("%s 的 %s 颜色写错了" % [loc_id, key])
 	for loc_id: String in all["maps"]:
 		if not (scenario.data["locations"] as Dictionary).has(loc_id):
 			errors.append("地图 %s 不是剧本里的地点" % loc_id)
