@@ -9,6 +9,7 @@ extends SceneTree
 ## 上次中途崩了留下的备份，开头会先放回去再备份，不会被覆盖。
 
 const Slots = preload("res://core/save/slots.gd")
+const FieldScreen = preload("res://ui/field/field_screen.gd")
 const PortraitSource = preload("res://ui/art/portrait_source.gd")
 
 var failures := 0
@@ -25,6 +26,8 @@ func _run() -> void:
 	# 先把玩家的存档挪开，截图和断言才干净；_finish 再放回去。
 	_restore_slots()
 	_stash_slots()
+	# 地点场景里的台词要一句句点过去；脚本直接读 core 的结果，所以跳过对话框（对话框本身由 test_field 和截图核查覆盖）。
+	FieldScreen.skip_messages = true
 	root.size = Vector2i(1920, 1080)
 	var packed := load("res://ui/main.tscn") as PackedScene
 	_expect(packed != null, "主场景可以加载")

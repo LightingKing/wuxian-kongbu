@@ -5,7 +5,7 @@ extends Control
 ## PC 版外壳：标题画面、三个存档槽、设置、Esc 暂停菜单都在这里挂。
 
 const Session = preload("res://core/session/session.gd")
-const ExpeditionScreen = preload("res://ui/expedition/expedition_screen.gd")
+const FieldScreen = preload("res://ui/field/field_screen.gd")
 const BattleScreen = preload("res://ui/battle/battle_screen.gd")
 const HubScreen = preload("res://ui/hub/hub_screen.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
@@ -117,7 +117,7 @@ func _set_status(text: String) -> void:
 
 func _show_expedition() -> void:
 	_clear()
-	var screen := ExpeditionScreen.new()
+	var screen := FieldScreen.new()
 	screen.setup(session.expedition, _names())
 	screen.battle_needed.connect(_on_battle_needed)
 	screen.ended.connect(_on_expedition_ended)
