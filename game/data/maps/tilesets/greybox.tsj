@@ -1,0 +1,27 @@
+{
+	"type": "tileset",
+	"version": "1.10",
+	"tiledversion": "1.11.0",
+	"name": "greybox",
+	"tilewidth": 16,
+	"tileheight": 16,
+	"columns": 3,
+	"tilecount": 9,
+	"image": "../../../art/tiles/greybox.png",
+	"imagewidth": 48,
+	"imageheight": 48,
+	"margin": 0,
+	"spacing": 0,
+	"properties": [{"name": "greybox", "type": "bool", "value": true}],
+	"tiles": [
+		{"id": 0, "properties": [{"name": "kind", "type": "string", "value": "floor"}]},
+		{"id": 1, "properties": [{"name": "kind", "type": "string", "value": "carpet"}]},
+		{"id": 2, "properties": [{"name": "kind", "type": "string", "value": "water"}]},
+		{"id": 3, "properties": [{"name": "blocks", "type": "bool", "value": true}, {"name": "kind", "type": "string", "value": "wall"}]},
+		{"id": 4, "properties": [{"name": "blocks", "type": "bool", "value": true}, {"name": "kind", "type": "string", "value": "wall_face"}]},
+		{"id": 5, "properties": [{"name": "blocks", "type": "bool", "value": true}, {"name": "kind", "type": "string", "value": "prop"}]},
+		{"id": 6, "properties": [{"name": "blocks", "type": "bool", "value": true}, {"name": "kind", "type": "string", "value": "laser"}]},
+		{"id": 7, "properties": [{"name": "blocks", "type": "bool", "value": true}, {"name": "kind", "type": "string", "value": "search"}]},
+		{"id": 8, "properties": [{"name": "kind", "type": "string", "value": "door"}]}
+	]
+}

@@ -5,10 +5,10 @@ extends SceneTree
 ## 只截图，不写存档。截地点时直接把分队放到那个地点（跳过路上的剧情和战斗），剧情人物按开局的位置站。
 
 const Session = preload("res://core/session/session.gd")
-const FieldMap = preload("res://ui/field/field_map.gd")
+const Scenario = preload("res://core/expedition/scenario.gd")
 const FieldScreen = preload("res://ui/field/field_screen.gd")
 
-const MAPS := "res://data/maps/biohazard1.json"
+const SCENARIO := "res://data/scenarios/biohazard1/scenario.json"
 
 var n := 0
 
@@ -48,8 +48,8 @@ func _run() -> void:
 	await _shot("car_opening")
 	f.queue_free()
 	await process_frame
-	var all := FieldMap.load_file(MAPS)
-	for loc: String in all["maps"]:
+	var locations: Dictionary = Scenario.load_file(SCENARIO).data["locations"]
+	for loc: String in locations:
 		var s2 := Session.new()
 		s2.start_m1(1)
 		var g := _field(s2)

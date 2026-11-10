@@ -1,9 +1,11 @@
 extends Control
-## 地点场景：RPG 式探索（设计规格 5.1、11）。
-## 像素层 480×256（30×16 格，每格 16 像素），整数放大 4 倍正好铺满顶栏下面的 1920×1024；
+## 地点场景：RPG 式探索（设计规格 5.1、11；设计 2026-11-10 第 2 节）。
+## 地图是 Tiled 文件（tiled_map.gd 读、field_tiles.gd 填进 TileMapLayer：地面、墙、装饰在人物下面，上层在人物上面）；
+## 像素层 480×256（一屏 30×16 格，每格 16 像素），整数放大 4 倍铺满顶栏下面的 1920×1024；
+## 地图比一屏大时 Camera2D 跟着主角走（自带平滑、地图边界、一点拖拽边距），走完一步再跟。
 ## 主角（拍板的人）用方向键 / WASD 走，队友跟在后面；对着人按 Enter 说话，对着柜子按 Enter 搜索；
-## 走进门就去隔壁地点（时间照规则推进）；点地面会自己走过去。
-## 画面：有 Codex 画好的整张地图和行走图就用（field_art.gd），没有用占位图块；
+## 走进门就去隔壁地点（时间照规则推进）；点地面会自己走过去（先按镜头位置换算格子）。
+## 画面：图块集的图片在就用，不在就画灰盒；有 Codex 的行走图就用（field_art.gd），没有用占位小人；
 ## 每个地点有环境光和灯（data/maps 里的 ambient / lights / glows），黑暗地点只剩主角手里的手电筒；人物脚下有影子。
 ## 剧情事件不堆在日志里：台词一句一句打字出在底部的对话框里（左边是立绘），选择弹选项窗口，说服弹说服窗口，
 ## 其他结果在右边飘一条提示；完整记录按 L 看。规则全在 core，这里只调 ExpeditionView。
@@ -16,13 +18,13 @@ signal persuade_requested
 signal cutscene_requested(name: String, text: String)
 
 const ExpeditionView = preload("res://ui/expedition/expedition_view.gd")
-const FieldMap = preload("res://ui/field/field_map.gd")
+const TiledMap = preload("res://ui/field/tiled_map.gd")
+const FieldTiles = preload("res://ui/field/field_tiles.gd")
 const FieldArt = preload("res://ui/field/field_art.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const EventText = preload("res://ui/event_text.gd")
 const PortraitSource = preload("res://ui/art/portrait_source.gd")
 
-const MAPS := "res://data/maps/biohazard1.json"
 const PIXEL := Vector2i(480, 256)
 const SCALE := 4
 const TILE := 16
@@ -56,19 +58,8 @@ const KEYS := {
 static var _memory: Dictionary = {}
 ## 只给验收脚本用：台词不进对话框，直接跳到"等玩家做的事"（脚本直接读 core 的结果，不点对话框）。
 static var skip_messages := false
-
-
-## 占位图块拼的地图（没有整张画好的地图时用）。墙下面是屋里的画成墙面，有立体感。
-class TileLayer extends Node2D:
-	var fmap: RefCounted
-
-	func _draw() -> void:
-		if fmap == null:
-			return
-		for y in fmap.size.y:
-			for x in fmap.size.x:
-				var c := Vector2i(x, y)
-				draw_texture(FieldArt.tile(fmap.theme(), fmap.char_at(c), fmap.wall_face(c)), Vector2(x * TILE, y * TILE))
+## 地图目录（每个地点一个 <地点>.tmj）；测试会把它指到 tests/fixtures 下的地图。
+static var maps_dir := "res://data/maps/biohazard1"
 
 
 var view: RefCounted
@@ -76,8 +67,9 @@ var fmap: RefCounted
 var loc: String = ""
 var viewport: SubViewport
 var display: TextureRect
-var ground: Sprite2D
-var tiles: TileLayer
+## 图层名（floor / walls / decor / over）→ TileMapLayer。
+var map_layers: Dictionary = {}
+var camera: Camera2D
 var light_root: Node2D
 var glow_layer: CanvasLayer
 var canvas_mod: CanvasModulate
@@ -187,16 +179,28 @@ func _build() -> void:
 	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	viewport.snap_2d_transforms_to_pixel = true
 	add_child(viewport)
-	ground = Sprite2D.new()
-	ground.centered = false
-	viewport.add_child(ground)
-	tiles = TileLayer.new()
-	viewport.add_child(tiles)
+	for layer_name: String in ["floor", "walls", "decor"]:
+		var layer := TileMapLayer.new()
+		layer.name = layer_name
+		viewport.add_child(layer)
+		map_layers[layer_name] = layer
 	light_root = Node2D.new()
 	viewport.add_child(light_root)
 	actors = Node2D.new()
 	actors.y_sort_enabled = true
 	viewport.add_child(actors)
+	var over := TileMapLayer.new()
+	over.name = "over"
+	viewport.add_child(over)
+	map_layers["over"] = over
+	camera = Camera2D.new()
+	camera.position_smoothing_enabled = true
+	camera.position_smoothing_speed = 8.0
+	camera.drag_horizontal_enabled = true
+	camera.drag_vertical_enabled = true
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		camera.set_drag_margin(side, 0.12)
+	viewport.add_child(camera)
 	dark = Node2D.new()
 	dark.visible = false
 	viewport.add_child(dark)
@@ -348,13 +352,13 @@ func _build() -> void:
 func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 	var first_time := loc != new_loc
 	loc = new_loc
-	fmap = FieldMap.make(MAPS, loc)
-	var painted := FieldArt.map_image(loc)
-	ground.texture = painted
-	ground.visible = painted != null
-	tiles.visible = painted == null
-	tiles.fmap = fmap
-	tiles.queue_redraw()
+	fmap = TiledMap.make(maps_dir, loc)
+	for layer_name: String in map_layers:
+		FieldTiles.fill(map_layers[layer_name], fmap, layer_name)
+	camera.limit_left = 0
+	camera.limit_top = 0
+	camera.limit_right = fmap.size.x * TILE
+	camera.limit_bottom = fmap.size.y * TILE
 	_build_lights()
 	var restored: bool = String(mem.get("loc", "")) == loc and fmap.walkable(mem["cell"])
 	if restored:
@@ -362,15 +366,10 @@ func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 		facing = String(mem.get("facing", "down"))
 	elif from_loc != "":
 		cell = fmap.entry_cell(from_loc)
-		facing = _facing_from(from_loc)
+		facing = fmap.entry_facing(from_loc)
 	else:
 		cell = fmap.start_cell()
-		# 开场点（车厢）面朝第一扇门；没有开场点时站在第一扇门里面，面朝屋里。
-		for dest: String in fmap.data.get("doors", {}):
-			var doors: Array[Vector2i] = fmap.door_cells(dest)
-			if not doors.is_empty():
-				facing = _dir_between(cell, doors[0]) if fmap.data.has("start") else _facing_from(dest)
-			break
+		facing = fmap.start_facing()
 	path_queue.clear()
 	for c in actors.get_children():
 		actors.remove_child(c)
@@ -389,6 +388,7 @@ func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 	var old: Array = mem.get("trail", []) if restored else []
 	trail = _initial_trail(cell, squad.size(), old)
 	_draw_actors()
+	_snap_camera()
 	_remember()
 	if first_time and not restored:
 		_show_banner(String(view.names.get(loc, loc)))
@@ -405,7 +405,7 @@ func _initial_trail(start: Vector2i, count: int, old: Array) -> Array[Vector2i]:
 		return out
 	out.append(start)
 	var blocked := _blocked()
-	var back: Vector2i = -FieldMap.DIRS[facing]
+	var back: Vector2i = -TiledMap.DIRS[facing]
 	var side := Vector2i(back.y, back.x)
 	var dist := {start: 0}
 	var queue: Array[Vector2i] = [start]
@@ -414,7 +414,7 @@ func _initial_trail(start: Vector2i, count: int, old: Array) -> Array[Vector2i]:
 		var c: Vector2i = queue.pop_front()
 		if int(dist[c]) >= 5:
 			continue
-		for d: Vector2i in FieldMap.DIRS.values():
+		for d: Vector2i in TiledMap.DIRS.values():
 			var n: Vector2i = c + d
 			if dist.has(n) or not fmap.walkable(n) or fmap.is_door(n) or blocked.has(n):
 				continue
@@ -437,15 +437,6 @@ func _initial_trail(start: Vector2i, count: int, old: Array) -> Array[Vector2i]:
 	while out.size() < count:
 		out.append(start)
 	return out
-
-
-## 进门后面朝屋里。
-func _facing_from(from_loc: String) -> String:
-	var d: Vector2i = fmap.entry_cell(from_loc) - (fmap.door_cells(from_loc)[0] if not fmap.door_cells(from_loc).is_empty() else fmap.entry_cell(from_loc))
-	for k: String in FieldMap.DIRS:
-		if FieldMap.DIRS[k] == d:
-			return k
-	return "down"
 
 
 ## 当前分队活着的人：拍板的人排第一（他就是玩家操纵的主角）。
@@ -489,19 +480,19 @@ func _build_lights() -> void:
 	flickers.clear()
 	var k := 0
 	for l: Dictionary in fmap.lights():
-		var p := _light(Color(String(l.get("color", "#ffffff"))), float(l.get("radius", 4.0)), float(l.get("energy", 1.0)))
-		p.position = _center(Vector2i(int(l["at"][0]), int(l["at"][1])))
+		var p := _light(l["color"], float(l["radius"]), float(l["energy"]))
+		p.position = _center(l["cell"])
 		light_root.add_child(p)
-		if bool(l.get("flicker", false)):
+		if bool(l["flicker"]):
 			flickers.append({"node": p, "base": p.energy, "phase": 1.7 * k})
 		k += 1
 	for g: Dictionary in fmap.glows():
 		var s := Sprite2D.new()
 		s.texture = FieldArt.light_texture()
 		s.material = _additive
-		s.modulate = Color(String(g.get("color", "#ffffff")))
-		s.scale = Vector2.ONE * float(g.get("radius", 1.0)) * TILE * 2.0 / FieldArt.LIGHT_SIZE
-		s.position = _center(Vector2i(int(g["at"][0]), int(g["at"][1])))
+		s.modulate = g["color"]
+		s.scale = Vector2.ONE * float(g["radius"]) * TILE * 2.0 / FieldArt.LIGHT_SIZE
+		s.position = _center(g["cell"])
 		glow_layer.add_child(s)
 
 
@@ -523,7 +514,7 @@ func _place_npcs() -> void:
 		if String(n["location"]) != loc or not bool(n["alive"]):
 			continue
 		var c: Vector2i = fmap.npc_cell(npc_id, i)
-		if not (fmap.data.get("npc_fixed", {}) as Dictionary).has(npc_id):
+		if not fmap.is_fixed_npc(npc_id):
 			i += 1
 		var s := _walker(npc_id)
 		if npc_id == "red_queen":
@@ -588,6 +579,36 @@ func _dir_between(a: Vector2i, b: Vector2i) -> String:
 	if d.y < 0:
 		return "up"
 	return "down"
+
+
+## 镜头对准的位置：主角胸口（脚底往上 8 像素）。
+func _camera_target() -> Vector2:
+	return player.position + Vector2(0, -8) if player != null else Vector2(PIXEL) / 2.0
+
+
+## 换地点、换屏回来时镜头直接到位、主角在正中（不从上一个位置滑过来，拖拽边距这一下也不算）。
+func _snap_camera() -> void:
+	camera.position = _camera_target()
+	if camera.is_inside_tree():
+		camera.drag_horizontal_enabled = false
+		camera.drag_vertical_enabled = false
+		camera.reset_smoothing()
+		camera.force_update_scroll()
+		camera.drag_horizontal_enabled = true
+		camera.drag_vertical_enabled = true
+
+
+## 屏幕左上角对着的世界像素（不在场景树里时镜头不起作用，就是原点）。
+func view_origin() -> Vector2:
+	if not camera.is_inside_tree():
+		return Vector2.ZERO
+	return (camera.get_screen_center_position() - Vector2(PIXEL) / 2.0).round()
+
+
+## 地点画面上的一点（场景控件里的坐标）→ 地图格子，算上镜头滚动。
+func cell_at(screen_pos: Vector2) -> Vector2i:
+	var px := screen_pos / SCALE + view_origin()
+	return Vector2i(floori(px.x / TILE), floori(px.y / TILE))
 
 
 ## 环境光：黑暗地点几乎全黑、打开手电筒；其余按地图的环境光。
@@ -894,13 +915,14 @@ func busy() -> bool:
 func _process(delta: float) -> void:
 	_time += delta
 	_animate(delta)
+	camera.position = _camera_target()
 	if moving or busy():
 		prompt.visible = false
 		return
 	if not path_queue.is_empty():
 		var next: Vector2i = path_queue.pop_front()
 		var d := _dir_between(cell, next)
-		if next - cell != FieldMap.DIRS[d]:
+		if next - cell != TiledMap.DIRS[d]:
 			path_queue.clear()
 			return
 		step(d)
@@ -970,7 +992,7 @@ func _gui_input(event: InputEvent) -> void:
 	if box.visible:
 		_advance()
 	elif not busy():
-		click_cell(Vector2i(floori(mb.position.x / (TILE * SCALE)), floori(mb.position.y / (TILE * SCALE))))
+		click_cell(cell_at(mb.position))
 	accept_event()
 
 
@@ -983,7 +1005,7 @@ func _on_box_input(event: InputEvent) -> void:
 
 ## 面前一格能做什么：调查柜子、跟谁说话、去哪个地点；什么都没有返回空字符串。
 func prompt_text() -> String:
-	var t: Vector2i = cell + FieldMap.DIRS[facing]
+	var t: Vector2i = cell + TiledMap.DIRS[facing]
 	if fmap.is_search(t):
 		return tr("Enter 调查（搜过了）") if view.ex.st.searched.has(loc) else tr("Enter 调查")
 	for id: String in npc_cells:
@@ -1013,8 +1035,8 @@ func _update_prompt() -> void:
 		return
 	prompt_label.text = text
 	prompt.reset_size()
-	var t: Vector2i = cell + FieldMap.DIRS[facing]
-	var at := Vector2((t.x * TILE + TILE / 2.0) * SCALE, (t.y * TILE - 14) * SCALE)
+	var t: Vector2i = cell + TiledMap.DIRS[facing]
+	var at := (Vector2(t.x * TILE + TILE / 2.0, t.y * TILE - 14) - view_origin()) * SCALE
 	prompt.position = Vector2(clampf(at.x - prompt.size.x / 2.0, 8.0, 1912.0 - prompt.size.x), clampf(at.y - prompt.size.y, 8.0, 960.0))
 	prompt.visible = true
 
@@ -1030,7 +1052,7 @@ func _blocked() -> Dictionary:
 ## 朝 d 走一格：撞墙就只转身；走进门就去隔壁。
 func step(d: String) -> void:
 	facing = d
-	var target: Vector2i = cell + FieldMap.DIRS[d]
+	var target: Vector2i = cell + TiledMap.DIRS[d]
 	if fmap.is_door(target):
 		_go_door(fmap.door_dest(target))
 		return
@@ -1064,7 +1086,7 @@ func step(d: String) -> void:
 
 ## 对着前面一格按确认：柜子 → 搜索；剧情人物或队友 → 说话；门 → 过去。
 func interact() -> void:
-	var target: Vector2i = cell + FieldMap.DIRS[facing]
+	var target: Vector2i = cell + TiledMap.DIRS[facing]
 	if fmap.is_search(target):
 		press_search()
 		return
@@ -1092,14 +1114,14 @@ func click_cell(c: Vector2i) -> void:
 	if fmap.is_door(c):
 		then = {"door": fmap.door_dest(c), "face": c}
 		goal = Vector2i(-1, -1)
-		for d: Vector2i in FieldMap.DIRS.values():
+		for d: Vector2i in TiledMap.DIRS.values():
 			if fmap.walkable(c + d) and not fmap.is_door(c + d):
 				goal = c + d
 	elif fmap.is_search(c) or blocked.has(c):
 		then = {"interact": true, "face": c}
 		goal = Vector2i(-1, -1)
 		var best := 99999
-		for d: Vector2i in FieldMap.DIRS.values():
+		for d: Vector2i in TiledMap.DIRS.values():
 			var n: Vector2i = c + d
 			if fmap.walkable(n) and not blocked.has(n) and not fmap.is_door(n):
 				var len: int = 0 if n == cell else fmap.path(cell, n, blocked).size()

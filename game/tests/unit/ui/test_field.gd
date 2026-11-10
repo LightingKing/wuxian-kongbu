@@ -1,15 +1,15 @@
 extends "res://tests/test_case.gd"
-## RPG 式探索：地图数据、门与入口、寻路；场景里台词进对话框、选择弹窗口、走动、进门、搜索、说话、黑暗；
-## 灯光、正式图（整张地图、行走图）、队友站位、互动提示、打字效果、给 Codex 的版式图和对位图。
+## RPG 式探索：地图（Tiled）、门与入口、寻路；场景里台词进对话框、选择弹窗口、走动、进门、搜索、说话、黑暗；
+## 灯光、行走图、队友站位、互动提示、打字效果；图块层；镜头跟随和边界、镜头滚动后点哪格走哪格（在场景树里测）。
 
-const FieldMap = preload("res://ui/field/field_map.gd")
+const TiledMap = preload("res://ui/field/tiled_map.gd")
 const FieldScreen = preload("res://ui/field/field_screen.gd")
 const FieldArt = preload("res://ui/field/field_art.gd")
-const FieldGuide = preload("res://ui/field/field_guide.gd")
 const Scenario = preload("res://core/expedition/scenario.gd")
 const Session = preload("res://core/session/session.gd")
 
-const MAPS := "res://data/maps/biohazard1.json"
+const MAPS := "res://data/maps/biohazard1"
+const BIG := "res://tests/fixtures/maps/big"
 const SCENARIO := "res://data/scenarios/biohazard1/scenario.json"
 
 
@@ -26,13 +26,13 @@ func _screen(seed_value: int = 1) -> Control:
 
 ## 八个地点都有图；门只通向剧本里相邻的地点，相邻的地点都有门；入口、柜子、站位都走得到。
 func test_maps_valid() -> void:
-	var errors := FieldMap.validate(MAPS, Scenario.load_file(SCENARIO))
+	var errors: Array[String] = TiledMap.validate(MAPS, Scenario.load_file(SCENARIO))
 	assert_eq(errors.size(), 0, "\n".join(errors))
 
 
 ## 门通向哪、从哪进来站哪；寻路绕开墙和挡路的人。
 func test_doors_entries_and_path() -> void:
-	var hall: RefCounted = FieldMap.make(MAPS, "hall")
+	var hall: RefCounted = TiledMap.make(MAPS, "hall")
 	assert_eq(hall.door_dest(Vector2i(0, 7)), "car")
 	assert_eq(hall.door_dest(Vector2i(14, 0)), "stairs")
 	assert_eq(hall.door_dest(Vector2i(15, 15)), "sewer")
@@ -175,41 +175,34 @@ func test_lights_and_ambient() -> void:
 	assert_true(f.dark.visible)
 	assert_eq(f.canvas_mod.color, FieldScreen.DARK_AMBIENT, "黑暗地点只剩手电筒")
 	f.free()
-	var laser: RefCounted = FieldMap.make(MAPS, "laser")
+	var laser: RefCounted = TiledMap.make(MAPS, "laser")
 	assert_eq((laser.glows() as Array).size(), 12, "两排激光发射器")
-	var control: RefCounted = FieldMap.make(MAPS, "control")
-	assert_true((control.lights() as Array).size() <= FieldMap.MAX_LIGHTS)
+	var control: RefCounted = TiledMap.make(MAPS, "control")
+	assert_true((control.lights() as Array).size() <= TiledMap.MAX_LIGHTS)
 
 
-## 有 Codex 画的整张地图和行走图就用：地图盖掉占位图块，行走图按 4×4 切帧，脚底对齐格子。
-func test_painted_map_and_walker_sheet() -> void:
+## 有 Codex 的行走图就用：按 4×4 切帧（规格单帧 16×32），脚底中点对齐格子；没有的人还用占位小人。
+func test_walker_sheet() -> void:
 	var dir := "user://test_field_art/"
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir + "maps"))
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir + "walkers"))
-	var map_img := Image.create(480, 256, false, Image.FORMAT_RGBA8)
-	map_img.fill(Color("30384a"))
-	map_img.save_png(ProjectSettings.globalize_path(dir + "maps/car.png"))
-	var sheet := Image.create(128, 128, false, Image.FORMAT_RGBA8)
+	var sheet := Image.create(64, 128, false, Image.FORMAT_RGBA8)
 	sheet.fill(Color(0, 0, 0, 0))
-	sheet.fill_rect(Rect2i(8, 4, 16, 28), Color("3a4a78"))
+	sheet.fill_rect(Rect2i(4, 4, 8, 28), Color("3a4a78"))
 	sheet.save_png(ProjectSettings.globalize_path(dir + "walkers/zheng_zha.png"))
 	var old_root := FieldArt.art_root
 	FieldArt.art_root = dir
 	FieldArt.clear_cache()
 	var f := _screen()
-	assert_true(f.ground.visible, "画好的地图")
-	assert_false(f.tiles.visible, "占位图块收起来")
-	assert_eq(FieldArt.walker_size("zheng_zha"), Vector2i(32, 32))
+	assert_eq(FieldArt.walker_size("zheng_zha"), Vector2i(16, 32))
 	var down0 := FieldArt.walker("zheng_zha", "down", 0) as AtlasTexture
-	assert_eq(down0.region, Rect2(0, 0, 32, 32))
+	assert_eq(down0.region, Rect2(0, 0, 16, 32))
 	var up_step := FieldArt.walker("zheng_zha", "up", 2) as AtlasTexture
-	assert_eq(up_step.region, Rect2(96, 96, 32, 32), "第 4 行（上）第 4 列（迈另一只脚）")
-	assert_eq(f.player.offset, Vector2(-16, -32), "脚底中点对齐格子")
+	assert_eq(up_step.region, Rect2(48, 96, 16, 32), "第 4 行（上）第 4 列（迈另一只脚）")
+	assert_eq(f.player.offset, Vector2(-8, -32), "脚底中点对齐格子")
 	assert_eq(FieldArt.walker_size("zhang_jie"), Vector2i(FieldArt.WALK_W, FieldArt.WALK_H), "没有行走图的还用占位小人")
 	f.free()
 	FieldArt.art_root = old_root
 	FieldArt.clear_cache()
-	DirAccess.remove_absolute(ProjectSettings.globalize_path(dir + "maps/car.png"))
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(dir + "walkers/zheng_zha.png"))
 
 
@@ -262,26 +255,44 @@ func test_typewriter_and_advance() -> void:
 	f.free()
 
 
-## 给 Codex 的版式图和对位图：版式图一格一色、480×256；对位图放大 4 倍、挡路的格子盖红；行走图检查尺寸和透明。
-func test_field_guide() -> void:
-	var car: RefCounted = FieldMap.make(MAPS, "car")
-	var g := FieldGuide.guide(car)
-	assert_eq(g.get_size(), Vector2i(480, 256))
-	assert_eq(g.get_pixel(8, 8), FieldGuide.COLORS["top"], "第 0 行是墙顶")
-	assert_eq(g.get_pixel(29 * 16 + 8, 7 * 16 + 8), FieldGuide.COLORS["D"], "右边的门")
-	assert_eq(g.get_pixel(1 * 16 + 8, 9 * 16 + 8), FieldGuide.COLORS["S"], "柜子")
-	assert_eq(g.get_pixel(5 * 16 + 8, 3 * 16 + 8), FieldGuide.COLORS["face"], "座位上面那排墙看得到墙面")
-	var painted := Image.create(480, 256, false, Image.FORMAT_RGBA8)
-	painted.fill(Color(0.5, 0.5, 0.5))
-	var o := FieldGuide.overlay(car, painted)
-	assert_eq(o.get_size(), Vector2i(1920, 1024))
-	var wall_px := o.get_pixel(32, 32)
-	assert_true(wall_px.r > wall_px.g + 0.15, "墙格盖红")
-	var floor_px := o.get_pixel(10 * 64 + 32, 7 * 64 + 32)
-	assert_almost(floor_px.r, floor_px.g, 0.02, "地面不盖色")
-	var ok_sheet := Image.create(128, 128, false, Image.FORMAT_RGBA8)
-	ok_sheet.fill(Color(0, 0, 0, 0))
-	ok_sheet.set_pixel(5, 5, Color.WHITE)
-	assert_eq(FieldGuide.check_sheet(ok_sheet).size(), 0)
-	var bad := Image.create(100, 100, false, Image.FORMAT_RGBA8)
-	assert_eq(FieldGuide.check_sheet(bad).size(), 1)
+## 图块层：地面、墙、装饰在人物下面，上层在人物上面；车厢的墙、座位、柜子都填进去了。
+func test_tile_layers() -> void:
+	var f := _screen()
+	var floor: TileMapLayer = f.map_layers["floor"]
+	var walls: TileMapLayer = f.map_layers["walls"]
+	var decor: TileMapLayer = f.map_layers["decor"]
+	assert_eq(floor.get_cell_source_id(Vector2i(3, 7)), 0, "开场格有地面")
+	assert_eq(walls.get_cell_atlas_coords(Vector2i(5, 3)), Vector2i(1, 1), "座位上面那排是墙面（灰盒第 5 块）")
+	assert_eq(decor.get_cell_atlas_coords(Vector2i(1, 9)), Vector2i(1, 2), "柜子（灰盒第 8 块）")
+	assert_true(floor.get_index() < f.actors.get_index(), "地面在人物下面")
+	assert_true(f.map_layers["over"].get_index() > f.actors.get_index(), "上层在人物上面")
+	assert_eq(f.camera.limit_right, 30 * 16)
+	f.free()
+
+
+## 镜头（在场景树里）：地图比一屏大时跟着主角，到地图边上停住；镜头滚过以后点哪格就是哪格。
+func test_camera_follows_and_clamps() -> void:
+	FieldScreen.maps_dir = BIG
+	var f := _screen()
+	tree().root.add_child(f)
+	f._snap_camera()
+	await tree().process_frame
+	assert_eq(f.fmap.size, Vector2i(40, 24), "测试用的大地图")
+	assert_eq(f.view_origin(), Vector2.ZERO, "开场在左上角，镜头贴着地图左上边")
+	assert_eq(f.cell_at(Vector2(4 * 16 * 3 + 8, 4 * 16 * 3 + 8)), Vector2i(3, 3))
+	f.cell = Vector2i(20, 12)
+	f._draw_actors()
+	f._snap_camera()
+	await tree().process_frame
+	var o: Vector2 = f.view_origin()
+	assert_eq(o, Vector2(20 * 16 + 8 - 240, 12 * 16 + 14 - 8 - 128), "主角在屏幕正中")
+	assert_eq(f.cell_at(Vector2(240 * 4, 120 * 4)), Vector2i(20, 11), "屏幕正中偏上一点是主角头顶那格")
+	f.cell = Vector2i(38, 22)
+	f._draw_actors()
+	f._snap_camera()
+	await tree().process_frame
+	assert_eq(f.view_origin(), Vector2(40 * 16 - 480, 24 * 16 - 256), "到了右下角，镜头贴着地图边停住")
+	assert_eq(f.cell_at(Vector2.ZERO), Vector2i(10, 8))
+	tree().root.remove_child(f)
+	f.free()
+	FieldScreen.maps_dir = MAPS

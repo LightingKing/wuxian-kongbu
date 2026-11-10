@@ -1,9 +1,8 @@
 extends RefCounted
-## 探索画面的图从哪来（设计规格 11；任务卡 007）：
-##   地图：res://art/field/maps/<地点>.png，480×256 不透明的整张俯视像素图（RPG Maker 的"远景图"画法：
-##        整张画好，碰撞仍按 data/maps 里的字符格子）。没有就用代码画的占位图块拼。
+## 探索画面的图从哪来（设计 2026-11-10 第 3 节；任务卡 007）：
+##   地图图块：由 Tiled 图块集决定（field_tiles.gd）；图块集的图片不在时，用这里的 tile_image() 按图块的 kind 画灰盒占位。
 ##   行走图：res://art/field/walkers/<id>.png，4 列 × 4 行；行是朝向（下、左、右、上），
-##        列是走路的四帧（站立、迈一只脚、站立、迈另一只脚）；单帧 = 整张的宽、高各除以 4（规格 32×32，脚踩最下面一行）。
+##        列是走路的四帧（站立、迈一只脚、站立、迈另一只脚）；单帧 = 整张的宽、高各除以 4（规格 16×32，脚踩最下面一行）。
 ##        没有就用代码画的 16×24 占位小人（配色取 pixel_art.gd 的 PEOPLE）。
 ##   光：灯和手电筒用的贴图（径向渐变、锥形）、人物脚下的影子。
 ## 正式图不进仓库；刚放进来、还没被 Godot 导入的图直接读文件（同 portrait_source.gd）。
@@ -47,7 +46,7 @@ static func clear_cache() -> void:
 	_files.clear()
 
 
-static func _load(path: String) -> Texture2D:
+static func load_texture(path: String) -> Texture2D:
 	if _files.has(path):
 		return _files[path]
 	var tex: Texture2D = null
@@ -66,15 +65,11 @@ static func _c(theme: String, i: int) -> Color:
 	return Color(String(t[i]))
 
 
-# ---------------------------------------------------------------- 地图
+# ---------------------------------------------------------------- 灰盒图块
 
-## 整张画好的地图；没有返回 null（场景就用占位图块拼）。
-static func map_image(loc: String) -> Texture2D:
-	return _load(art_root + "maps/" + loc + ".png")
-
-
-## 占位图块。ch 是地图里的字符；face：这块墙下面是屋里，画成看得到高度的墙面（RPG Maker 式的立体感）。
-static func tile(theme: String, ch: String, face: bool = false) -> Texture2D:
+## 灰盒图块的图像（16×16）。ch：. 地面　= 地毯/过道　~ 浅水　# 墙　o x 家具设备　S 柜子　D 门；
+## face：这块墙下面是屋里，画成看得到高度的墙面（RPG Maker 式的立体感）。配色按地点主题。
+static func tile_image(theme: String, ch: String, face: bool = false) -> Image:
 	var key := "%s:%s:%s" % [theme, ch, face]
 	if _tiles.has(key):
 		return _tiles[key]
@@ -121,15 +116,14 @@ static func tile(theme: String, ch: String, face: bool = false) -> Texture2D:
 			img.fill(floor)
 			img.set_pixel(3, 4, _c(theme, 1))
 			img.set_pixel(11, 12, _c(theme, 1))
-	var tex := ImageTexture.create_from_image(img)
-	_tiles[key] = tex
-	return tex
+	_tiles[key] = img
+	return img
 
 
 # ---------------------------------------------------------------- 行走小人
 
 static func _sheet(key: String) -> Texture2D:
-	return _load(art_root + "walkers/" + key + ".png")
+	return load_texture(art_root + "walkers/" + key + ".png")
 
 
 static func has_sheet(key: String) -> bool:

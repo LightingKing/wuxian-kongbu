@@ -1,0 +1,46 @@
+{
+	"type": "map", "version": "1.10", "tiledversion": "1.11.0",
+	"orientation": "orthogonal", "renderorder": "right-down", "infinite": false,
+	"width": 6, "height": 4, "tilewidth": 16, "tileheight": 16,
+	"properties": [
+		{"name": "theme", "type": "string", "value": "hall"},
+		{"name": "ambient", "type": "color", "value": "#ff808080"}
+	],
+	"tilesets": [
+		{"firstgid": 1, "source": "../tilesets/a.tsj"},
+		{"firstgid": 5, "source": "../tilesets/b.tsj"}
+	],
+	"layers": [
+		{"id": 1, "name": "floor", "type": "tilelayer", "width": 6, "height": 4, "data": [
+			0,0,0,0,0,0,
+			0,1,1,2147483653,1,4,
+			0,1,1,1,1,4,
+			0,0,0,0,0,0]},
+		{"id": 2, "name": "walls", "type": "tilelayer", "width": 6, "height": 4, "data": [
+			2,2,2,2,2,2,
+			2,0,0,0,0,0,
+			2,0,0,0,0,0,
+			2,2,2,2,2,2]},
+		{"id": 3, "name": "decor", "type": "tilelayer", "width": 6, "height": 4, "data": [
+			0,0,0,0,0,0,
+			0,0,0,0,0,0,
+			0,0,3,0,0,0,
+			0,0,0,0,0,0]},
+		{"id": 4, "name": "over", "type": "tilelayer", "width": 6, "height": 4, "data": [
+			0,0,0,0,0,0,
+			0,1610612742,0,0,0,0,
+			0,0,0,0,0,0,
+			0,0,0,0,0,0]},
+		{"id": 5, "name": "objects", "type": "objectgroup", "objects": [
+			{"id": 1, "type": "door", "x": 80, "y": 16, "width": 16, "height": 32, "properties": [{"name": "to", "type": "string", "value": "outside"}]},
+			{"id": 2, "type": "arrive", "x": 64, "y": 16, "width": 16, "height": 16, "properties": [{"name": "from", "type": "string", "value": "outside"}, {"name": "facing", "type": "string", "value": "left"}]},
+			{"id": 3, "class": "arrive", "x": 16, "y": 16, "width": 16, "height": 16, "properties": [{"name": "start", "type": "bool", "value": true}, {"name": "facing", "type": "string", "value": "right"}]},
+			{"id": 4, "type": "search", "x": 32, "y": 32, "width": 16, "height": 16},
+			{"id": 5, "type": "npc_spot", "x": 48, "y": 32, "width": 16, "height": 16, "properties": [{"name": "order", "type": "int", "value": 1}]},
+			{"id": 6, "type": "npc_spot", "x": 64, "y": 32, "width": 16, "height": 16, "properties": [{"name": "order", "type": "int", "value": 0}]},
+			{"id": 7, "type": "npc", "x": 16, "y": 32, "width": 16, "height": 16, "properties": [{"name": "id", "type": "string", "value": "boss"}]},
+			{"id": 8, "type": "light", "x": 32, "y": 16, "width": 16, "height": 16, "properties": [{"name": "color", "type": "color", "value": "#ff336699"}, {"name": "radius", "type": "float", "value": 3}, {"name": "energy", "type": "float", "value": 0.5}, {"name": "flicker", "type": "bool", "value": true}]},
+			{"id": 9, "type": "glow", "x": 64, "y": 16, "width": 16, "height": 16, "properties": [{"name": "color", "type": "color", "value": "#80ff0000"}, {"name": "radius", "type": "float", "value": 1}]}
+		]}
+	]
+}

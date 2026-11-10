@@ -1,0 +1,761 @@
+{
+	"type": "map",
+	"version": "1.10",
+	"tiledversion": "1.11.0",
+	"orientation": "orthogonal",
+	"renderorder": "right-down",
+	"infinite": false,
+	"width": 30,
+	"height": 16,
+	"tilewidth": 16,
+	"tileheight": 16,
+	"compressionlevel": -1,
+	"properties": [
+		{
+			"name": "theme",
+			"type": "string",
+			"value": "laser"
+		},
+		{
+			"name": "ambient",
+			"type": "color",
+			"value": "#ffc4cad2"
+		}
+	],
+	"tilesets": [
+		{
+			"firstgid": 1,
+			"source": "../tilesets/greybox.tsj"
+		}
+	],
+	"layers": [
+		{
+			"id": 1,
+			"name": "floor",
+			"type": "tilelayer",
+			"x": 0,
+			"y": 0,
+			"width": 30,
+			"height": 16,
+			"opacity": 1,
+			"visible": true,
+			"data": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+				0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+				9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,
+				9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,
+				0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+				0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+			]
+		},
+		{
+			"id": 2,
+			"name": "walls",
+			"type": "tilelayer",
+			"x": 0,
+			"y": 0,
+			"width": 30,
+			"height": 16,
+			"opacity": 1,
+			"visible": true,
+			"data": [
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+				4,4,5,4,4,4,4,5,4,4,4,4,5,4,4,4,4,5,4,4,4,4,5,4,4,4,4,5,4,4,
+				4,5,7,5,5,5,5,7,5,5,5,5,7,5,5,5,5,7,5,5,5,5,7,5,5,5,5,7,5,4,
+				4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,
+				5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,
+				4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,
+				4,4,7,4,4,4,4,7,4,4,4,4,7,4,4,4,4,7,4,4,4,4,7,4,4,4,4,7,4,4,
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+				4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
+			]
+		},
+		{
+			"id": 3,
+			"name": "decor",
+			"type": "tilelayer",
+			"x": 0,
+			"y": 0,
+			"width": 30,
+			"height": 16,
+			"opacity": 1,
+			"visible": true,
+			"data": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+			]
+		},
+		{
+			"id": 4,
+			"name": "over",
+			"type": "tilelayer",
+			"x": 0,
+			"y": 0,
+			"width": 30,
+			"height": 16,
+			"opacity": 1,
+			"visible": true,
+			"data": [
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+			]
+		},
+		{
+			"id": 5,
+			"name": "objects",
+			"type": "objectgroup",
+			"x": 0,
+			"y": 0,
+			"opacity": 1,
+			"visible": true,
+			"draworder": "topdown",
+			"objects": [
+				{
+					"id": 1,
+					"name": "",
+					"type": "door",
+					"x": 0,
+					"y": 112,
+					"width": 16,
+					"height": 32,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "to",
+							"type": "string",
+							"value": "stairs"
+						}
+					]
+				},
+				{
+					"id": 2,
+					"name": "",
+					"type": "door",
+					"x": 464,
+					"y": 112,
+					"width": 16,
+					"height": 32,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "to",
+							"type": "string",
+							"value": "control"
+						}
+					]
+				},
+				{
+					"id": 3,
+					"name": "",
+					"type": "arrive",
+					"x": 16,
+					"y": 112,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "from",
+							"type": "string",
+							"value": "stairs"
+						},
+						{
+							"name": "facing",
+							"type": "string",
+							"value": "right"
+						}
+					]
+				},
+				{
+					"id": 4,
+					"name": "",
+					"type": "arrive",
+					"x": 448,
+					"y": 112,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "from",
+							"type": "string",
+							"value": "control"
+						},
+						{
+							"name": "facing",
+							"type": "string",
+							"value": "left"
+						}
+					]
+				},
+				{
+					"id": 5,
+					"name": "",
+					"type": "search",
+					"x": 32,
+					"y": 160,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": []
+				},
+				{
+					"id": 6,
+					"name": "",
+					"type": "npc_spot",
+					"x": 384,
+					"y": 96,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 0
+						}
+					]
+				},
+				{
+					"id": 7,
+					"name": "",
+					"type": "npc_spot",
+					"x": 352,
+					"y": 96,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 1
+						}
+					]
+				},
+				{
+					"id": 8,
+					"name": "",
+					"type": "npc_spot",
+					"x": 384,
+					"y": 144,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 2
+						}
+					]
+				},
+				{
+					"id": 9,
+					"name": "",
+					"type": "npc_spot",
+					"x": 352,
+					"y": 144,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 3
+						}
+					]
+				},
+				{
+					"id": 10,
+					"name": "",
+					"type": "npc_spot",
+					"x": 320,
+					"y": 96,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 4
+						}
+					]
+				},
+				{
+					"id": 11,
+					"name": "",
+					"type": "npc_spot",
+					"x": 320,
+					"y": 144,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 5
+						}
+					]
+				},
+				{
+					"id": 12,
+					"name": "",
+					"type": "npc_spot",
+					"x": 416,
+					"y": 96,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 6
+						}
+					]
+				},
+				{
+					"id": 13,
+					"name": "",
+					"type": "npc_spot",
+					"x": 416,
+					"y": 144,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "order",
+							"type": "int",
+							"value": 7
+						}
+					]
+				},
+				{
+					"id": 14,
+					"name": "",
+					"type": "light",
+					"x": 112,
+					"y": 112,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#fff2f6ff"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 7.0
+						},
+						{
+							"name": "energy",
+							"type": "float",
+							"value": 0.28
+						}
+					]
+				},
+				{
+					"id": 15,
+					"name": "",
+					"type": "light",
+					"x": 240,
+					"y": 112,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#fff2f6ff"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 7.0
+						},
+						{
+							"name": "energy",
+							"type": "float",
+							"value": 0.28
+						}
+					]
+				},
+				{
+					"id": 16,
+					"name": "",
+					"type": "light",
+					"x": 368,
+					"y": 112,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#fff2f6ff"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 7.0
+						},
+						{
+							"name": "energy",
+							"type": "float",
+							"value": 0.28
+						}
+					]
+				},
+				{
+					"id": 17,
+					"name": "",
+					"type": "glow",
+					"x": 32,
+					"y": 64,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 18,
+					"name": "",
+					"type": "glow",
+					"x": 112,
+					"y": 64,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 19,
+					"name": "",
+					"type": "glow",
+					"x": 192,
+					"y": 64,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 20,
+					"name": "",
+					"type": "glow",
+					"x": 272,
+					"y": 64,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 21,
+					"name": "",
+					"type": "glow",
+					"x": 352,
+					"y": 64,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 22,
+					"name": "",
+					"type": "glow",
+					"x": 432,
+					"y": 64,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 23,
+					"name": "",
+					"type": "glow",
+					"x": 32,
+					"y": 176,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 24,
+					"name": "",
+					"type": "glow",
+					"x": 112,
+					"y": 176,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 25,
+					"name": "",
+					"type": "glow",
+					"x": 192,
+					"y": 176,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 26,
+					"name": "",
+					"type": "glow",
+					"x": 272,
+					"y": 176,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 27,
+					"name": "",
+					"type": "glow",
+					"x": 352,
+					"y": 176,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				},
+				{
+					"id": 28,
+					"name": "",
+					"type": "glow",
+					"x": 432,
+					"y": 176,
+					"width": 16,
+					"height": 16,
+					"rotation": 0,
+					"visible": true,
+					"properties": [
+						{
+							"name": "color",
+							"type": "color",
+							"value": "#bbff3b3b"
+						},
+						{
+							"name": "radius",
+							"type": "float",
+							"value": 1.1
+						}
+					]
+				}
+			]
+		}
+	],
+	"nextlayerid": 6,
+	"nextobjectid": 29
+}
