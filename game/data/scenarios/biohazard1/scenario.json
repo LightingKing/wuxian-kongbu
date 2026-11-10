@@ -135,6 +135,13 @@
 			"when": {"party_at": "stairs"},
 			"location": "stairs",
 			"effects": [
+				{"npc_move": {"npc": "matthew", "to": "stairs"}},
+				{"npc_move": {"npc": "alice", "to": "stairs"}},
+				{"npc_move": {"npc": "kaplan", "to": "stairs"}},
+				{"npc_move": {"npc": "ryan", "to": "stairs"}},
+				{"npc_move": {"npc": "rain", "to": "stairs"}},
+				{"npc_move": {"npc": "jd", "to": "stairs"}},
+				{"npc_move": {"npc": "matt", "to": "stairs"}},
 				{"say": {"speaker": "zhang_jie", "text": "小胖子和阿姨掉队了。等不等？"}},
 				{"choice": {"id": "lag_behind", "prompt": "两个人的体力撑不住了，等他们会拖慢队伍。", "options": [
 					{"id": "help", "text": "扶着他们一起走", "effects": [
@@ -160,6 +167,13 @@
 			"location": "laser",
 			"inertia": 2,
 			"effects": [
+				{"npc_move": {"npc": "matthew", "to": "laser"}},
+				{"npc_move": {"npc": "alice", "to": "laser"}},
+				{"npc_move": {"npc": "kaplan", "to": "laser"}},
+				{"npc_move": {"npc": "ryan", "to": "laser"}},
+				{"npc_move": {"npc": "rain", "to": "laser"}},
+				{"npc_move": {"npc": "jd", "to": "laser"}},
+				{"npc_move": {"npc": "matt", "to": "laser"}},
 				{"cg": {"name": "cg_laser", "text": "激光网正在合拢，只有贴着大门的一小块地方是安全的。"}},
 				{"say": {"speaker": "matthew", "text": "郑吒、牟钢，你们两个跟我进来。"}},
 				{"give": {"recipients": ["zheng_zha"], "skill": "pistol_shot_limited"}},

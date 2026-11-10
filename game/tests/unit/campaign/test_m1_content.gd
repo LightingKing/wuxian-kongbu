@@ -290,6 +290,27 @@ func test_laser_selfish() -> void:
 	assert_false(bool(ex.st.flags.get("side:save_matthew", false)))
 	# 眼看牟钢死在激光里：在场的人对郑吒信任 −10（扶人时 +5，现在 45）。
 	assert_almost(ex.game.relations.value("zhan_lan", "zheng_zha", "trust"), 45.0)
+	# 雇佣兵跟着队伍进了激光通道：进主机房再等一会儿，没有人因为绑定被抹杀。
+	assert_eq(String(ex.st.npcs["kaplan"]["location"]), "laser")
+	ex.move("s1", "control")
+	var later: Array[Dictionary] = ex.rest("s1", 20)
+	assert_eq(ex.st.outcome, "ongoing")
+	assert_false(_types(later).has("erased"))
+	assert_true(ex.st.characters["zhan_lan"].alive)
+
+
+## 雇佣兵带路：进楼梯井、激光通道时他们就在身边，路上不会冒出"超出绑定范围"。
+func test_mercs_lead_the_way() -> void:
+	var ex := _start()
+	ex.choose("listen")
+	ex.move("s1", "hall")
+	var at_stairs: Array[Dictionary] = ex.move("s1", "stairs")
+	assert_eq(String(ex.st.npcs["matthew"]["location"]), "stairs")
+	ex.choose("help")
+	var at_laser: Array[Dictionary] = ex.move("s1", "laser")
+	assert_eq(String(ex.st.npcs["matthew"]["location"]), "laser")
+	assert_false(_types(at_stairs).has("tether_warning"))
+	assert_false(_types(at_laser).has("tether_warning"))
 
 
 ## 从线索推理火焰女皇：主机房的对话给线索，詹岚花 10 分钟推出结论（带可信度）。
