@@ -1,0 +1,16 @@
+{
+	"credits": [
+		{
+			"what": "实验室图块、研究员和防护服行走图（Land of pixels — Laboratory tileset）",
+			"who": "marceles",
+			"license": "CC BY 4.0",
+			"url": "https://opengameart.org/content/laboratory-tileset-pixelart-16px"
+		},
+		{
+			"what": "游戏引擎（Godot Engine）",
+			"who": "Godot Engine 贡献者",
+			"license": "MIT",
+			"url": "https://godotengine.org/license"
+		}
+	]
+}

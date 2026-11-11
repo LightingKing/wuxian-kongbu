@@ -1,5 +1,5 @@
 extends "res://tests/test_case.gd"
-## 标题画面与暂停菜单：信号、槽位列表、空槽不可读、设置切换。
+## 标题画面与暂停菜单：信号、槽位列表、空槽不可读、设置切换、致谢页。
 
 const TitleScreen = preload("res://ui/title_screen.gd")
 const PauseMenu = preload("res://ui/pause_menu.gd")
@@ -17,6 +17,21 @@ func _title() -> Control:
 	t.build()
 	t.set_settings({"window_mode": "windowed", "volume": 0.8})
 	return t
+
+
+## 致谢页：列出第三方素材的作者、许可和出处；Esc 关掉。
+func test_credits_panel() -> void:
+	var t := _title()
+	assert_false(t.credits_panel.visible)
+	t.open_credits()
+	assert_true(t.credits_panel.visible)
+	assert_true(t.credits_label.text.contains("marceles"), "实验室图块的作者")
+	assert_true(t.credits_label.text.contains("CC BY 4.0"))
+	assert_true(t.credits_label.text.contains("opengameart.org"))
+	assert_true(TitleScreen.credit_entries().size() >= 1)
+	assert_true(t.handle_escape(), "Esc 关掉致谢页")
+	assert_false(t.credits_panel.visible)
+	t.free()
 
 
 func test_title_lists_three_slots() -> void:

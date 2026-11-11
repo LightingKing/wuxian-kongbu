@@ -1,5 +1,6 @@
 extends Control
-## PC 版标题画面：新游戏（先选铁人或宽松）/ 继续（三个存档槽）/ 设置 / 退出。
+## PC 版标题画面：新游戏（先选铁人或宽松）/ 继续（三个存档槽）/ 设置 / 致谢 / 退出。
+## 致谢页列出用到的第三方素材和它们要求的署名（data/credits.json）。
 ## 只发信号，不碰 Session；开新游戏、读档、退出的实做在 main.gd。
 
 ## iron_man：铁人模式（一个自动存档，不能手动存读，全灭删档）。
@@ -11,6 +12,8 @@ signal settings_changed(settings: Dictionary)
 const UiTheme = preload("res://ui/ui_theme.gd")
 const Slots = preload("res://core/save/slots.gd")
 const Settings = preload("res://core/settings/settings.gd")
+const DataLoader = preload("res://core/util/data_loader.gd")
+const CREDITS := "res://data/credits.json"
 
 const VERSION_TEXT := "v0.1.0 · 计划 10"
 
@@ -19,6 +22,8 @@ var slot_panel: Control
 var slot_box: VBoxContainer
 var settings_panel: Control
 var mode_panel: Control
+var credits_panel: Control
+var credits_label: RichTextLabel
 var mode_button: Button
 var volume_label: Label
 var hint_label: Label
@@ -58,13 +63,14 @@ func build() -> void:
 
 	menu_box = VBoxContainer.new()
 	menu_box.position = Vector2(730, 420)
-	menu_box.size = Vector2(460, 304)
+	menu_box.size = Vector2(460, 384)
 	menu_box.add_theme_constant_override("separation", 16)
 	add_child(menu_box)
 
 	_add_menu("新游戏", press_new)
 	_add_menu("继续游戏", open_slots)
 	_add_menu("设置", open_settings)
+	_add_menu("致谢", open_credits)
 	_add_menu("退出游戏", press_quit)
 
 	var ver := UiTheme.label(VERSION_TEXT, 16, UiTheme.MUTED)
@@ -81,6 +87,7 @@ func build() -> void:
 	_build_slots()
 	_build_settings()
 	_build_mode()
+	_build_credits()
 	set_hint("Enter 确认 · Esc 返回")
 
 
@@ -182,6 +189,45 @@ func _build_settings() -> void:
 	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	back.pressed.connect(close_settings)
 	box.add_child(back)
+
+
+func _build_credits() -> void:
+	credits_panel = _overlay(1000, 560)
+	var box := VBoxContainer.new()
+	box.position = Vector2(30, 24)
+	box.size = Vector2(940, 512)
+	box.add_theme_constant_override("separation", 14)
+	_body(credits_panel).add_child(box)
+	box.add_child(UiTheme.label(tr("致谢"), 28, UiTheme.ACCENT2))
+	credits_label = UiTheme.rich(18)
+	credits_label.bbcode_enabled = true
+	credits_label.custom_minimum_size = Vector2(940, 380)
+	box.add_child(credits_label)
+	var back := UiTheme.button(tr("返回"), 20)
+	back.custom_minimum_size = Vector2(140, 48)
+	back.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	back.pressed.connect(close_credits)
+	box.add_child(back)
+
+
+## 致谢的条目：[{what, who, license, url}]。
+static func credit_entries() -> Array:
+	var res := DataLoader.load_json(CREDITS)
+	return (res.data as Dictionary).get("credits", []) if res.ok else []
+
+
+func open_credits() -> void:
+	var lines: Array[String] = []
+	for c: Dictionary in credit_entries():
+		lines.append("[color=#e8a33d]%s[/color]\n%s · %s\n[color=#aab2c0]%s[/color]" % [String(c.get("what", "")), String(c.get("who", "")), String(c.get("license", "")), String(c.get("url", ""))])
+	credits_label.text = "\n\n".join(lines)
+	credits_panel.visible = true
+	set_hint("Esc 返回")
+
+
+func close_credits() -> void:
+	credits_panel.visible = false
+	set_hint("Enter 确认 · Esc 返回")
 
 
 func _overlay(w: int, h: int) -> Control:
@@ -340,5 +386,8 @@ func handle_escape() -> bool:
 		return true
 	if settings_panel.visible:
 		close_settings()
+		return true
+	if credits_panel.visible:
+		close_credits()
 		return true
 	return false
