@@ -1,0 +1,18 @@
+{
+  "kind": "palette-map-report",
+  "source": "_work/sample_room/dl_lab/x/tiles_laboratory_LandOfPixels/16px/tilesFloor.png",
+  "source_sha256": "debaf6b10f76c53104e1842b63881e75c772b63f869d6c5ffb59694f4f465a91",
+  "output": "game/art/tiles/lab/tilesFloor.png",
+  "output_sha256": "b1aed0aade177c04eb594845b445746277cebdafe7793991e1f06a5c97031250",
+  "size": [
+    176,
+    288
+  ],
+  "palette": "game/art/pixel_test/palette.hex",
+  "palette_sha256": "8b5632860302785e35c48f891e815e4a77b2f0edea0364a815991e83d9b22657",
+  "used_color_count": 10,
+  "foreign_colors": [],
+  "size_preserved": true,
+  "method": "Nearest shared palette color by squared RGB distance (pixelize_scene.squared_distance) for every pixel with alpha > 0; alpha, size and transparent pixels unchanged; no dithering.",
+  "passed": true
+}

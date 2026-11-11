@@ -61,7 +61,8 @@ static func greybox_image(info: Dictionary, theme: String, tile: int) -> Image:
 	img.fill(Color(0, 0, 0, 0))
 	var tiles: Dictionary = info["tiles"]
 	for id in count:
-		var p: Dictionary = tiles.get(id, {})
+		var p: Dictionary = (info["props"] as Dictionary).duplicate()
+		p.merge(tiles.get(id, {}), true)
 		var kind := String(p.get("kind", "wall" if bool(p.get("blocks", false)) else "floor"))
 		var ch := String(KIND_CHAR.get(kind, "."))
 		var src := FieldArt.tile_image(theme, ch, kind == "wall_face")

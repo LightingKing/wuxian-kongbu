@@ -7,6 +7,7 @@ extends RefCounted
 ## 认得的东西：
 ##   图层：tilelayer "floor" / "walls" / "decor" / "over"（over 画在人物上面、不挡路）；objectgroup（物件层，名字随意）。
 ##   图块属性：blocks（bool，挡路）、kind（string，灰盒占位用：floor carpet water wall wall_face prop laser search door）。
+##     写在图块集上的同名属性是这个集里每块图块的默认值（例如"实验室墙壁"整集都挡路），单块图块上写的会盖过它。
 ##   地图属性：theme（灰盒配色）、ambient（环境光颜色）。
 ##   物件（Tiled 里的"类"）：door{to}、arrive{from | start, facing}、search、npc{id}、npc_spot{order}、
 ##     light{color, radius, energy, flicker}、glow{color, radius}。物件按左上角落在哪一格算格子；门可以是好几格的长条。
@@ -193,11 +194,19 @@ func resolve(raw: int) -> Dictionary:
 	return {}
 
 
+## 一块图块的属性：图块集的属性当默认值，再用这块图块自己的属性盖上去。
 func tile_props(raw: int) -> Dictionary:
 	var r := resolve(raw)
 	if r.is_empty():
 		return {}
-	return (tilesets[int(r["set"])]["tiles"] as Dictionary).get(int(r["id"]), {})
+	var ts: Dictionary = tilesets[int(r["set"])]
+	var own: Dictionary = (ts["tiles"] as Dictionary).get(int(r["id"]), {})
+	var defaults: Dictionary = ts["props"]
+	if defaults.is_empty():
+		return own
+	var out := defaults.duplicate()
+	out.merge(own, true)
+	return out
 
 
 ## 这格最上面那块图块的 kind（装饰 > 墙 > 地面）；都没有返回空字符串。

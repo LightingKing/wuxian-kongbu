@@ -33,20 +33,21 @@ func test_maps_valid() -> void:
 ## 门通向哪、从哪进来站哪；寻路绕开墙和挡路的人。
 func test_doors_entries_and_path() -> void:
 	var hall: RefCounted = TiledMap.make(MAPS, "hall")
-	assert_eq(hall.door_dest(Vector2i(0, 7)), "car")
-	assert_eq(hall.door_dest(Vector2i(14, 0)), "stairs")
-	assert_eq(hall.door_dest(Vector2i(15, 15)), "sewer")
+	assert_eq(hall.door_dest(Vector2i(0, 9)), "car")
+	assert_eq(hall.door_dest(Vector2i(16, 3)), "stairs", "电梯下面的脚垫")
+	assert_eq(hall.door_dest(Vector2i(22, 19)), "sewer", "南墙的检修格栅")
 	assert_eq(hall.door_dest(Vector2i(5, 5)), "")
-	assert_eq(hall.entry_cell("car"), Vector2i(1, 7))
-	assert_eq(hall.entry_cell("stairs"), Vector2i(14, 1))
-	var p: Array[Vector2i] = hall.path(Vector2i(1, 7), Vector2i(14, 1))
+	assert_eq(hall.entry_cell("car"), Vector2i(1, 9))
+	assert_eq(hall.entry_cell("stairs"), Vector2i(16, 4))
+	var p: Array[Vector2i] = hall.path(Vector2i(1, 9), Vector2i(16, 4))
 	assert_true(p.size() > 0)
-	assert_eq(p[p.size() - 1], Vector2i(14, 1))
+	assert_eq(p[p.size() - 1], Vector2i(16, 4))
 	for c in p:
 		assert_true(hall.walkable(c))
-	assert_eq(hall.path(Vector2i(1, 7), Vector2i(0, 0)).size(), 0, "墙走不到")
-	var blocked := {Vector2i(2, 7): true}
-	for c in hall.path(Vector2i(1, 7), Vector2i(3, 7), blocked):
+	assert_eq(hall.path(Vector2i(1, 9), Vector2i(0, 0)).size(), 0, "墙走不到")
+	assert_false(hall.walkable(Vector2i(15, 9)), "接待台挡路")
+	var blocked := {Vector2i(2, 9): true}
+	for c in hall.path(Vector2i(1, 9), Vector2i(3, 9), blocked):
 		assert_false(blocked.has(c), "绕开挡路的人")
 
 
@@ -170,7 +171,7 @@ func test_lights_and_ambient() -> void:
 	assert_eq(f.canvas_mod.color, f.fmap.ambient())
 	assert_false(f.dark.visible, "车厢不黑")
 	f.press_move("hall")
-	assert_eq(f.light_root.get_child_count(), 4, "大厅四盏吊灯")
+	assert_eq(f.light_root.get_child_count(), 5, "大厅四盏顶灯加接待台的台灯")
 	f.press_move("stairs")
 	assert_true(f.dark.visible)
 	assert_eq(f.canvas_mod.color, FieldScreen.DARK_AMBIENT, "黑暗地点只剩手电筒")

@@ -1,0 +1,27 @@
+{
+	"type": "tileset",
+	"version": "1.10",
+	"tiledversion": "1.11.0",
+	"name": "lab_walls",
+	"tilewidth": 16,
+	"tileheight": 16,
+	"columns": 12,
+	"tilecount": 192,
+	"image": "../../../art/tiles/lab/tilesWalls.png",
+	"imagewidth": 192,
+	"imageheight": 256,
+	"margin": 0,
+	"spacing": 0,
+	"properties": [
+		{
+			"name": "blocks",
+			"type": "bool",
+			"value": true
+		},
+		{
+			"name": "kind",
+			"type": "string",
+			"value": "wall"
+		}
+	]
+}

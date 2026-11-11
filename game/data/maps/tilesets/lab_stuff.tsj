@@ -1,0 +1,27 @@
+{
+	"type": "tileset",
+	"version": "1.10",
+	"tiledversion": "1.11.0",
+	"name": "lab_stuff",
+	"tilewidth": 16,
+	"tileheight": 16,
+	"columns": 37,
+	"tilecount": 592,
+	"image": "../../../art/tiles/lab/tilesStuff.png",
+	"imagewidth": 592,
+	"imageheight": 256,
+	"margin": 0,
+	"spacing": 0,
+	"properties": [
+		{
+			"name": "blocks",
+			"type": "bool",
+			"value": true
+		},
+		{
+			"name": "kind",
+			"type": "string",
+			"value": "prop"
+		}
+	]
+}

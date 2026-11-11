@@ -1,0 +1,22 @@
+{
+	"type": "tileset",
+	"version": "1.10",
+	"tiledversion": "1.11.0",
+	"name": "lab_floor",
+	"tilewidth": 16,
+	"tileheight": 16,
+	"columns": 11,
+	"tilecount": 198,
+	"image": "../../../art/tiles/lab/tilesFloor.png",
+	"imagewidth": 176,
+	"imageheight": 288,
+	"margin": 0,
+	"spacing": 0,
+	"properties": [
+		{
+			"name": "kind",
+			"type": "string",
+			"value": "floor"
+		}
+	]
+}
