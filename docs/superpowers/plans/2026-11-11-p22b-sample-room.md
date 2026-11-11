@@ -2064,10 +2064,13 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
 from PIL import Image
+
+sys.dont_write_bytecode = True  # 载入 pixelize_scene.py 时不在 game/tools/ 里留 __pycache__
 
 # 用 pixelize_scene.py 里的调色板读取和距离函数（-I 模式下脚本目录不在 sys.path 里，按文件路径载入）。
 _spec = importlib.util.spec_from_file_location("pixelize_scene", Path(__file__).with_name("pixelize_scene.py"))
@@ -2130,7 +2133,7 @@ def main() -> None:
 			"passed": saved.size == source.size and not foreign,
 		}
 	args.report.parent.mkdir(parents=True, exist_ok=True)
-	args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+	args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 	print(args.output.name, "colors", len(used), "passed", report["passed"])
 	if not report["passed"]:
 		raise SystemExit(1)
