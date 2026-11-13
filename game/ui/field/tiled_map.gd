@@ -8,7 +8,7 @@ extends RefCounted
 ##   图层：tilelayer "floor" / "walls" / "decor" / "over"（over 画在人物上面、不挡路）；objectgroup（物件层，名字随意）。
 ##   图块属性：blocks（bool，挡路）、kind（string，灰盒占位用：floor carpet water wall wall_face prop laser search door）。
 ##     写在图块集上的同名属性是这个集里每块图块的默认值（例如"实验室墙壁"整集都挡路），单块图块上写的会盖过它。
-##   地图属性：theme（灰盒配色）、ambient（环境光颜色）。
+##   地图属性：theme（灰盒配色）、ambient（环境光颜色）、crowd（这里最多同时有多少人，校验空地够不够，可省）。
 ##   物件（Tiled 里的"类"）：door{to}、arrive{from | start, facing}、search、npc{id}、npc_spot{order}、
 ##     light{color, radius, energy, flicker}、glow{color, radius}。物件按左上角落在哪一格算格子；门可以是好几格的长条。
 ##   颜色按 Tiled 的写法 #AARRGGBB 读（#RRGGBB 也认）。
@@ -22,8 +22,12 @@ const FLIP_H := 0x80000000
 const FLIP_V := 0x40000000
 const FLIP_D := 0x20000000
 const GID_MASK := 0x0FFFFFFF
-## 一张图最多几盏灯：兼容渲染器里一个物体最多受 8 盏灯影响，要给手电筒（两盏）和火焰女皇的投影留位置。
+## 一屏范围（30×16 格）里最多几盏灯：兼容渲染器里一个物体最多受 8 盏灯影响，要给手电筒（两盏）和火焰女皇的投影留位置。
+## 大地图可以有更多灯，只要它们分散开。
 const MAX_LIGHTS := 5
+const LIGHT_WINDOW := Vector2i(30, 16)
+## 人群容量（设计 2026-11-12 第 6 节）：每个在场的人至少要有几格走得到的空地。
+const TILES_PER_PERSON := 6
 
 static var _cache: Dictionary = {}
 
@@ -493,8 +497,11 @@ static func validate(dir: String, scenario: RefCounted) -> Array[String]:
 				errors.append("%s 的 %s 在图外" % [loc_id, t])
 			if (t == "light" or t == "glow") and color(o["props"].get("color", ""), Color(0, 0, 0, 0)) == Color(0, 0, 0, 0):
 				errors.append("%s 的 %s 颜色写错了" % [loc_id, t])
-		if m.lights().size() > MAX_LIGHTS:
-			errors.append("%s 的灯超过 %d 盏" % [loc_id, MAX_LIGHTS])
+		if m.max_lights_in_window() > MAX_LIGHTS:
+			errors.append("%s 有一屏范围里的灯超过 %d 盏" % [loc_id, MAX_LIGHTS])
+		var crowd := int(m.props.get("crowd", 0))
+		if crowd > 0 and reach.size() < crowd * TILES_PER_PERSON:
+			errors.append("%s 走得到的空地只有 %d 格，站不下 %d 个人（每人至少 %d 格）" % [loc_id, reach.size(), crowd, TILES_PER_PERSON])
 		if m.props.has("ambient") and color(m.props["ambient"], Color(0, 0, 0, 0)) == Color(0, 0, 0, 0):
 			errors.append("%s 的环境光颜色写错了" % loc_id)
 	var d := DirAccess.open(dir)
@@ -503,6 +510,21 @@ static func validate(dir: String, scenario: RefCounted) -> Array[String]:
 			if f.ends_with(".tmj") and not locations.has(f.get_basename()):
 				errors.append("地图 %s 不是剧本里的地点" % f)
 	return errors
+
+
+## 任何一屏范围（以某盏灯为中心的 30×16 格）里最多有几盏灯。
+func max_lights_in_window() -> int:
+	var cells: Array[Vector2i] = []
+	for l in lights():
+		cells.append(l["cell"])
+	var most := 0
+	for a in cells:
+		var n := 0
+		for b in cells:
+			if absi(b.x - a.x) * 2 <= LIGHT_WINDOW.x and absi(b.y - a.y) * 2 <= LIGHT_WINDOW.y:
+				n += 1
+		most = maxi(most, n)
+	return most
 
 
 func _check_tiles() -> Array[String]:

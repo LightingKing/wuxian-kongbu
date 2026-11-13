@@ -80,6 +80,46 @@ func test_persuade_mode_uses_other_signal() -> void:
 	_drop(p)
 
 
+## 固定话题变成按钮：没聊过的带"•"，聊过的打"✓"；点一下发 topic_picked；没有话题时标题藏起来；重新打开会清空。
+func test_topics_become_buttons() -> void:
+	var p := _panel()
+	assert_false(p.topic_title.visible, "没有话题时不显示")
+	p.set_topics([{"id": "kaplan_door", "label": "你在忙什么？", "seen": true}, {"id": "kaplan_queen", "label": "主电脑是什么？", "seen": false}])
+	assert_true(p.topic_title.visible)
+	assert_eq(p.topic_count(), 2)
+	assert_eq(String((p.topic_box.get_child(0) as Button).text), "✓ 你在忙什么？")
+	assert_eq(String((p.topic_box.get_child(1) as Button).text), "• 主电脑是什么？")
+	var picked: Array = []
+	p.topic_picked.connect(func(t: String) -> void: picked.append(t))
+	p.press_topic(1)
+	p.press_topic(5)
+	assert_eq(picked, ["kaplan_queen"])
+	assert_eq(String(p.topic_title.text), "可以问的：")
+	p.open_for("马修", "列车", "talk")
+	assert_eq(p.topic_count(), 0, "换个人说话，旧话题清掉")
+	p.set_topics([{"id": "matthew_look", "label": "看看他", "observe": true, "seen": false}])
+	assert_eq(String(p.topic_title.text), "可以做的：", "只能看看的时候不叫'问'")
+	_drop(p)
+
+
+## 对方听不见（列车上的剧情人物）：输入框和"说"按钮关掉，硬发也发不出去；重新打开恢复。
+func test_free_text_can_be_disabled() -> void:
+	var p := _panel()
+	var sent: Array = []
+	p.submitted.connect(func(t: String) -> void: sent.append(t))
+	p.set_free_text(false)
+	assert_false(p.input.editable)
+	assert_true(p.send_button.disabled)
+	p.press_send("你听得见吗")
+	assert_eq(sent.size(), 0)
+	p.set_free_text(true)
+	assert_true(p.input.editable)
+	assert_eq(String(p.input.placeholder_text), "说点什么……")
+	p.press_send("现在呢")
+	assert_eq(sent.size(), 1)
+	_drop(p)
+
+
 func test_close_hides_and_signals() -> void:
 	var p := _panel()
 	var closed: Array = []

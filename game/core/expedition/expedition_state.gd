@@ -29,6 +29,8 @@ var tether: Dictionary = {}
 ## 角色 id → 已经离开绑定范围多少分钟。
 var tether_out: Dictionary = {}
 var searched: Dictionary = {}
+## 聊过的固定话题：话题 id → true（core/dialogue/topics.gd）。
+var topics_seen: Dictionary = {}
 ## 角色 id → 击杀点数（小数，结算时合计后向下取整）。
 var kill_points: Dictionary = {}
 var kill_counts: Dictionary = {}
@@ -191,6 +193,7 @@ func to_dict() -> Dictionary:
 		"tether": tether.duplicate(),
 		"tether_out": tether_out.duplicate(),
 		"searched": searched.duplicate(),
+		"topics_seen": topics_seen.duplicate(),
 		"kill_points": kill_points.duplicate(),
 		"kill_counts": kill_counts.duplicate(),
 		"ledger": ledger.duplicate(true),
@@ -223,6 +226,7 @@ func load_dict(d: Dictionary, sc: RefCounted, chars: Dictionary) -> void:
 	for c: String in d["tether_out"]:
 		tether_out[c] = int(d["tether_out"][c])
 	searched = (d["searched"] as Dictionary).duplicate()
+	topics_seen = (d.get("topics_seen", {}) as Dictionary).duplicate()
 	kill_points = (d["kill_points"] as Dictionary).duplicate()
 	kill_counts = {}
 	for c: String in d["kill_counts"]:

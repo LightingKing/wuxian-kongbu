@@ -6,6 +6,8 @@ extends Control
 signal submitted(text: String)
 signal persuading(text: String)
 signal reply_picked(text: String)
+## 点了一个固定话题（core/dialogue/topics.gd）。
+signal topic_picked(topic_id: String)
 signal closed
 
 const UiTheme = preload("res://ui/ui_theme.gd")
@@ -17,6 +19,8 @@ var title_label: Label
 var sub_label: Label
 var log_label: RichTextLabel
 var reply_box: HBoxContainer
+var topic_title: Label
+var topic_box: HFlowContainer
 var input: LineEdit
 var send_button: Button
 var status_label: Label
@@ -68,8 +72,20 @@ func build() -> void:
 	log_label = UiTheme.rich(21)
 	log_label.bbcode_enabled = true
 	log_label.position = Vector2(28, 96)
-	log_label.size = Vector2(800, 470)
+	log_label.size = Vector2(800, 300)
+	log_label.scroll_following = true
 	panel.add_child(log_label)
+
+	topic_title = UiTheme.label(tr("可以问的："), 17, UiTheme.MUTED)
+	topic_title.position = Vector2(28, 404)
+	topic_title.size = Vector2(800, 24)
+	panel.add_child(topic_title)
+	topic_box = HFlowContainer.new()
+	topic_box.position = Vector2(28, 432)
+	topic_box.size = Vector2(800, 140)
+	topic_box.add_theme_constant_override("h_separation", 10)
+	topic_box.add_theme_constant_override("v_separation", 8)
+	panel.add_child(topic_box)
 
 	reply_box = HBoxContainer.new()
 	reply_box.position = Vector2(28, 578)
@@ -122,6 +138,8 @@ func open_for(title: String, subtitle: String, dialogue_mode: String = "talk") -
 	clear_replies()
 	title_label.text = title
 	sub_label.text = subtitle
+	set_topics([])
+	set_free_text(true)
 	set_mode(dialogue_mode)
 	set_status("")
 	set_portrait("")
@@ -167,6 +185,53 @@ func set_replies(list: Array) -> void:
 		reply_box.add_child(b)
 
 
+## 固定话题按钮：每个是 {id, label, seen}。没聊过的前面带"•"，聊过的打"✓"、颜色暗一点（还能再问一遍）。
+func set_topics(list: Array) -> void:
+	build()
+	for c in topic_box.get_children():
+		topic_box.remove_child(c)
+		c.queue_free()
+	topic_title.visible = not list.is_empty()
+	var only_look := not list.is_empty()
+	for topic: Dictionary in list:
+		if not bool(topic.get("observe", false)):
+			only_look = false
+	topic_title.text = tr("可以做的：") if only_look else tr("可以问的：")
+	for topic: Dictionary in list:
+		var tid := String(topic["id"])
+		var seen := bool(topic.get("seen", false))
+		var text := ("✓ " if seen else "• ") + String(topic["label"])
+		var b := UiTheme.button(text, 18)
+		b.custom_minimum_size = Vector2(0, 44)
+		if seen:
+			b.modulate = Color(1, 1, 1, 0.6)
+		b.pressed.connect(func() -> void: topic_picked.emit(tid))
+		topic_box.add_child(b)
+
+
+## 话题按钮的个数（测试用）。
+func topic_count() -> int:
+	return topic_box.get_child_count() if topic_box != null else 0
+
+
+## 供测试与验收脚本用：点第 index 个话题。
+func press_topic(index: int) -> void:
+	if topic_box == null or index < 0 or index >= topic_box.get_child_count():
+		return
+	(topic_box.get_child(index) as Button).pressed.emit()
+
+
+## 能不能自由说话：对方听不见时（列车上的剧情人物）关掉输入框。
+func set_free_text(enabled: bool) -> void:
+	build()
+	input.editable = enabled
+	send_button.disabled = not enabled
+	if not enabled:
+		input.placeholder_text = "他们听不见你说话"
+	else:
+		set_mode(mode)
+
+
 func clear_replies() -> void:
 	if reply_box == null:
 		return
@@ -176,6 +241,8 @@ func clear_replies() -> void:
 
 
 func _on_send(forced: String = "") -> void:
+	if not input.editable:
+		return
 	var text := forced.strip_edges() if forced != "" else String(input.text).strip_edges()
 	if text == "":
 		return

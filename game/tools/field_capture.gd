@@ -1,8 +1,10 @@
 extends SceneTree
 ## 计划 21 / 任务卡 007：给探索画面截图，看地图、行走图、灯光放进游戏里是什么样子。
 ## 用法（要窗口，不能 --headless）：godot --path game -s res://tools/field_capture.gd
-## 输出：仓库根目录 art_src/qa/field_<序号>_<内容>.png（1920×1080）：开场对话框，然后八个地点各一张。
-## 只截图，不写存档。截地点时直接把分队放到那个地点（跳过路上的剧情和战斗），剧情人物按开局的位置站。
+## 输出：仓库根目录 art_src/qa/field_<序号>_<内容>.png（1920×1080）：开场对话框，八个地点各一张，
+## 然后列车上的近视野、"在场的人"名单、瑞恩的人物卡（计划 23）。
+## 只截图，不写存档。截地点时直接把分队放到那个地点（跳过路上的剧情和战斗），剧情人物按开局的位置站；
+## 站台大厅那张把车上的剧情人物也挪下车（和真玩时一样，他们跟你们一起下车）。
 
 const Session = preload("res://core/session/session.gd")
 const Scenario = preload("res://core/expedition/scenario.gd")
@@ -57,6 +59,10 @@ func _run() -> void:
 		g.flush_messages()
 		var sid: String = g.view.squad_id()
 		s2.expedition.st.squads[sid]["location"] = loc
+		if loc == "hall":
+			for npc_id: String in s2.expedition.st.npcs:
+				if String(s2.expedition.st.npcs[npc_id]["location"]) == "car":
+					s2.expedition.st.npcs[npc_id]["location"] = "hall"
 		g.refresh()
 		g.flush_messages()
 		g._show_next()
@@ -64,5 +70,22 @@ func _run() -> void:
 		await _shot(loc)
 		g.queue_free()
 		await process_frame
+	var s3 := Session.new()
+	s3.start_m1(1)
+	var h := _field(s3)
+	h.press_choice("listen")
+	h.flush_messages()
+	h._show_next()
+	h.set_wide(false)
+	await create_timer(1.8).timeout
+	await _shot("car_near_spread")
+	h.set_wide(true)
+	h.open_roster()
+	await _shot("car_roster")
+	s3.expedition.talk_topic("ryan", "ryan_look", 0)
+	h.open_card("ryan")
+	await _shot("car_card_ryan")
+	h.queue_free()
+	await process_frame
 	print("共截图 ", n)
 	quit(0)

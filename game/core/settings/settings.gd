@@ -7,7 +7,7 @@ const MODES: Array[String] = ["windowed", "fullscreen"]
 
 
 static func defaults() -> Dictionary:
-	return {"window_mode": "windowed", "volume": 0.8}
+	return {"window_mode": "windowed", "volume": 0.8, "field_wide": true}
 
 
 static func load_settings(path: String = PATH) -> Dictionary:
@@ -24,6 +24,8 @@ static func load_settings(path: String = PATH) -> Dictionary:
 		s["window_mode"] = String(data["window_mode"])
 	if data.has("volume"):
 		s["volume"] = clampf(float(data["volume"]), 0.0, 1.0)
+	if data.has("field_wide"):
+		s["field_wide"] = bool(data["field_wide"])
 	return s
 
 

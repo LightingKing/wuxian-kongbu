@@ -16,6 +16,7 @@ const ExpeditionState = preload("res://core/expedition/expedition_state.gd")
 const Watch = preload("res://core/expedition/watch.gd")
 const Persuasion = preload("res://core/expedition/persuasion.gd")
 const PlotRunner = preload("res://core/expedition/plot_runner.gd")
+const Topics = preload("res://core/dialogue/topics.gd")
 const BattleReport = preload("res://core/expedition/battle_report.gd")
 const ExpeditionSettlement = preload("res://core/expedition/expedition_settlement.gd")
 const BattleData = preload("res://core/battle/battle_data.gd")
@@ -146,6 +147,25 @@ func leak(char_id: String) -> Array[Dictionary]:
 
 
 ## 对话、说服、AI 判定之类的结果以效果的形式落地（例如提醒大家有陷阱 → set_flag）。
+## 聊一个固定话题（core/dialogue/topics.gd）：现在聊得了才算；第一次聊时标成聊过并跑它的效果。
+## trust = 对方现在的对话信任（在 session 的对话记忆里）。返回 {"text", "new", "card", "events"}；聊不了返回 {}。
+func talk_topic(npc_id: String, topic_id: String, trust: int) -> Dictionary:
+	var t: Dictionary = {}
+	for a: Dictionary in Topics.available(st, npc_id, trust):
+		if String(a["id"]) == topic_id:
+			t = a
+	if t.is_empty() or st.outcome != "ongoing":
+		return {}
+	var is_new: bool = not st.topics_seen.has(topic_id)
+	var events: Array[Dictionary] = []
+	if is_new:
+		st.topics_seen[topic_id] = true
+		events.append({"type": "topic_talked", "npc": npc_id, "topic": topic_id})
+		PlotRunner.apply_effects(st, t.get("effects", []), String(st.location_of(npc_id)) if st.characters.has(npc_id) else String(st.npcs.get(npc_id, {}).get("location", "")), events)
+		PlotRunner.run_conditional(st, events)
+	return {"text": Topics.text_of(st, npc_id, t), "new": is_new, "card": String(t.get("card", "")), "events": _emit(events)}
+
+
 func apply_effects(effects: Array, location: String = "") -> Array[Dictionary]:
 	var events: Array[Dictionary] = []
 	if st.outcome != "ongoing":

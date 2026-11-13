@@ -18,7 +18,7 @@ func test_context_text() -> void:
 	var t: String = m.context_text()
 	assert_true(t.begins_with("【你扮演】马修·艾迪森"))
 	assert_true(t.contains("性格：冷静、多疑"))
-	assert_true(t.contains("你知道但绝不会说出口的事：他其实是来调查保护伞公司的"))
+	assert_true(t.contains("你知道但绝不会说出口的事：他并不知道蜂房里真正发生了什么，上头没告诉他全部实情"))
 	assert_true(t.contains("- 郑吒在车厢里救过他"))
 
 

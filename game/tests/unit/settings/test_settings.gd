@@ -49,6 +49,16 @@ func test_unknown_mode_and_clamped_volume() -> void:
 	assert_almost(float(s["volume"]), 1.0, 0.0001, "音量夹到 0~1")
 
 
+## 探索画面的视野（远 / 近）：默认远；存进去读得回来；读进来一律是 bool。
+func test_field_wide() -> void:
+	assert_true(bool(Settings.defaults()["field_wide"]))
+	assert_true(bool(Settings.load_settings(PATH)["field_wide"]))
+	assert_eq(Settings.save_settings({"window_mode": "windowed", "volume": 0.8, "field_wide": false}, PATH), OK)
+	var back := Settings.load_settings(PATH)
+	assert_eq(typeof(back["field_wide"]), TYPE_BOOL)
+	assert_false(bool(back["field_wide"]))
+
+
 ## 无头测试里 apply 直接返回；这里只验证它不改坏字典。
 func test_apply_and_with_value() -> void:
 	var s := Settings.defaults()

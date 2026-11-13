@@ -21,6 +21,7 @@ const EventText = preload("res://ui/event_text.gd")
 const DataLoader = preload("res://core/util/data_loader.gd")
 const Slots = preload("res://core/save/slots.gd")
 const Settings = preload("res://core/settings/settings.gd")
+const Topics = preload("res://core/dialogue/topics.gd")
 const TitleScreen = preload("res://ui/title_screen.gd")
 const PauseMenu = preload("res://ui/pause_menu.gd")
 const Sfx = preload("res://ui/audio/sfx.gd")
@@ -56,6 +57,7 @@ func _ready() -> void:
 	add_child(Sfx.new())
 	settings = Settings.load_settings()
 	Settings.apply(settings)
+	FieldScreen.wide = bool(settings.get("field_wide", true))
 	_show_title()
 
 
@@ -118,7 +120,9 @@ func _set_status(text: String) -> void:
 func _show_expedition() -> void:
 	_clear()
 	var screen := FieldScreen.new()
+	screen.dialogue_store = session.dialogues
 	screen.setup(session.expedition, _names())
+	screen.view_changed.connect(_on_view_changed)
 	screen.battle_needed.connect(_on_battle_needed)
 	screen.ended.connect(_on_expedition_ended)
 	screen.talk_requested.connect(_on_talk)
@@ -500,11 +504,23 @@ func _on_cutscene(cg_name: String, text: String) -> void:
 	)
 
 
+## 探索画面切换了视野：存进设置，下次进来还是这一档。
+func _on_view_changed(wide: bool) -> void:
+	settings["field_wide"] = wide
+	Settings.save_settings(settings)
+
+
 func _on_talk(npc_id: String) -> void:
 	var title: String = dialogue.display_name(npc_id)
 	_open_panel(title, "%s · 第 %d 分钟" % [_location_name(), int(session.expedition.st.clock)], "talk")
 	var p: Control = panel
 	p.set_portrait(npc_id)
+	p.topic_picked.connect(_on_topic.bind(npc_id))
+	_refresh_topics(npc_id, p)
+	if not Topics.can_hear(session.expedition.st, npc_id):
+		p.set_free_text(false)
+		p.set_status("列车减速之前，剧情人物听不见轮回者说话。现在只能看看他们。")
+		return
 	p.set_status("……")
 	dialogue.say(npc_id, "", _situation(), func(res: Dictionary) -> void:
 		if panel != p:
@@ -513,6 +529,39 @@ func _on_talk(npc_id: String) -> void:
 		p.set_status(_source_text(String(res["source"])))
 	)
 	p.submitted.connect(_on_said.bind(npc_id))
+
+
+## 对话框里的固定话题：能聊的都列出来（聊过的也还能再问）。
+func _refresh_topics(npc_id: String, p: Control) -> void:
+	if p == null or session.expedition == null:
+		return
+	p.set_topics(Topics.available(session.expedition.st, npc_id, dialogue.trust_of(npc_id)))
+
+
+## 点了一个固定话题：对方照写好的话回答；第一次聊算一次交谈（信任 +1），并跑话题的效果（线索、旗标……）。
+func _on_topic(topic_id: String, npc_id: String) -> void:
+	var p: Control = panel
+	if p == null:
+		return
+	var st: RefCounted = session.expedition.st
+	var hear := Topics.can_hear(st, npc_id)
+	var t: Dictionary = Topics.find(st, npc_id, topic_id)
+	var res: Dictionary = session.expedition.talk_topic(npc_id, topic_id, dialogue.trust_of(npc_id))
+	if res.is_empty():
+		return
+	if hear:
+		p.push("我", String(t.get("label", "")))
+		p.push(dialogue.display_name(npc_id), String(res["text"]))
+	else:
+		p.push("（你看了看）", String(res["text"]))
+	_push_events(res["events"], p)
+	if bool(res["new"]) and hear:
+		_after_said(npc_id, p)
+	else:
+		var screen := _expedition_screen()
+		if screen != null:
+			screen.refresh()
+	_refresh_topics(npc_id, p)
 
 
 func _on_said(text: String, npc_id: String) -> void:

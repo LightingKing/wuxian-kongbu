@@ -5,8 +5,8 @@
 	"duration_minutes": 187,
 	"main_task": "存活 3 小时 07 分；不得离开马修 100 米",
 	"locations": {
-		"car": {"name": "高速车厢", "pos": [60, 700], "search": [{"item": "grenade", "count": 1}, {"item": "ammo", "count": 6}]},
-		"hall": {"name": "蜂巢入口大厅", "pos": [220, 600]},
+		"car": {"name": "列车", "pos": [60, 700], "unheard": true, "search": [{"item": "grenade", "count": 1}, {"item": "ammo", "count": 6}]},
+		"hall": {"name": "站台与入口大厅", "pos": [220, 600]},
 		"stairs": {"name": "楼梯井", "pos": [380, 500], "dark": true},
 		"laser": {"name": "激光通道", "pos": [540, 400], "search": [{"item": "ammo", "count": 4}]},
 		"control": {"name": "火焰女皇主机房", "pos": [700, 280], "search": [{"item": "spray", "count": 2}, {"item": "antidote", "count": 1}], "search_minutes": 20, "search_encounter": {"chance": 0.35, "intro": "翻柜子的声音引来了两只丧尸。", "enemies": [{"def": "zombie", "count": 3, "row": 0}]}},
@@ -25,13 +25,13 @@
 		{"a": "hall", "b": "sewer", "minutes": 15}
 	],
 	"npcs": {
-		"matthew": {"name": "马修·艾迪森", "location": "hall", "plot": true},
-		"alice": {"name": "艾丽丝", "location": "hall", "plot": true},
-		"ryan": {"name": "瑞恩", "location": "hall", "plot": true},
-		"matt": {"name": "马特", "location": "hall", "plot": true},
-		"kaplan": {"name": "卡普兰", "location": "hall", "plot": true},
-		"jd": {"name": "J·D", "location": "hall", "plot": true},
-		"rain": {"name": "雷恩", "location": "hall", "plot": true},
+		"matthew": {"name": "马修·艾迪森", "location": "car", "plot": true},
+		"alice": {"name": "艾丽丝", "location": "car", "plot": true},
+		"ryan": {"name": "瑞恩", "location": "car", "plot": true},
+		"matt": {"name": "马特", "location": "car", "plot": true},
+		"kaplan": {"name": "卡普兰", "location": "car", "plot": true},
+		"jd": {"name": "J·D", "location": "car", "plot": true},
+		"rain": {"name": "雷恩", "location": "car", "plot": true},
 		"red_queen": {"name": "火焰女皇", "location": "control", "plot": false}
 	},
 	"trust": {
@@ -45,6 +45,8 @@
 		"dark_flag": "power_out"
 	},
 	"facts": {
+		"ryan_stash": {"statement": "瑞恩在列车上藏了东西", "domain": "biohazard", "truth": true, "difficulty": 0.5, "clues": {"zheng_zha_memory": 0.3, "ryan_memory": 0.5}},
+		"matt_sister": {"statement": "马特在找他姐姐——蜂房的高级研究员，她想揭发公司", "domain": "biohazard", "truth": true, "difficulty": 0.5, "clues": {"zheng_zha_memory": 0.3, "matt_memory": 0.6}},
 		"queen_controls_lasers": {
 			"statement": "火焰女皇控制着蜂巢里的激光防御",
 			"domain": "biohazard",
@@ -102,8 +104,8 @@
 		},
 		{
 			"id": "mercs_board",
-			"label": "雇佣兵登场",
-			"at": 10,
+			"label": "下车，雇佣兵带队",
+			"when": {"party_at": "hall"},
 			"location": "hall",
 			"effects": [
 				{"npc_move": {"npc": "matthew", "to": "hall"}},
@@ -113,7 +115,7 @@
 				{"npc_move": {"npc": "rain", "to": "hall"}},
 				{"npc_move": {"npc": "jd", "to": "hall"}},
 				{"npc_move": {"npc": "matt", "to": "hall"}},
-				{"say": {"speaker": "matthew", "text": "你们六个，从现在起是保安。跟紧我，别离开一百米。"}},
+				{"say": {"speaker": "matthew", "text": "名单上说你们是这里登记在册的保安。那就跟紧，别碍事。"}},
 				{"set_tether": {"npc": "matthew", "max_hops": 1, "grace_minutes": 10, "transfer_to": "kaplan"}},
 				{"clue": "desert_eagle"},
 				{"say": {"speaker": "zhang_jie", "text": "看什么看，老子的枪。"}}

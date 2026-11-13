@@ -5,6 +5,9 @@ extends Control
 ## 地图比一屏大时 Camera2D 跟着主角走（自带平滑、地图边界、一点拖拽边距），走完一步再跟。
 ## 主角（拍板的人）用方向键 / WASD 走，队友跟在后面；对着人按 Enter 说话，对着柜子按 Enter 搜索；
 ## 走进门就去隔壁地点（时间照规则推进）；点地面会自己走过去（先按镜头位置换算格子）。
+## 两档视野（设计 2026-11-12 第 6 节）：近 = 480×256 放大 4 倍（一屏 30×16 格），远 = 640×341 放大 3 倍（一屏 40×21 格），V 切换。
+## 人多也走得开：主角停下来一会儿，队友就散开站到附近；顶着剧情人物走一会儿，对方会和你换个位置让路。
+## 走近的人头顶显示名字，有新话题的带"…"；T 打开"在场的人"，可以直接找任何人说话或者看人物卡。
 ## 画面：图块集的图片在就用，不在就画灰盒；有 Codex 的行走图就用（field_art.gd），没有用占位小人；
 ## 每个地点有环境光和灯（data/maps 里的 ambient / lights / glows），黑暗地点只剩主角手里的手电筒；人物脚下有影子。
 ## 剧情事件不堆在日志里：台词一句一句打字出在底部的对话框里（左边是立绘），选择弹选项窗口，说服弹说服窗口，
@@ -16,6 +19,7 @@ signal ended
 signal talk_requested(npc_id: String)
 signal persuade_requested
 signal cutscene_requested(name: String, text: String)
+signal view_changed(wide: bool)
 
 const ExpeditionView = preload("res://ui/expedition/expedition_view.gd")
 const TiledMap = preload("res://ui/field/tiled_map.gd")
@@ -24,9 +28,17 @@ const FieldArt = preload("res://ui/field/field_art.gd")
 const UiTheme = preload("res://ui/ui_theme.gd")
 const EventText = preload("res://ui/event_text.gd")
 const PortraitSource = preload("res://ui/art/portrait_source.gd")
+const Topics = preload("res://core/dialogue/topics.gd")
+const Cohesion = preload("res://core/social/cohesion.gd")
+const DataLoader = preload("res://core/util/data_loader.gd")
 
-const PIXEL := Vector2i(480, 256)
-const SCALE := 4
+const VIEW_NEAR := Vector2i(480, 256)
+const VIEW_FAR := Vector2i(640, 341)
+## 主角停下来多久以后队友散开（秒）；顶着剧情人物走多久对方让路（秒）。
+const SPREAD_DELAY := 1.2
+const GIVE_WAY_DELAY := 0.35
+## 头顶名字在多少格以内显示。
+const NAME_RANGE := 6
 const TILE := 16
 const STEP_TIME := 0.13
 ## 脚底离格子下沿几像素（站在格子中间偏下，看起来踩在地上）。
@@ -60,10 +72,36 @@ static var _memory: Dictionary = {}
 static var skip_messages := false
 ## 地图目录（每个地点一个 <地点>.tmj）；测试会把它指到 tests/fixtures 下的地图。
 static var maps_dir := "res://data/maps/biohazard1"
+## 视野：true = 远（一屏 40×21 格）。main 从设置里读，切换时存回设置。
+static var wide := true
 
 
 var view: RefCounted
 var fmap: RefCounted
+## 这一屏像素层的大小和放大倍数（随视野变）。
+var pixel_size := VIEW_FAR
+var scale_factor := 3
+## 对话记忆（main 传进来的 session.dialogues）：人物卡和"…"要看对话信任。
+var dialogue_store: Dictionary = {}
+## 队友散开了：各自站在 spread_cells 里，不在主角身后排队。
+var spread := false
+var spread_cells: Array[Vector2i] = []
+## 被你挤开换过位置的剧情人物：人物 id → 现在站的格子（只在这个地点有效）。
+var npc_override: Dictionary = {}
+var _idle := 0.0
+var _bump_id := ""
+var _bump_since := 0.0
+var _new_topics: Dictionary = {}
+var name_layer: Control
+var name_labels: Dictionary = {}
+var roster_panel: PanelContainer
+var roster_box: VBoxContainer
+var roster_scroll: ScrollContainer
+var card_panel: PanelContainer
+var card_face: TextureRect
+var card_title: Label
+var card_body: RichTextLabel
+var card_id := ""
 var loc: String = ""
 var viewport: SubViewport
 var display: TextureRect
@@ -138,7 +176,11 @@ func setup(expedition: RefCounted, char_names: Dictionary) -> void:
 
 ## 记住现在站哪、队友站哪、播到第几条事件。
 func _remember() -> void:
-	_memory[view.ex.get_instance_id()] = {"loc": loc, "cell": cell, "facing": facing, "seen": seen, "trail": trail.duplicate()}
+	_memory[view.ex.get_instance_id()] = {
+		"loc": loc, "cell": cell, "facing": facing, "seen": seen, "trail": trail.duplicate(),
+		"followers": follower_ids.duplicate(), "spread": spread, "spread_cells": spread_cells.duplicate(),
+		"npc_override": npc_override.duplicate(),
+	}
 
 
 # ---------------------------------------------------------------- 搭界面
@@ -171,10 +213,12 @@ func _build() -> void:
 	_additive = CanvasItemMaterial.new()
 	_additive.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	_additive.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+	pixel_size = VIEW_FAR if wide else VIEW_NEAR
+	scale_factor = 3 if wide else 4
 	viewport = SubViewport.new()
-	viewport.size = PIXEL
+	viewport.size = pixel_size
 	viewport.disable_3d = true
-	viewport.transparent_bg = false
+	viewport.transparent_bg = true
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	viewport.snap_2d_transforms_to_pixel = true
@@ -224,10 +268,14 @@ func _build() -> void:
 	display = TextureRect.new()
 	display.texture = viewport.get_texture()
 	display.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	display.size = Vector2(PIXEL * SCALE)
+	display.size = Vector2(pixel_size * scale_factor)
 	display.stretch_mode = TextureRect.STRETCH_SCALE
 	display.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(display)
+	name_layer = Control.new()
+	name_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	name_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(name_layer)
 
 	hud = _glass(Vector2(16, 12), Vector2(560, 0))
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -272,7 +320,7 @@ func _build() -> void:
 	prompt.visible = false
 	add_child(prompt)
 
-	hint_label = UiTheme.label(tr("方向键 / WASD 走动 · Enter 说话、调查 · 点地面自动走过去 · L 记录 · Esc 菜单"), 16, UiTheme.MUTED)
+	hint_label = UiTheme.label(tr("方向键 / WASD 走动 · Enter 说话、调查 · 点地面自动走过去 · T 在场的人 · V 视野 · L 记录 · Esc 菜单"), 16, UiTheme.MUTED)
 	hint_label.position = Vector2(20, 990)
 	hint_label.size = Vector2(1100, 26)
 	add_child(hint_label)
@@ -345,6 +393,51 @@ func _build() -> void:
 	log_panel.add_child(log_label)
 	log_panel.visible = false
 
+	roster_panel = _glass(Vector2(500, 110), Vector2(920, 0))
+	roster_scroll = ScrollContainer.new()
+	roster_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	roster_panel.add_child(roster_scroll)
+	roster_box = VBoxContainer.new()
+	roster_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	roster_box.add_theme_constant_override("separation", 4)
+	roster_scroll.add_child(roster_box)
+	roster_panel.visible = false
+
+	card_panel = _glass(Vector2(380, 130), Vector2(1160, 780))
+	var card_row := HBoxContainer.new()
+	card_row.add_theme_constant_override("separation", 24)
+	card_panel.add_child(card_row)
+	card_face = TextureRect.new()
+	card_face.custom_minimum_size = Vector2(360, 540)
+	card_face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	card_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	card_row.add_child(card_face)
+	var card_col := VBoxContainer.new()
+	card_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	card_col.add_theme_constant_override("separation", 10)
+	card_row.add_child(card_col)
+	card_title = UiTheme.label(tr(""), 30, UiTheme.ACCENT2)
+	card_col.add_child(card_title)
+	card_body = UiTheme.rich(19)
+	card_body.bbcode_enabled = true
+	card_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	card_col.add_child(card_body)
+	var card_buttons := HBoxContainer.new()
+	card_buttons.add_theme_constant_override("separation", 10)
+	card_col.add_child(card_buttons)
+	var card_talk := UiTheme.button(tr("说话"), 20)
+	card_talk.focus_mode = Control.FOCUS_NONE
+	card_talk.pressed.connect(func() -> void:
+		var id := card_id
+		close_panels()
+		press_talk(id))
+	card_buttons.add_child(card_talk)
+	var card_back := UiTheme.button(tr("返回"), 20)
+	card_back.focus_mode = Control.FOCUS_NONE
+	card_back.pressed.connect(close_panels)
+	card_buttons.add_child(card_back)
+	card_panel.visible = false
+
 
 # ---------------------------------------------------------------- 进地点、摆人、打光
 
@@ -355,10 +448,7 @@ func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 	fmap = TiledMap.make(maps_dir, loc)
 	for layer_name: String in map_layers:
 		FieldTiles.fill(map_layers[layer_name], fmap, layer_name)
-	camera.limit_left = 0
-	camera.limit_top = 0
-	camera.limit_right = fmap.size.x * TILE
-	camera.limit_bottom = fmap.size.y * TILE
+	_set_camera_limits()
 	_build_lights()
 	var restored: bool = String(mem.get("loc", "")) == loc and fmap.walkable(mem["cell"])
 	if restored:
@@ -374,19 +464,46 @@ func _enter(new_loc: String, from_loc: String, mem: Dictionary = {}) -> void:
 	for c in actors.get_children():
 		actors.remove_child(c)
 		c.queue_free()
+	for id: String in name_labels:
+		(name_labels[id] as Control).queue_free()
+	name_labels.clear()
 	followers.clear()
 	follower_ids.clear()
 	npc_sprites.clear()
 	npc_cells.clear()
+	npc_override = (mem.get("npc_override", {}) as Dictionary).duplicate() if restored else {}
 	_place_npcs()
 	var squad: Array[String] = _squad()
 	player_id = squad[0] if not squad.is_empty() else ""
 	player = _walker(player_id)
+	var order: Array[String] = []
 	for i in range(1, squad.size()):
-		follower_ids.append(squad[i])
-		followers.append(_walker(squad[i]))
+		order.append(squad[i])
+	var mem_order: Array = mem.get("followers", []) if restored else []
+	if mem_order.size() == order.size() and not mem_order.is_empty():
+		var same := true
+		for id in mem_order:
+			if not order.has(String(id)):
+				same = false
+		if same:
+			order.clear()
+			for id in mem_order:
+				order.append(String(id))
+	for id in order:
+		follower_ids.append(id)
+		followers.append(_walker(id))
 	var old: Array = mem.get("trail", []) if restored else []
 	trail = _initial_trail(cell, squad.size(), old)
+	spread = false
+	spread_cells.clear()
+	if restored and bool(mem.get("spread", false)):
+		var cells: Array = mem.get("spread_cells", [])
+		if cells.size() == followers.size():
+			spread = true
+			for c in cells:
+				spread_cells.append(Vector2i(c))
+	_idle = 0.0
+	_refresh_new_topics()
 	_draw_actors()
 	_snap_camera()
 	_remember()
@@ -516,6 +633,8 @@ func _place_npcs() -> void:
 		var c: Vector2i = fmap.npc_cell(npc_id, i)
 		if not fmap.is_fixed_npc(npc_id):
 			i += 1
+		if npc_override.has(npc_id) and fmap.walkable(npc_override[npc_id]):
+			c = npc_override[npc_id]
 		var s := _walker(npc_id)
 		if npc_id == "red_queen":
 			s.modulate = Color(1.0, 0.45, 0.45, 0.72)
@@ -559,10 +678,11 @@ func _draw_actors() -> void:
 		player.position = _pixel(cell)
 		player.texture = FieldArt.walker(player_id, facing, 0)
 	for i in followers.size():
-		var c: Vector2i = trail[mini(i + 1, trail.size() - 1)]
+		var c: Vector2i = follower_cell(i)
 		followers[i].position = _pixel(c)
 		followers[i].visible = c != cell
-		followers[i].texture = FieldArt.walker(follower_ids[i], _dir_between(c, trail[mini(i, trail.size() - 1)]), 0)
+		var look: Vector2i = cell if spread else trail[mini(i, trail.size() - 1)]
+		followers[i].texture = FieldArt.walker(follower_ids[i], _dir_between(c, look), 0)
 	for id: String in npc_sprites:
 		var s: Sprite2D = npc_sprites[id]
 		var c: Vector2i = npc_cells[id]
@@ -581,9 +701,35 @@ func _dir_between(a: Vector2i, b: Vector2i) -> String:
 	return "down"
 
 
+## 镜头边界：地图比一屏大时贴着地图边；比一屏小的那个方向把地图放在正中间（四周露出背景）。
+func _set_camera_limits() -> void:
+	var map_px: Vector2i = fmap.size * TILE
+	var pad_x := maxi(0, pixel_size.x - map_px.x) / 2
+	var pad_y := maxi(0, pixel_size.y - map_px.y) / 2
+	camera.limit_left = -pad_x
+	camera.limit_top = -pad_y
+	camera.limit_right = -pad_x + maxi(map_px.x, pixel_size.x)
+	camera.limit_bottom = -pad_y + maxi(map_px.y, pixel_size.y)
+
+
+## 切换视野：远（一屏 40×21 格，放大 3 倍）或近（一屏 30×16 格，放大 4 倍）。
+func set_wide(on: bool) -> void:
+	wide = on
+	pixel_size = VIEW_FAR if on else VIEW_NEAR
+	scale_factor = 3 if on else 4
+	if viewport == null:
+		return
+	viewport.size = pixel_size
+	display.size = Vector2(pixel_size * scale_factor)
+	if fmap != null:
+		_set_camera_limits()
+		_snap_camera()
+		_update_prompt()
+
+
 ## 镜头对准的位置：主角胸口（脚底往上 8 像素）。
 func _camera_target() -> Vector2:
-	return player.position + Vector2(0, -8) if player != null else Vector2(PIXEL) / 2.0
+	return player.position + Vector2(0, -8) if player != null else Vector2(pixel_size) / 2.0
 
 
 ## 换地点、换屏回来时镜头直接到位、主角在正中（不从上一个位置滑过来，拖拽边距这一下也不算）。
@@ -602,12 +748,12 @@ func _snap_camera() -> void:
 func view_origin() -> Vector2:
 	if not camera.is_inside_tree():
 		return Vector2.ZERO
-	return (camera.get_screen_center_position() - Vector2(PIXEL) / 2.0).round()
+	return (camera.get_screen_center_position() - Vector2(pixel_size) / 2.0).round()
 
 
 ## 地点画面上的一点（场景控件里的坐标）→ 地图格子，算上镜头滚动。
 func cell_at(screen_pos: Vector2) -> Vector2i:
-	var px := screen_pos / SCALE + view_origin()
+	var px := screen_pos / scale_factor + view_origin()
 	return Vector2i(floori(px.x / TILE), floori(px.y / TILE))
 
 
@@ -648,6 +794,7 @@ func refresh() -> void:
 		_enter(view.location(), from if view.ex.st.scenario.neighbors(view.location()).has(from) else "")
 	else:
 		_sync_npcs()
+	_refresh_new_topics()
 	_update_hud()
 	if not box.visible:
 		_show_next()
@@ -666,7 +813,7 @@ func _ingest() -> void:
 			var speaker := String(e.get("speaker", ""))
 			messages.append({"id": speaker, "name": "" if speaker == "narrator" else String(view.names.get(speaker, speaker)), "text": String(e.get("text", ""))})
 			continue
-		if SILENT_TYPES.has(t):
+		if SILENT_TYPES.has(t) or t == "topic_talked":
 			continue
 		if t == "fear_changed" and (["darkness", "rest"].has(String(e.get("reason", ""))) or absf(float(e.get("amount", 0.0))) < 5.0):
 			continue
@@ -903,6 +1050,8 @@ func _fit_panels() -> void:
 func busy() -> bool:
 	if box.visible or choice_panel.visible or check_panel.visible or log_panel.visible:
 		return true
+	if roster_panel.visible or card_panel.visible:
+		return true
 	if not view.pending().is_empty() or view.ended():
 		return true
 	var host := get_parent().get_parent() if get_parent() != null else null
@@ -936,6 +1085,10 @@ func _process(delta: float) -> void:
 			if Input.is_physical_key_pressed(k):
 				step(d)
 				return
+	_bump_id = ""
+	_idle += delta
+	if not spread and _idle >= SPREAD_DELAY and not followers.is_empty():
+		spread_out()
 	_update_prompt()
 
 
@@ -958,6 +1111,7 @@ func _animate(delta: float) -> void:
 		node.energy = e
 	if dark.visible:
 		_follow_flashlight()
+	_update_names()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -974,8 +1128,22 @@ func _unhandled_input(event: InputEvent) -> void:
 				press_choice(String(p["options"][idx]["id"]))
 				accept_event()
 			return
+		if (roster_panel.visible or card_panel.visible) and (k.keycode == KEY_ESCAPE or k.keycode == KEY_T):
+			close_panels()
+			accept_event()
+			return
 		if k.keycode == KEY_L:
 			_toggle_log()
+			accept_event()
+			return
+		if k.keycode == KEY_T and not busy():
+			open_roster()
+			accept_event()
+			return
+		if k.keycode == KEY_V and not box.visible:
+			set_wide(not wide)
+			view_changed.emit(wide)
+			_toast(tr("视野：远（一屏 40×21 格）") if wide else tr("视野：近（一屏 30×16 格）"))
 			accept_event()
 			return
 		if not busy() and (k.keycode == KEY_ENTER or k.keycode == KEY_KP_ENTER or k.keycode == KEY_SPACE or k.keycode == KEY_Z):
@@ -1010,9 +1178,11 @@ func prompt_text() -> String:
 		return tr("Enter 调查（搜过了）") if view.ex.st.searched.has(loc) else tr("Enter 调查")
 	for id: String in npc_cells:
 		if npc_cells[id] == t and _can_talk(id):
+			if not Topics.can_hear(view.ex.st, id):
+				return tr("Enter 看看：%s") % String(view.names.get(id, id))
 			return tr("Enter 说话：%s") % String(view.names.get(id, id))
 	for i in follower_ids.size():
-		if trail[mini(i + 1, trail.size() - 1)] == t and _can_talk(follower_ids[i]):
+		if follower_cell(i) == t and _can_talk(follower_ids[i]):
 			return tr("Enter 说话：%s") % String(view.names.get(follower_ids[i], follower_ids[i]))
 	if fmap.is_door(t):
 		var dest: String = fmap.door_dest(t)
@@ -1036,7 +1206,7 @@ func _update_prompt() -> void:
 	prompt_label.text = text
 	prompt.reset_size()
 	var t: Vector2i = cell + TiledMap.DIRS[facing]
-	var at := (Vector2(t.x * TILE + TILE / 2.0, t.y * TILE - 14) - view_origin()) * SCALE
+	var at := (Vector2(t.x * TILE + TILE / 2.0, t.y * TILE - 14) - view_origin()) * scale_factor
 	prompt.position = Vector2(clampf(at.x - prompt.size.x / 2.0, 8.0, 1912.0 - prompt.size.x), clampf(at.y - prompt.size.y, 8.0, 960.0))
 	prompt.visible = true
 
@@ -1056,9 +1226,18 @@ func step(d: String) -> void:
 	if fmap.is_door(target):
 		_go_door(fmap.door_dest(target))
 		return
-	if not fmap.walkable(target) or _blocked().has(target):
+	if not fmap.walkable(target):
 		_draw_actors()
 		return
+	var blocker := _npc_at(target)
+	if blocker != "":
+		if fmap.is_fixed_npc(blocker) or not _give_way(blocker):
+			_draw_actors()
+			return
+	_bump_id = ""
+	_idle = 0.0
+	if spread:
+		_gather()
 	var before: Array[Vector2i] = trail.duplicate()
 	trail.push_front(target)
 	trail.resize(maxi(1, follower_ids.size() + 1))
@@ -1084,6 +1263,139 @@ func step(d: String) -> void:
 		_draw_actors())
 
 
+## 第 i 个队友现在站的格子：散开时是散开的位置，否则是主角走过的足迹。
+func follower_cell(i: int) -> Vector2i:
+	if spread and i < spread_cells.size():
+		return spread_cells[i]
+	return trail[mini(i + 1, trail.size() - 1)]
+
+
+func _npc_at(c: Vector2i) -> String:
+	for id: String in npc_cells:
+		if npc_cells[id] == c:
+			return id
+	return ""
+
+
+## 顶着一个剧情人物：先只是转身对着他（这样能说话）；一直顶着超过 GIVE_WAY_DELAY 秒，他和你换个位置让路。
+## 返回 true 表示这一步可以走过去（他已经挪到你原来的格子）。
+func _give_way(npc_id: String) -> bool:
+	if _bump_id != npc_id:
+		_bump_id = npc_id
+		_bump_since = _time
+		return false
+	if _time - _bump_since < GIVE_WAY_DELAY:
+		return false
+	npc_cells[npc_id] = cell
+	npc_override[npc_id] = cell
+	_bump_id = ""
+	if npc_sprites.has(npc_id):
+		var s: Sprite2D = npc_sprites[npc_id]
+		if is_inside_tree():
+			create_tween().tween_property(s, "position", _pixel(cell), STEP_TIME)
+		else:
+			s.position = _pixel(cell)
+	return true
+
+
+## 散开：每个队友挑附近一个空格站过去（离主角 2～4 步，避开门、剧情人物和别的队友），面朝主角。
+func spread_out() -> void:
+	if followers.is_empty():
+		return
+	var taken := {cell: true}
+	for id: String in npc_cells:
+		taken[npc_cells[id]] = true
+	var dist := {cell: 0}
+	var queue: Array[Vector2i] = [cell]
+	var cands: Array[Vector2i] = []
+	while not queue.is_empty():
+		var c: Vector2i = queue.pop_front()
+		if int(dist[c]) >= 4:
+			continue
+		for d: Vector2i in TiledMap.DIRS.values():
+			var n: Vector2i = c + d
+			if dist.has(n) or not fmap.walkable(n) or fmap.is_door(n) or taken.has(n):
+				continue
+			dist[n] = int(dist[c]) + 1
+			queue.append(n)
+			if int(dist[n]) >= 2:
+				cands.append(n)
+	var picked: Array[Vector2i] = []
+	for i in followers.size():
+		var from: Vector2i = follower_cell(i)
+		var best := Vector2i(-9999, -9999)
+		var best_score := INF
+		for c in cands:
+			if picked.has(c):
+				continue
+			var near_mate := 0
+			for p in picked:
+				if absi(p.x - c.x) + absi(p.y - c.y) <= 1:
+					near_mate += 1
+			var s := float(absi(c.x - from.x) + absi(c.y - from.y)) + near_mate * 3.0 + c.y * 0.001 + c.x * 0.00001
+			if s < best_score:
+				best_score = s
+				best = c
+		picked.append(best if best.x > -9999 else from)
+	var old: Array[Vector2i] = []
+	for i in followers.size():
+		old.append(follower_cell(i))
+	spread_cells = picked
+	spread = true
+	_remember()
+	for i in followers.size():
+		var path: Array[Vector2i] = []
+		if old[i] != picked[i]:
+			path = fmap.path(old[i], picked[i], {})
+		if not is_inside_tree() or path.is_empty():
+			followers[i].position = _pixel(picked[i])
+			followers[i].visible = picked[i] != cell
+			followers[i].texture = FieldArt.walker(follower_ids[i], _dir_between(picked[i], cell), 0)
+			continue
+		var tw := create_tween()
+		var prev: Vector2i = old[i]
+		var frame := 1
+		for c in path:
+			var s: Sprite2D = followers[i]
+			var dir := _dir_between(prev, c)
+			var key: String = follower_ids[i]
+			var f := frame
+			tw.tween_callback(func() -> void:
+				s.visible = true
+				s.texture = FieldArt.walker(key, dir, f))
+			tw.tween_property(s, "position", _pixel(c), STEP_TIME * 1.3)
+			prev = c
+			frame = 3 - frame
+		var sp: Sprite2D = followers[i]
+		var k2: String = follower_ids[i]
+		var end: Vector2i = picked[i]
+		tw.tween_callback(func() -> void:
+			sp.texture = FieldArt.walker(k2, _dir_between(end, cell), 0))
+
+
+## 归队：散开的队友按离主角远近排好，重新排成一路跟在后面。
+func _gather() -> void:
+	var idx: Array[int] = []
+	for i in followers.size():
+		idx.append(i)
+	idx.sort_custom(func(a: int, b: int) -> bool:
+		var ca: Vector2i = spread_cells[a]
+		var cb: Vector2i = spread_cells[b]
+		return absi(ca.x - cell.x) + absi(ca.y - cell.y) < absi(cb.x - cell.x) + absi(cb.y - cell.y))
+	var f2: Array[Sprite2D] = []
+	var id2: Array[String] = []
+	var tr2: Array[Vector2i] = [cell]
+	for i in idx:
+		f2.append(followers[i])
+		id2.append(follower_ids[i])
+		tr2.append(spread_cells[i])
+	followers = f2
+	follower_ids = id2
+	trail = tr2
+	spread = false
+	spread_cells.clear()
+
+
 ## 对着前面一格按确认：柜子 → 搜索；剧情人物或队友 → 说话；门 → 过去。
 func interact() -> void:
 	var target: Vector2i = cell + TiledMap.DIRS[facing]
@@ -1095,7 +1407,7 @@ func interact() -> void:
 			press_talk(id)
 			return
 	for i in follower_ids.size():
-		if trail[mini(i + 1, trail.size() - 1)] == target:
+		if follower_cell(i) == target:
 			press_talk(follower_ids[i])
 			return
 	if fmap.is_door(target):
@@ -1161,6 +1473,220 @@ func _go_door(dest: String) -> void:
 	if view.location() == dest:
 		_enter(dest, from)
 	refresh()
+
+
+# ---------------------------------------------------------------- 人：名字、在场的人、人物卡
+
+## 对话信任（0～5）：main 传进来的对话记忆里读。
+func trust_of(id: String) -> int:
+	return int((dialogue_store.get(id, {}) as Dictionary).get("trust", 0))
+
+
+func _refresh_new_topics() -> void:
+	_new_topics.clear()
+	if view == null:
+		return
+	for id in present_people():
+		if id != player_id and _can_talk(id) and Topics.has_new(view.ex.st, id, trust_of(id)):
+			_new_topics[id] = true
+
+
+## 这个地点上的人：主角、队友、活着的剧情人物（按这个顺序）。
+func present_people() -> Array[String]:
+	var out: Array[String] = []
+	if player_id != "":
+		out.append(player_id)
+	for id in follower_ids:
+		out.append(id)
+	for id: String in npc_sprites:
+		out.append(id)
+	return out
+
+
+## 有没有还没聊过的话题（头上的"…"、名单上的"有新话题"）。
+func has_new_topic(id: String) -> bool:
+	return _new_topics.has(id)
+
+
+func _sprite_of(id: String) -> Sprite2D:
+	if id == player_id:
+		return player
+	var i := follower_ids.find(id)
+	if i >= 0:
+		return followers[i]
+	return npc_sprites.get(id, null)
+
+
+## 走近的人头顶显示名字；有新话题的后面带"…"。对话框、窗口开着时不显示。
+func _update_names() -> void:
+	var showing := not busy() and fmap != null
+	var near := {}
+	if showing:
+		for id in present_people():
+			if id == player_id:
+				continue
+			var s := _sprite_of(id)
+			if s == null or not s.visible:
+				continue
+			var c := Vector2i(floori(s.position.x / TILE), floori((s.position.y - 1) / TILE))
+			if absi(c.x - cell.x) + absi(c.y - cell.y) <= NAME_RANGE:
+				near[id] = s
+	for id: String in name_labels.keys():
+		if not near.has(id):
+			(name_labels[id] as Control).visible = false
+	# 近的人先摆；和已经摆好的名字叠在一起就往上挪一行，还叠就不显示（面前那个人的名字提示框里有）。
+	var order: Array[String] = []
+	for id: String in near:
+		order.append(id)
+	var me: Vector2 = player.position if player != null else Vector2.ZERO
+	order.sort_custom(func(a: String, b: String) -> bool:
+		return (near[a] as Sprite2D).position.distance_squared_to(me) < (near[b] as Sprite2D).position.distance_squared_to(me))
+	var placed: Array[Rect2] = []
+	for id in order:
+		var l: Label = name_labels.get(id, null)
+		if l == null:
+			l = UiTheme.label(tr(""), 16, UiTheme.TEXT)
+			l.autowrap_mode = TextServer.AUTOWRAP_OFF
+			l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.9))
+			l.add_theme_constant_override("outline_size", 6)
+			l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			name_layer.add_child(l)
+			name_labels[id] = l
+		l.text = String(view.names.get(id, id)) + (" …" if has_new_topic(id) else "")
+		l.add_theme_color_override("font_color", UiTheme.ACCENT2 if has_new_topic(id) else UiTheme.TEXT)
+		l.reset_size()
+		var s: Sprite2D = near[id]
+		var head := s.position + Vector2(0, -FieldArt.walker_size(String(s.get_meta("key", id))).y - 3)
+		var at := (head - view_origin()) * scale_factor
+		var rect := Rect2(Vector2(at.x - l.size.x / 2.0, at.y - l.size.y), l.size).grow(2.0)
+		if _overlaps(rect, placed):
+			rect.position.y -= l.size.y
+		if _overlaps(rect, placed):
+			l.visible = false
+			continue
+		placed.append(rect)
+		l.position = rect.position + Vector2(2, 2)
+		l.visible = true
+
+
+func _overlaps(rect: Rect2, others: Array[Rect2]) -> bool:
+	for o in others:
+		if rect.intersects(o):
+			return true
+	return false
+
+
+## 关掉"在场的人"和人物卡。
+func close_panels() -> void:
+	roster_panel.visible = false
+	card_panel.visible = false
+
+
+## T：在场的人。每人一行：名字、身份、状态，"说话"和"人物卡"两个按钮；有新话题的标出来。
+func open_roster() -> void:
+	card_panel.visible = false
+	_clear(roster_box)
+	var head := UiTheme.label(tr("在场的人（T / Esc 关闭）"), 24, UiTheme.ACCENT2)
+	head.autowrap_mode = TextServer.AUTOWRAP_OFF
+	roster_box.add_child(head)
+	for id in present_people():
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 10)
+		var who := String(view.names.get(id, id))
+		var tag := tr("（你）") if id == player_id else (tr("剧情人物") if view.ex.st.npcs.has(id) else tr("轮回者"))
+		var extra := ""
+		if id != player_id and not Topics.can_hear(view.ex.st, id):
+			extra = tr(" · 听不见你们说话")
+		elif has_new_topic(id):
+			extra = tr(" · 有新话题")
+		var l := UiTheme.label(tr("%s　%s%s") % [who, tag, extra], 18, UiTheme.ACCENT2 if has_new_topic(id) else UiTheme.TEXT)
+		l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		l.custom_minimum_size = Vector2(560, 0)
+		l.autowrap_mode = TextServer.AUTOWRAP_OFF
+		row.add_child(l)
+		if id != player_id:
+			var talk := UiTheme.button(tr("看看") if not Topics.can_hear(view.ex.st, id) else tr("说话"), 17)
+			talk.focus_mode = Control.FOCUS_NONE
+			talk.custom_minimum_size = Vector2(0, 36)
+			talk.pressed.connect(func() -> void:
+				close_panels()
+				press_talk(id))
+			row.add_child(talk)
+		var card := UiTheme.button(tr("人物卡"), 17)
+		card.focus_mode = Control.FOCUS_NONE
+		card.custom_minimum_size = Vector2(0, 36)
+		card.pressed.connect(open_card.bind(id))
+		row.add_child(card)
+		roster_box.add_child(row)
+	# 人多了（主神空间以后会更多）就在名单里滚动，面板不超出屏幕。
+	roster_scroll.custom_minimum_size = Vector2(880, minf(roster_box.get_combined_minimum_size().y, 800.0))
+	roster_scroll.scroll_vertical = 0
+	roster_panel.reset_size()
+	roster_panel.visible = true
+
+
+## 人物卡上的内容（测试也用）：{title, lines: [一行一项], notes: [聊出来的要点], unseen: 没聊过的话题数}。
+func card_info(id: String) -> Dictionary:
+	var st: RefCounted = view.ex.st
+	var lines: Array[String] = []
+	var is_npc: bool = st.npcs.has(id)
+	if id == player_id:
+		lines.append(tr("身份：轮回者（你自己）"))
+	elif is_npc:
+		lines.append(tr("身份：剧情人物"))
+	else:
+		lines.append(tr("身份：轮回者"))
+	if st.characters.has(id):
+		var ch: RefCounted = st.characters[id]
+		var status := tr("血 %d/%d · 恐惧 %d") % [int(ch.hp), int(ch.hp_max()), int(ch.fear)]
+		if st.infected.has(id):
+			status += tr(" · 已感染")
+		lines.append(status)
+	elif is_npc:
+		lines.append(tr("状态：活着") if bool(st.npcs[id]["alive"]) else tr("状态：已死亡"))
+	if id != player_id:
+		if is_npc:
+			lines.append(tr("对你的信任：%d / 5") % trust_of(id))
+			if not Topics.can_hear(st, id):
+				lines.append(tr("现在听不见你们说话（列车减速之前）"))
+		else:
+			var game: RefCounted = view.ex.game
+			var leader: String = game.leader
+			lines.append(tr("对你的信任 %d · 服从 %d") % [int(game.relations.value(id, leader, "trust")), int(Cohesion.obedience(game.relations, id, leader))])
+	var notes: Array[String] = Topics.notes(st, id)
+	if id == player_id:
+		notes = [_persona_background(id)]
+	return {"title": String(view.names.get(id, id)), "lines": lines, "notes": notes, "unseen": Topics.unseen_count(st, id) if id != player_id else 0}
+
+
+func _persona_background(id: String) -> String:
+	var res := DataLoader.load_json("res://data/ai/personas.json")
+	if not res.ok:
+		return ""
+	return String((((res.data as Dictionary).get("personas", {}) as Dictionary).get(id, {}) as Dictionary).get("background", ""))
+
+
+func open_card(id: String) -> void:
+	roster_panel.visible = false
+	card_id = id
+	var info := card_info(id)
+	card_title.text = String(info["title"])
+	var parts: Array[String] = []
+	for line: String in info["lines"]:
+		parts.append(line)
+	parts.append("")
+	parts.append("[color=#e8a33d]了解到的[/color]")
+	var notes: Array = info["notes"]
+	if notes.is_empty():
+		parts.append("[color=#aab2c0]还不了解。找%s聊聊。[/color]" % String(info["title"]))
+	for n in notes:
+		parts.append("· " + String(n))
+	if int(info["unseen"]) > 0:
+		parts.append("")
+		parts.append("[color=#aab2c0]还有 %d 个话题没聊过（有的要更熟才会说）。[/color]" % int(info["unseen"]))
+	card_body.text = "\n".join(parts)
+	card_face.texture = PortraitSource.portrait(id)
+	card_panel.visible = true
 
 
 func _toggle_log() -> void:
